@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--[if lte IE 9]><html class="no-js ie9 lt-ie10 non-responsive" lang="en"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js non-responsive" lang="en">
+<!--<![endif]-->
+	<head>
+	    <meta charset="utf-8">
+	    <title>{{ title }}</title>
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	    <meta name="robots" content="noindex,nofollow">
+		{% set introjs %}{% include "js/intro.min.js" %}{% endset %}
+		<script>{{ introjs | safe }}</script>
+		{% set css %}{% include "css/main.css" %}{% endset %}
+		<style>{{ css | safe }}</style>
+		
+	</head>
+	<body>
+		<header role="banner" >
+			<svg class="logo"/>
+			<div class="action-area">
+				<button/>
+				<button/>
+				<nav></nav>		
+			</div>
+		</header>
+		<main>
+			<header class="main__headline">
+				hero bg image
+				<h1>{{ title | safe }}</h1>
+				three icons with text
+			</header>
+			<section class="body">
+				Form
+				<section class="lightgey-containter tabbed-content">
+					<div>
+						<h2>subhead</h2>
+						<p>Intro text</p>
+					</div>
+					<div class="tabs">
+						<ul>tabs</ul>
+						<div class="tab-contents">
+							<ul>subtabs</ul>
+							<div class="subtab-contents">
+								<h3>Program Name</h3>
+								<ul class="program-summary">
+									<li>Credit hours:  </li>
+									<li>Tuition: </li>
+									<li>Duration</li> 
+								</ul>
+								<ul class="program-apply-dates">
+									<li>Apply By: date</li>
+									<li>date</li>
+									<li>date</li>
+								</ul>
+								<ul class="program-start-dates">
+									<li>Start by: date</li>
+									<li>date</li>
+									<li>date</li>
+								</ul>
+								<div class="program-content">
+									<p>contents</p>
+								</div>
+								<button>Apply Now</button>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="white-container icon-list">
+					<div class="icon-block">
+						<svg class="icon"/>
+						<h4 class="heading">Icon Heading</h4>
+						<p>support text</p>	
+					</div>
+					<div class="icon-block">
+						<svg class="icon"/>
+						<h4 class="heading">Icon Heading</h4>
+						<p>support text</p>	
+					</div>
+					<div class="icon-block">
+						<svg class="icon"/>
+						<h4 class="heading">Icon Heading</h4>
+						<p>support text</p>	
+					</div>
+					<div class="icon-block">
+						<svg class="icon"/>
+						<h4 class="heading">Icon Heading</h4>
+						<p>support text</p>	
+					</div>
+				</section>
+				<section class="darkgray-container testimonial">
+					<img>
+					<p> Quote <cite>-Author</cite></p>
+				</section>
+				<section class="lightgrey-containter accolades">
+					<h3>headline</h3>
+					<p>support</p>
+					<div class="badges">
+						<img>
+						<img>
+						<img>
+					</div>
+				</section>
+			</section>
+		</main>
+
+		<footer class="footer" id="footer" role="contentinfo">
+		</footer>
+		{% set js %}{% include "js/index.min.js" %}{% endset %}		
+		<script>{{ js | safe }}</script>
+	</body>
+</html>
