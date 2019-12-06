@@ -1,0 +1,9 @@
+{
+  "id": "landing-page-hero-area",
+  "name": "Hero Area",
+  "srcdoc": "./build/index.html",
+  "sidebar":false,
+  "fieldTypes": [
+    "Asset"
+  ]
+}
