@@ -5,7 +5,7 @@ import { init } from 'contentful-ui-extensions-sdk';
 import {SortableContainer, SortableElement, SortableHandle} from 'react-sortable-hoc';
 import update from 'immutability-helper';
 import arrayMove from 'array-move';
-import ReactQuill from 'react-quill';
+import ReactQuill, {Quill} from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import {
 	CardDragHandle,
@@ -20,6 +20,10 @@ import {
 import '@contentful/forma-36-react-components/dist/styles.css';
 import './index.css'; 
 
+let Block = Quill.import('blots/block');
+class DivBlock extends Block { }
+DivBlock.tagName = 'div';
+Quill.register(DivBlock);
 //Cap # of entires based on install param
 //for grid, set Sortable List axis to xy. need to have different CSS to resize the areas
  //truncate P content after xx numbver of words/characters
@@ -111,9 +115,17 @@ export default class MainContent extends React.Component {
 		super(props);
 		this.handleRTEchange = this.handleRTEchange.bind(this)
 		this.clearAndSave = this.clearAndSave.bind(this)
+	    this.quillRef = null;      // Quill instance
+	    this.reactQuillRef = null; // ReactQuill component
 			
 	}
+	componentDidMount() {
+		this.attachQuillRefs()
+	}
 	
+	componentDidUpdate() {
+		this.attachQuillRefs()
+	}
 	componentWillMount(){
 	  this.props.sdk.window.updateHeight();
 	  this.props.sdk.window.startAutoResizer();
@@ -127,7 +139,10 @@ export default class MainContent extends React.Component {
 		  	target:{id:'',index:null,body:{content:'',headline:''}},
 		  	})
 	}
-	
+	attachQuillRefs = () => {
+	    if (typeof this.reactQuillRef.getEditor !== 'function') return;
+	    this.quillRef = this.reactQuillRef.getEditor();
+	  }
 	onSortEnd = ({oldIndex, newIndex}) => {	  
 		this.setState(({items}) => ({
 	      items: arrayMove(items, oldIndex, newIndex),
@@ -270,11 +285,11 @@ export default class MainContent extends React.Component {
 	    case 'edit':
 	  		return(
 		  		<Form onSubmit={this.onHandleEdit}>
-			  		<TextInput 
-			  		name="headline" 
-			  		id="headline" 
-			  		value={this.state.target.body.headline||''}
-			  		onChange={(e)=>this.handleFieldChange(e)}
+			  		<ReactQuill 
+			  		name="heading" 
+			  		value={this.state.target.body.heading||''}
+			  		onChange={(value)=>this.handleRTEchange(value)} 
+			  		modules={this.modules}
 			  		/>
 			  		
 			  		<ReactQuill 
