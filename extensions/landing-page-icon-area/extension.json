@@ -1,8 +1,0 @@
-{
-  "id": "landing-page-icon-area",
-  "name": "Content: Icon Area",
-  "srcdoc": "./build/index.html",
-  "fieldTypes": [
-    "Object"
-  ]
-}

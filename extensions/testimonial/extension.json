@@ -1,9 +1,0 @@
-{
-  "id": "testimonial",
-  "name": "Testimonial Area",
-  "srcdoc": "./build/index.html",
-  "sidebar":false,
-  "fieldTypes": [
-    "Asset"
-  ]
-}
