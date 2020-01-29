@@ -8,23 +8,86 @@ const HeroBox = styled.section`
 	display:grid;
 	grid-template: auto 1fr/1fr;
 	justify-items:center;
+	background-image: none;
+	background-color:${props=>props.theme.brandmediumblue};
+	margin: 0 -1rem 1.8375rem;
+	padding: 1rem;
+	position:relative;
+	@media (min-width:768px){
+		padding:0;
+		background-image:${props=> `url(${props.backgroundImage})`};
+		&::before{
+			content:'';
+			top:0;
+			bottom:0;
+			left:0;
+			right:0;
+			background-color:#00000065;
+			position:absolute;
+			z-index:1;
+		}
 `
 const HeroHeadline = styled.h1`
 	color:white;
-	font-size:1.6rem;
+	z-index:2;
 `
 const ItemsBox = styled.section`
 	display:grid;
-	grid-template:1fr/1fr 1fr 1fr
+	grid-template:auto/100%;
+	justify-items:start;
+	justifyu-content:start;
+	width:90%;
+	margin:0 auto;
+	@media (min-width:768px){
+		grid-template:1fr/1fr 1fr 1fr;
+	}
+	
 `
 const ItemStack = styled.div`
 	display:grid;
-	justify-items:center;
+	grid-template-columns:75px 1fr;
+	grid-column-gap:1rem;
+	justify-items:start;
+	align-items:center;
+	max-width:none;
+	width:100%;
+	margin: 0 auto 1rem;
+	z-index:2;
+	.iconBox{
+		grid-column:1/2;
+		grid-row:1;
+		width:75px;
+		height:75px;
+		background-color:white;
+		border-radius:50%;
+		align-content:center;
+		justify-content:center;
+		display:grid;
+		grid-template:1fr/1fr;
+		svg{
+			width:90%;
+			height:90%;
+			align-self:center;
+			justify-self:center;
+			grid-column:1;
+			grid-row:1;
+			}
+	}
 	p{
 		color:white;
-		font-size:1.2rem;
+		font-size:1.5rem;
 		font-weight: 800;
+		grid-column:2/3;
+		grid-row:1;
+		text-align:left;
+		justify-self:start;
 	}
+	@media (min-width:768px){
+			grid-template-columns:100px 46%;
+			justify-items:center;
+			max-width:75%;
+			margin: .5rem auto 2rem;
+		}
 `
 //need to pull the icon by name
 const Items = (props) =>(
@@ -33,9 +96,10 @@ const Items = (props) =>(
 			 const text = props[item].content.tagline
 			 return(
 			 
-			<ItemStack key={index}>
-				<Icon name={props[item].content.icon} fill="#fff"/>
-				<i className={props[item].content.icon}/>
+			<ItemStack key={index} className="iconStack">
+				<div className="iconBox">
+					<Icon name={props[item].content.icon} fill="#000"/>
+				</div>
 				<p dangerouslySetInnerHTML={{__html:text}}/>
 			</ItemStack>
 			)}
@@ -47,8 +111,8 @@ export default class HeroArea extends React.Component{
 	render(){
 		const {image, headline, items} = this.props
 		return(
-			<HeroBox key={this.props.index} style={{ backgroundImage: `url(${image.fields.file.en_US.url})` }}>
-                <HeroHeadline dangerouslySetInnerHTML={{__html:headline}}/>
+			<HeroBox key={this.props.index} backgroundImage={image.fields.file.en_US.url} className="HeroBox">
+                <HeroHeadline dangerouslySetInnerHTML={{__html:headline}} className="HeroHeadline"/>
 				<Items {...items}/>
               </HeroBox>
 			

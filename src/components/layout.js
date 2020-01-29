@@ -11,49 +11,95 @@ import Testimonial from "./testimonial"
 import Awards from "./awards"
 import Bottom from "./bottomContentSection"
 import Footer from "./footer"
-import Form from "./form"
-import styled from "styled-components"
+import FormPanel from "./form"
+import styled, {ThemeProvider} from "styled-components"
 import "./layout.css"
 import Icons from "../images/symbol-defs.svg"
 
+const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
+
 const Page = styled.div`
-max-width:1200px;
-margin 0 315px 0 auto;
-position:relative;
+	position:relative;
+`
+const Main = styled.main`
+	margin-top:72px;
+	display:grid;
+	grid-template:auto/1fr;
+	@media (min-width: 768px) {
+		grid-template:1fr/auto 350px;
+	}
 
 `
-const Main = styled.div`
-	margin: 0 auto;
-	padding: 72px 2rem 2rem;
-`
-const StyledForm = styled(Form)`
-	grid-column:2/3;
-`
-const StyledHeader = styled(Header)`
 
+const ContentArea = styled.section`
+	margin:0;
+	padding: 0 1rem;	
+	@media (min-width:7678px){
+		margin:0px 0px 0px 2rem;
+		max-width:100%;
+	}
+`
+const Container = styled.section`
+	overflow:hidden;
+	grid-column:1;
+	margin-top:0;
+	padding-bottom:1rem;
+	@media (min-width: 768px) {
+		grid-column:1/2;
+		grid-row:1;
+	}
+`
+const MobileBottomBar = styled.div`
+	width:100%;
+	background:black;
+	position:fixed;
+	bottom:0px;
+	height:65px;
+	display:grid;
+	grid-template-columns: 1fr 1fr;
+	align-items:center;
+	justify-items:center;
+	z-index:30000;
+	.button{
+		height:75%;
+		width:80%;
+		}
+	@media(min-width:768px){
+		display:none;
+		}
 `
 export default class Layout extends React.Component{
 	
 	render(){
-  //console.log(this.props)
-  return (
-    <Page>
-    <Icons/>
-    <Form/>
-    <Header />
-      <Main>
-      <Hero 
-      index={this.props.index}
-      {...this.props.heroArea}/>
-      <MainArea {...this.props.mainContentSection}/>
-      <Tabbed {...this.props.tabbedContent}/>
-      <Accolades {...this.props.accolades}/>
-      <Testimonial {...this.props.testimonial}/>
-      <Awards {...this.props.awards}/>
-      <Bottom {...this.props.bottomContentSection}/>
-      <Footer/>
-      </Main>
-    </Page>
+	  return (
+		 <ThemeProvider theme={theme}>
+		<Icons/>
+	    <Page>   
+		    <Header {...this.props.tabbedContent}/>
+			<Main>
+				
+				<Container>
+					<ContentArea>
+						<Hero {...this.props.heroArea}/>
+						<MainArea {...this.props.mainContentSection}/>
+						<Tabbed {...this.props.tabbedContent}/>
+						<Accolades {...this.props.accolades}/>
+						<Testimonial {...this.props.testimonial}/>
+						<Awards {...this.props.awards}/>
+						<Bottom {...this.props.bottomContentSection}/>
+										
+					</ContentArea>
+				</Container>
+				<FormPanel/>
+				<Footer/>
+			</Main>
+			<MobileBottomBar>
+				<button className="button action" type="button">Learn More</button>
+				<button className="button tertiary" type="button">Call Us</button>
+			</MobileBottomBar>
+	    </Page>
+	    </ThemeProvider>
+	
   )
   }
 }

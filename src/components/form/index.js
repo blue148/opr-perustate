@@ -1,15 +1,26 @@
 import React from "react"
 import styled from "styled-components"
 
-const FormBox = styled.div`
-	background-color:#999;
-	position:fixed;
-	width:315px;
-	top:72px;
+const FormContainer = styled.section`
+	background-color:${props=>props.theme.lightgray};
 	bottom:0;
-	right:0;
-	padding:1.3rem;
-	z-index:100;
+	grid-column:1;
+	order:20;
+	width:100%;
+	margin-top:0;
+	@media (min-width: 768px) {
+		grid-column:2/3;
+		grid-row:1;
+		left:calc(50% + 283px);
+		z-index:99;
+	}
+`
+const FormBox = styled.div`
+		padding:1.3rem;
+		@media (min-width: 768px) {
+				position:sticky;
+				top:72px;
+			}
 `
 const FormRow = styled.div`
 	margin-bottom:10px;
@@ -17,20 +28,33 @@ const FormRow = styled.div`
 		height:40px;
 		width:100%;
 		color:#333;
-		border-color:#dbdbdb;
+		border-color:${props=>props.theme.shade};
 		}
 	
+`
+const FormHeadline = styled.h2`
+	text-align:center;
+`
+const StyledButton = styled.button`
+	width:100%;
+	margin:1rem auto;
+`
+const CTPAText = styled.div`
+margin-top:1rem;
+	p{
+	font-size:.6rem;
+	line-height:1rem;
+	}
 `
 export default class FormPanel extends React.Component{
 	
 	render(){
 		
 		return(
+			<FormContainer>
 			<FormBox>
-				<h2>Need More Information?</h2>
-					<form method="post" action="/" id="ContactForm" enctype="multipart/form-data" class="form" novalidate="novalidate" data-ol-has-click-handler="">
-	                <div>
-	
+				<FormHeadline>Need More Information?</FormHeadline>
+					<form method="post" action="/" id="ContactForm" encType="multipart/form-data" className="form" noValidate="novalidate" data-ol-has-click-handler="">	
 	                    <FormRow>
 	                        <select name="programs" id="programs">
 	                            <option value="">Select Degree Program*</option>
@@ -65,7 +89,7 @@ export default class FormPanel extends React.Component{
 	                    </FormRow>
 	
 	                    <FormRow>
-	                        <input type="text"  name="phone" id="phone" placeholder="Phone*" maxlength="14"/>
+	                        <input type="text"  name="phone" id="phone" placeholder="Phone*" maxLength="14"/>
 	                    </FormRow>
 	
 	                    <div>
@@ -73,26 +97,24 @@ export default class FormPanel extends React.Component{
 	                        <input type="hidden" name="country" id="country"/>
 	                        <input type="hidden" name="education" id="education"/>
 	                    </div>
-	
-	                </div>
-	                <div className="form-cta-group">
-	                    <div className="errorMessageContainer">
-	                        <div className="errorMessage"><span className="allFieldsRequired">*All fields required.</span></div>
-	                    </div>
-	                    <div id="submitButtonContainer">
-	                        <button type="button" id="requestInfo1" className="button2 formButton primary"  data-ol-has-click-handler="">Learn More</button>
-	                        <button type="button" id="requestInfo0" className="button2 formButton primary" >Learn More</button>
-	                    </div>
-	                    <div>
-	                        or call <a className="mobile-only phone-link" href="tel:+14029023128">(402) 902-3128</a>
-	                        <span className="desktop-only">(402) 902-3128</span>
-	                    </div>
-	                </div>
-	                <div>
-	                    By submitting this form, I am providing my digital signature agreeing that Peru State College may email me or contact me regarding educational services by telephone and/or text message utilizing automated technology at the telephone number(s) provided above. I understand this consent is not a condition to attend Peru State College or to purchase any other goods or services.
-	                </div>
+		                <div className="form-cta-group">
+		                    <div className="errorMessageContainer">
+		                        <div className="errorMessage"><span className="allFieldsRequired">*All fields required.</span></div>
+		                    </div>
+		                    <div id="submitButtonContainer">
+		                        <StyledButton type="button" id="requestInfo" className="button primary"  data-ol-has-click-handler="">Learn More</StyledButton>
+		                    </div>
+		                    <div>
+		                        or call <a className="mobile-only phone-link" href="tel:+14029023128">(402) 902-3128</a>
+		                        <span className="desktop-only">(402) 902-3128</span>
+		                    </div>
+		                </div>
+		                <CTPAText>
+		                    <p>By submitting this form, I am providing my digital signature agreeing that Peru State College may email me or contact me regarding educational services by telephone and/or text message utilizing automated technology at the telephone number(s) provided above. I understand this consent is not a condition to attend Peru State College or to purchase any other goods or services.</p>
+		                </CTPAText>
 	            </form>
 			</FormBox>
+			</FormContainer>
 		)
 	}
 }

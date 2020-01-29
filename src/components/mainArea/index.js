@@ -6,11 +6,11 @@ const MainBox = styled.section`
 
 `
 const MainHeadline = styled.h2`
-	color:#055591;
-	font-size:1.4rem;
+	color:${props=>props.theme.brandblue};
 `
 const MainContent = styled.div`
-	display:grid;
+	width:75%;
+	margin:0 auto;
 `
 
 export default class MainArea extends React.Component{
@@ -18,7 +18,7 @@ export default class MainArea extends React.Component{
 	render(){
 		const { headline, content}= this.props
 		return(
-			<MainBox key={this.props.index}>
+			<MainBox className="mainArea">
                 <MainHeadline dangerouslySetInnerHTML={{__html:headline}}/>
                 <MainContent dangerouslySetInnerHTML={{__html:content}}/>
               </MainBox>

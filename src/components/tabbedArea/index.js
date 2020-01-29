@@ -3,36 +3,45 @@ import styled from "styled-components"
 import Tabs from 'react-responsive-tabs';
 import ReactMarkdown from "react-markdown"
 import 'react-responsive-tabs/styles.css';
-import './tabs.css';
+import './tabs.scss';
 
 
 const GetTabs = (props) => {
-	
-	const tabs =  Object.keys(props).map((program, index) => {
-		return(
-			{
-				title:programs[program].tabName,
-				getContent: () => {<Tabs items={getSubTabs(props[program])} showMore={false} />
-				},
-				key:index,
-				tabClassName:'tab',
-				panelClassName:'panel'
+//check for subtabs/nested. If none, process flat tabs. Otherwise process subtabs as well	
+console.log(props)
+	const tabs =  Object.keys(props).map((program, index) => { 
+		const tabItem = (props[program].tabName)?
+				{
+					title:props[program].tabName,
+					getContent: () => <Tabs items={getSubTabs(props[program])} showMore={false} />,
+					key:index,
+					tabClassName:'tab',
+					panelClassName:'nestedPanel'
+				}:
+				{
+					title: props[program].programTitle,
+					getContent: () => <ReactMarkdown source={props[program].programDetails.programDetails}/>,
+				    key: index,
+				    tabClassName: 'tab',
+				    panelClassName: 'programPanel',
 				}
-	    	)
+		return tabItem;
 		   
 	  });
 	 
-	 return <Tabs items={tabs}/>;
+	 return <Tabs items={tabs} showMore={false}/>;
 }
 function getSubTabs(props){
-	//console.log(props,' subtabs')
-	return props.programs.map((program, index) => ({
+	const {programs} = props;
+	if(!programs)return;
+	const subTabs = programs.map((program, index) => ({
     	title: props.programs[index].programTitle,
 		getContent: () => <ReactMarkdown source={props.programs[index].programDetails.programDetails}/>,
 	    key: index,
 	    tabClassName: 'subtab',
-	    panelClassName: 'panel',
+	    panelClassName: 'programPanel',
 	  }));
+	return subTabs;  
 	
 }
 

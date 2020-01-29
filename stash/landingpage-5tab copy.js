@@ -6,7 +6,7 @@ import Layout from "../components/layout"
 
 export default ({data}) => {
 	return (
-		data.allContentfulLandingPage5Tab.edges.map(({ node }, index) => (
+		data.allContentfulNestedTabbedLandingPage.edges.map(({ node }, index) => (
     <Layout
     key={index}
     index={index}
@@ -18,7 +18,7 @@ export default ({data}) => {
 
 export const query = graphql`
 	query{
-    allContentfulLandingPage5Tab {
+     allContentfulNestedTabbedLandingPage {
       edges {
         node {
           heroArea {
@@ -44,18 +44,31 @@ export const query = graphql`
             content
           }
           tabbedContent {
-	        tabName
-            programs {
+	        ... on ContentfulProgramTabContent {
+              tabName
+	            programs {
+	              programTitle
+	              programDetails {
+	                programDetails
+	              }
+	              applyBy
+	              totalCost
+	              startClasses
+	              tuition
+	              transferrableCredits
+	              creditHours
+	            }
+			}
+			... on ContentfulProgramInfo {
               programTitle
+              applyBy
+              startClasses
+              totalCost
+              transferrableCredits
+              tuition
               programDetails {
                 programDetails
               }
-              applyBy
-              totalCost
-              startClasses
-              tuition
-              transferrableCredits
-              creditHours
             }
           }
           accolades {
