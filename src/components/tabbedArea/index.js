@@ -1,5 +1,4 @@
 import React from "react"
-import styled from "styled-components"
 import Tabs from 'react-responsive-tabs';
 import ReactMarkdown from "react-markdown"
 import 'react-responsive-tabs/styles.css';
@@ -48,7 +47,6 @@ function getSubTabs(props){
 export default class Tabbed extends React.Component{
 	
 	render(){
-		const { headline, content}= this.props
 		return(
 		<GetTabs {...this.props}/>			
 		)

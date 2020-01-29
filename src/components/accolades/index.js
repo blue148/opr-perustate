@@ -88,7 +88,7 @@ const Items = (props) =>(
 export default class Accolades extends React.Component{
 	
 	render(){
-		const {image, headline, items} = this.props
+		const {headline, items} = this.props
 		return(
 			<ContentBox key={this.props.index} clasName="accolades">
                 <Headline dangerouslySetInnerHTML={{__html:headline}} className="accoladesHeadline"/>
