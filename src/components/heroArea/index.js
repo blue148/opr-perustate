@@ -110,8 +110,9 @@ export default class HeroArea extends React.Component{
 	
 	render(){
 		const {image, headline, items} = this.props
+		const imgBg = (image)?image.fields.file.en_US.url:'';
 		return(
-			<HeroBox key={this.props.index} backgroundImage={image.fields.file.en_US.url} className="HeroBox">
+			<HeroBox key={this.props.index} backgroundImage={imgBg} className="HeroBox">
                 <HeroHeadline dangerouslySetInnerHTML={{__html:headline}} className="HeroHeadline"/>
 				<Items {...items}/>
               </HeroBox>

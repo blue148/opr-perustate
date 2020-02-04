@@ -20,12 +20,12 @@ const Content = styled.div`
 	p, blockquote{
 		text-align:center;
 		}
-		p{
-			span{
-				font-weight:600;
-				font-style:italic;
-				}
+	p{
+		span{
+		font-weight:600;
+		font-style:italic;
 		}
+	}
 `
 const ImageBox = styled.div`
 	overflow:hidden;
@@ -42,11 +42,12 @@ const ImageBox = styled.div`
 export default class Testimonial extends React.Component{
 	
 	render(){
-		const {image, content} = this.props.testimonial
+		const {image, content} = this.props;
+		const imgBg = (image)?image.fields.file.en_US.url:'';
 		return(
 			<ContentBox key={this.props.index}>
 				<ImageBox>
-					<img src={image.fields.file.en_US.url} alt="testimonial image"/>
+					<img src={imgBg} alt="testimonial"/>
 				</ImageBox>
                 <Content dangerouslySetInnerHTML={{__html:content}}/>
               </ContentBox>

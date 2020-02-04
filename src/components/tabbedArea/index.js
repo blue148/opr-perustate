@@ -20,7 +20,7 @@ const GetTabs = (props) => {
 				}:
 				{
 					title: [<span id={slug.toLowerCase()} key={program}/>,props[program].pageName],
-					getContent: () => <><a name={props[program].pageName}/><ReactMarkdown source={props[program].programDetails.programDetails}/></>,
+					getContent: () => <><ReactMarkdown source={props[program].programDetails.programDetails}/></>,
 				    key: index,
 				    tabClassName: 'tab',
 				    panelClassName: 'programPanel',
@@ -37,7 +37,7 @@ function getSubTabs(props){
 	const subTabs = programs.map((program, index) => {
 		const subTabItem={
 	    	title: [<span id={props.programs[index].pageName} key={index}/>,props.programs[index].pageName],
-			getContent: () =>  <ReactMarkdown source={props.programs[index].programDetails.programDetails}/>,
+			getContent: () => <ReactMarkdown source={props.programs[index].programDetails.programDetails}/>,
 		    key: index,
 		    tabClassName: 'subtab',
 		    panelClassName: 'programPanel'
