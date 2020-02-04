@@ -13,6 +13,7 @@ import FormPanel from "./form"
 import styled, {ThemeProvider} from "styled-components"
 import "./layout.css"
 import Icons from "../images/symbol-defs.svg"
+import ScrollIntoView from 'react-scroll-into-view'
 
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
 
@@ -58,16 +59,19 @@ const MobileBottomBar = styled.div`
 	align-items:center;
 	justify-items:center;
 	z-index:30000;
-	.button{
-		height:75%;
-		width:80%;
+	&>div{
+	    width: 100%;
+	    text-align: center;
+		.button{
+			height:75%;
+			width:80%;
+			}
 		}
 	@media(min-width:768px){
 		display:none;
 		}
 `
 export default class Layout extends React.Component{
-	
 	render(){
 	  return (
 		 <ThemeProvider theme={theme}>
@@ -88,12 +92,14 @@ export default class Layout extends React.Component{
 										
 					</ContentArea>
 				</Container>
-				<FormPanel/>
+				<FormPanel phone={this.props.phonenumber} headline={this.props.formheadline}/>
 				<Footer/>
 			</Main>
 			<MobileBottomBar>
-				<button className="button action" type="button">Learn More</button>
-				<button className="button tertiary" type="button">Call Us</button>
+				<ScrollIntoView selector="#leadform" className="buttonContainer">
+					<button className="button action" type="button">Learn More</button>
+				</ScrollIntoView>
+					<div><button className="button tertiary" type="button" tel={this.props.phonenumber}>Call Us</button></div>
 			</MobileBottomBar>
 	    </Page>
 	    </ThemeProvider>

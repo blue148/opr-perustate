@@ -4,38 +4,37 @@ var slugify = require('slugify')
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
-
+  const landingPage = path.resolve('./src/pages/landingpage.js')
   return new Promise((resolve, reject) => {
-    const landingPage = path.resolve('./src/pages/landingpage.js')
+    
     resolve(
       graphql(
         `
           {
-              allContentfulNestedTabbedLandingPage {
-              edges {
-                node {
-                  pageName
-                }
-              }
-            }
-          }
+            allContentfulNestedTabbedLandingPage {
+		      edges {
+		        node {
+		          slug
+		          id
+		        }
+		      }
+		    }          
+		  }
           `
       ).then(result => {
         if (result.errors) {
-          console.log(result.errors)
+          console.log(result.errors,' Node Errors')
           reject(result.errors)
         }
 		//do this for each type of page... partnerpages, NestedTabbed, Tabbed, ProgramPages
 		//this will create pages with each template 
-        const pages = result.data.allContentfulNestedTabbedLandingPage.edges
-        pages.forEach((page, index) => {
-	        const pageSlug = slugify(page.node.pageName, {lower: true});
+		result.data.allContentfulNestedTabbedLandingPage.edges.forEach((edge) => {
 			createPage({
-				path: `/lp/${pageSlug}/`,
+				path: `/lp/${edge.node.slug}/`,
 				component: landingPage,
-				context: {
-				  pageName: page.node.pageName
-				},
+				context:{
+					slug: edge.node.slug
+				}
 			})
         })
       })

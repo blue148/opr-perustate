@@ -1,5 +1,7 @@
 import React from "react"
 import styled from "styled-components"
+import slugify from 'slugify'
+import ScrollIntoView from 'react-scroll-into-view'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faChevronRight,faChevronLeft,faTimesCircle, faLayers, faSquare } from '@fortawesome/free-solid-svg-icons'
 import Logo from "../../images/peru-logo-online-final.svg"
@@ -63,18 +65,30 @@ const Overlay = styled.a`
 
 `
 const MenuList = (props) =>{
-		 const list = Object.keys(props).map((item, index)=>(
-			 <li key={index}>
-			 	<a href="#">{props[index].tabName}</a>
-			 </li>
-		 ))
+		 const list = Object.keys(props).map((item, index)=>{
+			 //const submenu = props[item].programs?
+			 if(props[item].tabName || props[item].pageName){
+				 const slug = props[item].tabName?slugify(props[item].tabName):props[item].pageName;
+				 
+				 return(
+				 
+				 <li key={index}>
+				 <ScrollIntoView selector={'#'+slug.toLowerCase()}>
+				 	<a href="#" onClick={props.handleClick}>{props[index].tabName || props[index].pageName}</a>
+				 </ScrollIntoView>
+				 </li>
+				 )}
+				 else{return}
+			})
 		 return (
 			 <>
 				<ul>
 				{list}
-				<li className="buttonArea"><StyledButton id="apply-now" aria-label="Apply Now" className="button secondary">
-					Apply Now
-				</StyledButton></li>
+				<li className="buttonArea">
+					<StyledButton id="apply-now" aria-label="Apply Now" className="button secondary">
+						Apply Now
+					</StyledButton>
+				</li>
 				</ul>
 				
 			</>
@@ -86,9 +100,14 @@ export default class Header extends React.Component{
 		super(props);
 		this.state = '';
 	}
-	 
+	handleClick = (e) =>{
+		e.preventDefault()
+	}
+	handleMenuToggle = (props)=>{
+		props.preventDefault()
+		document.getElementById('main-menu').classList.toggle('opened');	
+	}
 	render(){
-		console.log(this.props,' Headerr')
 		return(
 		<StyledHead >
 		  <Container>
@@ -100,17 +119,18 @@ export default class Header extends React.Component{
 			    	Apply Now
 				</StyledButton>
 				<Hamburger 
-				href="#main-menu" 
-				id="main-menu-toggle" 
-				className="menu-toggle" 
-				aria-label="Open main menu">
-				<span className="sr-only">Open</span>
-				<span className="fa-layers fa-fw">
-					<FontAwesomeIcon icon={faSquare} className="darkbluebutton" size="3x"/>
-					<FontAwesomeIcon icon={faBars} inverse size="3x" transform="shrink-6"/>
-					</span>
-				
-			</Hamburger>
+					href="#" 
+					onClick={this.handleMenuToggle}
+					id="main-menu-toggle" 
+					className="menu-toggle" 
+					aria-label="Open main menu">
+					<span className="sr-only">Open</span>
+					<span className="fa-layers fa-fw">
+						<FontAwesomeIcon icon={faSquare} className="darkbluebutton" size="3x"/>
+						<FontAwesomeIcon icon={faBars} inverse size="3x" transform="shrink-6"/>
+						</span>
+					
+				</Hamburger>
 			</ButtonContainer>
 			
 			<MobileMenu
@@ -121,20 +141,24 @@ export default class Header extends React.Component{
 					href="#main-menu-toggle"
 					id="main-menu-close"
 					className="menu-close"
+					onClick={this.handleMenuToggle}
 					aria-label="Close main menu">
 					<span className="sr-only">Close</span>
 					
 					<FontAwesomeIcon icon={faTimesCircle} inverse/>
 					
 				</CloseButton>
-				<MenuList {...this.props}/>
+				<MenuList 
+				handleClick={this.handleMenuToggle}
+				{...this.props}/>
 			</MobileMenu>
 			<Overlay
 				href="#main-menu-toggle"
 				className="backdrop"
 				tabindex="-1"
 				aria-hidden="true"
-				hidden/>
+				hidden
+				onClick={this.handleMenuToggle}/>
 			</Container>
 		  </StyledHead>
 		)

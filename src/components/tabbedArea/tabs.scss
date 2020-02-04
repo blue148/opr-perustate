@@ -11,6 +11,14 @@
 		  background: white;
 		  border-color: #ddd;
 		  border-width: 0 0 1px 1px;
+		  &>span{
+			  display: block; 
+			  content: " "; 
+			  margin-top: -85px; 
+			  height: 85px; 
+			  visibility: hidden; 
+			  pointer-events: none;
+		  }
 		  &--selected:focus,
 		  &--selected{
 			  background:$brandblue;

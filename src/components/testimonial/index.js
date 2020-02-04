@@ -33,6 +33,10 @@ const ImageBox = styled.div`
 	height:275px;
 	margin:1rem auto;
 	border-radius:50%;
+	img{
+		width: 100%;
+	    height: auto;
+    }
 `
 
 export default class Testimonial extends React.Component{

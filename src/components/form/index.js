@@ -46,14 +46,23 @@ margin-top:1rem;
 	line-height:1rem;
 	}
 `
+const Spacer = styled.span`
+ display: block; 
+			  content: " "; 
+			  margin-top: -85px; 
+			  height: 85px; 
+			  visibility: hidden; 
+			  pointer-events: none;
+			  `
 export default class FormPanel extends React.Component{
 	
 	render(){
-		
+		const phone = (this.props.phone==null)?'(402) 902-3128':this.props.phone;
 		return(
-			<FormContainer>
+			<FormContainer >
+			 <Spacer id="leadform"/>
 			<FormBox>
-				<FormHeadline>Need More Information?</FormHeadline>
+				<FormHeadline>{this.props.formheadline || 'Need More Information?'}</FormHeadline>
 					<form method="post" action="/" id="ContactForm" encType="multipart/form-data" className="form" noValidate="novalidate" data-ol-has-click-handler="">	
 	                    <FormRow>
 	                        <select name="programs" id="programs">
@@ -105,8 +114,8 @@ export default class FormPanel extends React.Component{
 		                        <StyledButton type="button" id="requestInfo" className="button primary"  data-ol-has-click-handler="">Learn More</StyledButton>
 		                    </div>
 		                    <div>
-		                        or call <a className="mobile-only phone-link" href="tel:+14029023128">(402) 902-3128</a>
-		                        <span className="desktop-only">(402) 902-3128</span>
+		                        or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>
+		                        <span className="desktop-only">{phone}</span>
 		                    </div>
 		                </div>
 		                <CTPAText>
