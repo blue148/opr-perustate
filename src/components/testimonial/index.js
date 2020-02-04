@@ -42,7 +42,7 @@ const ImageBox = styled.div`
 export default class Testimonial extends React.Component{
 	
 	render(){
-		const {image, content} = this.props;
+		const {image, content} = this.props.testimonial||this.props;
 		const imgBg = (image)?image.fields.file.en_US.url:'';
 		return(
 			<ContentBox key={this.props.index}>
