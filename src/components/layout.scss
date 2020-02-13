@@ -41,6 +41,11 @@ p{
 	line-height:1.6;
 	text-rendering: optimizeLegibility;
 }
+.show{
+	display:block;
+	opacity: 1;
+	transition:.5s;
+}
 .button{
 	text-transform:uppercase;
 	font-weight:800;

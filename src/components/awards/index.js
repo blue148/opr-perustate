@@ -74,9 +74,8 @@ const Items = (props) =>(
 					 
 				 if(props[item].content.tagline){
 					 return <p dangerouslySetInnerHTML={{__html:props[item].content.tagline}}/>
-				 }else{
-					 return
 				 }
+				 return
 			}
 			 return(
 //TODO: Run a check if the icon is an img from the library or an icon name. 			 
@@ -87,7 +86,7 @@ const Items = (props) =>(
 				{text()}
 			</ItemStack>
 			)}
-			)}
+		)}
 	</ItemsBox>
 	)
 export default class Awards extends React.Component{

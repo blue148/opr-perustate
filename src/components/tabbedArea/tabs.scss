@@ -21,8 +21,8 @@
 		  }
 		  &--selected:focus,
 		  &--selected{
-			  background:$brandblue;
-			  color:white;
+			  background:$lightgray;
+			  color:black;
 			  border-color:#ddd;
 		  }
 		  &--first{
@@ -60,12 +60,18 @@
 					    font-family: sans-serif;
 					    font-weight: 400;
 					    line-height: 1.4rem;
+					    svg{
+						    display:none;
+					    }
 					}
 					&--selected:focus,
 					&--selected{
 							&.subtab{
-								background-color:$brandmediumblue;
-								color:white;
+								background-color:$shade;
+								color:black;
+								svg{
+									display:block;
+								}
 							}
 					
 					}
@@ -90,7 +96,7 @@
 	}
 	
 }
-@media (max-width:767px){
+@media (max-width:1279px){
 	.RRT__container{
 		 .RRT__tabs{
 			display:flex;

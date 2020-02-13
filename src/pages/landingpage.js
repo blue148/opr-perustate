@@ -43,7 +43,7 @@ export const query = graphql`
 	          }
 	          tabbedContent {
 		        ... on ContentfulProgramTabContent {
-	              tabName
+	              pageName
 		            programs {
 		              pageName
 		              programDetails {

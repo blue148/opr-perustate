@@ -1,0 +1,56 @@
+/***BRAND COLORS AND STYLES***/
+/****COLORS****/
+/***FONTS***/
+.tabPanel {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-auto-flow: column;
+  justify-items: center;
+  align-items: center;
+}
+
+.tabPanel.vertical {
+  grid-template: auto/1fr;
+  grid-auto-flow: row;
+}
+
+.tabPanel .selected {
+  background: #006699;
+  color: white;
+}
+
+.tabPanel .selected a {
+  color: white;
+}
+
+.contentPanel {
+  display: none;
+  opacity: 0;
+  transition: .5s;
+}
+
+.contentPanel.nested,
+.contentPanel.nested.selected {
+  display: grid;
+  grid-template: 1fr/25% 75%;
+  grid-column-gap: 1rem;
+}
+
+.contentPanel.selected {
+  display: block;
+  opacity: 1;
+  transition: .5s;
+}
+
+.panelContainer {
+  display: none;
+  opacity: 0;
+  transition: .5s;
+  grid-template: 1fr/25% 75%;
+  grid-column-gap: 1rem;
+}
+
+.panelContainer.selected {
+  display: grid;
+  opacity: 1;
+}

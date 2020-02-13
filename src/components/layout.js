@@ -3,7 +3,8 @@ import React from "react"
 import Header from "./header"
 import Hero from "./heroArea"
 import MainArea from "./mainArea"
-import Tabbed from "./tabbedArea"
+import TabbedArea from "./tabbedArea/tabs"
+//import TabbedArea from "./tabbedArea"
 import Accolades from "./accolades"
 import Testimonial from "./testimonial"
 import Awards from "./awards"
@@ -74,34 +75,34 @@ const MobileBottomBar = styled.div`
 export default class Layout extends React.Component{
 	render(){
 	  return (
-		 <ThemeProvider theme={theme}>
-		<Icons/>
-	    <Page>   
-		    <Header {...this.props.tabbedContent}/>
-			<Main>
-				
-				<Container>
-					<ContentArea>
-						<Hero {...this.props.heroArea}/>
-						<MainArea {...this.props.mainContentSection}/>
-						<Tabbed {...this.props.tabbedContent}/>
-						<Accolades {...this.props.accolades}/>
-						<Testimonial {...this.props.testimonial}/>
-						<Awards {...this.props.awards}/>
-						<Bottom {...this.props.bottomContentSection}/>
-										
-					</ContentArea>
-				</Container>
-				<FormPanel phone={this.props.phonenumber} headline={this.props.formheadline}/>
-				<Footer/>
-			</Main>
-			<MobileBottomBar>
-				<ScrollIntoView selector="#leadform" className="buttonContainer">
-					<button className="button action" type="button">Learn More</button>
-				</ScrollIntoView>
-					<div><button className="button tertiary" type="button" tel={this.props.phonenumber}>Call Us</button></div>
-			</MobileBottomBar>
-	    </Page>
+		<ThemeProvider theme={theme}>
+			<Icons/>
+		    <Page>   
+			    <Header {...this.props.tabbedContent}/>
+				<Main>
+					
+					<Container>
+						<ContentArea>
+							<Hero {...this.props.heroArea}/>
+							<MainArea {...this.props.mainContentSection}/>
+							<TabbedArea {...this.props.tabbedContent}/>
+							<Accolades {...this.props.accolades}/>
+							<Testimonial {...this.props.testimonial}/>
+							<Awards {...this.props.awards}/>
+							<Bottom {...this.props.bottomContentSection}/>
+											
+						</ContentArea>
+					</Container>
+					<FormPanel phone={this.props.phonenumber} headline={this.props.formheadline}/>
+					<Footer/>
+				</Main>
+				<MobileBottomBar>
+					<ScrollIntoView selector="#leadform" className="buttonContainer">
+						<button className="button action" type="button">Learn More</button>
+					</ScrollIntoView>
+						<div><button className="button tertiary" type="button" tel={this.props.phonenumber}>Call Us</button></div>
+				</MobileBottomBar>
+		    </Page>
 	    </ThemeProvider>
 	
   )

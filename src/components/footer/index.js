@@ -31,10 +31,9 @@ export default class Footer extends React.Component{
 
 	render(){
 		return(
-		  <StyledFooter
-		  	>
+		  <StyledFooter>
 		    <LogoBox>
-		      <Logo/>
+		    	<Logo/>
 		    </LogoBox>
 		    <LinkBox>
 			     <p>© {new Date().getFullYear()}Peru State College</p>

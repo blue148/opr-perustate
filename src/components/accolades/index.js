@@ -75,12 +75,12 @@ const Items = (props) =>(
 			 const text = props[item].content.tagline
 			 return(
 			 
-			<ItemStack key={index} className="IconBox">
-			<div className="iconBox">
-				<Icon name={props[item].content.icon} />
-			</div>
-				<p dangerouslySetInnerHTML={{__html:text}}/>
-			</ItemStack>
+				<ItemStack key={index} className="IconBox">
+				<div className="iconBox">
+					<Icon name={props[item].content.icon} />
+				</div>
+					<p dangerouslySetInnerHTML={{__html:text}}/>
+				</ItemStack>
 			)}
 			)}
 	</ItemsBox>
@@ -93,7 +93,7 @@ export default class Accolades extends React.Component{
 			<ContentBox key={this.props.index} clasName="accolades">
                 <Headline dangerouslySetInnerHTML={{__html:headline}} className="accoladesHeadline"/>
 				<Items {...items}/>
-              </ContentBox>
+            </ContentBox>
 			
 		)
 	}

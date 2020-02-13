@@ -103,7 +103,7 @@ const Items = (props) =>(
 				<p dangerouslySetInnerHTML={{__html:text}}/>
 			</ItemStack>
 			)}
-			)}
+		)}
 	</ItemsBox>
 	)
 export default class HeroArea extends React.Component{

@@ -1,0 +1,16 @@
+/***BRAND COLORS AND STYLES***/
+/****COLORS****/
+/***FONTS***/
+.tabPanel {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.contentContainer {
+  position: relative;
+}
+
+.contentContainer .contentPanel {
+  display: none;
+  opacity: 0;
+}

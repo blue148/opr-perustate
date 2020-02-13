@@ -1,0 +1,23 @@
+@import "../_variables";
+
+/***BUTTON STYLES***/
+
+
+/***TAB STYLES***/
+.tab{
+
+	border-bottom:solid 1px $shade;
+	border-left: solid 1px $shade;
+	width:100%;
+	&:first-child{
+		border-left:none;
+	}
+	
+	a{
+		text-decoration: none;
+		display: block;
+			padding:1rem;
+		
+	}
+	
+}

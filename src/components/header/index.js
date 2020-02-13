@@ -2,9 +2,11 @@ import React from "react"
 import styled from "styled-components"
 import slugify from 'slugify'
 import ScrollIntoView from 'react-scroll-into-view'
+import MobileMenu from '../mobilemenu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faChevronRight,faChevronLeft,faTimesCircle, faLayers, faSquare } from '@fortawesome/free-solid-svg-icons'
 import Logo from "../../images/peru-logo-online-final.svg"
+import {Button} from '../uiElements'
 import './index.scss'
 
 const StyledHead = styled.header`
@@ -29,14 +31,12 @@ const LogoBox = styled.div`
 const ButtonContainer = styled.div`
 justify-self:end;
 padding-right:1rem;
-	@media (min-width: 768px) {
+	@media (max-width: 768px) {
 		justify-self:end;
 	}
 `
 const StyledButton = styled.button`
 	width:250px;
-`
-const MobileMenu = styled.nav`
 `
 const Hamburger = styled.a`
 	padding: .75em 15px;
@@ -44,7 +44,7 @@ const Hamburger = styled.a`
 	font-size: 1em;
 	color: #333;
 	&:hover, &:focus{
-	color:#c00;
+		color:#c00;
 	}
 	width:25px;
 	height:25px;
@@ -58,42 +58,8 @@ const Hamburger = styled.a`
 			}
 		}
 	}
-`
-const CloseButton = styled.a`
-`
-const Overlay = styled.a`
-
-`
-const MenuList = (props) =>{
-		 const list = Object.keys(props).map((item, index)=>{
-			 //const submenu = props[item].programs?
-			 if(props[item].tabName || props[item].pageName){
-				 const slug = props[item].tabName?slugify(props[item].tabName):props[item].pageName;
-				 
-				 return(
-				 
-				 <li key={index}>
-				 <ScrollIntoView selector={'#'+slug.toLowerCase()}>
-				 	<a href="#" onClick={props.handleClick}>{props[index].tabName || props[index].pageName}</a>
-				 </ScrollIntoView>
-				 </li>
-				 )}
-				 else{return}
-			})
-		 return (
-			 <>
-				<ul>
-				{list}
-				<li className="buttonArea">
-					<StyledButton id="apply-now" aria-label="Apply Now" className="button secondary">
-						Apply Now
-					</StyledButton>
-				</li>
-				</ul>
-				
-			</>
-		 )
-	 }
+` 
+ 
 export default class Header extends React.Component{
 	
 	constructor(props){
@@ -109,15 +75,13 @@ export default class Header extends React.Component{
 	}
 	render(){
 		return(
-		<StyledHead >
+		<StyledHead>
 		  <Container>
 		    <LogoBox>
 		      <Logo/>
 		    </LogoBox>
 		    <ButtonContainer>
-			    <StyledButton id="apply-now" aria-label="Apply Now" className="button secondary">
-			    	Apply Now
-				</StyledButton>
+			    <Button label="Apply Now" theme="secondary"/>
 				<Hamburger 
 					href="#" 
 					onClick={this.handleMenuToggle}
@@ -128,37 +92,12 @@ export default class Header extends React.Component{
 					<span className="fa-layers fa-fw">
 						<FontAwesomeIcon icon={faSquare} className="darkbluebutton" size="3x"/>
 						<FontAwesomeIcon icon={faBars} inverse size="3x" transform="shrink-6"/>
-						</span>
+					</span>
 					
 				</Hamburger>
 			</ButtonContainer>
 			
-			<MobileMenu
-				id="main-menu"
-				className="main-menu"
-				area-label="mainmenu">
-				<CloseButton
-					href="#main-menu-toggle"
-					id="main-menu-close"
-					className="menu-close"
-					onClick={this.handleMenuToggle}
-					aria-label="Close main menu">
-					<span className="sr-only">Close</span>
-					
-					<FontAwesomeIcon icon={faTimesCircle} inverse/>
-					
-				</CloseButton>
-				<MenuList 
-				handleClick={this.handleMenuToggle}
-				{...this.props}/>
-			</MobileMenu>
-			<Overlay
-				href="#main-menu-toggle"
-				className="backdrop"
-				tabindex="-1"
-				aria-hidden="true"
-				hidden
-				onClick={this.handleMenuToggle}/>
+			<MobileMenu {...this.props}/>
 			</Container>
 		  </StyledHead>
 		)

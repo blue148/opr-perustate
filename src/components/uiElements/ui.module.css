@@ -1,0 +1,20 @@
+/***BRAND COLORS AND STYLES***/
+/****COLORS****/
+/***FONTS***/
+/***BUTTON STYLES***/
+/***TAB STYLES***/
+.tab {
+  border-bottom: solid 1px #efefef;
+  border-left: solid 1px #efefef;
+  width: 100%;
+}
+
+.tab:first-child {
+  border-left: none;
+}
+
+.tab a {
+  text-decoration: none;
+  display: block;
+  padding: 1rem;
+}

@@ -14,6 +14,8 @@ import uiStyles from '../uiElements/ui.module.css';
 ////EACH TAB WILL NEED TO EXPOSE THE CORRESPONDING CONTENTPANEL ON CLICK, AS WELL AS HIDE ANY EXPOSED PANELS
 ////HANDLE EXPOSE/HIDE VIA CSS SO THAT ALL PANELS ARE ON THE PAGE AT RENDER, JUST HIDDEN. THIS WILL ALLOW DEEP LINKING FOR NESTED TAB ARRAYS
 
+//-=-->MANAGE TAB SELECT THROUGH STATE INSTEAD OF DOM MANIPULATION. THIS.STATE{SELECTEDTAB:DATAID} CLASSNAME IS SET BY STATE
+
 ////COMPONENT MODULES
 
 ////TABS PANEL
@@ -22,53 +24,37 @@ const TabsPanel = (props)=>{
 	const tabItems = Object.keys(props).map((tab, index)=>{
 		if(isNaN(tab))return;
 		
-		const{pageName}=props[index];
-
-		const slug = slugify(pageName,{remove: /[*+~.()'"!:@]/g,lower:true})	
-		const activeClass = (pageName==props.active)?'selected':null;
+		////test for deprecated tabName
+		const title = (props[index].tabName)?props[index].tabName:props[index].pageName;
+		const slug = slugify(title,{remove: /[*+~.()'"!:@]/g,lower:true})	
+		const activeClass = (title==props.active)?'selected':null;
 		const tabClickProps = {
 			target:slug			
 		}
 		
 		//return tab
 				return (
-			<li 
-				data-target={slug}
-				className={[tab, activeClass].join(' ')} 
-				>
-				<a href={"#"+slug} onClick={(e)=>props.onStateChange(e,'activeTab',pageName)}> 
-					{pageName} 
-				</a>
-			</li>
+			<div className={[uiStyles.tab, activeClass].join(' ')} >
+				<a href="#"  onClick={(e)=>props.onStateChange(e,'activeTab',title)}> {title} </a>
+			</div>
 		)
 	})
-	return <ul id={props.id} className={["tabPanel ",direction, props.viewport].join(' ')}>{tabItems}</ul>
+	return <div className={"tabPanel "+direction}>{tabItems}</div>
 	
 }
 
 ////CONTENT PANEL
 
 const ContentPanel = (props) =>{
-	console.log(props)
-	const activeClass = (props.pageName == props.active)?'selected':'';
-	const slug = slugify(props.pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
-	const slugPanel = slug+'_panel';
-	//console.log(props.active,' Content Panel');
+	const activeClass = (props.pageName == props.active)?'selected':null;
+	console.log(props.active,' Content Panel');
 //TODO::: REPLACE REACTMARKDOWN WHEN SOURCE IS CONVERTED TO QUILL
 	return(
 		<div 
 			className={"contentPanel "+activeClass} 
-			id={slug}
+			data-id={slugify(props.pageName,{remove: /[*+~.()'"!:@]/g,lower:true})}
 		>
-			<h4 className='tab mobile-only' data-target={slugPanel} onClick={(e)=>props.onStateChange(e,'activeTab',slugPanel)}>
-				{props.pageName}
-			</h4>
-			 
-			 <div className="contentTarget" id={slugPanel}>
-			 	
-		 		<ProgramInfo {...props}/>
-		 		
-		 	</div>
+			<ProgramInfo {...props}/>
 		</div>
 	)
 }
@@ -77,33 +63,30 @@ const ContentPanel = (props) =>{
 
 ////CONTAINER TO HOLD ALL THE CONTENT PANELS
 const ContentPanelContainer = (props) =>{
-	console.log(props,' CPC')
+	
 	const panels = Object.keys(props).map((child, index)=>{
 		if(isNaN(child))return;
-		
 		const {programs} = props[index];
 		
 		
 		///if programs exist
 		const programPanel = (programs)?(
-			<NestedPanel 
-				activeParent={props.active}
-				{...props[index]} 
-				key={index} 
-				/>
-		):(
-			<ContentPanel 
-				{...props[index]} 
-				active={props.active} 
-				key={index}
-				headerClick={props.onHeaderClick}/>
+		<NestedPanel 
+			activeParent={props.active}
+			{...props[index]} 
+			key={index} 
+			/>
+		):(<ContentPanel 
+			{...props[index]} 
+			active={props.active} 
+			key={index}/>
 		)
 		return programPanel
 	});
 		
 		
 	return (
-		<>{panels}</>
+		<div className="contentContainer">{panels}</div>
 		)
 }
 
@@ -133,39 +116,36 @@ export class NestedPanel extends React.Component{
 		///create stack of content sub panels
 		const subpanels = Object.keys(this.props.programs).map((program, index)=>{
 			if(isNaN(program))return
-			const activeClass = (this.props.programs[index].pageName == this.state.activeTab)?'selected':'';
-
+			const activeClass = (this.props.programs[index].pageName == this.state.activeTab)?'selected':null;
+				//console.log(activeClass,this.props.programs[index].pageName,' Content Panel SUb');
 			return(
-				<ContentPanel 
-					{...this.props.programs[index]} 
-					active={this.state.activeTab} 
-					key={index}/>
+				<div 
+				key={index}
+					className={"contentPanel "+activeClass} 
+					data-id={slugify(this.props.programs[index].pageName,{remove: /[*+~.()'"!:@]/g,lower:true})}
+				>
+					<ProgramInfo {...this.props.programs[index]}/>
+				</div>
 				
 			)})
 			
-			
 		const activeParent = (this.props.activeParent==this.props.pageName)?'selected':null;
-		const slug = slugify(this.props.pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
-		const slugPanel = slug+'_panel';
+		console.log(activeParent,' nested Active Class');	
 		return(
 				<div 
-					className={"contentPanel nested "+activeParent}
-					id={slug}
+					className={"panelContainer "+activeParent}
+					data-id={slugify(this.parentName,{remove: /[*+~.()'"!:@]/g,lower:true})}
 				>
-					<h4 className='tab mobile-only' data-target={slugPanel}>
-						{this.props.pageName}
-					</h4>
 					<TabsPanel 
 						direction="vertical" 
 						{...this.props.programs} 
 						active={this.state.activeTab} 
 						onTabClick={this.props.onTabClick} 
-						onStateChange={this.handleStateChange}
-						id={this.parentName}
-						viewport='desktop-only nested' 
+						onStateChange={this.handleStateChange} 
 					/>
-
+					<div className="contentContainer">
 						{subpanels}
+					</div>
 				</div>
 		)
 	}
@@ -190,22 +170,7 @@ export default class TabbedArea extends React.Component{
 	   this.setState(updatedState,()=>console.log(this.state,'handleStateChange'))
 	   
    }
-   handleMobileStateChange =(e,target,newState)=>{
-		console.log(newState, 'State Change')
-		e.preventDefault();
-		const updatedState = update(
-		   this.state,{
-			   [target]:{$set:newState}
-		   }
-		)	  
-	   this.setState(updatedState,()=>console.log(this.state,'handleStateChange'))
-	   
-   }
-   handleHeaderClick = (props)=>{
-	   const target = props.target.dataset.target;
-	   
-	   
-   }
+   
    
 	render(){
 		
@@ -216,14 +181,12 @@ export default class TabbedArea extends React.Component{
 					active={this.state.activeTab}
 					onStateChange = {this.handleStateChange}
 					onTabClick={this.handleTabClick}
-					id="tabPanelTop"
-					viewport="desktop-only"
 				/>
 				
 				<ContentPanelContainer 
 					active={this.state.activeTab}
 					onStateChange = {this.handleStateChange}
-					onHeaderClick={this.handleHeaderClick}
+					onTabClick={this.handleTabClick}
 					{...this.props}/>
 			</>				
 			

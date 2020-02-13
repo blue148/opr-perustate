@@ -1,8 +1,9 @@
 import React from "react"
 import styled from "styled-components"
+import {Button} from '../uiElements'
 
 const FormContainer = styled.section`
-	background-color:${props=>props.theme.lightgray};
+	background-color:${props=>props.theme.shade};
 	bottom:0;
 	grid-column:1;
 	order:20;
@@ -34,10 +35,6 @@ const FormRow = styled.div`
 `
 const FormHeadline = styled.h2`
 	text-align:center;
-`
-const StyledButton = styled.button`
-	width:100%;
-	margin:1rem auto;
 `
 const CTPAText = styled.div`
 margin-top:1rem;
@@ -111,7 +108,7 @@ export default class FormPanel extends React.Component{
 		                        <div className="errorMessage"><span className="allFieldsRequired">*All fields required.</span></div>
 		                    </div>
 		                    <div id="submitButtonContainer">
-		                        <StyledButton type="button" id="requestInfo" className="button primary"  data-ol-has-click-handler="">Learn More</StyledButton>
+		                        <Button label="Learn More"/>
 		                    </div>
 		                    <div>
 		                        or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>
