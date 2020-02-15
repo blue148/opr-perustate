@@ -190,7 +190,6 @@ export class NestedPanel extends React.Component{
 export default class TabbedArea extends React.Component{
 	constructor(props){
 		super(props)
-		const initSlug = slugify(this.props[0].pageName,{remove: /[*+~.()'"!:@]/g,lower:true})
 		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:''}	
 	}
 	
