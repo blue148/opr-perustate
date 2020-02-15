@@ -1,0 +1,16 @@
+/***BRAND COLORS AND STYLES***/
+/****COLORS****/
+/***FONTS***/
+.program-info {
+  display: grid;
+  grid-template: auto/1fr;
+  grid-auto-flow: row;
+  grid-row-gap: .2rem;
+  border-bottom: solid 1px #cccccc;
+  padding: .5rem 0;
+  margin: .5rem 0;
+}
+
+.program-info p {
+  margin-bottom: 0;
+}

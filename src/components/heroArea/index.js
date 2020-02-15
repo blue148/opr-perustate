@@ -1,6 +1,9 @@
 import React from "react"
 import styled from "styled-components"
 import Icon from '../../images/icons'
+import {Button} from '../uiElements'
+import ScrollIntoView from 'react-scroll-into-view'
+import './hero.scss';
 
 
 const HeroBox = styled.section`
@@ -10,6 +13,9 @@ const HeroBox = styled.section`
 	justify-items:center;
 	background-image: none;
 	background-color:${props=>props.theme.brandmediumblue};
+	background: -moz-linear-gradient(78deg, ${props=>props.theme.brandmediumblue} -2%,${props=>props.theme.brandblue} 50%,${props=>props.theme.brandmediumblue} 91%);
+	background: -webkit-linear-gradient(78deg, ${props=>props.theme.brandmediumblue} -2%,${props=>props.theme.brandblue} 50%,${props=>props.theme.brandmediumblue} 91%);
+	background: linear-gradient(78deg, ${props=>props.theme.brandmediumblue} -2%,${props=>props.theme.brandblue} 50%,${props=>props.theme.brandmediumblue} 91%);
 	margin: 0 -1rem 1.8375rem;
 	padding: 1rem;
 	position:relative;
@@ -26,18 +32,23 @@ const HeroBox = styled.section`
 			position:absolute;
 			z-index:1;
 		}
+		*{
+			z-index:3;
+			}
 `
 const HeroHeadline = styled.h1`
 	color:white;
 	z-index:2;
+	text-shadow:rgba(0,0,0,.5) -3px 3px 10px;
 `
 const ItemsBox = styled.section`
 	display:grid;
 	grid-template:auto/100%;
+	grid-auto-flow:row;
 	justify-items:start;
-	justifyu-content:start;
-	width:90%;
-	margin:0 auto;
+	justify-content:start;
+	width:65%;
+	margin:.8rem auto;
 	@media (min-width:768px){
 		grid-template:1fr/1fr 1fr 1fr;
 	}
@@ -45,8 +56,8 @@ const ItemsBox = styled.section`
 `
 const ItemStack = styled.div`
 	display:grid;
-	grid-template-columns:75px 1fr;
-	grid-column-gap:1rem;
+	grid-template-columns:41px 1fr;
+	grid-column-gap:.5rem;
 	justify-items:start;
 	align-items:center;
 	max-width:none;
@@ -56,8 +67,13 @@ const ItemStack = styled.div`
 	.iconBox{
 		grid-column:1/2;
 		grid-row:1;
-		width:75px;
-		height:75px;
+		width:40px;
+		height:40px;
+		box-shadow: rgba(0,0,0,.5) -3px 3px 10px;
+		@media (min-width:768px){
+			width:75px;
+			height:75px;
+			}
 		background-color:white;
 		border-radius:50%;
 		align-content:center;
@@ -75,12 +91,15 @@ const ItemStack = styled.div`
 	}
 	p{
 		color:white;
-		font-size:1.5rem;
+		font-size:1.2rem;
 		font-weight: 800;
 		grid-column:2/3;
 		grid-row:1;
 		text-align:left;
 		justify-self:start;
+		align-self:center;
+		margin-bottom:0;
+		text-shadow:rgba(0,0,0,.5) -3px 3px 10px;
 	}
 	@media (min-width:768px){
 			grid-template-columns:100px 46%;
@@ -115,6 +134,8 @@ export default class HeroArea extends React.Component{
 			<HeroBox key={this.props.index} backgroundImage={imgBg} className="HeroBox">
                 <HeroHeadline dangerouslySetInnerHTML={{__html:headline}} className="HeroHeadline"/>
 				<Items {...items}/>
+
+					<Button label="Learn More" theme="primary" jumplink="#leadform"/>
               </HeroBox>
 			
 		)

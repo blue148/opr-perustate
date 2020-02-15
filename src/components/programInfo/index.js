@@ -7,7 +7,10 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import './programInfo.scss';
 
 const ButtonArea = styled.div`
-	
+	display:grid;
+	grid-template:1fr/auto;
+	grid-auto-flow:column;
+	grid-column-gap:.5rem;
 `
 
 ////STRUCTURE FOR THE APPPLY AND START DATE LISTS
@@ -37,7 +40,10 @@ const Info = (props) =>{
 			return false
 			}
 	})
-	return infoItem;
+	return(
+	 <div className="program-info program-info-area">
+	 {infoItem}
+	 </div>)
 }
 
 
@@ -47,9 +53,13 @@ const PanelContent = (props)=>{
 		<>
 			<h3>{props.pageName}</h3>
 			<Info {...props}/>
-			<Dates title="Apply By" items={props.applyBy}/>
-			<Dates title="Start Classes" items={props.startClasses}/>
-			<ReactMarkdown source={props.programDetails.programDetails}/>
+			<div className="program-info program-info-dates">
+				<Dates title="Apply By" items={props.applyBy}/>
+				<Dates title="Start Classes" items={props.startClasses}/>
+			</div>
+			<div className="program-info-details">
+				<ReactMarkdown source={props.programDetails.programDetails}/>
+			</div>
 			<ButtonArea>
 				<Button label="Apply Now" theme="secondary" outlink="https://online.peru.edu/apply-now"/>
 				<Button label="Request Info" theme="tertiary mobile-only" jumplink='leadform'/>

@@ -8,7 +8,9 @@ const StyledButton = styled.button`
 `
 const ButtonLink = styled.a`
 	display:block;
+	@media (min-width:768px){
 	width:250px;
+	}
 `
 const ButtonArea = styled.div`
 
@@ -19,17 +21,17 @@ export class Button extends React.Component{
 	render(){
 		const buttonId = this.props.label.split(' ').join('-').toLowerCase();
 		const button = (this.props.jumplink)?
-			<ScrollIntoView selector={'#'+this.props.jumplink} className="buttonContainer">
-				<StyledButton id={buttonId} aria-label={this.props.label} className={"button "+this.props.theme}>
+			<ScrollIntoView selector={'#'+this.props.jumplink} className="buttonField">
+				<ButtonLink id={buttonId} aria-label={this.props.label} className={"button "+this.props.theme}>
 					{this.props.label}
-				</StyledButton>
+				</ButtonLink>
 			</ScrollIntoView>
 		:
-			<ButtonArea>
+			<ScrollIntoView selector="#" className="buttonField">
 				<ButtonLink id={buttonId} aria-label={this.props.label} className={"button "+this.props.theme} href={this.props.outlink||"#"}>
 					{this.props.label}
 				</ButtonLink>
-			</ButtonArea>
+			</ScrollIntoView>
 		return button;
 	}
 	

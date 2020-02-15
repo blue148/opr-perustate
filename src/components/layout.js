@@ -19,10 +19,16 @@ import ScrollIntoView from 'react-scroll-into-view'
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
 
 const Page = styled.div`
-	position:relative;
+	position:fixed;
+	overflow:scroll;
+	height:100vh;
+	top:72px;
 `
 const Main = styled.main`
-	margin-top:72px;
+	top:72px;
+	left:0;
+	right:0;
+	overflow:scroll;
 	display:grid;
 	grid-template:auto/1fr;
 	@media (min-width: 768px) {
@@ -37,6 +43,14 @@ const ContentArea = styled.section`
 	@media (min-width:7678px){
 		margin:0px 0px 0px 2rem;
 		max-width:100%;
+	}
+	overflow:hidden;
+	grid-column:1;
+	margin-top:0;
+	padding-bottom:1rem;
+	@media (min-width: 768px) {
+		grid-column:1/2;
+		grid-row:1;
 	}
 `
 const Container = styled.section`
@@ -73,15 +87,19 @@ const MobileBottomBar = styled.div`
 		}
 `
 export default class Layout extends React.Component{
+	constructor(props){
+		super(props)
+		this.state = {activeTab:'',activepanel:'',activeSubTab:'',activeSubPanel:''}
+	}
 	render(){
 	  return (
 		<ThemeProvider theme={theme}>
 			<Icons/>
+			<Header {...this.props.tabbedContent}/>
 		    <Page>   
-			    <Header {...this.props.tabbedContent}/>
+			    
 				<Main>
-					
-					<Container>
+
 						<ContentArea>
 							<Hero {...this.props.heroArea}/>
 							<MainArea {...this.props.mainContentSection}/>
@@ -92,7 +110,7 @@ export default class Layout extends React.Component{
 							<Bottom {...this.props.bottomContentSection}/>
 											
 						</ContentArea>
-					</Container>
+
 					<FormPanel phone={this.props.phonenumber} headline={this.props.formheadline}/>
 					<Footer/>
 				</Main>

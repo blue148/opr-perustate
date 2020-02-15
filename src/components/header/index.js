@@ -33,7 +33,11 @@ justify-self:end;
 padding-right:1rem;
 	@media (max-width: 768px) {
 		justify-self:end;
+		.buttonField{
+			display:none;
+			}
 	}
+	
 `
 const StyledButton = styled.button`
 	width:250px;
@@ -90,7 +94,7 @@ export default class Header extends React.Component{
 					aria-label="Open main menu">
 					<span className="sr-only">Open</span>
 					<span className="fa-layers fa-fw">
-						<FontAwesomeIcon icon={faSquare} className="darkbluebutton" size="3x"/>
+						
 						<FontAwesomeIcon icon={faBars} inverse size="3x" transform="shrink-6"/>
 					</span>
 					

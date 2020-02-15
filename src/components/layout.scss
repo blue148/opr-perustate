@@ -1,5 +1,7 @@
 @import "./_variables";
-
+f{
+	width:auto;
+}
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -19,12 +21,21 @@ h1,h2,h3,h4{
 	margin-bottom:.5rem;
 }
 h1{
-	font-size:3rem;
-	line-height: 1.4;
+	font-size:10vw;
+	line-height: 100%;
+	@media (min-width:768px){
+		font-size:3rem;
+		line-height: 1.4;
+	}
 }
 h2{
-	font-size:2.5rem;
-	line-height: 1.4;
+	font-size:8vw;
+	line-height: 100%;
+	@media (min-width:768px){
+		font-size:2.5rem;
+		line-height: 1.4;
+	}
+
 }
 h3{
 	font-size:1.9375rem;

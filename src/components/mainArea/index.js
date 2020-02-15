@@ -9,8 +9,11 @@ const MainHeadline = styled.h2`
 	color:${props=>props.theme.brandblue};
 `
 const MainContent = styled.div`
-	width:75%;
 	margin:0 auto;
+	width:100%;	
+	@media(min-width:768px){
+		width:95%;
+	}
 `
 
 export default class MainArea extends React.Component{

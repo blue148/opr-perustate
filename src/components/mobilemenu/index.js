@@ -7,7 +7,7 @@ import { faBars, faChevronRight,faChevronLeft,faTimesCircle, faLayers, faSquare 
 import {Button} from '../uiElements'
 import './index.scss'
 
-
+//****NEED TO PASS STATE FORM LAYOUT->HEADER->HERE TO CONTROL THE TABS ANBD PANELS SELECTIONS
 const StyledButton = styled.button`
 	width:250px;
 `
@@ -46,32 +46,34 @@ const ListItem = (props) =>{
 	const childList = (programs)?
 			
 			Object.keys(programs).map((item,index)=>{
-				const subtitle = programs[item].tabname||programs[item].pageName;
-				const chainId=title+'__'+subtitle;
-				//console.log(slugify(chainId,{remove: /[*+~.()'"!:@]/g,lower:true}),document.getElementById(slugify(chainId,{remove: /[*+~.()'"!:@]/g,lower:true})));
+				const subtitle = programs[item].tabname||programs[item].pageName;///Check for deprecated tabName
+				const parent = slugify(title,{remove: /[*+~.()'"!:@]/g,lower:true});///slugify the parent pageName
+				const chainId=slugify([title,subtitle].join('__'),{remove: /[*+~.()'"!:@]/g,lower:true});///create the nested ID. Format is [parent]__[pagename]
 				return(
-					<li key={index}>
-						<StyledScrollIntoView 
-							selector={'#'+slugify(chainId,{remove: /[*+~.()'"!:@]/g,lower:true})}
-							onClick={()=>{
-								//document.getElementById(slugify(title,{remove: /[*+~.()'"!:@]/g,lower:true})).click();
-								//document.getElementById(slugify(chainId,{remove: /[*+~.()'"!:@]/g,lower:true})).click();
-								}}
-							
-						>
+					<li key={index}>		
 						 	<a 
-						 		href={'#'+slugify(chainId,{remove: /[*+~.()'"!:@]/g, lower:true})} 
+						 		href={'#'+chainId} 
 						 		onClick={()=>{
-							 	document.getElementById(slugify(title,{remove: /[*+~.()'"!:@]/g,lower:true})).parentElement.click();
-							 	document.getElementById('main-menu').classList.toggle('opened');
 							 	
-								document.getElementById(slugify(chainId,{remove: /[*+~.()'"!:@]/g,lower:true})).parentElement.click();
+								 	document.getElementById('main-menu').classList.toggle('opened');
+								 	const selected = document.querySelectorAll('.contentPanel.selected');
+					 				for(var x=0; x<selected.length; x++){
+						 				selected[x].classList.toggle('selected')
+					 				}
+								 	const parentClass = document.getElementById(chainId).parentNode.classList;
+									if(parentClass.contains('nestedContentPanel')){
+										document.getElementById(parent).classList.add('selected')
+										document.getElementById(chainId).classList.add('selected');
+									}else{
+										document.getElementById(parent).classList.add('selected');
+									}
+
 								
 								}}
 						 		>
 						 		{subtitle}
 						 	</a>
-						 </StyledScrollIntoView>	 
+					
 						</li>)		
 			}):null;
 	//RETURN FULL LIST WITH NESTED CHILDREN IF BUILT
@@ -88,7 +90,12 @@ const ListItem = (props) =>{
 				</div>
 				 
 					{childList ?
-						<ul id={slug+'__menu'}>{childList}</ul>
+						<ul id={slug+'__menu'}>
+							<li className="menu-back">
+								<a href="#" onClick={()=>{document.getElementById(slug+'__menu').classList.remove('shown')}}>Back</a>
+							</li>
+							{childList}
+						</ul>
 						: null}
 			</li> 
 		)
@@ -97,17 +104,15 @@ const ListItem = (props) =>{
 		
 		return(
 		<li>
-			<StyledScrollIntoView 
-			 	selector={'#'+slugify(title,{remove: /[*+~.()'"!:@]/g, lower:true})} 
-			 	//onClick={(e)=>props.handleSlide(e,slug)} 
-			>
-			 	<a href={'#'+slugify(title,{remove: /[*+~.()'"!:@]/g, lower:true})} onClick={()=>{
-								document.getElementById(slugify(title,{remove: /[*+~.()'"!:@]/g,lower:true})).click();
+			 	<a href={'#'+slug} onClick={()=>{
+				 				const selected = document.querySelectorAll('.contentPanel.selected');
+				 				for(var x=0; x<selected.length; x++){
+					 				selected[x].classList.toggle('selected')
+				 				}
+								document.getElementById(slug).classList.add('selected');
 								document.getElementById('main-menu').classList.toggle('opened');
-								//document.getElementById(slugify(chainId,{remove: /[*+~.()'"!:@]/g,lower:true})).click();
 								}}>{title}</a>
 			 	
-			</StyledScrollIntoView>
 		</li>
 		
 	)
@@ -150,8 +155,9 @@ export default class MobileMenu extends React.Component{
 	}
 	handleMenuSlide = (e,props) =>{
 		///CHANGE THE CLASS OF THE CHILD MENU TO SHOW IT
-		//console.log(props,' HandleMenuSlide')
-		document.getElementById(props+'__menu').classList.add('shown');		
+		e.preventDefault()
+		console.log(props)
+	document.getElementById(props+'__menu').classList.add('shown');		
 	}
 	handleClick = (e) =>{
 		e.preventDefault()
