@@ -47,7 +47,7 @@ export const query = graphql`
 		            programs {
 		              pageName
 		              programDetails {
-		                programDetails
+					  	content
 		              }
 		              applyBy
 		              totalCost
@@ -65,7 +65,7 @@ export const query = graphql`
 	              transferrableCredits
 	              tuition
 	              programDetails {
-	                programDetails
+	               content
 	              }
 	            }
 	          }

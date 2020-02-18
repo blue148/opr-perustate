@@ -1,15 +1,10 @@
-import React,{useState} from "react"
-import ReactMarkdown from "react-markdown"
+import React from "react"
 import slugify from 'slugify'
-import styled from 'styled-components'
-import {Button, Tab} from '../uiElements'
 import ProgramInfo from '../programInfo'
 import update from 'immutability-helper'
 import ScrollIntoView from 'react-scroll-into-view'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import {isMobile} from 'react-device-detect'
 import './tab.scss';
-import uiStyles from '../uiElements/ui.module.css';
 
 ////BUILD TABBED LAYOUT
 ////EACH TAB WILL NEED TO EXPOSE THE CORRESPONDING CONTENTPANEL ON CLICK, AS WELL AS HIDE ANY EXPOSED PANELS
@@ -19,24 +14,26 @@ import uiStyles from '../uiElements/ui.module.css';
 
 ////TABS PANEL
 const TabsPanel = (props)=>{
-	//console.log(props,' TabsPanel')
 	const {direction,parent} = props||'';
+	
 	const tabItems = Object.keys(props).map((tab, index)=>{
-		if(isNaN(tab))return;
+		if(isNaN(tab))return true;
 		
 		const{pageName}=props[index];
 		
-		const slug = (parent)?slugify([parent,pageName].join('__'),{remove: /[*+~.()'"!:@]/g,lower:true}):slugify(pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
-		//console.log(props.parent,' Tab Panel Loop');	
-		const activeClass = (slug===props.active)?'selected':'';
+		const tabState = (parent)?slugify([parent,pageName].join('__'),{remove: /[*+~.()'"!:@]/g,lower:true}):slugify(pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
+		const subTabState=(props[tab].programs)?tabState+'__'+slugify(props[tab].programs[0].pageName,{remove: /[*+~.()'"!:@]/g,lower:true}):'';
+		const activeClass = (tabState===props.active)?'selected':'';
+		//need to set subtab state if this is a nested tab reference, but how
 		
 		//return tab
-				return (
+		return (
 			<li 
-				data-target={slug}
-				className={[tab, activeClass].join(' ')} 
+				data-target={tabState}
+				className={[tab, activeClass].join(' ')}
+				key={index} 
 				>
-				<a href={"#"+slug} onClick={(e)=>props.onStateChange(e,slug)}> 
+				<a href={"#"+tabState} onClick={(e)=>props.onStateChange(e,tabState,subTabState)}> 
 					{pageName} 
 				</a>
 			</li>
@@ -54,21 +51,16 @@ const ContentPanel = (props) =>{
 	const handleClick = (e,slug) =>{
 		e.preventDefault()
 		props.onStateChange(e,slug)
-        //ref.current.scrollIntoView(true);
         }
 	const slug = slugify(props.id,{remove: /[*+~.()'"!:@]/g,lower:true});
 	const activeClass = (slug === props.active)?'selected':'';
 	const slugPanel = slug+'_panel';
-	//console.log(props.active, slug,' Content Panel');
-//TODO::: REPLACE REACTMARKDOWN WHEN SOURCE IS CONVERTED TO QUILL
 	return(
 		<div 
 			className={"contentPanel "+activeClass} 
 			id={slug}
-			
-
 		>
-			<ScrollIntoView selector={"#"+slug} onClick={()=>console.log('click')}>
+			<ScrollIntoView selector={"#"+slug}>
 				<h4 className='tab mobile-only' ref={ref} data-target={slugPanel} onClick={(e)=>handleClick(e,slug)}>
 					{props.pageName}
 				</h4> 
@@ -86,15 +78,11 @@ const ContentPanel = (props) =>{
 
 ////CONTAINER TO HOLD ALL THE CONTENT PANELS
 const ContentPanelContainer = (props) =>{
-	//console.log(props,' CPC')
 	const panels = Object.keys(props).map((child, index)=>{
-		if(isNaN(child))return;
-		
-		const {programs} = props[index];
-		
-		
-		///if programs exist
-		const programPanel = (programs)?(
+		if(isNaN(child))return true;
+
+		///if programs exist, this is a nested tab panel
+		const programPanel = (props[index].programs)?(
 			<NestedPanel 
 				active={props.active}
 				{...props[index]} 
@@ -108,36 +96,32 @@ const ContentPanelContainer = (props) =>{
 				id={props[index].pageName}
 				active={props.active.activeTab} 
 				key={index}
-				headerClick={props.onHeaderClick}
 				onStateChange={props.onStateChange}/>
 		)
 		return programPanel
 	});
-		
-		
-	return (
-		<>
-			{panels}
-		</>
-		)
+			
+	return panels
 }
 
 export class NestedPanel extends React.Component{
-	//set state for this component, since it mimic tab-container states of the parent
 	constructor(props){
 		super(props)
+
 		this.slug = slugify(this.props.pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
+		
 	}
 	
 	
 	render(){
-		const ref = React.createRef();
+		
+		//const ref = React.createRef();
+
 		///create stack of content sub panels
 		const subpanels =  Object.keys(this.props.programs).map((program, index)=>{
-			if(isNaN(program))return
+			if(isNaN(program))return true;
 			const subSlug = slugify([this.props.pageName,this.props.programs[index].pageName].join('__'),{remove: /[*+~.()'"!:@]/g,lower:true});
-			const activeClass = (subSlug === this.props.active.activeSubTab)?'selected':'';
-			//console.log(this.props.active, subSlug)
+			//const activeClass = (subSlug === this.props.active.activeSubTab)?'selected':'';
 
 			return(
 				<ContentPanel 
@@ -163,7 +147,7 @@ export class NestedPanel extends React.Component{
 					className={"contentPanel nested "+activeParent}
 					id={this.slug}
 				>
-					<ScrollIntoView selector={"#"+this.slug} onClick={()=>console.log('click')}>
+					<ScrollIntoView selector={"#"+this.slug}>
 						<h4 className='tab mobile-only' data-target={slugPanel} onClick={(e)=>handleClick(e,this.slug)}>
 							{this.props.pageName}
 						</h4>
@@ -190,29 +174,39 @@ export class NestedPanel extends React.Component{
 export default class TabbedArea extends React.Component{
 	constructor(props){
 		super(props)
-		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:''}	
+		//console.log(props[0],' build')
+		if(props[0]){
+			const initTab = (isMobile)?'':slugify(props[0].pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
+			//check for subtabs, then activate the first on if this is desktop
+			const subTabCheck = (props[0].programs)?slugify(props[0].programs[0].pageName,{remove: /[*+~.()'"!:@]/g,lower:true}):'';
+			const initSubTab = (isMobile)?'':initTab+'__'+subTabCheck;
+
+			this.state = {activeTab:initTab, activePanel:'',activeSubTab:initSubTab, activeSubPanel:''}
+		}	else{
+			this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:''}
+		}
 	}
 	
-	handleStateChange =(e,newState)=>{
-		//console.log(newState, 'State Change')
-		const tabArray = newState.split('__');
+	handleStateChange =(e,tabState,subTabState)=>{
+		const tabArray = tabState.split('__');
+		//console.log(tabArray,' array')
 		var subTab = '';
 		var tab = '';
 		var tabPanel = '';
 		var subTabPanel = '';
 		
 		if(tabArray.length < 2){
-
 			subTab = '';
-			tab = newState;
+			tab = tabState;
 			tabPanel = tab+'_panel';
 			subTabPanel = '';
 		}else{
-			subTab = newState;
+			subTab = tabState;
 			tab = tabArray[0];
 			tabPanel = tab+'_panel';
 			subTabPanel = subTab+'_panel';
 		}
+		if(subTabState)subTab=subTabState;
 		e.preventDefault();
 		const updatedState = update(
 		   this.state,{
@@ -222,7 +216,7 @@ export default class TabbedArea extends React.Component{
 			   'activeSubPanel':{$set:subTabPanel},
 		   }
 		)	  
-	   this.setState(updatedState,()=>console.log(this.state,'handleStateChange'))
+	   this.setState(updatedState)
 	   
    }
   

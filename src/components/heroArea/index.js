@@ -2,7 +2,6 @@ import React from "react"
 import styled from "styled-components"
 import Icon from '../../images/icons'
 import {Button} from '../uiElements'
-import ScrollIntoView from 'react-scroll-into-view'
 import './hero.scss';
 
 
@@ -108,6 +107,16 @@ const ItemStack = styled.div`
 			margin: .5rem auto 2rem;
 		}
 `
+const StyledButton = styled(Button)`
+	padding: 1rem 0;
+	width:80%;
+	width:75vw;
+	margin:0 auto;
+		@media (min-width:768px){
+			display:none;
+		}
+
+`
 //need to pull the icon by name
 const Items = (props) =>(
 	<ItemsBox className="iconGrid">
@@ -135,7 +144,7 @@ export default class HeroArea extends React.Component{
                 <HeroHeadline dangerouslySetInnerHTML={{__html:headline}} className="HeroHeadline"/>
 				<Items {...items}/>
 
-					<Button label="Learn More" theme="primary" jumplink="#leadform"/>
+				<StyledButton label="Learn More" theme="primary" jumplink="leadform" className="hero-button"/>
               </HeroBox>
 			
 		)

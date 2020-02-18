@@ -1,9 +1,6 @@
 import React from "react"
-import ReactMarkdown from "react-markdown"
 import styled from 'styled-components'
-import {Button, Tab} from '../uiElements'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import {Button} from '../uiElements'
 import './programInfo.scss';
 
 const ButtonArea = styled.div`
@@ -11,6 +8,10 @@ const ButtonArea = styled.div`
 	grid-template:1fr/auto;
 	grid-auto-flow:column;
 	grid-column-gap:.5rem;
+`
+const StyledButton = styled(Button)`
+
+
 `
 
 ////STRUCTURE FOR THE APPPLY AND START DATE LISTS
@@ -39,11 +40,13 @@ const Info = (props) =>{
 			}
 			return false
 			}
+		return true
 	})
 	return(
-	 <div className="program-info program-info-area">
-	 {infoItem}
-	 </div>)
+		 <div className="program-info program-info-area">
+		 	{infoItem}
+		 </div>
+	 )
 }
 
 
@@ -57,12 +60,10 @@ const PanelContent = (props)=>{
 				<Dates title="Apply By" items={props.applyBy}/>
 				<Dates title="Start Classes" items={props.startClasses}/>
 			</div>
-			<div className="program-info-details">
-				<ReactMarkdown source={props.programDetails.programDetails}/>
-			</div>
+			<div className="program-info-details" dangerouslySetInnerHTML={{__html:props.programDetails.content}}/>
 			<ButtonArea>
-				<Button label="Apply Now" theme="secondary" outlink="https://online.peru.edu/apply-now"/>
-				<Button label="Request Info" theme="tertiary mobile-only" jumplink='leadform'/>
+				<StyledButton label="Apply Now" theme="secondary" outlink="https://online.peru.edu/apply-now"/>
+				<StyledButton label="Request Info" theme="tertiary mobile-only" jumplink='leadform'/>
 			</ButtonArea>
 		</>
 	)

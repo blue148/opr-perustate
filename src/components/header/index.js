@@ -1,10 +1,8 @@
 import React from "react"
 import styled from "styled-components"
-import slugify from 'slugify'
-import ScrollIntoView from 'react-scroll-into-view'
 import MobileMenu from '../mobilemenu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faChevronRight,faChevronLeft,faTimesCircle, faLayers, faSquare } from '@fortawesome/free-solid-svg-icons'
+import { faBars} from '@fortawesome/free-solid-svg-icons'
 import Logo from "../../images/peru-logo-online-final.svg"
 import {Button} from '../uiElements'
 import './index.scss'
@@ -38,9 +36,6 @@ padding-right:1rem;
 			}
 	}
 	
-`
-const StyledButton = styled.button`
-	width:250px;
 `
 const Hamburger = styled.a`
 	padding: .75em 15px;

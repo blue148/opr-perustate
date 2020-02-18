@@ -67,6 +67,11 @@ p {
   text-rendering: optimizeLegibility;
 }
 
+li {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
 .show {
   display: block;
   opacity: 1;

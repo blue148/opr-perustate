@@ -11,6 +11,7 @@ const StyledFooter = styled.footer`
 	align-items:center;
 	order:25;
 	padding: 1rem;
+	margin-bottom:125px;
 	@media (min-width: 768px) {
 		grid-column:1/3;
 	}

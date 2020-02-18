@@ -18,8 +18,9 @@ const FormContainer = styled.section`
 `
 const FormBox = styled.div`
 		padding:1.3rem;
+		max-width:310px;
 		@media (min-width: 768px) {
-				position:sticky;
+				position:fixed;
 				top:72px;
 			}
 `
@@ -43,21 +44,12 @@ margin-top:1rem;
 	line-height:1rem;
 	}
 `
-const Spacer = styled.span`
- display: block; 
-			  content: " "; 
-			  margin-top: -85px; 
-			  height: 85px; 
-			  visibility: hidden; 
-			  pointer-events: none;
-			  `
 export default class FormPanel extends React.Component{
 	
 	render(){
 		const phone = (this.props.phone==null)?'(402) 902-3128':this.props.phone;
 		return(
 			<FormContainer >
-			 <Spacer id="leadform"/>
 			<FormBox>
 				<FormHeadline>{this.props.formheadline || 'Need More Information?'}</FormHeadline>
 					<form method="post" action="/" id="ContactForm" encType="multipart/form-data" className="form" noValidate="novalidate" data-ol-has-click-handler="">	

@@ -81,7 +81,7 @@ const Items = (props) =>(
 //TODO: Run a check if the icon is an img from the library or an icon name. 			 
 			<ItemStack key={index}>
 				<div className="iconBox">
-					<img src={props[item].content.image.fields.file.en_US.url} alt="award image" />
+					<img src={props[item].content.image.fields.file.en_US.url} alt="award" />
 				</div>
 				{text()}
 			</ItemStack>

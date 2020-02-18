@@ -53,16 +53,6 @@ const ContentArea = styled.section`
 		grid-row:1;
 	}
 `
-const Container = styled.section`
-	overflow:hidden;
-	grid-column:1;
-	margin-top:0;
-	padding-bottom:1rem;
-	@media (min-width: 768px) {
-		grid-column:1/2;
-		grid-row:1;
-	}
-`
 const MobileBottomBar = styled.div`
 	width:100%;
 	background:black;

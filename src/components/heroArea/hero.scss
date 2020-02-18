@@ -1,9 +1,9 @@
 @import "../_variables";
 
-.buttonField{
-	padding: 1rem 0;
+.hero-button{
+	width: 75vw;
 	@media (min-width:768px){
+		width:auto;
 		display:none;
 	}
-	
 }

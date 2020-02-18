@@ -1,24 +1,17 @@
 import React from "react"
 import styled from "styled-components"
 import slugify from 'slugify'
-import ScrollIntoView from 'react-scroll-into-view'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faChevronRight,faChevronLeft,faTimesCircle, faLayers, faSquare } from '@fortawesome/free-solid-svg-icons'
+import {faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 import {Button} from '../uiElements'
 import './index.scss'
 
-//****NEED TO PASS STATE FORM LAYOUT->HEADER->HERE TO CONTROL THE TABS ANBD PANELS SELECTIONS
-const StyledButton = styled.button`
-	width:250px;
-`
+//****NEED TO PASS STATE FORM LAYOUT->HEADER->HERE TO CONTROL THE TABS AND PANELS SELECTIONS
 const StyledMobileMenu = styled.nav`
 `
 const CloseButton = styled.a`
 `
 const Overlay = styled.a`
-
-`
-const StyledScrollIntoView = styled(ScrollIntoView)`
 
 `
 const MenuContainer = styled.div`
@@ -41,7 +34,7 @@ const MenuContainer = styled.div`
 	}
 `
 const ListItem = (props) =>{
-	const {title, handleToggle, index, programs} = props;
+	const {title, programs} = props;
 	//BUILD CHILD LIST IF PROGRAMS ARE PRESENT
 	const childList = (programs)?
 			
@@ -83,7 +76,7 @@ const ListItem = (props) =>{
 		return(
 			<li className="top-level">
 				<div
-				 	onClick={(e)=>props.handleSlide(e,slug)} 
+				 	role="tab" onClick={(e)=>props.handleSlide(e,slug)} 
 				>
 				 	<a href="#" onClick={(e)=>props.handleSlide(e,slug)}>{title}</a>
 				 	

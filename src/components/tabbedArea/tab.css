@@ -15,6 +15,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  overflow: visible;
 }
 
 .tabPanel li {
@@ -22,16 +23,20 @@
   border: solid 1px #cccccc;
   border-top: none;
   width: 100%;
+  height: 100%;
   text-align: center;
   font-weight: 500;
   font-size: 1.1rem;
   color: #333;
+  display: grid;
+  align-items: center;
 }
 
 .tabPanel li a {
   text-decoration: none;
   font-weight: inherit;
   font-size: inherit;
+  line-height: 1.2;
   display: block;
   padding: .8rem;
   color: inherit;
@@ -46,17 +51,45 @@
 }
 
 .tabPanel.vertical {
-  display: block;
+  display: grid;
   padding: 0;
-  margin: 0;
+  margin: 1px 0 0;
+  grid-template: min-content/1fr;
+  grid-auto-flow: row;
+  grid-auto-rows: min-content;
+  max-height: 300px;
 }
 
 .tabPanel.vertical li {
-  margin: 0 auto 1rem;
+  margin: 0 auto;
+  grid-template: 1fr/1fr 25px;
   border-left: none;
   border-right: none;
   border-bottom: solid 1px #cccccc;
   font-weight: 500;
+  display: grid;
+}
+
+.tabPanel.vertical li a {
+  display: block;
+  padding: 1rem 0 1rem 0.5rem;
+}
+
+.tabPanel.vertical li.selected {
+  background-color: #efefef;
+}
+
+.tabPanel.vertical li.selected::after {
+  content: '';
+  width: 20px;
+  grid-column: 2/3;
+  align-self: center;
+  justify-self: center;
+  display: block;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f054";
+  color: #0e356f;
 }
 
 .tabPanel .selected {
@@ -74,6 +107,14 @@
   display: none;
   opacity: 0;
   transition: .5s;
+  padding: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.contentPanel h3 {
+  font-size: 1.8rem;
+  line-height: 100%;
 }
 
 .contentPanel.selected {
@@ -84,12 +125,14 @@
 
 .contentPanel.selected.nested {
   display: block;
+  padding: 0;
 }
 
 .contentPanel.selected.nested .nestedContentPanel {
   display: grid;
   grid-template: 1fr/25% 75%;
   grid-column-gap: 1rem;
+  padding: 0;
 }
 
 .panelContainer {
@@ -109,6 +152,7 @@
   .contentPanel {
     display: block;
     opacity: 1;
+    padding: 0;
   }
   .contentPanel h3 {
     font-size: 1.5rem;
@@ -121,14 +165,19 @@
     background-color: #efefef;
     border: solid 1px #666;
     margin: 0 auto;
+    line-height: 100%;
+    padding: .5rem;
   }
-  .contentPanel p {
+  .contentPanel p, .contentPanel li {
     font-size: 1rem;
+  }
+  .contentPanel .ql-size-small {
+    font-size: .8rem;
   }
   .contentPanel .contentTarget {
     display: none;
     opacity: 0;
-    margin-top: 1rem;
+    margin: 1rem 0 2rem;
   }
   .contentPanel.selected .contentTarget {
     display: block;

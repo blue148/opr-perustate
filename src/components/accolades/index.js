@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import Icon from '../../images/icons'
+import './accolades.scss'
 
 
 const ContentBox = styled.section`
@@ -15,12 +16,15 @@ const Headline = styled.h3`
 const ItemsBox = styled.section`
 	display:grid;
 	grid-template:auto/100%;
+	grid-auto-flow:row;
 	justify-items:start;
-	justifyu-content:start;
+	justify-content:start;
 	width:90%;
 	margin:0 auto;
 	@media (min-width:768px){
-		grid-template:1fr/1fr 1fr 1fr;
+		grid-template:1fr/1fr;
+		grid-auto-flow:column;
+		grid-auto-columns:1fr;
 	}
 `
 const ItemStack = styled.div`
@@ -33,6 +37,11 @@ const ItemStack = styled.div`
 	width:100%;
 	margin: 1rem auto;
 	z-index:2;
+	@media (max-width:768px){
+		grid-template:1fr/75px 1fr;
+		justify-items:center;
+		margin:0;
+	}
 	.iconBox{
 		grid-row:1/2;
 		grid-column:1;
@@ -43,6 +52,12 @@ const ItemStack = styled.div`
 		display:grid;
 		grid-template:1fr/1fr;
 		margin-bottom:.5rem;
+		@media (max-width:768px){
+			grid-row:1;
+			grid-column:1/2;
+			width:75px;
+			height:75px;
+		}
 		svg{
 			width:90%;
 			height:90%;
@@ -60,13 +75,16 @@ const ItemStack = styled.div`
 		grid-column:1;
 		text-align:center;
 		justify-self:center;
-	}
-	@media (min-width:768px){
-			grid-template-columns:100px 46%;
-			justify-items:center;
-			max-width:75%;
-			margin: .5rem auto 2rem;
+		@media (max-width:768px){
+			font-size:1.3rem;
+			line-height:116%;
+			grid-row:1;
+			grid-column:2/3;
+			text-align:left;
+			justify-self:start;	
 		}
+	}
+	
 `
 //need to pull the icon by name
 const Items = (props) =>(
