@@ -114,6 +114,7 @@
 		&.nested{
 			display:block;
 			padding:0;
+			max-width:100%;
 			.nestedContentPanel{
 				display:grid;
 				grid-template:1fr/25% 75%;

@@ -126,6 +126,7 @@
 .contentPanel.selected.nested {
   display: block;
   padding: 0;
+  max-width: 100%;
 }
 
 .contentPanel.selected.nested .nestedContentPanel {
