@@ -29,7 +29,7 @@ const Main = styled.main`
 	display:grid;
 	grid-template:auto/1fr;
 	@media (min-width: 768px) {
-		grid-template:1fr/auto 350px;
+		grid-template:1fr/auto 315px;
 		padding-bottom:70px;
 	}
 
