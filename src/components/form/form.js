@@ -27,22 +27,26 @@ const StyledContainer = styled(Container)`
 	bottom:0;
 	grid-column:1;
 	order:20;
-	width:100%;
+
 	margin-top:0;
 	padding:0;
 	@media (min-width: 768px) {
 		grid-column:2/3;
 		grid-row:1;
-		left:calc(50% + 283px);
 		z-index:99;
+		right: 0px;
+		top: 0px;
+		position: fixed;
 	}
+	@media (max-width:768px){
+			width:100%!important;
+			}
 `
 const FormBox = styled.div`
 		padding:1.3rem 0;
-		
+
 		@media (min-width: 768px) {
-				position:fixed;
-				top:72px;
+			width:355px;
 			}
 `
 const FormRow = styled.div`
@@ -71,6 +75,12 @@ const CTASection = styled.p`
 	text-align:center;
 	a{
 		font-size:1.6rem;
+		font-weight:600;
+		text-decoration:none;
+		color:${props=>props.theme.brandblue};
+	}
+	span{
+		font-size:1.3rem;
 		font-weight:600;
 		text-decoration:none;
 		color:${props=>props.theme.brandblue};
@@ -142,6 +152,9 @@ const useStyles = makeStyles(theme => ({
 	},
 	textfield:{
 		background:'white'
+	},
+	container:{
+		width:'357px',
 	}
 	}));
 	
@@ -161,7 +174,7 @@ export default function FormPanel(props){
 		setProgram(event.target.value);
 	};
 	return(
-		 <StyledContainer component="section" maxWidth={false} disableGutters={true}>
+		 <StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container}>
 		      <CssBaseline />
 		      <Spacer id="leadform"/>
 		      <FormBox className={classes.paper}>
