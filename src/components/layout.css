@@ -51,7 +51,7 @@ h2 {
 
 h3 {
   font-size: 1.9375rem;
-  line-height: 1.4;
+  line-height: 1.25;
 }
 
 h4 {
@@ -62,14 +62,14 @@ h4 {
 p {
   margin-top: 0;
   margin-bottom: 1rem;
-  font-size: 1.2rem;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.4;
   text-rendering: optimizeLegibility;
 }
 
 li {
-  font-size: 1.2rem;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.4;
 }
 
 .show {
@@ -132,6 +132,11 @@ li {
 
 section {
   margin-top: 1rem;
+  padding: 2.5rem 1rem;
+}
+
+section section > section {
+  padding: 0;
 }
 
 /***SCREEN READER ONLY***/

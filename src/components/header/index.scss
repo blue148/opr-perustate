@@ -91,6 +91,37 @@ header{
 					text-align: center;
 					margin: 1rem auto;
 				}
+				&.menu-back{
+					a{
+						display:grid;
+						grid-template-columns: 17px 1fr;
+						&::before{
+							content: '\f053';
+						    display: block;
+						    width: 25px;
+						    height: 1rem;
+						    font-family: "Font Awesome 5 Free";
+						
+						}
+						&::after{
+							content:none;
+						}
+					}
+				}
+				&.top-level{
+					&> div a{
+						display:grid;
+						grid-template-columns:1fr 17px;
+						&::after{
+							content: '\f054';
+						    display: block;
+						    width: 25px;
+						    height: 1rem;
+						    font-family: "Font Awesome 5 Free";
+
+						} 
+					}
+				}
 			}
 		.menu-close{
 			position:absolute;

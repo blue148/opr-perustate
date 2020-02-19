@@ -6,7 +6,7 @@ import uiStyles from './ui.module.css';
 const ButtonLink = styled.a`
 	display:block;
 	@media (min-width:768px){
-	width:250px;
+	min-width:250px;
 	}
 `
 

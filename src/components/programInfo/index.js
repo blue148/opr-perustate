@@ -5,12 +5,27 @@ import './programInfo.scss';
 
 const ButtonArea = styled.div`
 	display:grid;
-	grid-template:1fr/auto;
+	grid-template-columns:1fr 1fr;
 	grid-auto-flow:column;
+	grid-auto-columns:1fr;
 	grid-column-gap:.5rem;
+	justify-content:center;
+	margin:2rem auto;
+	@media (min-width:768px){
+		grid-template-columns:max-content;
+		grid-auto-columns:max-content;
+	}
+		
 `
 const StyledButton = styled(Button)`
-
+	justify-self:center;
+	width:100%;
+	a{
+		width:auto;
+		@media (min-width:768px){
+			width:300px;
+		}
+	}
 
 `
 

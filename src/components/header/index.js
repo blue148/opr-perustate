@@ -16,7 +16,7 @@ const StyledHead = styled.header`
 	z-index:100;
 	height:72px;
 `
-const Container = styled.div`
+const Container=styled.div`
 	display:grid;
 	grid-template: 1fr/1fr 1fr;
 	max-width:1200px;
@@ -29,8 +29,8 @@ const LogoBox = styled.div`
 const ButtonContainer = styled.div`
 justify-self:end;
 padding-right:1rem;
+margin-right:1rem;
 	@media (max-width: 768px) {
-		justify-self:end;
 		.buttonField{
 			display:none;
 			}
@@ -51,7 +51,7 @@ const Hamburger = styled.a`
 	grid-row:1;
 	justify-self:end;
 	svg{
-		path{
+	path{
 			fill{
 				white;
 			}
@@ -75,12 +75,12 @@ export default class Header extends React.Component{
 	render(){
 		return(
 		<StyledHead>
-		  <Container>
+		<Container>
 		    <LogoBox>
 		      <Logo/>
 		    </LogoBox>
 		    <ButtonContainer>
-			    <Button label="Apply Now" theme="secondary"/>
+			    <Button label="Apply Now" theme="secondary" outlink="https://online.peru.edu/apply-now"/>
 				<Hamburger 
 					href="#" 
 					onClick={this.handleMenuToggle}
@@ -88,7 +88,7 @@ export default class Header extends React.Component{
 					className="menu-toggle" 
 					aria-label="Open main menu">
 					<span className="sr-only">Open</span>
-					<span className="fa-layers fa-fw">
+					<span className="">
 						
 						<FontAwesomeIcon icon={faBars} inverse size="3x" transform="shrink-6"/>
 					</span>
@@ -97,7 +97,7 @@ export default class Header extends React.Component{
 			</ButtonContainer>
 			
 			<MobileMenu {...this.props}/>
-			</Container>
+</Container>
 		  </StyledHead>
 		)
 	}

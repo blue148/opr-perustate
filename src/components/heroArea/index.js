@@ -19,7 +19,10 @@ const HeroBox = styled.section`
 	padding: 1rem;
 	position:relative;
 	@media (min-width:768px){
+		grid-template: auto 1fr/minmax(0, 850px);
+		justify-content: center;
 		padding:0;
+		margin-bottom:0;
 		background-image:${props=> `url(${props.backgroundImage})`};
 		&::before{
 			content:'';
@@ -33,12 +36,16 @@ const HeroBox = styled.section`
 		}
 		*{
 			z-index:3;
-			}
+		}
 `
 const HeroHeadline = styled.h1`
 	color:white;
 	z-index:2;
 	text-shadow:rgba(0,0,0,.5) -3px 3px 10px;
+	@media (min-width:768px){
+		margin: 2rem auto;
+		width: 100%;
+		}
 `
 const ItemsBox = styled.section`
 	display:grid;
@@ -49,7 +56,15 @@ const ItemsBox = styled.section`
 	width:65%;
 	margin:.8rem auto;
 	@media (min-width:768px){
-		grid-template:1fr/1fr 1fr 1fr;
+		 grid-template:1fr/repeat(3,33%);
+		 width: 100%;
+		 grid-auto-flow: column;
+		 grid-auto-columns: max-content;
+		 margin: 0 auto;
+		 padding:0;
+		 justify-self: center;
+		 grid-column-gap: 1rem;
+
 	}
 	
 `
@@ -62,6 +77,7 @@ const ItemStack = styled.div`
 	max-width:none;
 	width:100%;
 	margin: 0 auto 1rem;
+	padding:0;
 	z-index:2;
 	.iconBox{
 		grid-column:1/2;
@@ -70,8 +86,10 @@ const ItemStack = styled.div`
 		height:40px;
 		box-shadow: rgba(0,0,0,.5) -3px 3px 10px;
 		@media (min-width:768px){
-			width:75px;
-			height:75px;
+			width: 65px;
+			height: 65px;
+			grid-column: 1;
+			grid-row: 1/2;
 			}
 		background-color:white;
 		border-radius:50%;
@@ -80,8 +98,8 @@ const ItemStack = styled.div`
 		display:grid;
 		grid-template:1fr/1fr;
 		svg{
-			width:90%;
-			height:90%;
+			width:100%;
+			height:100%;
 			align-self:center;
 			justify-self:center;
 			grid-column:1;
@@ -99,12 +117,22 @@ const ItemStack = styled.div`
 		align-self:center;
 		margin-bottom:0;
 		text-shadow:rgba(0,0,0,.5) -3px 3px 10px;
+		@media (min-width:768px){
+			 text-align:center;
+			 justify-self:center;
+			 line-height: 1.2;
+			 grid-column: 1;
+			 grid-row: 2/3;
+			 max-width: 75%;
+
+			}
 	}
 	@media (min-width:768px){
-			grid-template-columns:100px 46%;
 			justify-items:center;
 			max-width:75%;
 			margin: .5rem auto 2rem;
+			grid-template-columns: 1fr;
+			grid-template-rows: 1fr 1fr;
 		}
 `
 const StyledButton = styled(Button)`

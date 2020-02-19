@@ -4,45 +4,65 @@ import styled from "styled-components"
 
 const ContentBox = styled.section`
 	display:grid;
+	width:105%;
+	padding:2rem 0;
+	margin:0 0 0 -.5rem;
+	@media (min-width:768px){
+		grid-template: auto/minmax(0,850px);
+		justify-content: center;
+	}
 `
 const Headline = styled.h3`
 	color:${props=>props.theme.brandblue};
 `
 const ItemsBox = styled.section`
 	display:grid;
-	grid-template:auto/100%;
-	justify-items:start;
-	justifyu-content:start;
-	width:90%;
+	grid-template-rows: 1fr;
+	grid-template-columns:repeat(auto-fill, 100px);
+	justify-items:center;
+	justify-content:center;
+	grid-auto-flow:column;
+	grid-auto-columns:100px;
+	grid-gap:2rem;
 	margin:0 auto;
+	padding:0;
+	width:100%;
+
 	@media (min-width:768px){
-		grid-template:1fr/1fr 1fr 1fr;
+	    padding: 0;
+	    width: 100%;
+	    grid-template-columns:repeat(auto-fit, 130px);
+	    grid-auto-flow: column;
+	    grid-auto-columns: 130px;
+	    justify-content: center;
 	}
 `
 const ItemStack = styled.div`
 	display:grid;
-	grid-template:130px auto/1fr;
 	grid-column-gap:1rem;
-	justify-items:center;
 	align-items:center;
-	max-width:none;
 	width:100%;
-	margin: 0 auto 1rem;
+	grid-template-columns:100px 46%;
+	justify-items:center;
+	margin: .5rem auto 2rem;
 	z-index:2;
+
 	.iconBox{
 		grid-row:1/2;
 		grid-column:1;
-		width:130px;
-		height:130px;
-		background-color:white;
-		border-radius:50%;
+		width:100px;
+		height:auto;
 		align-content:center;
 		justify-content:center;
 		display:grid;
 		grid-template:1fr/1fr;
+		@media (min-width:768px){
+			width:130px;
+			
+			}
 		img{
-			width:90%;
-			height:90%;
+			width:100%;
+			height:auto;
 			align-self:center;
 			justify-self:center;
 			grid-column:1;
@@ -59,10 +79,10 @@ const ItemStack = styled.div`
 		justify-self:center;
 	}
 	@media (min-width:768px){
-			grid-template-columns:100px 46%;
-			justify-items:center;
-			max-width:75%;
-			margin: .5rem auto 2rem;
+		grid-template:130px auto/1fr;
+		justify-items:center;
+		margin: 1rem auto;
+		max-width:none;
 		}
 `
 //need to pull the icon by name

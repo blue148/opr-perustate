@@ -7,7 +7,8 @@ const ContentBox = styled.section`
 	display:grid;
 	grid-template:auto/1fr;
 	@media (min-width:768px){
-		grid-template: 1fr/1fr 1fr;
+		grid-template: 1fr/minmax(0,30%) minmax(0,50%);
+		justify-content: center;
 	}
 	justify-items:center;
 	align-items:center;
@@ -19,6 +20,7 @@ const Content = styled.div`
 	font-size:1.6rem;
 	p, blockquote{
 		text-align:center;
+		line-height:1.3;
 		}
 	p{
 		span{

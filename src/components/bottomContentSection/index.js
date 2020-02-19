@@ -3,16 +3,23 @@ import styled from "styled-components"
 
 
 const MainBox = styled.section`
-	background-color:${props=>props.theme.shade};
+	background-color:${props=>props.theme.lightgray};
 	margin:0 -1rem -1rem;
-	padding:1rem;
+	@media (min-width:768px){
+		background-color:${props=>props.theme.shade};
+		
+		}
+	
 `
 const MainHeadline = styled.h3`
 	color:${props=>props.theme.brandblue};
 `
 const MainContent = styled.div`
-	max-width:75%;
 	margin:0 auto;
+	@media(min-width:768px){
+		width:95%;
+		max-width:850px;
+	}
 `
 
 export default class MainArea extends React.Component{

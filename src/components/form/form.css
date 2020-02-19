@@ -1,0 +1,13 @@
+/***BRAND COLORS AND STYLES***/
+/****COLORS****/
+/***FONTS***/
+.form-cta-group {
+  margin: 1rem auto;
+}
+
+.form-cta-group p {
+  text-align: center;
+  margin: 1rem auto;
+  font-weight: 600;
+  font-size: 1.3rem;
+}

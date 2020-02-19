@@ -1,4 +1,4 @@
-  
+ 
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`
 })
@@ -45,7 +45,18 @@ module.exports = {
 	      }
 	    }
 	  },
-	  `gatsby-plugin-sass`
+	  `gatsby-plugin-sass`,
+	  {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+	        `Material+Icons`,
+           `Roboto:300,400,500,700`
+        ],
+        display: 'swap'
+      }
+    }
+	  
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

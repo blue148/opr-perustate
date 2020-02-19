@@ -10,7 +10,7 @@ import Testimonial from "./testimonial"
 import Awards from "./awards"
 import Bottom from "./bottomContentSection"
 import Footer from "./footer"
-import FormPanel from "./form"
+import FormPanel from "./form/form"
 import styled, {ThemeProvider} from "styled-components"
 import "./layout.css"
 import Icons from "../images/symbol-defs.svg"
@@ -25,14 +25,12 @@ const Page = styled.div`
 	top:72px;
 `
 const Main = styled.main`
-	top:72px;
-	left:0;
-	right:0;
 	overflow:scroll;
 	display:grid;
 	grid-template:auto/1fr;
 	@media (min-width: 768px) {
 		grid-template:1fr/auto 350px;
+		padding-bottom:70px;
 	}
 
 `

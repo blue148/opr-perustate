@@ -8,7 +8,9 @@ const ContentBox = styled.section`
 	display:grid;
 	background-color:${props=>props.theme.shade};
 	margin:0 -1rem -1rem;
-	padding:1rem;
+	 grid-template: auto/minmax(0,850px);
+	 justify-items: center;
+	 justify-content: center;
 `
 const Headline = styled.h3`
 	color:${props=>props.theme.brandblue}
@@ -25,6 +27,7 @@ const ItemsBox = styled.section`
 		grid-template:1fr/1fr;
 		grid-auto-flow:column;
 		grid-auto-columns:1fr;
+		padding:0;
 	}
 `
 const ItemStack = styled.div`
@@ -69,19 +72,21 @@ const ItemStack = styled.div`
 	}
 	p{
 		color:black;
-		font-size:1.5rem;
 		font-weight: 800;
-		grid-row:2/3;
-		grid-column:1;
-		text-align:center;
-		justify-self:center;
-		@media (max-width:768px){
-			font-size:1.3rem;
-			line-height:116%;
-			grid-row:1;
-			grid-column:2/3;
-			text-align:left;
-			justify-self:start;	
+		font-size:1.3rem;
+		line-height:116%;
+		grid-row:1;
+		grid-column:2/3;
+		text-align:left;
+		justify-self:start;	
+		@media (min-width:768px){
+			font-size:1.5rem;
+			grid-row:2/3;
+			grid-column:1;
+			text-align:center;
+			justify-self:center;
+			line-height: 1.2;
+			margin: 1rem auto;	
 		}
 	}
 	

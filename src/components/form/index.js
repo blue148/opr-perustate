@@ -1,6 +1,15 @@
 import React from "react"
 import styled from "styled-components"
-import {Button} from '../uiElements'
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
+import './form.scss'
 
 const FormContainer = styled.section`
 	background-color:${props=>props.theme.shade};
@@ -38,11 +47,11 @@ const FormHeadline = styled.h2`
 	text-align:center;
 `
 const CTPAText = styled.div`
-margin-top:1rem;
-	p{
-	font-size:.6rem;
-	line-height:1rem;
-	}
+	margin-top:1rem;
+		p{
+			font-size:.6rem;
+			line-height:1rem;
+		}
 `
 const Spacer = styled.span`
  	display: block; 
@@ -52,8 +61,47 @@ const Spacer = styled.span`
 	  visibility: hidden; 
 	  pointer-events: none;
 `
-export default class FormPanel extends React.Component{
+
+const programOptions = [
+	{
+		key:'BSBA - ACCT',
+		text:'Business: Accounting',
+		value:'BSBA - ACCT'
+	},
+	{
+		key:'BSBA - CMIS',
+		text:'Business: Computer & Management Information Systems',
+		value:'BSBA - CMIS'		
+	},
+	{
+		key:'BSBA - HR',
+		text:'Business: Human Resources',
+		value:'BSBA - HR'
+	},
+	{
+		key:'BSBA - MGMT',
+		text:'Business: Management',
+		value:'BSBA - MGMT'
+	}
+]
+const SelectOptions =(props)=>(
 	
+	Object.keys(props).map((item,index)=>{
+		if(isNaN(item))return true;
+		return(<MenuItem value={props[index].value} key={index}>{props[index].text}</MenuItem>
+	)})
+)
+
+export default class FormPanel extends React.Component{
+	constructor(props){
+		super(props);
+		this.state={program:'',setProgram:'',labelWidth:0,setLabelWidth:0}
+	}
+		  
+	handleChange = event =>{
+		  this.setState({program:event.target.value})
+	}
+ 
 	render(){
 		const phone = (this.props.phone==null)?'(402) 902-3128':this.props.phone;
 		return(
@@ -61,8 +109,20 @@ export default class FormPanel extends React.Component{
 			 <Spacer id="leadform"/>
 			<FormBox>
 				<FormHeadline>{this.props.formheadline || 'Need More Information?'}</FormHeadline>
-					<form method="post" action="/" id="ContactForm" encType="multipart/form-data" className="form" noValidate="novalidate" data-ol-has-click-handler="">	
+					<form method="post" action="/" id="ContactForm" encType="multipart/form-data" className="form" noValidate="novalidate" data-ol-has-click-handler="">
+						<FormControl>
+					        <InputLabel id="demo-simple-select-label">Programs</InputLabel>
+					        <Select
+					          labelId="programs-label"
+					          id="programs"
+					          value={this.state.program}
+					          onChange={this.handleChange}
+					        >
+					          <SelectOptions {...programOptions}/>
+					        </Select>
+					      </FormControl>
 	                    <FormRow>
+	                    
 	                        <select name="programs" id="programs">
 	                            <option value="">Select Degree Program*</option>
 	                            <option value="" disabled="">-------------</option>	                            
@@ -105,15 +165,12 @@ export default class FormPanel extends React.Component{
 	                        <input type="hidden" name="education" id="education"/>
 	                    </div>
 		                <div className="form-cta-group">
-		                    <div className="errorMessageContainer">
-		                        <div className="errorMessage"><span className="allFieldsRequired">*All fields required.</span></div>
-		                    </div>
 		                    <div id="submitButtonContainer">
-		                        <Button label="Learn More"/>
-		                    </div>
-		                    <div>
-		                        or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>
-		                        <span className="desktop-only">{phone}</span>
+		                        <button label="Learn More"/>
+		                        <p>
+			                        or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>
+			                        <span className="desktop-only">{phone}</span>
+		                        </p>
 		                    </div>
 		                </div>
 		                <CTPAText>

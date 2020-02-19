@@ -10,6 +10,7 @@ import './index.scss'
 const StyledMobileMenu = styled.nav`
 `
 const CloseButton = styled.a`
+margin-bottom:.3rem;
 `
 const Overlay = styled.a`
 
@@ -189,7 +190,7 @@ export default class MobileMenu extends React.Component{
 						handleSlide={this.handleMenuSlide}
 						items={this.props}>
 						<li className="buttonArea">
-						    <Button label="Apply Now" theme="secondary"/>
+						    <Button label="Apply Now" theme="secondary" outlink="https://online.peru.edu/apply-now"/>
 						</li>
 					</MenuList>
 					
