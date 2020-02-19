@@ -3,7 +3,6 @@ import styled from "styled-components"
 import {
 	InputLabel,
 	MenuItem,
-	FormHelperText,
 	FormControl,
 	Select,
 	Button,
@@ -12,7 +11,6 @@ import {
 	Typography,
 	Box,
 	Grid,
-	Link,
 	FormControlLabel,
 	TextField,
 	CssBaseline,
@@ -44,7 +42,7 @@ const StyledContainer = styled(Container)`
 `
 const FormBox = styled.div`
 		padding:1.3rem 0;
-
+		top:72px;
 		@media (min-width: 768px) {
 			width:355px;
 			}
