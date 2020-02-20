@@ -14,8 +14,9 @@ import './tab.scss';
 
 ////TABS PANEL
 const TabsPanel = (props)=>{
-	const {direction,parent} = props||'';
+	const {direction,parent,title} = props||'';
 	
+	const titleLead = (title)?<li className="leader">{title}</li>:'';
 	const tabItems = Object.keys(props).map((tab, index)=>{
 		if(isNaN(tab))return true;
 		
@@ -39,7 +40,12 @@ const TabsPanel = (props)=>{
 			</li>
 		)
 	})
-	return <ul id={props.id} className={["tabPanel ",direction, props.viewport].join(' ')}>{tabItems}</ul>
+	return (
+		<ul id={props.id} className={["tabPanel ",direction, props.viewport].join(' ')}>
+			{titleLead}
+			{tabItems}
+		</ul>
+		)
 	
 }
 
@@ -168,7 +174,8 @@ export class NestedPanel extends React.Component{
 							onTabClick={this.props.onTabClick} 
 							onStateChange={this.props.onStateChange}
 							parent={this.slug}
-							viewport='desktop-only nested' 
+							viewport='desktop-only nested'
+							title={this.props.pageName} 
 						/>
 	
 						{subpanels}

@@ -12,10 +12,15 @@ const MainBox = styled.section`
 	
 `
 const MainHeadline = styled.h3`
-	color:${props=>props.theme.brandblue};
+
 `
 const MainContent = styled.div`
 	margin:0 auto;
+	*{
+		display:block;
+		text-align:center;
+		font-size:1rem;
+		}
 	@media(min-width:768px){
 		width:95%;
 		max-width:850px;

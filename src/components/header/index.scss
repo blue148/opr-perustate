@@ -26,6 +26,12 @@ a{
 }
 
 header{
+	background: #006699;
+	background: -moz-linear-gradient(top,  #006699 0%, #003478 150%);
+	background: -webkit-linear-gradient(top,  #006699 0%,#003478 150%);
+	background: linear-gradient(to bottom,  #006699 0%,#003478 150%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006699', endColorstr='#003478',GradientType=0 );
+
 	.button{
 		&#apply-now{
 			display:none;
@@ -179,6 +185,7 @@ header{
 		.button{
 			&#apply-now{
 				display:block;
+				box-shadow:1px 3px 6px rgba(0,0,0,.5);
 			}
 		}
 	}

@@ -1,5 +1,12 @@
 @import "../_variables";
 
+.desktop-shim{
+	@media (min-width:768px){
+		width:100%;
+		margin: 0 auto;
+		margin-right:calc(315px + 5%);
+	}
+}
 .hero-button{
 	width: 75vw;
 	@media (min-width:768px){

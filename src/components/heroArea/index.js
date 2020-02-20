@@ -15,13 +15,13 @@ const HeroBox = styled.section`
 	background: -moz-linear-gradient(78deg, ${props=>props.theme.brandmediumblue} -2%,${props=>props.theme.brandblue} 50%,${props=>props.theme.brandmediumblue} 91%);
 	background: -webkit-linear-gradient(78deg, ${props=>props.theme.brandmediumblue} -2%,${props=>props.theme.brandblue} 50%,${props=>props.theme.brandmediumblue} 91%);
 	background: linear-gradient(78deg, ${props=>props.theme.brandmediumblue} -2%,${props=>props.theme.brandblue} 50%,${props=>props.theme.brandmediumblue} 91%);
-	margin: 0 -1rem 1.8375rem;
+	margin: 0 -1rem 0;
 	padding: 1rem;
 	position:relative;
 	@media (min-width:768px){
 		grid-template: auto 1fr/minmax(0, 850px);
 		justify-content: center;
-		padding:0;
+		padding:1.5rem 0;
 		margin-bottom:0;
 		background-image:${props=> `url(${props.backgroundImage})`};
 		&::before{
@@ -54,7 +54,9 @@ const ItemsBox = styled.section`
 	justify-items:start;
 	justify-content:start;
 	width:65%;
-	margin:.8rem auto;
+	margin: 0 auto;
+    padding: 2rem 0;
+    grid-row-gap: 2rem;
 	@media (min-width:768px){
 		 grid-template:1fr/repeat(3,33%);
 		 width: 100%;
@@ -70,8 +72,8 @@ const ItemsBox = styled.section`
 `
 const ItemStack = styled.div`
 	display:grid;
-	grid-template-columns:41px 1fr;
-	grid-column-gap:.5rem;
+	grid-template-columns:60px 1fr;
+	grid-column-gap:1.2rem;
 	justify-items:start;
 	align-items:center;
 	max-width:none;
@@ -82,8 +84,8 @@ const ItemStack = styled.div`
 	.iconBox{
 		grid-column:1/2;
 		grid-row:1;
-		width:40px;
-		height:40px;
+		width:60px;
+		height:60px;
 		box-shadow: rgba(0,0,0,.5) -3px 3px 10px;
 		@media (min-width:768px){
 			width: 65px;
@@ -108,7 +110,8 @@ const ItemStack = styled.div`
 	}
 	p{
 		color:white;
-		font-size:1.2rem;
+		font-size:1.43rem;
+		line-height:1.2;
 		font-weight: 800;
 		grid-column:2/3;
 		grid-row:1;
@@ -169,10 +172,12 @@ export default class HeroArea extends React.Component{
 		const imgBg = (image)?image.fields.file.en_US.url:'';
 		return(
 			<HeroBox key={this.props.index} backgroundImage={imgBg} className="HeroBox">
-                <HeroHeadline dangerouslySetInnerHTML={{__html:headline}} className="HeroHeadline"/>
-				<Items {...items}/>
-
-				<StyledButton label="Learn More" theme="primary" jumplink="leadform" className="hero-button"/>
+				<div className="desktop-shim">
+	                <HeroHeadline dangerouslySetInnerHTML={{__html:headline}} className="HeroHeadline"/>
+					<Items {...items}/>
+	
+					<StyledButton label="Learn More" theme="primary" jumplink="leadform" className="hero-button"/>
+				</div>
               </HeroBox>
 			
 		)

@@ -3,10 +3,13 @@ import styled from "styled-components"
 
 
 const MainBox = styled.section`
-margin-top:0;
+	margin-top:0;
+	@media(min-width:768px){
+		margin-right:calc(315px + 5%);
+	}
 `
 const MainHeadline = styled.h2`
-	color:${props=>props.theme.brandblue};
+
 `
 const MainContent = styled.div`
 	margin:0 auto;

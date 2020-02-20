@@ -22,14 +22,14 @@ const Page = styled.div`
 	position:fixed;
 	overflow:scroll;
 	height:100vh;
-	top:72px;
+	top:90px;
 `
 const Main = styled.main`
 	overflow:scroll;
 	display:grid;
 	grid-template:auto/1fr;
 	@media (min-width: 768px) {
-		grid-template:1fr/auto 315px;
+		grid-template:1fr/auto;
 		padding-bottom:70px;
 	}
 

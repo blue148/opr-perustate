@@ -6,11 +6,17 @@
   max-width: 850px;
 }
 
+@media (min-width: 768px) {
+  .tabbedArea {
+    margin-right: calc(315px + 5%);
+  }
+}
+
 .tabPanel {
   display: grid;
-  grid-template-rows: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 20%));
   grid-auto-flow: column;
-  grid-auto-rows: max-content;
+  grid-auto-columns: minmax(100px, 20%);
   justify-items: center;
   align-items: center;
   list-style: none;
@@ -26,12 +32,17 @@
   border-top: none;
   width: 100%;
   height: 100%;
-  text-align: center;
+  text-align: left;
   font-weight: 500;
-  font-size: 1.1rem;
+  font-size: .9rem;
   color: #333;
   display: grid;
   align-items: center;
+}
+
+.tabPanel li:hover, .tabPanel li:focus {
+  background-color: #003478;
+  color: white;
 }
 
 .tabPanel li a {
@@ -40,8 +51,9 @@
   font-size: inherit;
   line-height: 1.2;
   display: block;
-  padding: .8rem;
+  padding: 0.2rem 0.8rem;
   color: inherit;
+  text-transform: uppercase;
 }
 
 .tabPanel li:first-child {
@@ -69,24 +81,38 @@
   border-left: none;
   border-right: none;
   border-bottom: solid 1px #cccccc;
+  font-size: .8rem;
   font-weight: 500;
   display: grid;
 }
 
-.tabPanel.vertical li:first-child {
-  border-top: solid 1px #cccccc;
+.tabPanel.vertical li.leader {
+  border: none;
+  text-transform: uppercase;
+  font-size: .9rem;
+  padding: 0.3rem 0.5rem;
+  font-weight: 900;
+}
+
+.tabPanel.vertical li.leader:hover, .tabPanel.vertical li.leader:focus {
+  background-color: inherit;
+  color: inherit;
 }
 
 .tabPanel.vertical li a {
   display: block;
   padding: 1rem 0 1rem 0.5rem;
-  font-size: .95rem;
-  line-height: 1.3;
+  font-size: inherit;
+  line-height: inherit;
 }
 
 .tabPanel.vertical li.selected {
   border-top: solid 1px #cccccc;
   background-color: #f4f4f4;
+}
+
+.tabPanel.vertical li.selected:hover, .tabPanel.vertical li.selected:focus {
+  pointer-events: none;
 }
 
 .tabPanel.vertical li.selected::after {
@@ -103,7 +129,7 @@
 }
 
 .tabPanel .selected {
-  background: #e5e5e5;
+  background-color: #e5e5e5;
   color: #0e356f;
   font-weight: 600;
 }
@@ -111,6 +137,10 @@
 .tabPanel .selected a {
   color: inherit;
   font-weight: 600;
+}
+
+.tabPanel .selected:hover, .tabPanel .selected:focus {
+  pointer-events: none;
 }
 
 .contentPanel {
@@ -175,6 +205,7 @@
     display: grid;
     grid-template-columns: 1fr 30px;
     align-items: center;
+    justify-items: start;
   }
   .contentPanel > .accordion-trigger::after {
     display: block;
@@ -185,12 +216,14 @@
     color: #0e356f;
   }
   .contentPanel > .accordion-trigger h4.tab {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 600;
     background-color: transparent;
     margin: 0 auto;
-    line-height: 100%;
-    padding: 1rem 0.5rem;
+    line-height: 1.2;
+    padding: 0.8rem 0.5rem;
+    text-align: left;
+    width: 100%;
   }
   .contentPanel p, .contentPanel li {
     font-size: 1rem;
@@ -247,7 +280,8 @@
     border-bottom: solid 1px #e5e5e5;
     margin: 0 auto;
     width: 100%;
-    padding: 0.8rem 0.5rem;
+    padding: 0.8rem 0.5rem 0.8rem 1.7rem;
+    line-height: 1.3;
   }
   .contentPanel.nested .nestedContentPanel .contentPanel.selected h4.tab {
     color: #666;

@@ -13,7 +13,7 @@ const ContentBox = styled.section`
 	 justify-content: center;
 `
 const Headline = styled.h3`
-	color:${props=>props.theme.brandblue}
+	
 `
 const ItemsBox = styled.section`
 	display:grid;
@@ -72,7 +72,7 @@ const ItemStack = styled.div`
 	}
 	p{
 		color:black;
-		font-weight: 800;
+		font-weight: 500;
 		font-size:1.3rem;
 		line-height:116%;
 		grid-row:1;
@@ -80,7 +80,7 @@ const ItemStack = styled.div`
 		text-align:left;
 		justify-self:start;	
 		@media (min-width:768px){
-			font-size:1.5rem;
+			font-size:1.2rem;
 			grid-row:2/3;
 			grid-column:1;
 			text-align:center;

@@ -32,7 +32,7 @@ const StyledContainer = styled(Container)`
 		grid-column:2/3;
 		grid-row:1;
 		z-index:99;
-		right: 0px;
+		right: 2%;
 		top: 0px;
 		position: fixed;
 	}
@@ -59,8 +59,9 @@ const FormRow = styled.div`
 `
 const FormHeadline = styled.h2`
 	text-align:center;
-	margin-bottom:2rem;
-	color:${props=>props.theme.brandblue};
+	margin:1rem auto;
+	line-height:1.4;
+	font-size:1.7rem;
 `
 const CTPAText = styled.div`
 	margin-top:1rem;
@@ -181,9 +182,9 @@ export default function FormPanel(props){
 		          Need More Information?
 		        </FormHeadline>
 		        <form className={classes.form} noValidate>
-		          <Grid container spacing={2}>
+		          <Grid container spacing={1}>
 		            <Grid item xs={12}>
-		            	<FormControl className={classes.formControl} variant='outlined'>
+		            	<FormControl className={classes.formControl} variant='outlined' margin='dense'>
 					        <InputLabel id="programs-label">Select a Program</InputLabel>
 					        <Select
 					          labelId="programs-label"
@@ -197,7 +198,7 @@ export default function FormPanel(props){
 					        </Select>
 				      </FormControl>
 		            </Grid>
-		            <Grid item xs={12}>
+		            <Grid item xs={12} >
 		              <TextField
 		                autoComplete="fname"
 		                name="name"
@@ -206,6 +207,7 @@ export default function FormPanel(props){
 		                fullWidth
 		                id="name"
 		                label="First Name"
+		                margin='dense'
 		                
 		                 className={classes.textfield}
 		              />
@@ -219,6 +221,7 @@ export default function FormPanel(props){
 		                label="Last Name"
 		                name="lastname"
 		                autoComplete="lname"
+		                margin='dense'
 		                className={classes.textfield}
 		              />
 		            </Grid>
@@ -231,6 +234,7 @@ export default function FormPanel(props){
 		                label="Email Address"
 		                name="email"
 		                autoComplete="email"
+		                margin='dense'
 		                 className={classes.textfield}
 		              />
 		            </Grid>
@@ -242,6 +246,7 @@ export default function FormPanel(props){
 		                id="phone"
 		                label="Phone"
 		                name="phone"
+		                margin='dense'
 		                 className={classes.textfield}
 		              />
 		            </Grid>

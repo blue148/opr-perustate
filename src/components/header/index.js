@@ -8,13 +8,12 @@ import {Button} from '../uiElements'
 import './index.scss'
 
 const StyledHead = styled.header`
-	background-color:${props=>props.theme.brandblue};
 	position:fixed;
 	top:0;
 	left:0;
 	right:0;
 	z-index:100;
-	height:72px;
+	height:90px;
 `
 const Container=styled.div`
 	display:grid;
@@ -22,6 +21,7 @@ const Container=styled.div`
 	max-width:1200px;
 	margin: 0 auto;
 	align-items:center;
+	height:100%;
 `
 const LogoBox = styled.div`
 	width:200px;
@@ -80,7 +80,7 @@ export default class Header extends React.Component{
 		      <Logo/>
 		    </LogoBox>
 		    <ButtonContainer>
-			    <Button label="Apply Now" theme="secondary" outlink="https://online.peru.edu/apply-now"/>
+			    <Button label="Apply Now" theme="secondary" className="apply-now header-item" outlink="https://online.peru.edu/apply-now"/>
 				<Hamburger 
 					href="#" 
 					onClick={this.handleMenuToggle}

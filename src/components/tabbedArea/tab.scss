@@ -3,12 +3,15 @@
 .tabbedArea{
 	margin:2rem auto;
 	max-width:850px;
+	@media (min-width:768px){
+		margin-right:calc(315px + 5%);
+	}
 }
 .tabPanel{
 	display:grid;
-	grid-template-rows: 1fr;
+	grid-template-columns:repeat(auto-fit, minmax(100px,20%));
 	grid-auto-flow:column;
-	grid-auto-rows:max-content;
+	grid-auto-columns:minmax(100px,20%);
 	justify-items:center;
 	align-items:center;
 	list-style:none;
@@ -23,21 +26,26 @@
 		border-top:none;
 		width:100%;
 		height:100%;
-		text-align: center;
+		text-align: left;
 		font-weight: 500;
-		font-size: 1.1rem;
+		font-size: .9rem;
 		color:#333;
 		display: grid;
 		align-items:center;
-		
+		&:hover,&:focus{
+			background-color:$brandmediumblue;
+			color:white;
+		}
 		a{
 			text-decoration: none;
 			font-weight: inherit;
 			font-size: inherit;
 			line-height:1.2;
 			display: block;
-			padding:.8rem;
-			color:inherit;
+			padding: .2rem .8rem;
+		    color: inherit;
+		    text-transform: uppercase;
+
 		}
 		&:first-child{
 			border-left:none;
@@ -62,20 +70,32 @@
 			border-left:none;
 			border-right:none;
 			border-bottom:solid 1px $lightgray;
+			font-size:.8rem;
 			font-weight:500;
 			display:grid;
-			&:first-child{
-				border-top:solid 1px $lightgray;
+			&.leader{
+				border:none;
+				text-transform: uppercase;
+				font-size:.9rem;
+				padding: .3rem .5rem;
+				font-weight: 900;
+				&:hover,&:focus{
+					background-color:inherit;
+					color: inherit;
+				}
 			}
 			a{
 				display: block;
 				padding:1rem 0 1rem .5rem;
-				font-size: .95rem;
-				line-height: 1.3;
+				font-size: inherit;
+				line-height: inherit;
 			}
 			&.selected{
 				border-top:solid 1px $lightgray;
 				background-color:#f4f4f4;
+				&:hover,&:focus{
+					pointer-events: none;
+				}
 
 				&::after{
 					content:'';
@@ -94,7 +114,7 @@
 		}
 	}
 	.selected{
-		background:$perulightgray;
+		background-color:$perulightgray;
 		color:$secondaryblue;
 		font-weight:600;
 		a{
@@ -102,6 +122,9 @@
 			font-weight:600;
 			
 		}
+		&:hover,&:focus{
+					pointer-events: none;
+				}
 	}
 	
 	
@@ -163,6 +186,7 @@
 			display: grid;
 			grid-template-columns: 1fr 30px;
 			align-items: center;
+			justify-items: start;
 			&::after{
 				display: block;
 			    font-family: "Font Awesome 5 Free";
@@ -174,12 +198,14 @@
 			}
 			h4{
 				&.tab{
-					font-size:1.4rem;
+					font-size:1.2rem;
 					font-weight:600;
 					background-color:transparent;
 					margin:0 auto;
-					line-height: 100%;
-					padding: 1rem .5rem;
+					line-height: 1.2;
+					padding: .8rem .5rem;
+					text-align: left;
+					width:100%;
 				}
 			}
 		}
@@ -249,7 +275,8 @@
 							border-bottom: solid 1px $perulightgray;
 							margin:0 auto;
 							width:100%;
-							padding:.8rem .5rem;
+							padding:.8rem .5rem .8rem 1.7rem;
+							line-height:1.3;
 						}
 					}
 					

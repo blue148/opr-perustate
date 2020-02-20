@@ -5,15 +5,16 @@ import styled from "styled-components"
 const ContentBox = styled.section`
 	display:grid;
 	width:105%;
-	padding:2rem 0;
+	padding:3rem 0;
 	margin:0 0 0 -.5rem;
+	background-color:white;
 	@media (min-width:768px){
 		grid-template: auto/minmax(0,850px);
 		justify-content: center;
 	}
 `
 const Headline = styled.h3`
-	color:${props=>props.theme.brandblue};
+	margin:0 auto 2rem;
 `
 const ItemsBox = styled.section`
 	display:grid;

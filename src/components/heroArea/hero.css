@@ -1,6 +1,14 @@
 /***BRAND COLORS AND STYLES***/
 /****COLORS****/
 /***FONTS***/
+@media (min-width: 768px) {
+  .desktop-shim {
+    width: 100%;
+    margin: 0 auto;
+    margin-right: calc(315px + 5%);
+  }
+}
+
 .hero-button {
   width: 75vw;
 }

@@ -22,10 +22,20 @@ const Content = styled.div`
 		text-align:center;
 		line-height:1.3;
 		}
+	blockquote{
+		font-size:1.5rem;
+		border-bottom:solid 1px ${props=>props.theme.lightgray};
+		padding-bottom:1.8rem;
+		font-weight:400;
+		@media (min-width:768px){
+			padding-bottom:0;
+			border-bottom:none;
+		}
+	}
 	p{
 		span{
+		font-size:1.2rem;
 		font-weight:600;
-		font-style:italic;
 		}
 	}
 `
