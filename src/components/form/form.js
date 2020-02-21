@@ -164,7 +164,7 @@ const useStyles = makeStyles(theme => ({
 export default function FormPanel(props){
 	const phone = (props.phone==null)?'(402) 902-3128':props.phone;
 	const headline = props.headline;
-	const cleanHeadline = headline.replace(/(<([/fp]+)>)/ig,"");//remove and p and f tags to clean up the code.
+	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
 	const classes = useStyles();
 	const [program, setProgram] = React.useState('');
 
