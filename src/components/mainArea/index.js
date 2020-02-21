@@ -1,12 +1,10 @@
 import React from "react"
 import styled from "styled-components"
+import './main-area.scss'
 
 
 const MainBox = styled.section`
 	margin-top:0;
-	@media(min-width:768px){
-		margin-right:calc(315px + 5%);
-	}
 `
 const MainHeadline = styled.h2`
 
@@ -26,9 +24,11 @@ export default class MainArea extends React.Component{
 		const { headline, content}= this.props
 		return(
 			<MainBox className="mainArea">
-                <MainHeadline dangerouslySetInnerHTML={{__html:headline}}/>
-                <MainContent dangerouslySetInnerHTML={{__html:content}}/>
-              </MainBox>
+				<div className="desktop-shim">
+	                <MainHeadline dangerouslySetInnerHTML={{__html:headline}}/>
+	                <MainContent dangerouslySetInnerHTML={{__html:content}}/>
+				</div>
+			</MainBox>
 			
 		)
 	}

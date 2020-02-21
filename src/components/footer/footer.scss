@@ -1,0 +1,27 @@
+@import '../_variables.scss';
+
+.footer{
+	display:grid;
+	grid-template: auto/1fr;
+	grid-row-gap:1rem;
+	grid-auto-flow:row;
+	align-items:center;
+	justify-items:center;
+		padding: 1rem;
+	margin-bottom:125px;
+
+	@media (min-width:768px){
+		@include section-shim;
+		margin-bottom:0;
+		padding-bottom:2rem;
+		.desktop-shim{
+		
+			display:grid;
+			grid-template: 1fr/1fr auto;
+			grid-column:1/2;
+			justify-items:start;
+		
+		}
+	}
+
+}

@@ -70,10 +70,12 @@ const PanelContent = (props)=>{
 	return (
 		<>
 			<h3>{props.pageName}</h3>
-			<Info {...props}/>
-			<div className="program-info program-info-dates">
-				<Dates title="Apply By" items={props.applyBy}/>
-				<Dates title="Start Classes" items={props.startClasses}/>
+			<div className="program-details-area">
+				<Info {...props}/>
+				<div className="program-info program-info-dates">
+					<Dates title="Apply By" items={props.applyBy}/>
+					<Dates title="Start Classes" items={props.startClasses}/>
+				</div>
 			</div>
 			<div className="program-info-details" dangerouslySetInnerHTML={{__html:props.programDetails.content}}/>
 			<ButtonArea>

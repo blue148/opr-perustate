@@ -1,0 +1,10 @@
+/***BRAND COLORS AND STYLES***/
+/****COLORS****/
+/***FONTS***/
+@media (min-width: 768px) {
+  .mainArea {
+    display: grid;
+    grid-template-columns: minmax(0, 850px) calc(315px + 5%);
+    justify-content: center;
+  }
+}

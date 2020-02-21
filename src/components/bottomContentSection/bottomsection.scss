@@ -1,0 +1,7 @@
+@import '../_variables.scss';
+
+.bottomsection{
+	@media (min-width:768px){
+		@include section-shim;
+	}
+}

@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import './awards.scss';
 
 
 const ContentBox = styled.section`
@@ -8,10 +9,6 @@ const ContentBox = styled.section`
 	padding:3rem 0;
 	margin:0 0 0 -.5rem;
 	background-color:white;
-	@media (min-width:768px){
-		grid-template: auto/minmax(0,850px);
-		justify-content: center;
-	}
 `
 const Headline = styled.h3`
 	margin:0 auto 2rem;
@@ -32,7 +29,7 @@ const ItemsBox = styled.section`
 	@media (min-width:768px){
 	    padding: 0;
 	    width: 100%;
-	    grid-template-columns:repeat(auto-fit, 130px);
+	    grid-template-columns:repeat(auto-fit,minmax(130px, 30%));
 	    grid-auto-flow: column;
 	    grid-auto-columns: 130px;
 	    justify-content: center;
@@ -115,9 +112,11 @@ export default class Awards extends React.Component{
 	render(){
 		const {headline, items} = this.props
 		return(
-			<ContentBox key={this.props.index}>
+			<ContentBox className="awards-area">
+				<div className="desktop-shim">
                 <Headline dangerouslySetInnerHTML={{__html:headline}}/>
 				<Items {...items}/>
+				</div>
               </ContentBox>
 			
 		)

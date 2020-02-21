@@ -7,9 +7,6 @@ import './hero.scss';
 
 const HeroBox = styled.section`
 	color:white;
-	display:grid;
-	grid-template: auto 1fr/1fr;
-	justify-items:center;
 	background-image: none;
 	background-color:${props=>props.theme.brandmediumblue};
 	background: -moz-linear-gradient(78deg, ${props=>props.theme.brandmediumblue} -2%,${props=>props.theme.brandblue} 50%,${props=>props.theme.brandmediumblue} 91%);
@@ -19,8 +16,6 @@ const HeroBox = styled.section`
 	padding: 1rem;
 	position:relative;
 	@media (min-width:768px){
-		grid-template: auto 1fr/minmax(0, 850px);
-		justify-content: center;
 		padding:1.5rem 0;
 		margin-bottom:0;
 		background-image:${props=> `url(${props.backgroundImage})`};

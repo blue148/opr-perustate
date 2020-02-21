@@ -1,27 +1,16 @@
 /***BRAND COLORS AND STYLES***/
 /****COLORS****/
 /***FONTS***/
-.HeroBox {
-  display: grid;
-  grid-template: auto 1fr/1fr;
+.awards-area {
+  grid-template: auto/minmax(0, 850px);
   justify-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {
-  .HeroBox {
+  .awards-area {
     display: grid;
     grid-template-columns: minmax(0, 850px) calc(315px + 5%);
     justify-content: center;
-  }
-}
-
-.hero-button {
-  width: 75vw;
-}
-
-@media (min-width: 768px) {
-  .hero-button {
-    width: auto;
-    display: none;
   }
 }

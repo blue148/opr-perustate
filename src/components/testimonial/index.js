@@ -1,17 +1,10 @@
 import React from "react"
 import styled from "styled-components"
+import './testimonial.scss'
 
 
 const ContentBox = styled.section`
 	color:white;
-	display:grid;
-	grid-template:auto/1fr;
-	@media (min-width:768px){
-		grid-template: 1fr/minmax(0,30%) minmax(0,50%);
-		justify-content: center;
-	}
-	justify-items:center;
-	align-items:center;
 	background-color:${props=>props.theme.mediumgray};
 	margin: 0 -1rem;
 `
@@ -57,12 +50,14 @@ export default class Testimonial extends React.Component{
 		const {image, content} = this.props.testimonial||this.props;
 		const imgBg = (image)?image.fields.file.en_US.url:'';
 		return(
-			<ContentBox key={this.props.index}>
-				<ImageBox>
-					<img src={imgBg} alt="testimonial"/>
-				</ImageBox>
-                <Content dangerouslySetInnerHTML={{__html:content}}/>
-              </ContentBox>
+			<ContentBox className="testimonialarea">
+				<div className="desktop-shim">
+					<ImageBox>
+						<img src={imgBg} alt="testimonial"/>
+					</ImageBox>
+	                <Content dangerouslySetInnerHTML={{__html:content}}/>
+				</div>
+			</ContentBox>
 			
 		)
 	}

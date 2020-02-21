@@ -131,12 +131,18 @@ li {
 }
 
 section {
-  margin-top: 1rem;
-  padding: 2.5rem 1rem;
+  padding: 3rem 1rem 3rem;
 }
 
 section section > section {
   padding: 0;
+}
+
+@media (min-width: 768px) {
+  .desktop-shim {
+    width: 100%;
+    margin: 0 auto;
+  }
 }
 
 /***SCREEN READER ONLY***/

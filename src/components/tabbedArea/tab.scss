@@ -1,10 +1,8 @@
 @import "../_variables";
 
 .tabbedArea{
-	margin:2rem auto;
-	max-width:850px;
 	@media (min-width:768px){
-		margin-right:calc(315px + 5%);
+		@include section-shim;
 	}
 }
 .tabPanel{

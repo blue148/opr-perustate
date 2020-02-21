@@ -240,21 +240,23 @@ export default class TabbedArea extends React.Component{
 		
 		//console.log(this.props,' main')
 		return(
-			<div id="tabbedArea" className="tabbedArea">
-				<TabsPanel {...this.props} 
-					active={this.state.activeTab}
-					onStateChange = {this.handleStateChange}
-					onTabClick={this.handleTabClick}
-					id="tabPanelTop"
-					viewport="desktop-only"
-				/>
-				
-				<ContentPanelContainer 
-					active={this.state}
-					onStateChange = {this.handleStateChange}
-					onHeaderClick={this.handleHeaderClick}
-					{...this.props}/>
-			</div>				
+			<section id="tabbedArea" className="tabbedArea">
+				<div className="desktop-shim">
+					<TabsPanel {...this.props} 
+						active={this.state.activeTab}
+						onStateChange = {this.handleStateChange}
+						onTabClick={this.handleTabClick}
+						id="tabPanelTop"
+						viewport="desktop-only"
+					/>
+					
+					<ContentPanelContainer 
+						active={this.state}
+						onStateChange = {this.handleStateChange}
+						onHeaderClick={this.handleHeaderClick}
+						{...this.props}/>
+				</div>
+			</section>				
 			
 		)
 	}

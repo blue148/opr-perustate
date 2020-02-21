@@ -1,3 +1,21 @@
+/***BRAND COLORS AND STYLES***/
+/****COLORS****/
+/***FONTS***/
+.accolades {
+  grid-template-columns: minmax(0, 850px);
+  grid-template-rows: auto;
+  justify-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .accolades {
+    display: grid;
+    grid-template-columns: minmax(0, 850px) calc(315px + 5%);
+    justify-content: center;
+  }
+}
+
 @media (max-width: 768px) {
   .IconBox {
     grid-template: 1fr/75px 1fr;

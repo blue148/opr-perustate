@@ -1,6 +1,15 @@
 /***BRAND COLORS AND STYLES***/
 /****COLORS****/
 /***FONTS***/
+@media (min-width: 768px) {
+  .program-details-area {
+    display: grid;
+    grid-template: 1fr/1fr 1fr;
+    margin: 2rem 0;
+    align-items: start;
+  }
+}
+
 .program-info {
   display: grid;
   grid-template: auto/1fr;
@@ -17,6 +26,7 @@
   .program-info {
     grid-template: auto/1fr 1fr 1fr;
     grid-column-gap: 1.5rem;
+    border-bottom: none;
   }
 }
 
@@ -26,6 +36,9 @@
 }
 
 @media (min-width: 768px) {
+  .program-info p {
+    text-align: left;
+  }
   .program-info p strong {
     display: inline;
   }
@@ -39,7 +52,16 @@
 .program-info.program-info-area {
   padding: 1.3rem 0;
   justify-content: center;
-  grid-template: 1fr/ max-content auto auto;
+  grid-template: 1fr/max-content auto auto;
+}
+
+@media (min-width: 768px) {
+  .program-info.program-info-area {
+    grid-template: auto/1fr;
+    grid-auto-flow: row;
+    justify-items: start;
+    padding: 0;
+  }
 }
 
 .program-info.program-info-dates {
@@ -53,6 +75,10 @@
 @media (min-width: 768px) {
   .program-info.program-info-dates {
     grid-column-gap: 2rem;
+    grid-template: auto/1fr;
+    justify-items: end;
+    border-left: solid 1px #cccccc;
+    padding: 0;
   }
 }
 

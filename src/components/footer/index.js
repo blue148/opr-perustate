@@ -1,26 +1,12 @@
 import React from "react"
 import styled from "styled-components"
 import Logo from "../../images/peru-logo-online-final.svg"
+import './footer.scss'
 
 const StyledFooter = styled.footer`
 	background-color:${props=>props.theme.brandmediumblue};
 	color:${props=>props.theme.primaryblue};
-	display:grid;
-	grid-template: auto/1fr;
-	grid-row-gap:1rem;
-	grid-auto-flow:row;
-	align-items:center;
-	justify-items:center;
 	order:25;
-	padding: 1rem;
-	margin-bottom:125px;
-	@media (min-width: 768px) {	
-		margin-bottom:0;
-		grid-template: 1fr/1fr auto;
-		grid-column:1/2;
-		justify-items:start;
-
-	}
 `
 const LogoBox = styled.div`
 	width:150px;
@@ -51,7 +37,8 @@ export default class Footer extends React.Component{
 
 	render(){
 		return(
-		  <StyledFooter>
+		  <StyledFooter className="footer">
+		  <div className="desktop-shim">
 		    <LogoBox>
 		    	<Logo/>
 		    </LogoBox>
@@ -62,6 +49,7 @@ export default class Footer extends React.Component{
 				 <p><a href="https://www.peru.edu/titleix/" target="_blank">Title IX</a></p>
 				 <p>A Proud Member of the <a href="https://www.nscs.edu/" target="_blank">Nebraska State College System</a></p>
 			</LinkBox>
+			</div>
 		  </StyledFooter>
 		)
 	}

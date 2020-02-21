@@ -1,0 +1,21 @@
+@import '../_variables.scss';
+
+.testimonialarea{
+
+	@media (min-width:768px){
+		&::before{
+			content: '';
+			height: 0;
+			width: 2000px;
+			grid-column: 1/3;
+			grid-row: 1;
+			display: block;
+		}
+		@include section-shim;
+		grid-template-rows:1px auto;
+		.desktop-shim{
+			display:grid;
+			grid-template:1fr/300px auto;
+		}
+	}
+}

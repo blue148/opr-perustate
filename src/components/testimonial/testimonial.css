@@ -1,0 +1,23 @@
+/***BRAND COLORS AND STYLES***/
+/****COLORS****/
+/***FONTS***/
+@media (min-width: 768px) {
+  .testimonialarea {
+    display: grid;
+    grid-template-columns: minmax(0, 850px) calc(315px + 5%);
+    justify-content: center;
+    grid-template-rows: 1px auto;
+  }
+  .testimonialarea::before {
+    content: '';
+    height: 0;
+    width: 2000px;
+    grid-column: 1/3;
+    grid-row: 1;
+    display: block;
+  }
+  .testimonialarea .desktop-shim {
+    display: grid;
+    grid-template: 1fr/300px auto;
+  }
+}

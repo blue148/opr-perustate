@@ -1,7 +1,18 @@
+@import '../_variables.scss';
 
+
+.accolades{
+	grid-template-columns: minmax(0,850px);
+	grid-template-rows:auto;
+	justify-items: center;
+	justify-content: center;
+	@media (min-width:768px){
+		@include section-shim;
+	}
+}
 
 @media (max-width:768px){
-	.IconBox{
+		.IconBox{
 		grid-template:1fr/75px 1fr;
 		.iconBox{
 			width:75px;

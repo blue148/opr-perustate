@@ -1,0 +1,7 @@
+@import "../_variables";
+
+.mainArea{
+	@media (min-width:768px){
+		@include section-shim;
+	}
+}

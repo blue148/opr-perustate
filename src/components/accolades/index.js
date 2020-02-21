@@ -8,9 +8,6 @@ const ContentBox = styled.section`
 	display:grid;
 	background-color:${props=>props.theme.shade};
 	margin:0 -1rem -1rem;
-	 grid-template: auto/minmax(0,850px);
-	 justify-items: center;
-	 justify-content: center;
 `
 const Headline = styled.h3`
 	
@@ -113,9 +110,11 @@ export default class Accolades extends React.Component{
 	render(){
 		const {headline, items} = this.props
 		return(
-			<ContentBox key={this.props.index} clasName="accolades">
+			<ContentBox key={this.props.index} className="accolades">
+			<div className="desktop-shim">
                 <Headline dangerouslySetInnerHTML={{__html:headline}} className="accoladesHeadline"/>
 				<Items {...items}/>
+			</div>
             </ContentBox>
 			
 		)

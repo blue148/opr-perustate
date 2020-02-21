@@ -36,6 +36,9 @@ const StyledContainer = styled(Container)`
 		top: 0px;
 		position: fixed;
 	}
+	@media (min-width:1500px){
+		left:1200px;
+	}
 	@media (max-width:768px){
 			width:100%!important;
 			}

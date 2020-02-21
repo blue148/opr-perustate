@@ -1,0 +1,10 @@
+@import '../_variables.scss';
+
+.awards-area{
+	grid-template: auto/minmax(0,850px);
+	justify-items: center;
+	justify-content: center;
+		@media (min-width:768px){
+			@include section-shim;
+		}
+	}
