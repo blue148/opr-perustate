@@ -11,3 +11,8 @@
   font-weight: 600;
   font-size: 1.3rem;
 }
+
+.MuiGrid-item {
+  padding: 0;
+  line-height: 1;
+}

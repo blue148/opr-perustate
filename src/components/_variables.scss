@@ -12,16 +12,16 @@ $mediumgray:#666;
 $darkgray: #191919;
 $actiongold: #fec413;
 /***FONTS***/
-$sans-serif:sans-serif;
+$sans-serif:myriad-pro,'Open Sans', sans-serif;
 $brandfont:'Open Sans';
 //set break points for width. 
 @mixin section-shim {
 	display:grid;
 	justify-content:center;
 	@media (max-width:1400px){
-			grid-template-columns: minmax(0,750px) calc(315px + 5%);
+			grid-template-columns: minmax(0,725px) calc(340px + 5%);
 	}
 	@media (min-width:1401px){
-			grid-template-columns: minmax(0,850px) calc(315px + 5%);
+			grid-template-columns: minmax(0,800px) calc(340px + 5%);
 	}
 }

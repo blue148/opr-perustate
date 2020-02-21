@@ -25,23 +25,22 @@ const StyledContainer = styled(Container)`
 	bottom:0;
 	grid-column:1;
 	order:20;
-
 	margin-top:0;
 	padding:0;
 	@media (min-width: 768px) {
 		grid-column:2/3;
 		grid-row:1;
 		z-index:99;
-		right: 2%;
+		right: 9%;
 		top: 0px;
 		position: fixed;
 	}
-	@media (min-width:1500px){
-		left:1200px;
+	@media (max-width:1290px){
+		left:850px;
 	}
 	@media (max-width:768px){
-			width:100%!important;
-			}
+		left:750px;
+		}
 `
 const FormBox = styled.div`
 		padding:1.3rem 0;
@@ -164,6 +163,8 @@ const useStyles = makeStyles(theme => ({
 	
 export default function FormPanel(props){
 	const phone = (props.phone==null)?'(402) 902-3128':props.phone;
+	const headline = props.headline;
+	const cleanHeadline = headline.replace(/(<([/fp]+)>)/ig,"");//remove and p and f tags to clean up the code.
 	const classes = useStyles();
 	const [program, setProgram] = React.useState('');
 
@@ -177,15 +178,15 @@ export default function FormPanel(props){
 		setProgram(event.target.value);
 	};
 	return(
-		 <StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container}>
+		 <StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
 		      <Spacer id="leadform"/>
 		      <FormBox className={classes.paper}>
 		        <FormHeadline>
-		          Need More Information?
+		          {cleanHeadline||'Need More Information?'}
 		        </FormHeadline>
 		        <form className={classes.form} noValidate>
-		          <Grid container spacing={1}>
+		          <Grid container spacing={0}>
 		            <Grid item xs={12}>
 		            	<FormControl className={classes.formControl} variant='outlined' margin='dense'>
 					        <InputLabel id="programs-label">Select a Program</InputLabel>

@@ -165,10 +165,11 @@ export default class HeroArea extends React.Component{
 	render(){
 		const {image, headline, items} = this.props
 		const imgBg = (image)?image.fields.file.en_US.url:'';
+		const cleanHeadline = headline.replace(/(<([/fp]+)>)/ig,"");//remove and p and f tags to clean up the code.
 		return(
 			<HeroBox key={this.props.index} backgroundImage={imgBg} className="HeroBox">
 				<div className="desktop-shim">
-	                <HeroHeadline dangerouslySetInnerHTML={{__html:headline}} className="HeroHeadline"/>
+	                <HeroHeadline dangerouslySetInnerHTML={{__html:cleanHeadline}} className="HeroHeadline"/>
 					<Items {...items}/>
 	
 					<StyledButton label="Learn More" theme="primary" jumplink="leadform" className="hero-button"/>

@@ -88,26 +88,26 @@
 				font-size: inherit;
 				line-height: inherit;
 			}
+			&>span {
+
+			    display: none;
+			
+			}
 			&.selected{
 				border-top:solid 1px $lightgray;
 				background-color:#f4f4f4;
 				&:hover,&:focus{
 					pointer-events: none;
 				}
+				&>span {
 
-				&::after{
-					content:'';
-					width:20px;
-					grid-column:2/3;
-					align-self: center;
-					justify-self:end;
-					display:block;
-					font-family: "Font Awesome 5 Free"; 
-					font-weight: 900; 
-					content: "\f054";
-					color:$secondaryblue;
-					
+				    display: block;
+				    width: 90%;
+				    text-align: right;
+				
 				}
+
+
 			}
 		}
 	}
@@ -136,7 +136,7 @@
 	margin:0 auto;
 	h3{
 		font-size:1.8rem;
-		line-height: 1.4;
+		line-height: 1.2;
 	}
 	&.selected{
 		display:block;
@@ -185,15 +185,6 @@
 			grid-template-columns: 1fr 30px;
 			align-items: center;
 			justify-items: start;
-			&::after{
-				display: block;
-			    font-family: "Font Awesome 5 Free";
-			    font-weight: 200;
-			    content: "\F078";
-			    font-size: 1.3rem;
-			    color:$secondaryblue;
-			
-			}
 			h4{
 				&.tab{
 					font-size:1.2rem;
@@ -232,16 +223,11 @@
 				display:block;
 				&>.accordion-trigger{
 					border-bottom: solid 2px $lightgray;
-					&::after{
-						display: block;
-					    font-family: "Font Awesome 5 Free";
-					    font-weight: 200;
-					    content: "\F077";
-					    font-size: 1.3rem;
-					    color:$mediumgray;
-					
-					}
 					h4{
+						color:$mediumgray;
+					}
+					svg{
+						transform:rotate(180deg);
 						color:$mediumgray;
 					}
 				}

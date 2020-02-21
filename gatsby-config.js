@@ -46,14 +46,17 @@ module.exports = {
 	    }
 	  },
 	  `gatsby-plugin-sass`,
-	  {
-      resolve: `gatsby-plugin-google-fonts`,
+    {
+      resolve: 'gatsby-plugin-web-font-loader',
       options: {
-        fonts: [
-	        `Material+Icons`,
-           `Roboto:300,400,500,700`
-        ],
-        display: 'swap'
+        google: {
+          families: [`Material+Icons`,
+           `Roboto:300,400,500,700`,
+           `Open+Sans:400,600,700`]
+        },
+        typekit:{
+	        id:`qsg0lqq`
+        }
       }
     }
 	  

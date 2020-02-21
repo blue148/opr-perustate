@@ -4,6 +4,8 @@ import ProgramInfo from '../programInfo'
 import update from 'immutability-helper'
 import ScrollIntoView from 'react-scroll-into-view'
 import {isMobile} from 'react-device-detect'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronRight, faChevronDown} from '@fortawesome/free-solid-svg-icons'
 import './tab.scss';
 
 ////BUILD TABBED LAYOUT
@@ -25,6 +27,7 @@ const TabsPanel = (props)=>{
 		const tabState = (parent)?slugify([parent,pageName].join('__'),{remove: /[*+~.()'"!:@]/g,lower:true}):slugify(pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
 		const subTabState=(props[tab].programs)?tabState+'__'+slugify(props[tab].programs[0].pageName,{remove: /[*+~.()'"!:@]/g,lower:true}):'';
 		const activeClass = (tabState===props.active)?'selected':'';
+		const Chevron = (parent)?<span><FontAwesomeIcon icon={faChevronRight} className="tab-arrow-icon"/></span>:'';
 		//need to set subtab state if this is a nested tab reference, but how
 		
 		//return tab
@@ -37,6 +40,7 @@ const TabsPanel = (props)=>{
 				<a href={"#"+tabState} onClick={(e)=>props.onStateChange(e,tabState,subTabState)}> 
 					{pageName} 
 				</a>
+				{Chevron}
 			</li>
 		)
 	})
@@ -73,7 +77,9 @@ const ContentPanel = (props) =>{
 			<ScrollIntoView selector={"#"+slug} className="accordion-trigger">
 				<h4 className='tab mobile-only' ref={ref} data-target={slugPanel} onClick={(e)=>handleClick(e,slug)}>
 					{props.pageName}
+					
 				</h4> 
+
 			</ScrollIntoView>
 			 <div className="contentTarget" id={slugPanel}>
 			 	
@@ -164,7 +170,9 @@ export class NestedPanel extends React.Component{
 					<ScrollIntoView selector={"#"+this.slug} className="accordion-trigger">
 						<h4 className='tab mobile-only' data-target={slugPanel} onClick={(e)=>handleClick(e,this.slug)}>
 							{this.props.pageName}
+							
 						</h4>
+						<FontAwesomeIcon icon={faChevronDown} className="tab-arrow-down"/>
 					</ScrollIntoView>
 					<div className="nestedContentPanel">
 						<TabsPanel 

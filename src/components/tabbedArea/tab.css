@@ -4,8 +4,19 @@
 @media (min-width: 768px) {
   .tabbedArea {
     display: grid;
-    grid-template-columns: minmax(0, 850px) calc(315px + 5%);
     justify-content: center;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1400px) {
+  .tabbedArea {
+    grid-template-columns: minmax(0, 725px) calc(340px + 5%);
+  }
+}
+
+@media (min-width: 768px) and (min-width: 1401px) {
+  .tabbedArea {
+    grid-template-columns: minmax(0, 800px) calc(340px + 5%);
   }
 }
 
@@ -103,6 +114,10 @@
   line-height: inherit;
 }
 
+.tabPanel.vertical li > span {
+  display: none;
+}
+
 .tabPanel.vertical li.selected {
   border-top: solid 1px #cccccc;
   background-color: #f4f4f4;
@@ -112,17 +127,10 @@
   pointer-events: none;
 }
 
-.tabPanel.vertical li.selected::after {
-  content: '';
-  width: 20px;
-  grid-column: 2/3;
-  align-self: center;
-  justify-self: end;
+.tabPanel.vertical li.selected > span {
   display: block;
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  content: "\f054";
-  color: #0e356f;
+  width: 90%;
+  text-align: right;
 }
 
 .tabPanel .selected {
@@ -151,7 +159,7 @@
 
 .contentPanel h3 {
   font-size: 1.8rem;
-  line-height: 1.4;
+  line-height: 1.2;
 }
 
 .contentPanel.selected {
@@ -204,14 +212,6 @@
     align-items: center;
     justify-items: start;
   }
-  .contentPanel > .accordion-trigger::after {
-    display: block;
-    font-family: "Font Awesome 5 Free";
-    font-weight: 200;
-    content: "\F078";
-    font-size: 1.3rem;
-    color: #0e356f;
-  }
   .contentPanel > .accordion-trigger h4.tab {
     font-size: 1.2rem;
     font-weight: 600;
@@ -243,15 +243,11 @@
   .contentPanel.nested.selected > .accordion-trigger {
     border-bottom: solid 2px #cccccc;
   }
-  .contentPanel.nested.selected > .accordion-trigger::after {
-    display: block;
-    font-family: "Font Awesome 5 Free";
-    font-weight: 200;
-    content: "\F077";
-    font-size: 1.3rem;
+  .contentPanel.nested.selected > .accordion-trigger h4 {
     color: #666;
   }
-  .contentPanel.nested.selected > .accordion-trigger h4 {
+  .contentPanel.nested.selected > .accordion-trigger svg {
+    transform: rotate(180deg);
     color: #666;
   }
   .contentPanel.nested.selected .nestedContentPanel {

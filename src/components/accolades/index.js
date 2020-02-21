@@ -108,11 +108,12 @@ const Items = (props) =>(
 export default class Accolades extends React.Component{
 	
 	render(){
-		const {headline, items} = this.props
+		const {headline, items} = this.props;
+		const cleanHeadline = headline.replace(/(<([/fp]+)>)/ig,"");//remove and p and f tags to clean up the code.
 		return(
 			<ContentBox key={this.props.index} className="accolades">
 			<div className="desktop-shim">
-                <Headline dangerouslySetInnerHTML={{__html:headline}} className="accoladesHeadline"/>
+                <Headline dangerouslySetInnerHTML={{__html:cleanHeadline}} className="accoladesHeadline"/>
 				<Items {...items}/>
 			</div>
             </ContentBox>

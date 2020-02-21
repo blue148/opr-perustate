@@ -18,11 +18,6 @@ const MainHeadline = styled.h3`
 `
 const MainContent = styled.div`
 	margin:0 auto;
-	*{
-		display:block;
-		text-align:center;
-		font-size:1rem;
-		}
 	@media(min-width:768px){
 		width:95%;
 		max-width:850px;
@@ -33,10 +28,11 @@ export default class MainArea extends React.Component{
 	
 	render(){
 		const { headline, content}= this.props
+		const cleanHeadline = headline.replace(/(<([/fp]+)>)/ig,"");//remove and p and f tags to clean up the code.
 		return(
 			<MainBox className="bottomsection">
 			<div className="desktop-shim">
-                <MainHeadline dangerouslySetInnerHTML={{__html:headline}}/>
+                <MainHeadline dangerouslySetInnerHTML={{__html:cleanHeadline}}/>
                 <MainContent dangerouslySetInnerHTML={{__html:content}}/>
             </div>
           </MainBox>

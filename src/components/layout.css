@@ -6,7 +6,7 @@ f {
 }
 
 html {
-  font-family: sans-serif;
+  font-family: myriad-pro, "Open Sans", sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -15,12 +15,13 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: myriad-pro, "Open Sans", sans-serif;
 }
 
 h1, h2, h3, h4 {
   text-align: center;
   color: #003478;
-  font-family: sans-serif;
+  font-family: myriad-pro, "Open Sans", sans-serif;
   margin-top: 0;
   margin-bottom: 1rem;
 }
@@ -65,11 +66,13 @@ p {
   font-size: 1rem;
   line-height: 1.4;
   text-rendering: optimizeLegibility;
+  font-family: myriad-pro, "Open Sans", sans-serif;
 }
 
 li {
   font-size: 1rem;
   line-height: 1.4;
+  font-family: myriad-pro, "Open Sans", sans-serif;
 }
 
 .show {
@@ -81,7 +84,7 @@ li {
 .button {
   text-transform: uppercase;
   font-weight: 800;
-  font-family: sans-serif;
+  font-family: myriad-pro, "Open Sans", sans-serif;
   font-size: 1rem;
   -webkit-transition: .5s;
   transition: .5s;
@@ -142,6 +145,16 @@ section section > section {
   .desktop-shim {
     width: 100%;
     margin: 0 auto;
+  }
+}
+
+.formPanel {
+  font-size: 3rem;
+}
+
+@media (max-width: 1290px) {
+  .formPanel {
+    left: 850px;
   }
 }
 
