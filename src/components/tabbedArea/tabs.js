@@ -74,7 +74,7 @@ const ContentPanel = (props) =>{
 			className={"contentPanel "+activeClass} 
 			id={slug}
 		>
-			<ScrollIntoView selector={"#"+slug} className="accordion-trigger">
+			<ScrollIntoView selector={"#"+slug} className="accordion-trigger mobile-only">
 				<h4 className='tab mobile-only' ref={ref} data-target={slugPanel} onClick={(e)=>handleClick(e,slug)}>
 					{props.pageName}
 					
@@ -167,7 +167,7 @@ export class NestedPanel extends React.Component{
 					className={"contentPanel nested "+activeParent}
 					id={this.slug}
 				>
-					<ScrollIntoView selector={"#"+this.slug} className="accordion-trigger">
+					<ScrollIntoView selector={"#"+this.slug} className="accordion-trigger mobile-only">
 						<h4 className='tab mobile-only' data-target={slugPanel} onClick={(e)=>handleClick(e,this.slug)}>
 							{this.props.pageName}
 							
