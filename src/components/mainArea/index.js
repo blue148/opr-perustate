@@ -22,7 +22,8 @@ export default class MainArea extends React.Component{
 	
 	render(){
 		const { headline, content}= this.props;
-		const cleanHeadline = headline.replace(/(<([/fp]+)>)/ig,"");//remove and p and f tags to clean up the code.
+		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
+
 		return(
 			<MainBox className="mainArea">
 				<div className="desktop-shim">
