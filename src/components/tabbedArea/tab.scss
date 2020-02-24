@@ -1,8 +1,11 @@
 @import "../_variables";
 
 .tabbedArea{
+	padding:3rem 0;
 	@media (min-width:768px){
 		@include section-shim;
+		padding:0rem 1rem 3rem;
+		
 	}
 }
 .tabPanel{
@@ -130,7 +133,6 @@
 .contentPanel{
 	display:none;
 	opacity: 0;
-	transition:.5s;
 	padding:1.6rem 2.3rem;
 	max-width:1000px;
 	margin:0 auto;
@@ -141,7 +143,7 @@
 	&.selected{
 		display:block;
 		opacity: 1;
-		transition:.5s;
+		transition:opacity 2s;
 		&.nested{
 			display:block;
 			padding:0;
@@ -223,6 +225,7 @@
 				display:block;
 				&>.accordion-trigger{
 					border-bottom: solid 2px $lightgray;
+					background-color:$lightgray;
 					h4{
 						color:$mediumgray;
 					}
@@ -233,6 +236,8 @@
 				}
 				.nestedContentPanel{
 					display:block;
+					border: solid 2px $lightgray;
+					padding: 0 .5rem;
 					.contentTarget{
 						display: none;
 					}
@@ -256,22 +261,37 @@
 							font-size:1.1rem;
 							font-weight:400;
 							background-color:transparent;
-							border-bottom: solid 1px $perulightgray;
 							margin:0 auto;
 							width:100%;
 							padding:.8rem .5rem .8rem 1.7rem;
 							line-height:1.3;
 						}
+						
 					}
-					
+										
 				}
-				.contentPanel.selected{
-					
-					h4{
-						&.tab{
-							color:$mediumgray;
-							font-weight: 600;
+				.contentPanel{
+					&.selected{
+						.accordion-trigger{
+							border-bottom:none;
+							h4{
+								&.tab{
+									//color:$mediumgray;
+									font-weight: 600;
+									padding:.8rem .5rem;
+									border-bottom:none;
+									font-size:1.2rem;
+								}
+							}
 						}
+						
+					}
+					&:last-child{
+
+						.accordion-trigger{
+							border-bottom:none;
+						}
+
 					}
 				}
 				
@@ -285,6 +305,9 @@
 					.contentTarget{
 						display:block;
 						opacity:1;
+						margin-top:0rem;
+						margin-bottom: 0rem;
+						border-bottom:solid 1px $lightgray;
 					}
 				
 				}
@@ -292,5 +315,8 @@
 			}
 			
 		}
+	}
+	.accordion-trigger.mobile-only{
+		display:grid!important;
 	}
 }

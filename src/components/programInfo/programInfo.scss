@@ -2,10 +2,24 @@
 .program-details-area{
 	@media (min-width:768px){
 		display: grid;
-		grid-template: 1fr/1fr 1fr;
-		margin: 2rem 0;
 		align-items: start;
-	}
+	    grid-template: auto/1fr;
+	    margin: 2rem 0 0;
+	    }
+}
+.program-info-buttons {
+  position: fixed;
+  z-index: 40000;
+  bottom: 0;
+  width: 100%;
+  padding: .5rem 1rem;
+  left: 0;
+  margin: 0;
+  @media (min-width:768px){
+	  position:static;
+	  z-index: 1;
+	  padding:inherit;
+  }
 }
 .program-info{
 	display: grid;
@@ -21,46 +35,48 @@
 	    grid-template:auto/1fr 1fr 1fr;
 	    grid-column-gap: 1.5rem;
 	    border-bottom:none;
-
     }
     p{
 	    margin-bottom:0;
-	    text-align: center;
+	    text-align: left;
 	    @media (min-width:768px){
 		    text-align: left;
-		    strong{
-			    display:inline;
-		    }
 	    }
 	    strong{
-		    display:block;
 		    font-size:1.1rem;
 	    }
     }
     &.program-info-area{
 	    padding: 1.3rem 0;
 	    justify-content: center;
-	    grid-template: 1fr/max-content auto auto;
+	    grid-template: 1fr 1fr;
+	    border-top:solid 1px $lightgray;
+	    grid-row-gap:.5rem;
 	    @media (min-width:768px){
-		    grid-template: auto/1fr;
+			justify-items: start;			
+			grid-template: auto/repeat(2, 1fr);
+			padding: 0 0 1rem;
 			grid-auto-flow: row;
-			justify-items: start;
-			padding:0;
+			grid-auto-columns: 50%;
+			grid-row-gap: .5rem;
+			border-bottom: solid 1px $lightgray;
+			margin: 0;
 		}
    }
     &.program-info-dates{
 	    margin-bottom:2rem;
 	    grid-column-gap: 1rem;
+	    grid-template: 1fr/1fr 1fr;
+		justify-items: start;
+		justify-content: start;
 	    @media (min-width:768px){
-		    grid-column-gap: 2rem;
-		    grid-template: auto/1fr;
-			justify-items: end;
-			border-left: solid 1px $lightgray;
-			padding: 0;
+	        grid-column-gap: 2rem;
+	        grid-template: auto/1fr 1fr;
+	        justify-items: start;
+	        border-bottom: solid 1px #ccc;
+	        padding: 1rem 0; 
 		}
-		grid-template: 1fr/1fr 1fr;
-		justify-items: center;
-		justify-content: center;
+		
 	    .programInfoItem{
 		    &.programInfoDate{
 			    display: grid;
@@ -68,6 +84,7 @@
 			    grid-column-gap:.5rem;
 			    p{
 				    font-weight: 600;
+				    font-size:.9rem;
 				    &::after{
 					    content:':';
 					    display:inline-block;
@@ -80,6 +97,7 @@
 				    margin:0;
 				    li{
 					    color:$lightgray;
+    				    font-size:.9rem;
 					    &:first-child{
 						    font-weight: 600;
 						    color:black;

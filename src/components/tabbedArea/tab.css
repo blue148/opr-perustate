@@ -1,10 +1,15 @@
 /***BRAND COLORS AND STYLES***/
 /****COLORS****/
 /***FONTS***/
+.tabbedArea {
+  padding: 3rem 0;
+}
+
 @media (min-width: 768px) {
   .tabbedArea {
     display: grid;
     justify-content: center;
+    padding: 0rem 1rem 3rem;
   }
 }
 
@@ -151,7 +156,6 @@
 .contentPanel {
   display: none;
   opacity: 0;
-  transition: .5s;
   padding: 1.6rem 2.3rem;
   max-width: 1000px;
   margin: 0 auto;
@@ -165,7 +169,7 @@
 .contentPanel.selected {
   display: block;
   opacity: 1;
-  transition: .5s;
+  transition: opacity 2s;
 }
 
 .contentPanel.selected.nested {
@@ -242,6 +246,7 @@
   }
   .contentPanel.nested.selected > .accordion-trigger {
     border-bottom: solid 2px #cccccc;
+    background-color: #cccccc;
   }
   .contentPanel.nested.selected > .accordion-trigger h4 {
     color: #666;
@@ -252,6 +257,8 @@
   }
   .contentPanel.nested.selected .nestedContentPanel {
     display: block;
+    border: solid 2px #cccccc;
+    padding: 0 0.5rem;
   }
   .contentPanel.nested.selected .nestedContentPanel .contentTarget {
     display: none;
@@ -270,15 +277,22 @@
     font-size: 1.1rem;
     font-weight: 400;
     background-color: transparent;
-    border-bottom: solid 1px #e5e5e5;
     margin: 0 auto;
     width: 100%;
     padding: 0.8rem 0.5rem 0.8rem 1.7rem;
     line-height: 1.3;
   }
-  .contentPanel.nested .nestedContentPanel .contentPanel.selected h4.tab {
-    color: #666;
+  .contentPanel.nested .nestedContentPanel .contentPanel.selected .accordion-trigger {
+    border-bottom: none;
+  }
+  .contentPanel.nested .nestedContentPanel .contentPanel.selected .accordion-trigger h4.tab {
     font-weight: 600;
+    padding: 0.8rem 0.5rem;
+    border-bottom: none;
+    font-size: 1.2rem;
+  }
+  .contentPanel.nested .nestedContentPanel .contentPanel:last-child .accordion-trigger {
+    border-bottom: none;
   }
   .contentPanel.nested .contentPanel.selected {
     display: block;
@@ -287,5 +301,11 @@
   .contentPanel.nested .contentPanel.selected .contentTarget {
     display: block;
     opacity: 1;
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    border-bottom: solid 1px #cccccc;
+  }
+  .accordion-trigger.mobile-only {
+    display: grid !important;
   }
 }

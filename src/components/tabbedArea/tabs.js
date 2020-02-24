@@ -203,6 +203,7 @@ export default class TabbedArea extends React.Component{
 			//check for subtabs, then activate the first on if this is desktop
 			const subTabCheck = (props[0].programs)?slugify(props[0].programs[0].pageName,{remove: /[*+~.()'"!:@]/g,lower:true}):'';
 			const initSubTab = (isMobile)?'':initTab+'__'+subTabCheck;
+			console.log(initTab, initSubTab);
 
 			this.state = {activeTab:initTab, activePanel:'',activeSubTab:initSubTab, activeSubPanel:''}
 		}	else{

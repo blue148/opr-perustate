@@ -11,6 +11,7 @@ const ButtonArea = styled.div`
 	grid-column-gap:.5rem;
 	justify-content:center;
 	margin:2rem auto;
+	
 	@media (min-width:768px){
 		grid-template-columns:max-content;
 		grid-auto-columns:max-content;
@@ -78,9 +79,10 @@ const PanelContent = (props)=>{
 				</div>
 			</div>
 			<div className="program-info-details" dangerouslySetInnerHTML={{__html:props.programDetails.content}}/>
-			<ButtonArea>
+			<ButtonArea className="program-info-buttons">
+				<StyledButton label="Request Info" theme="primary mobile-only" jumplink='leadform'/>
 				<StyledButton label="Apply Now" theme="secondary" outlink="https://online.peru.edu/apply-now"/>
-				<StyledButton label="Request Info" theme="tertiary mobile-only" jumplink='leadform'/>
+				
 			</ButtonArea>
 		</>
 	)
