@@ -35,6 +35,7 @@
     "react-helmet": "^5.2.1",
     "react-markdown": "^4.3.1",
     "react-material-ui-form": "^1.1.6",
+    "react-onclickoutside": "^6.9.0",
     "react-responsive-tabs": "^3.3.0",
     "react-scripts": "^3.3.0",
     "react-scroll-into-view": "^1.7.0",

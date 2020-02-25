@@ -1,4 +1,5 @@
 import React from "react"
+import styled from 'styled-components'
 import slugify from 'slugify'
 import ProgramInfo from '../programInfo'
 import update from 'immutability-helper'
@@ -6,7 +7,46 @@ import ScrollIntoView from 'react-scroll-into-view'
 import {isMobile} from 'react-device-detect'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight, faChevronDown} from '@fortawesome/free-solid-svg-icons'
+import {Button as MuiButton, 
+	DialogActions,
+	Dialog} from '@material-ui/core';
 import './tab.scss';
+
+
+const StyledDialog = styled(Dialog)`
+	top:90px!important;
+	.MuiDialog-scrollPaper{
+		.MuiDialog-paper{
+			&.MuiDialog-paperWidthSm{
+				max-width:none!important;
+			}
+			&.MuiDialog-paperScrollPaper{
+				width:100%;
+			}
+			margin:0;
+		}
+	}
+	.MuiDialog-paperScrollPaper{
+			max-height:100%;
+		}
+
+`
+/**replace this with a GraphQL query**/
+const programMapping = 
+	{'Business Administration in Accounting':'BSBA - ACCT',
+	'Business Administration in Computer Management Information Systems (CMIS)':'BSBA - CMIS',
+	'Business Administration in Human Resources and Risk Management':'BSBA - HR',
+	'Business Administration in Management':'BSBA - MGMT',
+	'Business Administration in Management Applied Science (BAS)':'BAS - MGMT',
+	'Business Administration in Marketing':'BSBA - MKTG',
+	'Business Administration in Public Administration':'BSBA - PA',
+	'Criminal Justice in Counseling':'CJUS - CS',
+	'Criminal Justice in Adminstration':'CJUS - JA',
+	'Criminal Justice in Law & Society':'CJUS - LAW',
+	'Master of Science in Education':'MS - ED',
+	'Master of Science in Organizational Management':'MS - OM',
+	'Psychology':'BS/BA - PSYCH',
+	'Undecided':'Undergrad - Undecided'}
 
 ////BUILD TABBED LAYOUT
 ////EACH TAB WILL NEED TO EXPOSE THE CORRESPONDING CONTENTPANEL ON CLICK, AS WELL AS HIDE ANY EXPOSED PANELS
@@ -14,10 +54,13 @@ import './tab.scss';
 
 ////COMPONENT MODULES
 
-////TABS PANEL
+////TABS PANEL -> Make external functional component
 const TabsPanel = (props)=>{
 	const {direction,parent,title} = props||'';
-	
+	const handleClick = (e,props)=>{
+		e.preventDefault();
+		props.click(e,props.tabState, props.subTabState)
+	}
 	const titleLead = (title)?<li className="leader">{title}</li>:'';
 	const tabItems = Object.keys(props).map((tab, index)=>{
 		if(isNaN(tab))return true;
@@ -28,16 +71,17 @@ const TabsPanel = (props)=>{
 		const subTabState=(props[tab].programs)?tabState+'__'+slugify(props[tab].programs[0].pageName,{remove: /[*+~.()'"!:@]/g,lower:true}):'';
 		const activeClass = (tabState===props.active)?'selected':'';
 		const Chevron = (parent)?<span><FontAwesomeIcon icon={faChevronRight} className="tab-arrow-icon"/></span>:'';
-		//need to set subtab state if this is a nested tab reference, but how
+		
+		//Mobile needs to trigger Dialog. 
+		
 		
 		//return tab
 		return (
 			<li 
-				data-target={tabState}
 				className={[tab, activeClass].join(' ')}
 				key={index} 
 				>
-				<a href={"#"+tabState} onClick={(e)=>props.onStateChange(e,tabState,subTabState)}> 
+				<a href={"#"+tabState} onClick={(e)=>handleClick(e,{click:props.onStateChange,tabState:tabState,subTabState:subTabState})}> 
 					{pageName} 
 				</a>
 				{Chevron}
@@ -45,7 +89,7 @@ const TabsPanel = (props)=>{
 		)
 	})
 	return (
-		<ul id={props.id} className={["tabPanel ",direction, props.viewport].join(' ')}>
+		<ul id={props.id} className={["tabPanel ",direction,props.viewport].join(' ')}>
 			{titleLead}
 			{tabItems}
 		</ul>
@@ -53,22 +97,26 @@ const TabsPanel = (props)=>{
 	
 }
 
-////CONTENT PANEL
+////CONTENT PANEL -> make external functional component
 
 const ContentPanel = (props) =>{
-	//console.log(props)
+	
 	const ref = React.createRef();	
 	const handleClick = (e,slug) =>{
 		e.preventDefault()
+		///need to detect tab or subtab
 		if(props.active===slug){
 				props.onStateChange(e,'')
 			}else{
 				props.onStateChange(e,slug)
+				
 			}
         }
 	const slug = slugify(props.id,{remove: /[*+~.()'"!:@]/g,lower:true});
 	const activeClass = (slug === props.active)?'selected':'';
 	const slugPanel = slug+'_panel';
+	
+	
 	return(
 		<div 
 			className={"contentPanel "+activeClass} 
@@ -76,15 +124,13 @@ const ContentPanel = (props) =>{
 		>
 			<ScrollIntoView selector={"#"+slug} className="accordion-trigger mobile-only">
 				<h4 className='tab mobile-only' ref={ref} data-target={slugPanel} onClick={(e)=>handleClick(e,slug)}>
-					{props.pageName}
-					
+					{props.pageName}					
 				</h4> 
 
 			</ScrollIntoView>
 			 <div className="contentTarget" id={slugPanel}>
 			 	
-		 		<ProgramInfo {...props}/>
-		 		
+		 		<ProgramInfo {...props} programLink={programMapping[props.pageName]}/>		 		
 		 	</div>
 		</div>
 	)
@@ -96,7 +142,6 @@ const ContentPanel = (props) =>{
 const ContentPanelContainer = (props) =>{
 	const panels = Object.keys(props).map((child, index)=>{
 		if(isNaN(child))return true;
-
 		///if programs exist, this is a nested tab panel
 		const programPanel = (props[index].programs)?(
 			<NestedPanel 
@@ -105,6 +150,7 @@ const ContentPanelContainer = (props) =>{
 				id={props[index].pageName}
 				key={index} 
 				onStateChange={props.onStateChange}
+				onParentStateChange={props.onParentStateChange}
 				/>
 		):(
 			<ContentPanel 
@@ -119,7 +165,7 @@ const ContentPanelContainer = (props) =>{
 			
 	return panels
 }
-
+///Make external class
 export class NestedPanel extends React.Component{
 	constructor(props){
 		super(props)
@@ -132,7 +178,6 @@ export class NestedPanel extends React.Component{
 	render(){
 		
 		//const ref = React.createRef();
-
 		///create stack of content sub panels
 		const subpanels =  Object.keys(this.props.programs).map((program, index)=>{
 			if(isNaN(program))return true;
@@ -145,7 +190,8 @@ export class NestedPanel extends React.Component{
 					id={subSlug}
 					active={this.props.active.activeSubTab} 
 					key={index}
-					onStateChange={this.props.onStateChange}/>
+					onStateChange={this.props.onStateChange}
+					onParentStateChange={this.props.onParentStateChange}/>
 				
 			)})
 			
@@ -182,7 +228,7 @@ export class NestedPanel extends React.Component{
 							onTabClick={this.props.onTabClick} 
 							onStateChange={this.props.onStateChange}
 							parent={this.slug}
-							viewport='desktop-only nested'
+							viewport='nested'
 							title={this.props.pageName} 
 						/>
 	
@@ -203,17 +249,21 @@ export default class TabbedArea extends React.Component{
 			//check for subtabs, then activate the first on if this is desktop
 			const subTabCheck = (props[0].programs)?slugify(props[0].programs[0].pageName,{remove: /[*+~.()'"!:@]/g,lower:true}):'';
 			const initSubTab = (isMobile)?'':initTab+'__'+subTabCheck;
-			console.log(initTab, initSubTab);
 
-			this.state = {activeTab:initTab, activePanel:'',activeSubTab:initSubTab, activeSubPanel:''}
+			this.props.onStateChange('',initTab,initSubTab,'')
 		}	else{
-			this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:''}
+			this.props.onStateChange('','','','')
 		}
 	}
 	
-	handleStateChange =(e,tabState,subTabState)=>{
+	handleStateChange =(e,tabState,subTabState,formSelect)=>{
+		if(tabState===null)tabState=this.state.activeTab;
 		const tabArray = tabState.split('__');
-		//console.log(tabArray,' array')
+		console.log(tabArray,' array')
+		
+		if(isMobile){
+			
+		}
 		var subTab = '';
 		var tab = '';
 		var tabPanel = '';
@@ -231,6 +281,7 @@ export default class TabbedArea extends React.Component{
 			subTabPanel = subTab+'_panel';
 		}
 		if(subTabState)subTab=subTabState;
+		
 		e.preventDefault();
 		const updatedState = update(
 		   this.state,{
@@ -238,6 +289,7 @@ export default class TabbedArea extends React.Component{
 			   'activePanel':{$set:tabPanel},
    			   'activeSubTab':{$set:subTab},
 			   'activeSubPanel':{$set:subTabPanel},
+			   'formSelect':{$set:formSelect}
 		   }
 		)	  
 	   this.setState(updatedState)
@@ -246,23 +298,20 @@ export default class TabbedArea extends React.Component{
   
    
 	render(){
-		
-		//console.log(this.props,' main')
 		return(
 			<section id="tabbedArea" className="tabbedArea">
 				<div className="desktop-shim">
 					<TabsPanel {...this.props} 
-						active={this.state.activeTab}
-						onStateChange = {this.handleStateChange}
+						active={this.props.state.activeTab}
+						onStateChange = {this.props.onStateChange}
 						onTabClick={this.handleTabClick}
 						id="tabPanelTop"
 						viewport="desktop-only"
 					/>
 					
 					<ContentPanelContainer 
-						active={this.state}
-						onStateChange = {this.handleStateChange}
-						onHeaderClick={this.handleHeaderClick}
+						active={this.props.state}
+						onStateChange = {this.props.onStateChange}
 						{...this.props}/>
 				</div>
 			</section>				

@@ -2,7 +2,7 @@
 /****COLORS****/
 /***FONTS***/
 .tabbedArea {
-  padding: 3rem 0;
+  padding: 0 0 3rem;
 }
 
 @media (min-width: 768px) {
@@ -60,6 +60,7 @@
 
 .tabPanel li a {
   text-decoration: none;
+  text-align: center;
   font-weight: inherit;
   font-size: inherit;
   line-height: 1.2;
@@ -80,12 +81,18 @@
 .tabPanel.vertical {
   display: grid;
   padding: 0;
-  margin: 2rem 0 0;
+  margin: 0;
   grid-template: min-content/1fr;
   grid-auto-flow: row;
   grid-auto-rows: min-content;
-  max-height: 300px;
   border-bottom: none;
+}
+
+@media (min-width: 768px) {
+  .tabPanel.vertical {
+    margin-top: 2rem;
+    max-height: 300px;
+  }
 }
 
 .tabPanel.vertical li {
@@ -105,6 +112,7 @@
   font-size: .9rem;
   padding: 0.3rem 0.5rem;
   font-weight: 900;
+  display: none;
 }
 
 .tabPanel.vertical li.leader:hover, .tabPanel.vertical li.leader:focus {
@@ -112,11 +120,33 @@
   color: inherit;
 }
 
+@media (min-width: 768px) {
+  .tabPanel.vertical li.leader {
+    display: block;
+  }
+}
+
 .tabPanel.vertical li a {
-  display: block;
-  padding: 1rem 0 1rem 0.5rem;
-  font-size: inherit;
-  line-height: inherit;
+  font-size: 1.1rem;
+  font-weight: 400;
+  background-color: transparent;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0.8rem 0.5rem;
+  line-height: 1.3;
+  color: #003478;
+  text-align: left;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .tabPanel.vertical li a {
+    display: block;
+    padding: 1rem 0 1rem 0.5rem;
+    font-size: inherit;
+    line-height: inherit;
+    text-transform: uppercase;
+  }
 }
 
 .tabPanel.vertical li > span {
@@ -156,7 +186,7 @@
 .contentPanel {
   display: none;
   opacity: 0;
-  padding: 1.6rem 2.3rem;
+  padding: 1.6rem;
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -164,6 +194,8 @@
 .contentPanel h3 {
   font-size: 1.8rem;
   line-height: 1.2;
+  text-align: left;
+  margin-bottom: 0;
 }
 
 .contentPanel.selected {
@@ -207,7 +239,6 @@
   .contentPanel h3 {
     font-size: 1.5rem;
     line-height: 1.7rem;
-    display: none;
   }
   .contentPanel > .accordion-trigger {
     border-bottom: solid 2px #cccccc;
@@ -245,6 +276,7 @@
     display: block;
   }
   .contentPanel.nested.selected > .accordion-trigger {
+    display: none;
     border-bottom: solid 2px #cccccc;
     background-color: #cccccc;
   }
@@ -258,10 +290,13 @@
   .contentPanel.nested.selected .nestedContentPanel {
     display: block;
     border: solid 2px #cccccc;
-    padding: 0 0.5rem;
+    padding: 0;
   }
   .contentPanel.nested.selected .nestedContentPanel .contentTarget {
     display: none;
+  }
+  .contentPanel.nested.selected .nestedContentPanel .accordion-trigger {
+    display: none !important;
   }
   .contentPanel.nested .nestedContentPanel {
     display: none;
@@ -304,6 +339,13 @@
     margin-top: 0rem;
     margin-bottom: 0rem;
     border-bottom: solid 1px #cccccc;
+    background-color: white;
+    position: fixed;
+    top: 90px;
+    left: 0;
+    bottom: 0;
+    z-index: 40000;
+    padding: 1rem;
   }
   .accordion-trigger.mobile-only {
     display: grid !important;

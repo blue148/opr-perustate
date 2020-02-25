@@ -37,6 +37,7 @@ const MenuContainer = styled.div`
 const ListItem = (props) =>{
 	const {title, programs} = props;
 	//BUILD CHILD LIST IF PROGRAMS ARE PRESENT
+	if(!title)return false;
 	const childList = (programs)?
 			
 			Object.keys(programs).map((item,index)=>{
@@ -47,8 +48,10 @@ const ListItem = (props) =>{
 					<li key={index}>		
 						 	<a 
 						 		href={'#'+chainId} 
-						 		onClick={()=>{
-							 	
+						 		onClick={(e)=>{
+							 	{/*need to set tabs class instead of messing with the DOM*/}
+							 		e.preventDefault();
+							 		props.onStateChange(e,parent,chainId,'');
 								 	document.getElementById('main-menu').classList.toggle('opened');
 								 	const selected = document.querySelectorAll('.contentPanel.selected');
 					 				for(var x=0; x<selected.length; x++){
@@ -124,6 +127,7 @@ const MenuList = (props) =>{
 				handleSlide={props.handleSlide}
 				key={index}
 				programs={programs||''}
+				onStateChange={props.onStateChange}
 				>
 			</ListItem>
 		)
@@ -150,8 +154,8 @@ export default class MobileMenu extends React.Component{
 	handleMenuSlide = (e,props) =>{
 		///CHANGE THE CLASS OF THE CHILD MENU TO SHOW IT
 		e.preventDefault()
-		console.log(props)
-	document.getElementById(props+'__menu').classList.add('shown');		
+		//console.log(props)
+		document.getElementById(props+'__menu').classList.add('shown');		
 	}
 	handleClick = (e) =>{
 		e.preventDefault()
@@ -166,6 +170,7 @@ export default class MobileMenu extends React.Component{
 		//HIDE THE MOBILE MENU 
 		document.getElementById('main-menu').classList.toggle('opened');	
 	}
+	
 	render(){
 
 		return(		
@@ -188,6 +193,7 @@ export default class MobileMenu extends React.Component{
 					<MenuList 
 						handleToggle={this.handleMenuToggle}
 						handleSlide={this.handleMenuSlide}
+						onStateChange={this.props.onStateChange}
 						items={this.props}>
 						<li className="buttonArea">
 						    <Button label="Apply Now" theme="secondary" outlink="https://online.peru.edu/apply-now"/>

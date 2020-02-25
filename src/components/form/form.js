@@ -27,6 +27,7 @@ const StyledContainer = styled(Container)`
 	order:20;
 	margin-top:0;
 	padding:0;
+	width:100%;
 	@media (min-width: 768px) {
 		grid-column:2/3;
 		grid-row:1;
@@ -34,6 +35,7 @@ const StyledContainer = styled(Container)`
 		right: 9%;
 		top: 0px;
 		position: fixed;
+		width:357px!important;
 	}
 	@media (max-width:1290px){
 		left:850px;
@@ -100,7 +102,8 @@ const programOptions = [
 	{
 		key:'BSBA - ACCT',
 		text:'Business: Accounting',
-		value:'BSBA - ACCT'
+		value:'BSBA - ACCT',
+		reference:'business-accounting',
 	},
 	{
 		key:'BSBA - CMIS',
@@ -116,13 +119,64 @@ const programOptions = [
 		key:'BSBA - MGMT',
 		text:'Business: Management',
 		value:'BSBA - MGMT'
+	},
+	{
+		text:'Business: Management Applied Science (BAS)',
+		value:'BAS - MGMT',
+		key:'BAS - MGMT',
+	},
+	{
+		text:'Business: Marketing',
+		value:'BSBA - MKTG',
+		key:'BSBA - MKTG',
+	},
+	{
+		text:'Business: Public Administration',
+		value:'BSBA - PA',
+		key:'BSBA - PA',
+	},
+	{
+		text:'Criminal Justice: Counseling',
+		value:'CJUS - CS',
+		key:'CJUS - CS',
+	},
+	{
+		text:'Criminal Justice: Adminstration',
+		value:'CJUS - JA',
+		key:'CJUS - JA',
+	},
+	{
+		text:'Criminal Justice: Law & Society',
+		value:'CJUS - LAW',
+		key:'CJUS - LAW',
+	},
+	{
+		text:'Master of Science in Education',
+		value:'MS - ED',
+		key:'MS - ED',
+	},
+	{
+		text:'Master of Science in Organizational Management',
+		value:'MS - OM',
+		key:'MS - OM',
+	},
+	{
+		text:'Psychology',
+		value:'BS/BA - PSYCH',
+		key:'BS/BA - PSYCH',
+	},
+	{
+		text:'Undecided',
+		value:'Undergrad - Undecided',
+		key:'Undergrad - Undecided',
 	}
+
 ]
 const selectOptions =(props)=>(
 	
 	Object.keys(props).map((item,index)=>{
 		if(isNaN(item))return true;
-		return(<MenuItem value={props[index].value} key={index}>{props[index].text}</MenuItem>
+		return(<MenuItem value={props[index].value} key={index} data-reference={props[index].reference}>{props[index].text}</MenuItem>
 	)})
 )
 const useStyles = makeStyles(theme => ({
@@ -155,7 +209,6 @@ const useStyles = makeStyles(theme => ({
 		background:'white'
 	},
 	container:{
-		width:'357px',
 		top:'72px',
 	}
 	}));
@@ -166,17 +219,14 @@ export default function FormPanel(props){
 	const headline = props.headline;
 	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
 	const classes = useStyles();
-	const [program, setProgram] = React.useState('');
-
-	//const inputLabel = React.useRef(null);
-	//const [labelWidth, setLabelWidth] = React.useState(0);
-	/*React.useEffect(() => {
-		setLabelWidth(inputLabel.current.offsetWidth);
-	}, []);*/
-	
+	const [program, setProgram] = React.useState(props.state.formSelect||'');
 	const handleChange = event => {
 		setProgram(event.target.value);
 	};
+	React.useEffect(()=>{
+		if(props.state.formSelect!=='')setProgram(props.state.formSelect)
+			},[props.state.formSelect]
+	);
 	return(
 		 <StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />

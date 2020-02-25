@@ -20,6 +20,7 @@ const Content = styled.div`
 		border-bottom:solid 1px ${props=>props.theme.lightgray};
 		padding-bottom:1.8rem;
 		font-weight:400;
+		margin:0;
 		@media (min-width:768px){
 			padding-bottom:0;
 			border-bottom:none;

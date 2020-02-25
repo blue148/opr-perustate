@@ -9,7 +9,15 @@
 	    font-size: 1.3rem;
 	}
 }
+.MuiContainer-root{
+	@media (min-width:768px){
+		width:357px;
+	}
+}
 .MuiGrid-item{
 	padding:0;
 	line-height:1;
+}
+.MuiInputLabel-outlined.MuiInputLabel-shrink{
+	transform: translate(14px, -14px) scale(0.75)!important;
 }

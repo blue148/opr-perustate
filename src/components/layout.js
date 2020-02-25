@@ -11,10 +11,13 @@ import Awards from "./awards"
 import Bottom from "./bottomContentSection"
 import Footer from "./footer"
 import FormPanel from "./form/form"
+import update from 'immutability-helper'
 import styled, {ThemeProvider} from "styled-components"
 import "./layout.css"
 import Icons from "../images/symbol-defs.svg"
 import ScrollIntoView from 'react-scroll-into-view'
+import slugify from 'slugify'
+import {isMobile} from 'react-device-detect'
 
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
 
@@ -77,29 +80,81 @@ const MobileBottomBar = styled.div`
 export default class Layout extends React.Component{
 	constructor(props){
 		super(props)
-		this.state = {activeTab:'',activepanel:'',activeSubTab:'',activeSubPanel:''}
+		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:'',formSelect:''}
+		console.log(props, 'master')
 	}
+	
+	
+	
+	handleStateChange=(e,tabState,subTabState,formSelect)=>{
+		if(tabState===null)tabState=this.state.activeTab;
+		
+		const tabArray = tabState.split('__');
+		
+		var subTab = '';
+		var tab = '';
+		var tabPanel = '';
+		var subTabPanel = '';
+		
+		if(tabArray.length < 2){
+			subTab = '';
+			tab = tabState;
+			tabPanel = tab+'_panel';
+			subTabPanel = '';
+		}else{
+			subTab = tabState;
+			tab = tabArray[0];
+			tabPanel = tab+'_panel';
+			subTabPanel = subTab+'_panel';
+		}
+		if(subTabState)subTab=subTabState;
+		const updatedState = update(
+		   this.state,{
+			   'activeTab':{$set:tab},
+			   'activePanel':{$set:tabPanel},
+   			   'activeSubTab':{$set:subTab},
+			   'activeSubPanel':{$set:subTabPanel},
+			   'formSelect':{$set:formSelect}
+		   }
+		)	  
+	   this.setState(updatedState, ()=>console.log(this.state,' layout'))
+		
+	}
+	
+	
+	
+	handleParentState=(props)=>{
+
+		const updatedState = update(
+		   this.state,{
+			   'formSelect':{$set:props}
+		   }
+		)	  
+	   this.setState(updatedState)	  
+	}
+	
+	
+	
 	render(){
 	  return (
 		<ThemeProvider theme={theme}>
 			<Icons/>
-			<Header {...this.props.tabbedContent}/>
+			<Header {...this.props.tabbedContent} onStateChange={this.handleStateChange}/>
 		    <Page>   
 			    
 				<Main>
 
-						<ContentArea>
-							<Hero {...this.props.heroArea}/>
-							<MainArea {...this.props.mainContentSection}/>
-							<TabbedArea {...this.props.tabbedContent}/>
-							<Accolades {...this.props.accolades}/>
-							<Testimonial {...this.props.testimonial}/>
-							<Awards {...this.props.awards}/>
-							<Bottom {...this.props.bottomContentSection}/>
-											
-						</ContentArea>
+					<ContentArea>
+						<Hero {...this.props.heroArea}/>
+						<MainArea {...this.props.mainContentSection}/>
+						<TabbedArea {...this.props.tabbedContent} onParentStateChange={this.handleParentState} onStateChange={this.handleStateChange} state={this.state}/>
+						<Accolades {...this.props.accolades}/>
+						<Testimonial {...this.props.testimonial}/>
+						<Awards {...this.props.awards}/>
+						<Bottom {...this.props.bottomContentSection}/>						
+					</ContentArea>
 
-					<FormPanel phone={this.props.phonenumber} headline={this.props.formheadline}/>
+					<FormPanel phone={this.props.phonenumber} headline={this.props.formheadline} state={this.state}/>
 					<Footer/>
 				</Main>
 				<MobileBottomBar>
