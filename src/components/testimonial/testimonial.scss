@@ -16,6 +16,8 @@
 		.desktop-shim{
 			display:grid;
 			grid-template:1fr/300px auto;
+			align-items:center;
+			grid-column-gap: 2rem;
 		}
 	}
 }

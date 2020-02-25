@@ -52,11 +52,11 @@ const Hamburger = styled.a`
 	justify-self:end;
 	svg{
 	path{
-			fill{
-				white;
-			}
+		fill{
+			white;
 		}
 	}
+}
 ` 
  
 export default class Header extends React.Component{
@@ -74,31 +74,31 @@ export default class Header extends React.Component{
 	}
 	render(){
 		return(
-		<StyledHead>
-		<Container>
-		    <LogoBox>
-		      <Logo/>
-		    </LogoBox>
-		    <ButtonContainer>
-			    <Button label="Apply Now" theme="secondary" className="apply-now header-item" outlink="https://online.peru.edu/apply-now"/>
-				<Hamburger 
-					href="#" 
-					onClick={this.handleMenuToggle}
-					id="main-menu-toggle" 
-					className="menu-toggle" 
-					aria-label="Open main menu">
-					<span className="sr-only">Open</span>
-					<span className="">
-						
-						<FontAwesomeIcon icon={faBars} inverse size="3x" transform="shrink-6"/>
-					</span>
+			<StyledHead>
+				<Container>
+				    <LogoBox>
+				      <Logo/>
+				    </LogoBox>
+				    <ButtonContainer>
+					    <Button label="Apply Now" theme="secondary" className="apply-now header-item" outlink="https://online.peru.edu/apply-now"/>
+						<Hamburger 
+							href="#" 
+							onClick={this.handleMenuToggle}
+							id="main-menu-toggle" 
+							className="menu-toggle" 
+							aria-label="Open main menu">
+							<span className="sr-only">Open</span>
+							<span className="">
+								
+								<FontAwesomeIcon icon={faBars} inverse size="3x" transform="shrink-6"/>
+							</span>
+							
+						</Hamburger>
+					</ButtonContainer>
 					
-				</Hamburger>
-			</ButtonContainer>
-			
-			<MobileMenu {...this.props}/>
-</Container>
-		  </StyledHead>
+					<MobileMenu {...this.props}/>
+				</Container>
+			</StyledHead>
 		)
 	}
 

@@ -21,6 +21,7 @@ const MainContent = styled.div`
 	@media(min-width:768px){
 		width:95%;
 		max-width:850px;
+		text-align:center;
 	}
 `
 

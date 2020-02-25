@@ -24,6 +24,7 @@ const Content = styled.div`
 		@media (min-width:768px){
 			padding-bottom:0;
 			border-bottom:none;
+			margin-bottom:1rem;
 		}
 	}
 	p{
