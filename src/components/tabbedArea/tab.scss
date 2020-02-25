@@ -47,7 +47,7 @@
 			padding: .2rem .8rem;
 		    color: inherit;
 		    text-transform: uppercase;
-		    &:hover,&:focus{
+		    &:hover{
 				background-color:$brandmediumblue;
 				color:white;
 			}
@@ -136,7 +136,7 @@
 					pointer-events: none;
 				}
 				a{
-					&:hover,&:focus{
+					&:hover{
 						color:$brandmediumblue;
 						background-color:#f4f4f4;
 						pointer-events: none;

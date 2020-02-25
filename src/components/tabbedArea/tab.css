@@ -70,7 +70,7 @@
   text-transform: uppercase;
 }
 
-.tabPanel li a:hover, .tabPanel li a:focus {
+.tabPanel li a:hover {
   background-color: #003478;
   color: white;
 }
@@ -173,7 +173,7 @@
   pointer-events: none;
 }
 
-.tabPanel.vertical li.selected a:hover, .tabPanel.vertical li.selected a:focus {
+.tabPanel.vertical li.selected a:hover {
   color: #003478;
   background-color: #f4f4f4;
   pointer-events: none;

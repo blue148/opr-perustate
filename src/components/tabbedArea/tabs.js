@@ -1,5 +1,4 @@
 import React from "react"
-import styled from 'styled-components'
 import slugify from 'slugify'
 import ProgramInfo from '../programInfo'
 import update from 'immutability-helper'
@@ -7,30 +6,9 @@ import ScrollIntoView from 'react-scroll-into-view'
 import {isMobile} from 'react-device-detect'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight, faChevronDown} from '@fortawesome/free-solid-svg-icons'
-import {Button as MuiButton, 
-	DialogActions,
-	Dialog} from '@material-ui/core';
 import './tab.scss';
 
 
-const StyledDialog = styled(Dialog)`
-	top:90px!important;
-	.MuiDialog-scrollPaper{
-		.MuiDialog-paper{
-			&.MuiDialog-paperWidthSm{
-				max-width:none!important;
-			}
-			&.MuiDialog-paperScrollPaper{
-				width:100%;
-			}
-			margin:0;
-		}
-	}
-	.MuiDialog-paperScrollPaper{
-			max-height:100%;
-		}
-
-`
 /**replace this with a GraphQL query**/
 const programMapping = 
 	{'Business Administration in Accounting':'BSBA - ACCT',
@@ -100,7 +78,7 @@ const TabsPanel = (props)=>{
 ////CONTENT PANEL -> make external functional component
 
 const ContentPanel = (props) =>{
-	
+	/**pull in prgoramCode form content**/
 	const ref = React.createRef();	
 	const handleClick = (e,slug) =>{
 		e.preventDefault()

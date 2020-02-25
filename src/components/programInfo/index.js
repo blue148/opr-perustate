@@ -1,6 +1,5 @@
 import React from "react"
 import styled from 'styled-components'
-import onClickOutside from "react-onclickoutside"
 import {Button} from '../uiElements'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faTimesCircle} from '@fortawesome/free-solid-svg-icons'
@@ -19,17 +18,6 @@ const ButtonArea = styled.div`
 		grid-auto-columns:max-content;
 	}
 		
-`
-const StyledButton = styled(Button)`
-	justify-self:center;
-	width:100%;
-	a{
-		width:auto;
-		@media (min-width:768px){
-			width:300px;
-		}
-	}
-
 `
 const CloseButton = styled.a`
 	margin-bottom:.3rem;

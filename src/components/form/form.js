@@ -8,10 +8,7 @@ import {
 	Button,
 	Container,
 	makeStyles,
-	Typography,
-	Box,
 	Grid,
-	FormControlLabel,
 	TextField,
 	CssBaseline,
 	
@@ -51,16 +48,7 @@ const FormBox = styled.div`
 			width:355px;
 			}
 `
-const FormRow = styled.div`
-	margin-bottom:10px;
-	input,select{
-		height:40px;
-		width:100%;
-		color:#333;
-		border-color:${props=>props.theme.shade};
-		}
-	
-`
+
 const FormHeadline = styled.h2`
 	text-align:center;
 	margin:1rem auto;

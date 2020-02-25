@@ -49,7 +49,6 @@ const ListItem = (props) =>{
 						 	<a 
 						 		href={'#'+chainId} 
 						 		onClick={(e)=>{
-							 	{/*need to set tabs class instead of messing with the DOM*/}
 							 		e.preventDefault();
 							 		props.onStateChange(e,parent,chainId,'');
 								 	document.getElementById('main-menu').classList.toggle('opened');
