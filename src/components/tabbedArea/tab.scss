@@ -47,6 +47,10 @@
 			padding: .2rem .8rem;
 		    color: inherit;
 		    text-transform: uppercase;
+		    &:hover,&:focus{
+				background-color:$brandmediumblue;
+				color:white;
+			}
 
 		}
 		&:first-child{
@@ -112,6 +116,10 @@
 					line-height: inherit;
 					text-transform: uppercase;
 				}
+				&:hover{
+					background-color:$brandmediumblue;
+					color:white;
+				}
 				
 
 			}
@@ -124,7 +132,15 @@
 				border-top:solid 1px $lightgray;
 				background-color:#f4f4f4;
 				&:hover,&:focus{
+					background-color:#f4f4f4;
 					pointer-events: none;
+				}
+				a{
+					&:hover,&:focus{
+						color:$brandmediumblue;
+						background-color:#f4f4f4;
+						pointer-events: none;
+					}
 				}
 				&>span {
 

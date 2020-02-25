@@ -70,6 +70,11 @@
   text-transform: uppercase;
 }
 
+.tabPanel li a:hover, .tabPanel li a:focus {
+  background-color: #003478;
+  color: white;
+}
+
 .tabPanel li:first-child {
   border-left: none;
 }
@@ -149,6 +154,11 @@
   }
 }
 
+.tabPanel.vertical li a:hover {
+  background-color: #003478;
+  color: white;
+}
+
 .tabPanel.vertical li > span {
   display: none;
 }
@@ -159,6 +169,13 @@
 }
 
 .tabPanel.vertical li.selected:hover, .tabPanel.vertical li.selected:focus {
+  background-color: #f4f4f4;
+  pointer-events: none;
+}
+
+.tabPanel.vertical li.selected a:hover, .tabPanel.vertical li.selected a:focus {
+  color: #003478;
+  background-color: #f4f4f4;
   pointer-events: none;
 }
 
