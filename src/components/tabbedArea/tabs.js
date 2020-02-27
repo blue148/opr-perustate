@@ -81,18 +81,19 @@ const ContentPanel = (props) =>{
 	/**pull in prgoramCode form content**/
 	const ref = React.createRef();	
 	const handleClick = (e,slug) =>{
+		window.scrollTo(0, (ref.current.offsetTop - (90 + ref.current.parentNode.offsetHeight)))
 		e.preventDefault()
 		///need to detect tab or subtab
 		if(props.active===slug){
 				props.onStateChange(e,'')
 			}else{
 				props.onStateChange(e,slug)
-				
+				window.scrollTo(0, (ref.current.offsetTop - 90))
 			}
         }
 	const slug = slugify(props.id,{remove: /[*+~.()'"!:@]/g,lower:true});
 	const activeClass = (slug === props.active)?'selected':'';
-	const slugPanel = slug+'_panel';
+	const slugPanel = slug+'_panel' 
 	
 	
 	return(
@@ -100,9 +101,9 @@ const ContentPanel = (props) =>{
 			className={"contentPanel "+activeClass} 
 			id={slug}
 		>
-			<ScrollIntoView selector={"#"+slug} className="accordion-trigger mobile-only">
-				<h4 className='tab mobile-only' ref={ref} data-target={slugPanel} onClick={(e)=>handleClick(e,slug)}>
-					{props.pageName}					
+			<ScrollIntoView selector={"#"+slug} className="accordion-trigger mobile-only" alignToTop={true} onClick={(e)=>handleClick(e,slug,ref)}>
+				<h4 className='tab mobile-only' ref={ref} data-target={slugPanel} >
+					{props.pageName}				
 				</h4> 
 
 			</ScrollIntoView>
@@ -155,7 +156,7 @@ export class NestedPanel extends React.Component{
 	
 	render(){
 		
-		//const ref = React.createRef();
+		const ref = React.createRef();
 		///create stack of content sub panels
 		const subpanels =  Object.keys(this.props.programs).map((program, index)=>{
 			if(isNaN(program))return true;
@@ -177,12 +178,14 @@ export class NestedPanel extends React.Component{
 		
 		const activeParent = (this.props.active.activeTab===this.slug)?'selected':'';
 		const slugPanel = this.slug+'_panel';
-		const handleClick = (e,slug) =>{
+		const handleClick = (e,slug,ref) =>{
+			window.scrollTo(0, (ref.current.offsetTop - (90 + ref.current.parentNode.offsetHeight)))			
 			e.preventDefault()
 			if(this.props.active.activeTab===slug){
 				this.props.onStateChange(e,'')
 			}else{
 				this.props.onStateChange(e,this.slug)
+				
 			}
 		}
 		///make the item call ContentPanel. 
@@ -191,8 +194,8 @@ export class NestedPanel extends React.Component{
 					className={"contentPanel nested "+activeParent}
 					id={this.slug}
 				>
-					<ScrollIntoView selector={"#"+this.slug} className="accordion-trigger mobile-only">
-						<h4 className='tab mobile-only' data-target={slugPanel} onClick={(e)=>handleClick(e,this.slug)}>
+					<ScrollIntoView selector={"#"+this.slug} className="accordion-trigger mobile-only" alignToTop={true} onClick={(e)=>handleClick(e,this.slug,ref)}>
+						<h4 className='tab mobile-only' ref={ref} data-target={slugPanel} >
 							{this.props.pageName}
 							
 						</h4>

@@ -29,7 +29,9 @@ export default class MainArea extends React.Component{
 	
 	render(){
 		const { headline, content}= this.props
-		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
+		//remove and p and f tags to clean up the code then add nbsp in the last space for text wrapping.
+		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;"):'';
+
 
 		return(
 			<MainBox className="bottomsection">

@@ -2,9 +2,9 @@ import React from "react"
 import styled from "styled-components"
 import slugify from 'slugify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faTimesCircle} from '@fortawesome/free-solid-svg-icons'
+import {faTimesCircle, faChevronRight, faChevronLeft} from '@fortawesome/free-solid-svg-icons'
 import {Button} from '../uiElements'
-import './index.scss'
+import './mobilemenu.scss'
 
 //****NEED TO PASS STATE FORM LAYOUT->HEADER->HERE TO CONTROL THE TABS AND PANELS SELECTIONS
 const StyledMobileMenu = styled.nav`
@@ -44,6 +44,7 @@ const ListItem = (props) =>{
 				const subtitle = programs[item].tabname||programs[item].pageName;///Check for deprecated tabName
 				const parent = slugify(title,{remove: /[*+~.()'"!:@]/g,lower:true});///slugify the parent pageName
 				const chainId=slugify([title,subtitle].join('__'),{remove: /[*+~.()'"!:@]/g,lower:true});///create the nested ID. Format is [parent]__[pagename]
+				
 				return(
 					<li key={index}>		
 						 	<a 
@@ -69,6 +70,7 @@ const ListItem = (props) =>{
 						 		>
 						 		{subtitle}
 						 	</a>
+						 	
 					
 						</li>)		
 			}):null;
@@ -82,13 +84,16 @@ const ListItem = (props) =>{
 				 	role="tab" onClick={(e)=>props.handleSlide(e,slug)} 
 				>
 				 	<a href="#" onClick={(e)=>props.handleSlide(e,slug)}>{title}</a>
+				 	<span><FontAwesomeIcon icon={faChevronRight} className="menu-arrow-icon"/></span>
 				 	
 				</div>
 				 
 					{childList ?
 						<ul id={slug+'__menu'}>
 							<li className="menu-back">
+							<span><FontAwesomeIcon icon={faChevronLeft}/></span>
 								<a href="#" onClick={()=>{document.getElementById(slug+'__menu').classList.remove('shown')}}>Back</a>
+								
 							</li>
 							{childList}
 						</ul>

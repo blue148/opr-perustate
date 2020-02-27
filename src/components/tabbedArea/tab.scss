@@ -47,10 +47,6 @@
 			padding: .2rem .8rem;
 		    color: inherit;
 		    text-transform: uppercase;
-		    &:hover{
-				background-color:$brandmediumblue;
-				color:white;
-			}
 
 		}
 		&:first-child{
@@ -59,7 +55,23 @@
 		&:last-child{
 			border-right:none;
 		}
+		&.selected{
+			background-color:$perulightgray;
+			color:$secondaryblue;
+			font-weight:600;
+			a{
+				color:inherit;
+				font-weight:600;				
+			}
+			&:hover,
+			&:focus{
+				pointer-events: none;
+				background-color:$perulightgray;
+				color:$secondaryblue;
+			}
+		}
 	}
+	
 	&.vertical{
 		display: grid;
 	    padding: 0;
@@ -154,19 +166,7 @@
 			}
 		}
 	}
-	.selected{
-		background-color:$perulightgray;
-		color:$secondaryblue;
-		font-weight:600;
-		a{
-			color:inherit;
-			font-weight:600;
-			
-		}
-		&:hover,&:focus{
-					pointer-events: none;
-				}
-	}
+
 	
 	
 }
@@ -176,6 +176,9 @@
 	padding:1.6rem;
 	max-width:1000px;
 	margin:0 auto;
+	@media (min-width: 768px){
+		padding: 1.6rem 1.6rem 0;
+	}
 	h3{
 		font-size:1.8rem;
 		line-height: 1.2;

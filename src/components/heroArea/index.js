@@ -67,7 +67,7 @@ const ItemsBox = styled.section`
 `
 const ItemStack = styled.div`
 	display:grid;
-	grid-template-columns:60px 1fr;
+	grid-template-columns:90px 1fr;
 	grid-column-gap:1.2rem;
 	justify-items:start;
 	align-items:center;
@@ -79,8 +79,8 @@ const ItemStack = styled.div`
 	.iconBox{
 		grid-column:1/2;
 		grid-row:1;
-		width:60px;
-		height:60px;
+		width:85px;
+		height:85px;
 		box-shadow: rgba(0,0,0,.5) -3px 3px 10px;
 		@media (min-width:768px){
 			width: 65px;
@@ -165,7 +165,8 @@ export default class HeroArea extends React.Component{
 	render(){
 		const {image, headline, items} = this.props
 		const imgBg = (image)?image.fields.file.en_US.url:'';
-		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
+		//remove and p and f tags to clean up the code then add nbsp in the last space for text wrapping.
+		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;"):'';
 
 		return(
 			<HeroBox key={this.props.index} backgroundImage={imgBg} className="HeroBox">

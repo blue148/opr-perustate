@@ -89,43 +89,42 @@ header{
 			}
 			li{
 				&:first-child{
-					a{
+					
 						border-top: 1px solid #383838;		
-					}
+					
 				}
 				&.buttonArea{
 					text-align: center;
 					margin: 1rem auto;
 				}
 				&.menu-back{
+					display:grid;
+					grid-template-columns: 17px 1fr;
+					border-bottom: 1px solid #383838;
 					a{
-						display:grid;
-						grid-template-columns: 17px 1fr;
-						&::before{
-							content: '\f053';
-						    display: block;
-						    width: 25px;
-						    height: 1rem;
-						    font-family: "Font Awesome 5 Free";
-						
-						}
-						&::after{
-							content:none;
-						}
+						border-bottom:none;
 					}
+					span{
+							color:white;
+							align-self: center;
+							margin-left:5px;
+						}
+
+					
 				}
 				&.top-level{
-					&> div a{
+					&> div{
 						display:grid;
-						grid-template-columns:1fr 17px;
-						&::after{
-							content: '\f054';
-						    display: block;
-						    width: 25px;
-						    height: 1rem;
-						    font-family: "Font Awesome 5 Free";
-
-						} 
+						grid-template-columns: 1fr 35px;
+						grid-auto-flow: column;
+						border-bottom: 1px solid #383838;
+						a{
+							border-bottom:none;
+						}
+						span{
+							color:white;
+							align-self: center;
+						}
 					}
 				}
 			}

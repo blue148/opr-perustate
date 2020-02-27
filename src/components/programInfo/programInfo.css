@@ -6,7 +6,7 @@
 }
 
 .program-content-area {
-  max-height: calc(100% - 155px);
+  max-height: calc(100% - 100px);
   overflow-y: scroll;
 }
 
@@ -152,5 +152,11 @@
 }
 
 .program-info-details {
-  margin: 1rem 0;
+  margin: 1rem 0 3rem;
+}
+
+@media (min-width: 768px) {
+  .program-info-details {
+    margin: 1rem 0;
+  }
 }

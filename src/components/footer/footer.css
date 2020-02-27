@@ -6,9 +6,10 @@
   grid-template: auto/1fr;
   grid-row-gap: 1rem;
   grid-auto-flow: row;
-  align-items: center;
+  align-items: start;
   justify-items: center;
-  padding: 1rem 1rem 175px;
+  padding: 1rem 1rem;
+  height: calc(100% + 200px);
 }
 
 @media (min-width: 768px) {

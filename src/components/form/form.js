@@ -64,6 +64,8 @@ const FormBox = styled.div`
 		top:72px;
 		@media (min-width: 768px) {
 			width:355px;
+			height: 100%;
+		overflow-y: scroll;
 			}
 `
 
@@ -98,10 +100,14 @@ const CTASection = styled.p`
 const Spacer = styled.span`
  	display: block; 
 	  content: " "; 
-	  margin-top: -85px; 
-	  height: 85px; 
+	  margin-top: 0px; 
+	  height: 0px; 
 	  visibility: hidden; 
 	  pointer-events: none;
+	  @media (min-width:768px){
+		  height:85px;
+		  margin-top:-85px;
+		  }
 `
 
 const programOptions = [
@@ -195,7 +201,7 @@ const useStyles = makeStyles(theme => ({
 	width: '90%', // Fix IE 11 issue.
 	margin:0,
 	},
-	formControl: {
+	select: {
 	minWidth: 120,
 	margin:0,
 	width:'100%',
@@ -222,26 +228,27 @@ const useStyles = makeStyles(theme => ({
 	
 export default function FormPanel(props){
 	
-	console.log(userName,' form creds')
+	//console.log(userName,' form creds')
 	const phone = (props.phone==null)?'(402) 902-3128':props.phone;
 	const headline = props.headline;
 	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
 	const classes = useStyles();
-	const [program, setProgram] = React.useState(props.state.formSelect||'');
+	//const [program, setProgram] = React.useState(props.state.formSelect||'');
 	const [state, setState] = React.useReducer(
 	    (state, newState) => ({...state, ...newState}),
 	    {formData:{
-		    firstName:null,
-			lastName:null,
-			email:null,
-			phoneNumber:null,
+		    firstName:'',
+			lastName:'',
+			email:'',
+			phoneNumber:'',
 			programCode:'',
 			},
 		submitted:false
 		}
 	  )
 	const handleChange = event => {
-		setState({'programCode':event.target.value});
+		setState({'formData':{'programCode':event.target.value}});
+		console.log(this.state, 'onChange')
 	};
 	const handleSubmit = (e)=>{
 		e.preventDefault();
@@ -297,18 +304,17 @@ export default function FormPanel(props){
 		fetch('https://test-archer.startuniversity.net/api/leads/addlead', init)
 		.then((response) => console.log(response))
 		.then((json) => {
-		 console.log(json, 'Re4sponse')
+		 //console.log(json, 'Re4sponse')
 		})
 		.catch((e) => {
 		  // error in e.message
 		  console.log(e.message)
 		});
 	}
-	React.useEffect(()=>{
-		
-		if(props.state.formSelect!=='')setState({'programCode':props.state.formSelect})
-		console.log(state,' state')
-			}/*,[props.state.formSelect]*/
+	React.useEffect(()=>{		
+		if(props.state.formSelect!=='')setState({'formData':{'programCode':props.state.formSelect}})
+			console.log(state,' useEffect')
+			},[props.state.formSelect]
 	);
 	return(
 		 <StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
@@ -320,21 +326,20 @@ export default function FormPanel(props){
 		        </FormHeadline>
 		        <form className={classes.form} onSubmit={handleSubmit} >
 		          <Grid container spacing={0}>
-		          	<FormControl required={true}>
 		            <Grid item xs={12}>
-		            	<FormControl className={classes.formControl} variant='outlined' margin='dense'>
 					        <InputLabel id="programs-label">Select a Program</InputLabel>
 					        <Select
 					          labelId="programs-label"
 					          id="programs"
-					          value={state.programCode}
+					          variant='outlined' 
+					          margin='dense'
+					          value={state.formData.programCode}
 					          onChange={handleChange}
-
+					          className={classes.select}
 					        >
-					        <MenuItem value=''>Please Select a Program</MenuItem>
-					          {selectOptions(programOptions)}
+						        <MenuItem value=''>Please Select a Program</MenuItem>
+						        {selectOptions(programOptions)}
 					        </Select>
-				      </FormControl>
 		            </Grid>
 		            <Grid item xs={12} >
 		              <TextField
@@ -388,7 +393,6 @@ export default function FormPanel(props){
 		                 className={classes.textfield}
 		              />
 		            </Grid>
-		            </FormControl>
 		          </Grid>
 		          
 		          <Grid container justify="flex-end">

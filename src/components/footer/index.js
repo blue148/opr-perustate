@@ -43,7 +43,7 @@ export default class Footer extends React.Component{
 		    	<Logo/>
 		    </LogoBox>
 		    <LinkBox>
-			     <p>© {new Date().getFullYear()}Peru State College</p>
+			     <p>©{new Date().getFullYear()} Peru State College</p>
 				 <p><a href="https://www.peru.edu/about/equal-opportunity-policy" target="_blank">Equal Opportunity Policy</a></p>
 				 <p><a href="https://www.peru.edu/privacypolicy" target="_blank">Privacy Policy</a></p>
 				 <p><a href="https://www.peru.edu/titleix/" target="_blank">Title IX</a></p>

@@ -12,10 +12,15 @@ const ButtonArea = styled.div`
 	grid-auto-columns:1fr;
 	grid-column-gap:.5rem;
 	justify-content:center;
-	
+	background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 38%, rgba(255,255,255,1) 100%);
+	background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 38%,rgba(255,255,255,1) 100%);
+	background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 38%,rgba(255,255,255,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+	padding-top:2rem;
 	@media (min-width:768px){
 		grid-template-columns:max-content;
 		grid-auto-columns:max-content;
+		background: transparent;
 	}
 		
 `
@@ -102,6 +107,9 @@ export default class ProgramInfo extends React.Component{
 	}
 	render(){
 		//console.log(this.props, 'program info')
+		//add nbsp in the last space for text wrapping.
+		const cleanHeadline = this.props.pageName.replace(/ (?=[^ ]*$)/i, "&nbsp;");
+
 		return(		
 			<>
 				<CloseButton
@@ -112,7 +120,7 @@ export default class ProgramInfo extends React.Component{
 						<span className="sr-only">Close</span>
 						<FontAwesomeIcon icon={faTimesCircle}/>
 					</CloseButton>
-				<h3>{this.props.pageName}</h3>	
+				<h3 dangerouslySetInnerHTML={{__html:cleanHeadline}}/>	
 				<PanelContent {...this.props}/>
 				<ButtonArea className="program-info-buttons">
 					<Button label="Request Info" theme="primary mobile-only" jumplink='leadform' onClick={(e)=>this.handleParentChange(e,this.props.programLink)}>

@@ -94,7 +94,7 @@ header .button#apply-now {
   text-decoration: underline;
 }
 
-.main-menu ul li:first-child a {
+.main-menu ul li:first-child {
   border-top: 1px solid #383838;
 }
 
@@ -103,34 +103,36 @@ header .button#apply-now {
   margin: 1rem auto;
 }
 
-.main-menu ul li.menu-back a {
+.main-menu ul li.menu-back {
   display: grid;
   grid-template-columns: 17px 1fr;
+  border-bottom: 1px solid #383838;
 }
 
-.main-menu ul li.menu-back a::before {
-  content: '\f053';
-  display: block;
-  width: 25px;
-  height: 1rem;
-  font-family: "Font Awesome 5 Free";
+.main-menu ul li.menu-back a {
+  border-bottom: none;
 }
 
-.main-menu ul li.menu-back a::after {
-  content: none;
+.main-menu ul li.menu-back span {
+  color: white;
+  align-self: center;
+  margin-left: 5px;
+}
+
+.main-menu ul li.top-level > div {
+  display: grid;
+  grid-template-columns: 1fr 35px;
+  grid-auto-flow: column;
+  border-bottom: 1px solid #383838;
 }
 
 .main-menu ul li.top-level > div a {
-  display: grid;
-  grid-template-columns: 1fr 17px;
+  border-bottom: none;
 }
 
-.main-menu ul li.top-level > div a::after {
-  content: '\f054';
-  display: block;
-  width: 25px;
-  height: 1rem;
-  font-family: "Font Awesome 5 Free";
+.main-menu ul li.top-level > div span {
+  color: white;
+  align-self: center;
 }
 
 .main-menu ul .menu-close {

@@ -5,7 +5,6 @@ import './awards.scss';
 
 const ContentBox = styled.section`
 	display:grid;
-	width:105%;
 	padding:3rem 0;
 	margin:0 0 0 -.5rem;
 	background-color:white;
@@ -111,7 +110,9 @@ export default class Awards extends React.Component{
 	
 	render(){
 		const {headline, items} = this.props;
-		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
+		//remove and p and f tags to clean up the code then add nbsp in the last space for text wrapping.
+		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;"):'';
+		
 
 		return(
 			<ContentBox className="awards-area">

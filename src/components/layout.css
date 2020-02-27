@@ -90,7 +90,9 @@ li {
   transition: .5s;
   border: none;
   padding: .8rem;
+  margin: 0 auto;
   border-radius: 3px;
+  display: block;
 }
 
 .button.primary {

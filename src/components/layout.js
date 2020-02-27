@@ -158,10 +158,12 @@ export default class Layout extends React.Component{
 					<Footer/>
 				</Main>
 				<MobileBottomBar>
-					<ScrollIntoView selector="#leadform" className="buttonContainer">
+					<ScrollIntoView selector="#leadform" className="buttonContainer" alignToTop={true}>
 						<button className="button action" type="button">Learn More</button>
 					</ScrollIntoView>
-						<div><button className="button tertiary" type="button" tel={this.props.phonenumber}>Call Us</button></div>
+					<div  className="buttonContainer">
+						<a className="button tertiary" href={"tel:"+this.props.phonenumber}>Call Us</a>
+					</div>
 				</MobileBottomBar>
 		    </Page>
 	    </ThemeProvider>
