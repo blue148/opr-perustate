@@ -2,6 +2,14 @@ const Promise = require('bluebird')
 const path = require('path')
 var slugify = require('slugify')
 
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    node: {
+      fs: 'empty'
+    }
+  })
+}
+
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
   const landingPage = path.resolve('./src/pages/landingpage.js')

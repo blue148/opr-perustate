@@ -81,7 +81,7 @@ export default class Layout extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:'',formSelect:''}
-		console.log(props, 'master')
+		//console.log(props, 'master')
 	}
 	
 	
@@ -117,7 +117,7 @@ export default class Layout extends React.Component{
 			   'formSelect':{$set:formSelect}
 		   }
 		)	  
-	   this.setState(updatedState, ()=>console.log(this.state,' layout'))
+	   this.setState(updatedState)
 		
 	}
 	

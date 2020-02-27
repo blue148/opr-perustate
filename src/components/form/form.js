@@ -17,6 +17,24 @@ import {
 
 import './form.scss'
 
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`
+})
+
+const crmConfig = {
+  userName: process.env.CRM_USERNAME,
+  password: process.env.CRM_PASS,
+  endpoint:process.env.CRM_ENDPOINT
+  
+}
+const { userName, password, endpoint } = crmConfig;
+
+if (!userName || !password) {
+  throw new Error(
+    'Username and Password need to be provided.'
+  )
+}
+
 const StyledContainer = styled(Container)`
 	background-color:${props=>props.theme.shade};
 	bottom:0;
@@ -203,17 +221,94 @@ const useStyles = makeStyles(theme => ({
 	
 	
 export default function FormPanel(props){
+	
+	console.log(endpoint,' form creds')
 	const phone = (props.phone==null)?'(402) 902-3128':props.phone;
 	const headline = props.headline;
 	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
 	const classes = useStyles();
 	const [program, setProgram] = React.useState(props.state.formSelect||'');
+	const [state, setState] = React.useReducer(
+	    (state, newState) => ({...state, ...newState}),
+	    {formData:{
+		    firstName:null,
+			lastName:null,
+			email:null,
+			phoneNumber:null,
+			programCode:'',
+			},
+		submitted:false
+		}
+	  )
 	const handleChange = event => {
-		setProgram(event.target.value);
+		setState({'programCode':event.target.value});
 	};
+	const handleSubmit = (e)=>{
+		e.preventDefault();
+		Object.keys(e.target).map((item,index)=>{
+			if(e.target[item].name){
+				setState({[e.target[item].name]:e.target[item].value})
+//				console.log(state);	
+				}
+		})
+		//console.log(e.target.firstName.value, 'form submit');
+		const headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+		
+		const body = `{
+		  "userName": "jsonderman@archeredu.com",
+		  "password": "BOg*K#1g}M7N}u",
+		  "universityId": "102",
+		  "programCode": "BSBA - MKTG",
+		  "firstName": "_TestName1",
+		  "lastName": "_TestLastName1",
+		  "secondaryLastName": "_TestSecondaryLastName",
+		  "email": "test@tertsr.er",
+		  "cellNumber": "145694851231",
+		  "phoneNumber": "14567894521",
+		  "countryCode": "US",
+		  "comments": "",
+		  "origin": "website",
+		  "source": "testSource",
+		  "subSource": "testSubSource",
+		  "campaignName": "",
+		  "adGroupName": "",
+		  "keyword": "",
+		  "matchType": "testmatchtype",
+		  "network": "testnetwork",
+		  "device": "testdevice",
+		  "deviceModel": "testdevicemodel",
+		  "creative": "testcreative",
+		  "placement": "testplacement",
+		  "target": "testtarget",
+		  "adPosition": "testadposition",
+		  "feedItemId": "testfeeditemid",
+		  "agencyTrackingCode": "testagencytrackingcode",
+		  "webUrl": "https://opr-peru.netlify.com/lp/homepage",
+		  "ip": ""
+		}`;
+		
+		const init = {
+		  method: 'POST',
+		  headers,
+		  body		  
+		};
+		
+		fetch('https://test-archer.startuniversity.net/api/leads/addlead', init)
+		.then((response) => console.log(response))
+		.then((json) => {
+		 console.log(json, 'Re4sponse')
+		})
+		.catch((e) => {
+		  // error in e.message
+		  console.log(e.message)
+		});
+	}
 	React.useEffect(()=>{
-		if(props.state.formSelect!=='')setProgram(props.state.formSelect)
-			},[props.state.formSelect]
+		
+		if(props.state.formSelect!=='')setState({'programCode':props.state.formSelect})
+		console.log(state,' state')
+			}/*,[props.state.formSelect]*/
 	);
 	return(
 		 <StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
@@ -223,15 +318,16 @@ export default function FormPanel(props){
 		        <FormHeadline>
 		          {cleanHeadline||'Need More Information?'}
 		        </FormHeadline>
-		        <form className={classes.form} noValidate>
+		        <form className={classes.form} onSubmit={handleSubmit} >
 		          <Grid container spacing={0}>
+		          	<FormControl required={true}>
 		            <Grid item xs={12}>
 		            	<FormControl className={classes.formControl} variant='outlined' margin='dense'>
 					        <InputLabel id="programs-label">Select a Program</InputLabel>
 					        <Select
 					          labelId="programs-label"
 					          id="programs"
-					          value={program}
+					          value={state.programCode}
 					          onChange={handleChange}
 
 					        >
@@ -243,11 +339,11 @@ export default function FormPanel(props){
 		            <Grid item xs={12} >
 		              <TextField
 		                autoComplete="fname"
-		                name="name"
+		                name="firstName"
 		                variant="outlined"
 		                required
 		                fullWidth
-		                id="name"
+		                id="firstName"
 		                label="First Name"
 		                margin='dense'
 		                
@@ -259,9 +355,9 @@ export default function FormPanel(props){
 		                variant="outlined"
 		                required
 		                fullWidth
-		                id="lastname"
+		                id="lastName"
 		                label="Last Name"
-		                name="lastname"
+		                name="lastName"
 		                autoComplete="lname"
 		                margin='dense'
 		                className={classes.textfield}
@@ -285,13 +381,14 @@ export default function FormPanel(props){
 		                variant="outlined"
 		                required
 		                fullWidth
-		                id="phone"
+		                id="phoneNumber"
 		                label="Phone"
-		                name="phone"
+		                name="phoneNumber"
 		                margin='dense'
 		                 className={classes.textfield}
 		              />
 		            </Grid>
+		            </FormControl>
 		          </Grid>
 		          
 		          <Grid container justify="flex-end">
