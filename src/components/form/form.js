@@ -30,9 +30,9 @@ const crmConfig = {
 const { userName, password, endpoint } = crmConfig;
 
 if (!userName || !password) {
-  throw new Error(
+ /* throw new Error(
     'Username and Password need to be provided.'
-  )
+  )*/
 }
 
 const StyledContainer = styled(Container)`
@@ -222,7 +222,7 @@ const useStyles = makeStyles(theme => ({
 	
 export default function FormPanel(props){
 	
-	console.log(endpoint,' form creds')
+	console.log(userName,' form creds')
 	const phone = (props.phone==null)?'(402) 902-3128':props.phone;
 	const headline = props.headline;
 	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
