@@ -23,9 +23,6 @@ const Container=styled.div`
 	align-items:center;
 	height:100%;
 `
-const LogoBox = styled.div`
-	width:200px;
-`
 const ButtonContainer = styled.div`
 justify-self:end;
 padding-right:1rem;
@@ -76,9 +73,9 @@ export default class Header extends React.Component{
 		return(
 			<StyledHead>
 				<Container>
-				    <LogoBox>
+				    <div className={`logobox`}>
 				      <Logo/>
-				    </LogoBox>
+				    </div>
 				    <ButtonContainer>
 					    <Button label="Apply Now" theme="secondary" className="apply-now header-item" outlink="https://online.peru.edu/apply-now"/>
 						<Hamburger 

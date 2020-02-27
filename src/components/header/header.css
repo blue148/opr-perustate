@@ -37,6 +37,10 @@ header {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006699', endColorstr='#003478',GradientType=0 );
 }
 
+header .logobox {
+  width: 200px;
+}
+
 header .button#apply-now {
   display: none;
 }

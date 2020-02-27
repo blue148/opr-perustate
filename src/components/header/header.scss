@@ -31,7 +31,9 @@ header{
 	background: -webkit-linear-gradient(top,  #006699 0%,#003478 150%);
 	background: linear-gradient(to bottom,  #006699 0%,#003478 150%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006699', endColorstr='#003478',GradientType=0 );
-
+	.logobox{
+		width:200px;
+	}
 	.button{
 		&#apply-now{
 			display:none;
