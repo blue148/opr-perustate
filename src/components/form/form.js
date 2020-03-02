@@ -308,7 +308,7 @@ export default function FormPanel(props){
 		  body		  
 		};
 		
-		fetch('https://test-archer.startuniversity.net/api/leads/addlead', init)
+		fetch('https://api-max.contacts-dev.archeredu.com/leads/v1/?url='+encodeURI('https://test-archer.startuniversity.net/api/leads/addlead'), init)
 		.then((response) => console.log(response.body,' response codes'))
 		.then((json) => {
 		 //console.log(json, 'Re4sponse')

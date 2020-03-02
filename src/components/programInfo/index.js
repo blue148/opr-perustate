@@ -70,9 +70,17 @@ const Info = (props) =>{
 	 )
 }
 
+const CareerPanel = (props)=>{
+	return (
+		[<h4>Career Opportunities</h4>,
+		<div className="program-info-career" dangerouslySetInnerHTML={{__html:props.content}}/>
+		]
+	)
+}
 
 ////STRUCTURE AND CONTENT FOR TAB PANEL
 const PanelContent = (props)=>{
+	console.log(props, ' panel content')
 	return (
 		<div className="program-content-area">
 			
@@ -84,6 +92,9 @@ const PanelContent = (props)=>{
 				</div>
 			</div>
 			<div className="program-info-details" dangerouslySetInnerHTML={{__html:props.programDetails.content}}/>
+			{(props.careerOpportunities)?
+				<CareerPanel content={props.careerOpportunities.content}/>
+				:null}
 			
 		</div>
 	)
@@ -112,6 +123,7 @@ export default class ProgramInfo extends React.Component{
 	}
 	render(){
 		//add nbsp in the last space for text wrapping.
+		console.log(this.props, 'info')
 		const cleanHeadline = this.props.pageName.replace(/ (?=[^ ]*$)/i, "&nbsp;");
 
 		return(		

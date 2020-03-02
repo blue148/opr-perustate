@@ -36,8 +36,9 @@
 
 .main-menu .button#apply-now {
   display: block;
-  width: 100%;
+  width: 80%;
   margin: 0 auto;
+  text-align: center;
 }
 
 .main-menu ul {
@@ -79,15 +80,15 @@
 }
 
 .main-menu ul a, .main-menu ul button {
-  display: block;
   padding: 0.75em 15px;
   line-height: 1em;
   font-size: 1em;
   color: #fff;
   text-decoration: none;
-  border-bottom: 1px solid #383838;
+  text-align: left;
   border: none;
-  display: inline;
+  border-bottom: 1px solid #383838;
+  display: inline-block;
   background: transparent;
 }
 
