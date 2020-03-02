@@ -274,8 +274,8 @@ export default function FormPanel(props){
 		  "password": "BOg*K#1g}M7N}u",
 		  "universityId": "102",
 		  "programCode": "BSBA - MKTG",
-		  "firstName": "_TestName1",
-		  "lastName": "_TestLastName1",
+		  "firstName": "_TestName3",
+		  "lastName": "_TestLastName3",
 		  "secondaryLastName": "_TestSecondaryLastName",
 		  "email": "test@tertsr.er",
 		  "cellNumber": "145694851231",
@@ -309,9 +309,9 @@ export default function FormPanel(props){
 		};
 		
 		fetch('https://api-max.contacts-dev.archeredu.com/leads/v1/?url='+encodeURI('https://test-archer.startuniversity.net/api/leads/addlead'), init)
-		.then((response) => console.log(response.body,' response codes'))
+		.then((response) => console.log(response.json(),' new response codes'))
 		.then((json) => {
-		 //console.log(json, 'Re4sponse')
+		 console.log(json, 'Re4sponse')
 		})
 		.catch((e) => {
 		  // error in e.message
