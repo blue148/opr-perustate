@@ -27,9 +27,9 @@
 
 .tabPanel {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 20%));
+  grid-template: minmax(3rem, 1fr)/repeat(auto-fit, minmax(100px, 1fr));
   grid-auto-flow: column;
-  grid-auto-columns: minmax(100px, 20%);
+  grid-auto-columns: minmax(100px, 1fr);
   justify-items: center;
   align-items: center;
   list-style: none;
@@ -192,10 +192,12 @@
   pointer-events: none;
 }
 
-.tabPanel.vertical li.selected > span {
-  display: block;
-  width: 90%;
-  text-align: right;
+@media (min-width: 768px) {
+  .tabPanel.vertical li.selected > span {
+    display: block;
+    width: 90%;
+    text-align: right;
+  }
 }
 
 .contentPanel {
@@ -231,7 +233,7 @@
   max-width: 100%;
 }
 
-.contentPanel.selected.nested .nestedContentPanel {
+.contentPanel.selected .nestedContentPanel {
   display: grid;
   grid-template: 1fr/25% 75%;
   grid-column-gap: 1rem;
@@ -289,47 +291,17 @@
     opacity: 0;
     margin: 1rem 0 2rem;
   }
-  .contentPanel.selected .contentTarget {
-    display: block;
-    opacity: 1;
-  }
-  .contentPanel.nested.selected {
-    display: block;
-  }
-  .contentPanel.nested.selected > .accordion-trigger {
-    display: none;
-    border-bottom: solid 2px #cccccc;
-    background-color: #cccccc;
-  }
-  .contentPanel.nested.selected > .accordion-trigger h4 {
-    color: #666;
-  }
-  .contentPanel.nested.selected > .accordion-trigger svg {
-    transform: rotate(180deg);
-    color: #666;
-  }
-  .contentPanel.nested.selected .nestedContentPanel {
-    display: block;
-    border: solid 2px #cccccc;
-    padding: 0;
-  }
-  .contentPanel.nested.selected .nestedContentPanel .contentTarget {
+  .contentPanel .nestedContentPanel {
     display: none;
   }
-  .contentPanel.nested.selected .nestedContentPanel .accordion-trigger {
-    display: none !important;
-  }
-  .contentPanel.nested .nestedContentPanel {
-    display: none;
-  }
-  .contentPanel.nested .nestedContentPanel .accordion-trigger {
+  .contentPanel .nestedContentPanel .accordion-trigger {
     grid-template-columns: 1fr;
     border-bottom-width: 1px;
   }
-  .contentPanel.nested .nestedContentPanel .accordion-trigger::after {
+  .contentPanel .nestedContentPanel .accordion-trigger::after {
     content: none;
   }
-  .contentPanel.nested .nestedContentPanel .accordion-trigger h4.tab {
+  .contentPanel .nestedContentPanel .accordion-trigger h4.tab {
     font-size: 1.1rem;
     font-weight: 400;
     background-color: transparent;
@@ -338,23 +310,23 @@
     padding: 0.8rem 0.5rem 0.8rem 1.7rem;
     line-height: 1.3;
   }
-  .contentPanel.nested .nestedContentPanel .contentPanel.selected .accordion-trigger {
+  .contentPanel .nestedContentPanel .contentPanel.selected .accordion-trigger {
     border-bottom: none;
   }
-  .contentPanel.nested .nestedContentPanel .contentPanel.selected .accordion-trigger h4.tab {
+  .contentPanel .nestedContentPanel .contentPanel.selected .accordion-trigger h4.tab {
     font-weight: 600;
     padding: 0.8rem 0.5rem;
     border-bottom: none;
     font-size: 1.2rem;
   }
-  .contentPanel.nested .nestedContentPanel .contentPanel:last-child .accordion-trigger {
+  .contentPanel .nestedContentPanel .contentPanel:last-child .accordion-trigger {
     border-bottom: none;
   }
-  .contentPanel.nested .contentPanel.selected {
+  .contentPanel.selected {
     display: block;
     opacity: 1;
   }
-  .contentPanel.nested .contentPanel.selected .contentTarget {
+  .contentPanel.selected .contentTarget {
     display: block;
     opacity: 1;
     margin-top: 0rem;
@@ -367,6 +339,43 @@
     bottom: 0;
     z-index: 40000;
     padding: 1rem;
+  }
+  .contentPanel.selected > .accordion-trigger {
+    display: none;
+    border-bottom: solid 2px #cccccc;
+    background-color: #cccccc;
+  }
+  .contentPanel.selected > .accordion-trigger h4 {
+    color: #666;
+  }
+  .contentPanel.selected > .accordion-trigger svg {
+    transform: rotate(180deg);
+    color: #666;
+  }
+  .contentPanel.selected .nestedContentPanel {
+    display: block;
+    border: solid 2px #cccccc;
+    padding: 0;
+  }
+  .contentPanel.selected .nestedContentPanel .contentTarget {
+    display: none;
+  }
+  .contentPanel.selected .nestedContentPanel .selected .contentTarget {
+    display: block;
+    opacity: 1;
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    border-bottom: solid 1px #cccccc;
+    background-color: white;
+    position: fixed;
+    top: 90px;
+    left: 0;
+    bottom: 0;
+    z-index: 40000;
+    padding: 1rem;
+  }
+  .contentPanel.selected .nestedContentPanel .accordion-trigger {
+    display: none !important;
   }
   .accordion-trigger.mobile-only {
     display: grid !important;

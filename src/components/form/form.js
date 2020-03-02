@@ -60,7 +60,7 @@ const StyledContainer = styled(Container)`
 		}
 `
 const FormBox = styled.div`
-		padding:1.3rem 0;
+		padding: 0;
 		top:72px;
 		@media (min-width: 768px) {
 			width:355px;
@@ -71,7 +71,7 @@ const FormBox = styled.div`
 
 const FormHeadline = styled.h2`
 	text-align:center;
-	margin:1rem auto;
+	margin:1rem auto 2rem;
 	line-height:1.4;
 	font-size:1.7rem;
 `
@@ -107,7 +107,7 @@ const Spacer = styled.span`
 	  @media (min-width:768px){
 		  height:85px;
 		  margin-top:-85px;
-		  }
+	  }
 `
 
 const programOptions = [
@@ -201,13 +201,20 @@ const useStyles = makeStyles(theme => ({
 	width: '90%', // Fix IE 11 issue.
 	margin:0,
 	},
+	selectControl:{
+		background:'white',
+		
+	},
 	select: {
-	minWidth: 120,
-	margin:0,
-	width:'100%',
+		minWidth: 120,
+		margin:0,
+		width:'100%',
+		'&$focused': {
+		      background: 'white',
+	    }
 	},
 	selectEmpty: {
-	marginTop: theme.spacing(2),
+		marginTop: theme.spacing(2),
 	},
 	submit: {
 	margin: theme.spacing(3, 0, 2),
@@ -248,15 +255,15 @@ export default function FormPanel(props){
 	  )
 	const handleChange = event => {
 		setState({'formData':{'programCode':event.target.value}});
-		console.log(this.state, 'onChange')
+		//console.log(state, 'onChange')
 	};
 	const handleSubmit = (e)=>{
 		e.preventDefault();
 		Object.keys(e.target).map((item,index)=>{
 			if(e.target[item].name){
 				setState({[e.target[item].name]:e.target[item].value})
-//				console.log(state);	
 				}
+			return true;
 		})
 		//console.log(e.target.firstName.value, 'form submit');
 		const headers = new Headers();
@@ -302,7 +309,7 @@ export default function FormPanel(props){
 		};
 		
 		fetch('https://test-archer.startuniversity.net/api/leads/addlead', init)
-		.then((response) => console.log(response))
+		.then((response) => console.log(response.body,' response codes'))
 		.then((json) => {
 		 //console.log(json, 'Re4sponse')
 		})
@@ -313,9 +320,10 @@ export default function FormPanel(props){
 	}
 	React.useEffect(()=>{		
 		if(props.state.formSelect!=='')setState({'formData':{'programCode':props.state.formSelect}})
-			console.log(state,' useEffect')
+			//console.log(state,' useEffect')
 			},[props.state.formSelect]
 	);
+	const inputLabel = React.useRef(null);
 	return(
 		 <StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
@@ -326,8 +334,11 @@ export default function FormPanel(props){
 		        </FormHeadline>
 		        <form className={classes.form} onSubmit={handleSubmit} >
 		          <Grid container spacing={0}>
-		            <Grid item xs={12}>
-					        <InputLabel id="programs-label">Select a Program</InputLabel>
+		            <Grid item xs={12}> 
+		            <FormControl fullWidth className={classes.selectControl+' selectControl'}>
+		            	<InputLabel ref={inputLabel} id="programs-label" variant="outlined">
+				         Select a Program
+				        </InputLabel>
 					        <Select
 					          labelId="programs-label"
 					          id="programs"
@@ -340,6 +351,7 @@ export default function FormPanel(props){
 						        <MenuItem value=''>Please Select a Program</MenuItem>
 						        {selectOptions(programOptions)}
 					        </Select>
+					        </FormControl>
 		            </Grid>
 		            <Grid item xs={12} >
 		              <TextField
@@ -351,7 +363,6 @@ export default function FormPanel(props){
 		                id="firstName"
 		                label="First Name"
 		                margin='dense'
-		                
 		                 className={classes.textfield}
 		              />
 		            </Grid>
@@ -404,7 +415,7 @@ export default function FormPanel(props){
 			            color="primary"
 			            className={classes.submit+' button primary'}
 			          >
-		            Learn More
+		            Send Request
 		          </Button>
 		            <CTASection >
                     or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>

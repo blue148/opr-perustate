@@ -12,10 +12,11 @@ const Content = styled.div`
 	color:white;
 	font-size:1.6rem;
 	p, blockquote{
-		text-align:center;
-		line-height:1.3;
+		
 		}
 	blockquote{
+		text-align:center;
+		line-height:1.3;
 		font-size:1.5rem;
 		border-bottom:solid 1px ${props=>props.theme.lightgray};
 		padding-bottom:1.8rem;
@@ -28,13 +29,13 @@ const Content = styled.div`
 		}
 	}
 	p{
+		text-align:center;
+		line-height:1.3;
+		margin-top:1rem;
 		span{
-		font-size:1.2rem;
-		font-weight:600;
+			font-size:1.2rem;
+			font-weight:600;
 		}
-		@media (min-wdith:768px){
-			margin-top:1rem;
-			}
 	}
 `
 const ImageBox = styled.div`

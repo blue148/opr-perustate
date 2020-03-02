@@ -34,8 +34,11 @@ const programMapping =
 
 ////TABS PANEL -> Make external functional component
 const TabsPanel = (props)=>{
+
 	const {direction,parent,title} = props||'';
 	const handleClick = (e,props)=>{
+			console.log(props,' tab handle click')
+			
 		e.preventDefault();
 		props.click(e,props.tabState, props.subTabState)
 	}
@@ -79,6 +82,7 @@ const TabsPanel = (props)=>{
 
 const ContentPanel = (props) =>{
 	/**pull in prgoramCode form content**/
+
 	const ref = React.createRef();	
 	const handleClick = (e,slug) =>{
 		window.scrollTo(0, (ref.current.offsetTop - (90 + ref.current.parentNode.offsetHeight)))
@@ -94,7 +98,6 @@ const ContentPanel = (props) =>{
 	const slug = slugify(props.id,{remove: /[*+~.()'"!:@]/g,lower:true});
 	const activeClass = (slug === props.active)?'selected':'';
 	const slugPanel = slug+'_panel' 
-	
 	
 	return(
 		<div 

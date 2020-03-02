@@ -1,6 +1,6 @@
 import React from "react"
 
-import Header from "./header"
+import Header from "./header/header"
 import Hero from "./heroArea"
 import MainArea from "./mainArea"
 import TabbedArea from "./tabbedArea/tabs"
@@ -16,8 +16,6 @@ import styled, {ThemeProvider} from "styled-components"
 import "./layout.css"
 import Icons from "../images/symbol-defs.svg"
 import ScrollIntoView from 'react-scroll-into-view'
-import slugify from 'slugify'
-import {isMobile} from 'react-device-detect'
 
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
 
@@ -28,7 +26,7 @@ const Page = styled.div`
 	top:90px;
 `
 const Main = styled.main`
-	overflow:scroll;
+	overflow-y:visible;
 	display:grid;
 	grid-template:auto/1fr;
 	@media (min-width: 768px) {
@@ -87,6 +85,7 @@ export default class Layout extends React.Component{
 	
 	
 	handleStateChange=(e,tabState,subTabState,formSelect)=>{
+		//console.log(tabState, subTabState, 'state change')
 		if(tabState===null)tabState=this.state.activeTab;
 		
 		const tabArray = tabState.split('__');
@@ -139,7 +138,7 @@ export default class Layout extends React.Component{
 	  return (
 		<ThemeProvider theme={theme}>
 			<Icons/>
-			<Header {...this.props.tabbedContent} onStateChange={this.handleStateChange}/>
+			<Header {...this.props.tabbedContent} onStateChange={this.handleStateChange} state={this.state}/>
 		    <Page>   
 			    
 				<Main>
@@ -159,7 +158,7 @@ export default class Layout extends React.Component{
 				</Main>
 				<MobileBottomBar>
 					<ScrollIntoView selector="#leadform" className="buttonContainer" alignToTop={true}>
-						<button className="button action" type="button">Learn More</button>
+						<button className="button action" type="button">Request Info</button>
 					</ScrollIntoView>
 					<div  className="buttonContainer">
 						<a className="button tertiary" href={"tel:"+this.props.phonenumber}>Call Us</a>

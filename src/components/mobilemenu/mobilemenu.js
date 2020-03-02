@@ -2,13 +2,10 @@ import React from "react"
 import styled from "styled-components"
 import slugify from 'slugify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faTimesCircle, faChevronRight, faChevronLeft} from '@fortawesome/free-solid-svg-icons'
+import {faTimesCircle, faChevronRight, faChevronLeft,  faBars} from '@fortawesome/free-solid-svg-icons'
 import {Button} from '../uiElements'
 import './mobilemenu.scss'
 
-//****NEED TO PASS STATE FORM LAYOUT->HEADER->HERE TO CONTROL THE TABS AND PANELS SELECTIONS
-const StyledMobileMenu = styled.nav`
-`
 const CloseButton = styled.a`
 margin-bottom:.3rem;
 `
@@ -34,11 +31,33 @@ const MenuContainer = styled.div`
 		}
 	}
 `
+const Hamburger = styled.a`
+	padding: .75em 15px;
+	line-height: 1em;
+	font-size: 1em;
+	color: #333;
+	&:hover, &:focus{
+		color:#c00;
+	}
+	width:25px;
+	height:25px;
+	grid-column:2/3;
+	grid-row:1;
+	justify-self:end;
+	svg{
+	path{
+		fill{
+			white;
+		}
+	}
+}
+` 
 const ListItem = (props) =>{
 	const {title, programs} = props;
-	//BUILD CHILD LIST IF PROGRAMS ARE PRESENT
 	if(!title)return false;
-	const childList = (programs)?
+	
+	//BUILD CHILD LIST IF PROGRAMS ARE PRESENT
+	const childList =  (programs)?
 			
 			Object.keys(programs).map((item,index)=>{
 				const subtitle = programs[item].tabname||programs[item].pageName;///Check for deprecated tabName
@@ -46,94 +65,89 @@ const ListItem = (props) =>{
 				const chainId=slugify([title,subtitle].join('__'),{remove: /[*+~.()'"!:@]/g,lower:true});///create the nested ID. Format is [parent]__[pagename]
 				
 				return(
-					<li key={index}>		
-						 	<a 
-						 		href={'#'+chainId} 
+					<li key={index} className={chainId}>		
+						 	<button
 						 		onClick={(e)=>{
 							 		e.preventDefault();
-							 		props.onStateChange(e,parent,chainId,'');
-								 	document.getElementById('main-menu').classList.toggle('opened');
-								 	const selected = document.querySelectorAll('.contentPanel.selected');
-					 				for(var x=0; x<selected.length; x++){
-						 				selected[x].classList.toggle('selected')
-					 				}
-								 	const parentClass = document.getElementById(chainId).parentNode.classList;
-									if(parentClass.contains('nestedContentPanel')){
-										document.getElementById(parent).classList.add('selected')
-										document.getElementById(chainId).classList.add('selected');
-									}else{
-										document.getElementById(parent).classList.add('selected');
-									}
-
-								
+							 		props.handleSlide(e,parent,chainId)
+							 		props.onMenuToggle(e)								
 								}}
 						 		>
 						 		{subtitle}
-						 	</a>
+						 	</button>
 						 	
 					
 						</li>)		
 			}):null;
 	//RETURN FULL LIST WITH NESTED CHILDREN IF BUILT
-	//NEED TO ALTER THE ONCLICK FOR ITEMS WITH CHILDREN	
 	const slug = slugify(title,{remove: /[*+~.()'"!:@]/g, lower:true});
 	if(programs){
+		/*nested level tabs. They have children*/
+		const showToggle = (props.state.menuTarget === slug+'__menu')?'shown':'';
 		return(
 			<li className="top-level">
 				<div
-				 	role="tab" onClick={(e)=>props.handleSlide(e,slug)} 
+				 	role="tab" 
+				 	onClick={(e)=>{
+					 	e.preventDefault()
+					 	props.handleSlide(e,slug,'')
+				 	}}
 				>
-				 	<a href="#" onClick={(e)=>props.handleSlide(e,slug)}>{title}</a>
+				 	<button onClick={(e)=>e.preventDefault()}>{title}</button>
 				 	<span><FontAwesomeIcon icon={faChevronRight} className="menu-arrow-icon"/></span>
 				 	
 				</div>
 				 
 					{childList ?
-						<ul id={slug+'__menu'}>
-							<li className="menu-back">
-							<span><FontAwesomeIcon icon={faChevronLeft}/></span>
-								<a href="#" onClick={()=>{document.getElementById(slug+'__menu').classList.remove('shown')}}>Back</a>
-								
+						<ul id={slug+'__menu'} className={showToggle}>
+							<li className="menu-back" onClick={(e)=>props.handleSlide(e,'','')}>
+								<span><FontAwesomeIcon icon={faChevronLeft}/></span>
+								<a href="#" onClick={(e)=>e.preventDefault()}>Back</a>		
 							</li>
 							{childList}
 						</ul>
-						: null}
+						: null
+					}
 			</li> 
 		)
 	}
 			
-		
+			/*single level tabs, no children*/	
 		return(
-		<li>
-			 	<a href={'#'+slug} onClick={()=>{
-				 				const selected = document.querySelectorAll('.contentPanel.selected');
-				 				for(var x=0; x<selected.length; x++){
-					 				selected[x].classList.toggle('selected')
-				 				}
-								document.getElementById(slug).classList.add('selected');
-								document.getElementById('main-menu').classList.toggle('opened');
-								}}>{title}</a>
-			 	
-		</li>
+
+			<li role="tab">
+				 	<a 
+				 		href='#'
+				 		onClick={(e)=>{
+					 		e.preventDefault();
+					 		props.handleSlide(e,slug,'')
+					 		props.onMenuToggle(e)								
+						}}				
+					>
+						{title}
+					</a>
+				 	
+			</li>
 		
 	)
 	
 }
 const MenuList = (props) =>{
 	////CREATE TOP LEVEL LIST OF PROGRAMS
+	//console.log(props, ' MenuList')
 	const {items} = props;
 	const list = Object.keys(items).map((item, index)=>{
 		const {programs, tabName, pageName} = items[item]||'';		 
 		return(			 
 			<ListItem
 				title={tabName||pageName}
-				handleToggle={props.handleToggle}
+				onMenuToggle={props.onMenuToggle}
 				handleSlide={props.handleSlide}
 				key={index}
 				programs={programs||''}
 				onStateChange={props.onStateChange}
-				>
-			</ListItem>
+				state={props.state}
+			/>
 		)
 	})
 	 return (
@@ -153,41 +167,45 @@ export default class MobileMenu extends React.Component{
 	
 	constructor(props){
 		super(props);
-		this.state = '';
+		this.state = {menuTarget:'', menuOpened:false};
 	}
-	handleMenuSlide = (e,props) =>{
-		///CHANGE THE CLASS OF THE CHILD MENU TO SHOW IT
+	handleMenuSlide = (e,parent,child) =>{
 		e.preventDefault()
-		//console.log(props)
-		document.getElementById(props+'__menu').classList.add('shown');		
+		this.setState(prevState =>({menuTarget:parent+'__menu'}))
+ 		this.props.onStateChange(e,parent,child,'');		
 	}
-	handleClick = (e) =>{
+	handleMenuToggle = (e)=>{
 		e.preventDefault()
-	}
-	handleMenuToggle = (props)=>{
-		props.preventDefault()
-		//HIDE ANY CHILD MENUS THAT WERE EXPOSED
-		var menus = document.querySelectorAll('ul.shown');
-		[].forEach.call(menus, function(el){
-			el.classList.remove('shown');
-			});
-		//HIDE THE MOBILE MENU 
-		document.getElementById('main-menu').classList.toggle('opened');	
+		this.setState(prevState =>({menuOpened:!prevState.menuOpened,menuTarget:''}))	
 	}
 	
 	render(){
-
+		
 		return(		
 			<>	
-				<StyledMobileMenu
+				<Hamburger 
+					href="#" 
+					onClick={(e)=>this.handleMenuToggle(e)}
+					id="main-menu-toggle" 
+					className="menu-toggle" 
+					aria-label="Open main menu">
+					<span className="sr-only">Open</span>
+					<span className="">	
+						<FontAwesomeIcon icon={faBars} inverse size="3x" transform="shrink-6"/>
+					</span>
+					
+				</Hamburger>
+				<nav
 					id="main-menu"
-					className="main-menu"
-					area-label="mainmenu">
+					className={this.state.menuOpened?'opened main-menu':'main-menu'}
+					area-label="mainmenu"
+				>
+					
 					<CloseButton
-						href="#main-menu-toggle"
+						href="#"
 						id="main-menu-close"
 						className="menu-close"
-						onClick={this.handleMenuToggle}
+						onClick={(e)=>this.handleMenuToggle(e)}
 						aria-label="Close main menu">
 						<span className="sr-only">Close</span>
 						<FontAwesomeIcon icon={faTimesCircle} inverse/>
@@ -195,24 +213,28 @@ export default class MobileMenu extends React.Component{
 					
 					
 					<MenuList 
-						handleToggle={this.handleMenuToggle}
 						handleSlide={this.handleMenuSlide}
+						onMenuToggle={this.handleMenuToggle}
 						onStateChange={this.props.onStateChange}
-						items={this.props}>
+						items={this.props}
+						state={this.state}
+					>
+						
 						<li className="buttonArea">
 						    <Button label="Apply Now" theme="secondary" outlink="https://online.peru.edu/apply-now"/>
 						</li>
 					</MenuList>
 					
 					
-				</StyledMobileMenu>
+				</nav>
 				<Overlay
-					href="#main-menu-toggle"
+					href="#"
 					className="backdrop"
 					tabindex="-1"
 					aria-hidden="true"
 					hidden
-					onClick={this.handleMenuToggle}/>
+					onClick={(e)=>this.handleMenuToggle(e)}
+				/>
 			</>
 		)
 	}

@@ -91,13 +91,18 @@ const PanelContent = (props)=>{
 
 export default class ProgramInfo extends React.Component{
 
-	handleClose = (e,formSelect) =>{
-		console.log(formSelect,' onClose')
+	handleClose = (e,target,formSelect) =>{
+		//console.log(formSelect,' onClose')
 		e.preventDefault();
-		this.props.onStateChange(e,null,'',formSelect);
+		const tabArray = target.split('__');
+		if(tabArray.length<2){
+			this.props.onStateChange(e,'','',formSelect);
+		}else{
+			this.props.onStateChange(e,tabArray[0],'',formSelect);
+		}
 	}
 	handleParentChange = (e,props)=>{
-		console.log(props,' parent change')
+		//console.log(props,' parent change')
 		this.props.onParentStateChange(props);
 		this.props.onStateChange(e,null,'',props);
 	}
@@ -106,7 +111,6 @@ export default class ProgramInfo extends React.Component{
 		this.props.onStateChange(e,null,'','');
 	}
 	render(){
-		//console.log(this.props, 'program info')
 		//add nbsp in the last space for text wrapping.
 		const cleanHeadline = this.props.pageName.replace(/ (?=[^ ]*$)/i, "&nbsp;");
 
@@ -115,7 +119,7 @@ export default class ProgramInfo extends React.Component{
 				<CloseButton
 						href="#"
 						className="menu-close mobile-only"
-						onClick={(e)=>this.handleClose(e,'')}
+						onClick={(e)=>this.handleClose(e,this.props.id,'')}
 						aria-label="Close program details">
 						<span className="sr-only">Close</span>
 						<FontAwesomeIcon icon={faTimesCircle}/>
