@@ -306,7 +306,7 @@ export default function FormPanel(props){
 		  body		  
 		};
 		
-		fetch('https://test-archer.startuniversity.net/api/leads/addlead', init)
+		fetch('https://test-peru.startuniversity.net/api/peruleads/addlead', init)
 		.then((response) => response.text())
 		.then((json) => {
 		 console.log(json, 'Re4sponse')
