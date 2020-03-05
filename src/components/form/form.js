@@ -17,7 +17,7 @@ import {
 
 import './form.scss'
 
-require('dotenv').config({
+/*require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`
 })
 
@@ -30,10 +30,10 @@ const crmConfig = {
 const { userName, password, endpoint } = crmConfig;
 
 if (!userName || !password) {
- /* throw new Error(
+ throw new Error(
     'Username and Password need to be provided.'
-  )*/
-}
+  )
+}*/
 
 const StyledContainer = styled(Container)`
 	background-color:${props=>props.theme.shade};
@@ -109,7 +109,7 @@ const Spacer = styled.span`
 		  margin-top:-85px;
 	  }
 `
-
+//pull these from GQL
 const programOptions = [
 	{
 		key:'BSBA - ACCT',
@@ -306,8 +306,8 @@ export default function FormPanel(props){
 		  body		  
 		};
 		
-		fetch('https://api-max.contacts-dev.archeredu.com/leads/v1/?url='+encodeURI('https://test-archer.startuniversity.net/api/leads/addlead'), init)
-		.then((response) => response.json())
+		fetch('https://test-archer.startuniversity.net/api/leads/addlead', init)
+		.then((response) => response.text())
 		.then((json) => {
 		 console.log(json, 'Re4sponse')
 		})
