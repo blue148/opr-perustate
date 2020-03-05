@@ -67,6 +67,9 @@ export const query = graphql`
 	              programDetails {
 	               content
 	              }
+	              careerOpportunities{
+		              content
+		              }
 	            }
 	          }
 	          accolades {

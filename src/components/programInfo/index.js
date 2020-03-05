@@ -80,7 +80,7 @@ const CareerPanel = (props)=>{
 
 ////STRUCTURE AND CONTENT FOR TAB PANEL
 const PanelContent = (props)=>{
-	console.log(props, ' panel content')
+	//console.log(props, ' panel content')
 	return (
 		<div className="program-content-area">
 			
@@ -123,7 +123,7 @@ export default class ProgramInfo extends React.Component{
 	}
 	render(){
 		//add nbsp in the last space for text wrapping.
-		console.log(this.props, 'info')
+		//console.log(this.props, 'info')
 		const cleanHeadline = this.props.pageName.replace(/ (?=[^ ]*$)/i, "&nbsp;");
 
 		return(		

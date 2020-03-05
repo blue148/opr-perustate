@@ -37,7 +37,7 @@ const TabsPanel = (props)=>{
 
 	const {direction,parent,title} = props||'';
 	const handleClick = (e,props)=>{
-			console.log(props,' tab handle click')
+			//console.log(props,' tab handle click')
 			
 		e.preventDefault();
 		props.click(e,props.tabState, props.subTabState)
@@ -243,7 +243,7 @@ export default class TabbedArea extends React.Component{
 	handleStateChange =(e,tabState,subTabState,formSelect)=>{
 		if(tabState===null)tabState=this.state.activeTab;
 		const tabArray = tabState.split('__');
-		console.log(tabArray,' array')
+		//console.log(tabArray,' array')
 		
 		if(isMobile){
 			

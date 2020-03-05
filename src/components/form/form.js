@@ -61,11 +61,11 @@ const StyledContainer = styled(Container)`
 `
 const FormBox = styled.div`
 		padding: 0;
-		top:72px;
+		top:90px;
 		@media (min-width: 768px) {
 			width:355px;
 			height: 100%;
-		overflow-y: scroll;
+			overflow-y: auto;
 			}
 `
 
@@ -228,7 +228,7 @@ const useStyles = makeStyles(theme => ({
 		background:'white'
 	},
 	container:{
-		top:'72px',
+		top:'90px',
 	}
 	}));
 	
@@ -270,8 +270,6 @@ export default function FormPanel(props){
 		headers.append('Content-Type', 'application/json');
 		
 		const body = `{
-		  "userName": "jsonderman@archeredu.com",
-		  "password": "BOg*K#1g}M7N}u",
 		  "universityId": "102",
 		  "programCode": "BSBA - MKTG",
 		  "firstName": "_TestName3",
@@ -309,7 +307,7 @@ export default function FormPanel(props){
 		};
 		
 		fetch('https://api-max.contacts-dev.archeredu.com/leads/v1/?url='+encodeURI('https://test-archer.startuniversity.net/api/leads/addlead'), init)
-		.then((response) => console.log(response.json(),' new response codes'))
+		.then((response) => response.json())
 		.then((json) => {
 		 console.log(json, 'Re4sponse')
 		})
