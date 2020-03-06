@@ -27,7 +27,7 @@ require('dotenv').config({
 
 const crmConfig = {
 	midpoint:process.env.AE_ENDPOINT,
-	endpoint:encodeURI(process.env.CRM_ENDPOINT)
+	endpoint:encodeURI(process.env.REACT_APP_CRM_ENDPOINT)
   
 }
 const { midpoint, endpoint } = crmConfig;
@@ -313,7 +313,8 @@ export default function FormPanel(props){
 		  body		  
 		};
 		const url = midpoint+'?url='+endpoint;
-		console.log(url,' submit')
+		
+		console.log(encodeURI(endpoint),' submit')
 		fetch(url, init)
 		.then((response) => response.json())
 		.then((json) => {
