@@ -26,8 +26,8 @@ require('dotenv').config({
 })
 
 const crmConfig = {
-	midpoint:process.env.AE_ENDPOINT,
-	endpoint:encodeURI(process.env.REACT_APP_CRM_ENDPOINT)
+	midpoint:process.env.GATSBY_AE_ENDPOINT,
+	endpoint:encodeURI(process.env.GATSBY_CRM_ENDPOINT)
   
 }
 const { midpoint, endpoint } = crmConfig;
