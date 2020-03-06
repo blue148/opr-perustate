@@ -13,7 +13,7 @@ import {
 	TextField,
 	CssBaseline,	
 } from '@material-ui/core';
-import MaterialUiPhoneNumber from 'material-ui-phone-number'
+import MaterialUiPhoneNumber from '../phonenumberformatter'
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
@@ -298,7 +298,7 @@ export default function FormPanel(props){
 							  "adPosition": "testadposition",
 							  "feedItemId": "testfeeditemid",
 							  "agencyTrackingCode": "testagencytrackingcode",
-							  "webUrl": window.location.href,
+							  "webUrl": props.location.href,
 							  "ip": ""
 							};
 							
@@ -421,6 +421,7 @@ export default function FormPanel(props){
 										/>
 									</Grid>
 									<Grid item xs={12}>
+
 										<MaterialUiPhoneNumber
 										disableCountryCode
 										disableDropdown
@@ -438,6 +439,7 @@ export default function FormPanel(props){
 										error={errors.phoneNumber && touched.phoneNumber}
 										helperText={(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber && 'Your phone number is required'}
 										/>
+	
 									</Grid>
 								</Grid>
 								<Grid container justify="flex-end">

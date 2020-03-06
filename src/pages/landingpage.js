@@ -11,7 +11,8 @@ export default ({data, location}) => {
 
     <Layout
     {...data.contentfulNestedTabbedLandingPage}
-    programs={data.allContentfulProgramInfo}/>
+    programs={data.allContentfulProgramInfo}
+    location={location}/>
 
   )
 }

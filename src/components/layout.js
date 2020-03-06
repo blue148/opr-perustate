@@ -154,7 +154,7 @@ export default class Layout extends React.Component{
 						<Bottom {...this.props.bottomContentSection}/>						
 					</ContentArea>
 
-					<FormPanel phone={this.props.phonenumber} headline={this.props.formheadline} state={this.state} programs={this.props.programs}/>
+					<FormPanel phone={this.props.phonenumber} headline={this.props.formheadline} state={this.state} programs={this.props.programs} location={this.props.location}/>
 					<Footer/>
 				</Main>
 				<MobileBottomBar>
