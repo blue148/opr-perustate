@@ -135,6 +135,7 @@ export default class Layout extends React.Component{
 	
 	
 	render(){
+
 	  return (
 		<ThemeProvider theme={theme}>
 			<Icons/>
@@ -153,7 +154,7 @@ export default class Layout extends React.Component{
 						<Bottom {...this.props.bottomContentSection}/>						
 					</ContentArea>
 
-					<FormPanel phone={this.props.phonenumber} headline={this.props.formheadline} state={this.state}/>
+					<FormPanel phone={this.props.phonenumber} headline={this.props.formheadline} state={this.state} programs={this.props.programs}/>
 					<Footer/>
 				</Main>
 				<MobileBottomBar>

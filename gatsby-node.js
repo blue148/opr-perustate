@@ -26,7 +26,15 @@ exports.createPages = ({ graphql, actions }) => {
 		          id
 		        }
 		      }
-		    }          
+		    } 
+		    allContentfulProgramInfo {
+			    edges {
+			      node {
+			        id
+			        pageSlug
+			      }
+			    }
+			  }         
 		  }
           `
       ).then(result => {
@@ -42,6 +50,15 @@ exports.createPages = ({ graphql, actions }) => {
 				component: landingPage,
 				context:{
 					slug: edge.node.slug
+				}
+			})
+        })
+        result.data.allContentfulProgramInfo.edges.forEach((edge) => {
+			createPage({
+				path: `/lp/${edge.node.pageslug}/`,
+				component: landingPage,
+				context:{
+					slug: edge.node.pageslug
 				}
 			})
         })

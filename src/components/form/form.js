@@ -14,26 +14,24 @@ import {
 	
 	
 } from '@material-ui/core';
+import {
+  Formik, Form, Field, ErrorMessage,
+} from 'formik';
+import * as Yup from 'yup';
 
 import './form.scss'
 
-/*require('dotenv').config({
+require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`
 })
 
 const crmConfig = {
-  userName: process.env.CRM_USERNAME,
-  password: process.env.CRM_PASS,
-  endpoint:process.env.CRM_ENDPOINT
+	midpoint:process.env.AE_ENDPOINT
+	endpoint:process.env.CRM_ENDPOINT
   
 }
-const { userName, password, endpoint } = crmConfig;
+const { midpoint, endpoint } = crmConfig;
 
-if (!userName || !password) {
- throw new Error(
-    'Username and Password need to be provided.'
-  )
-}*/
 
 const StyledContainer = styled(Container)`
 	background-color:${props=>props.theme.shade};
@@ -110,7 +108,17 @@ const Spacer = styled.span`
 	  }
 `
 //pull these from GQL
-const programOptions = [
+//need to add key and sort
+const programArray = (props)=>{
+	return Object.keys(props).map((item,index)=>(
+			{text:props[index].node.shortName,
+				value:props[index].node.programCode,
+				key:props[index].node.programCode,
+				reference:props[index].node.pageSlug}		
+		))
+}
+const programOptions = 
+	[
 	{
 		key:'BSBA - ACCT',
 		text:'Business: Accounting',
@@ -184,13 +192,13 @@ const programOptions = [
 	}
 
 ]
-const selectOptions =(props)=>(
-	
-	Object.keys(props).map((item,index)=>{
+const selectOptions =(props)=>{
+		
+	return Object.keys(props).map((item,index)=>{
 		if(isNaN(item))return true;
 		return(<MenuItem value={props[index].value} key={index} data-reference={props[index].reference}>{props[index].text}</MenuItem>
 	)})
-)
+}
 const useStyles = makeStyles(theme => ({
 	paper: {
 	display: 'flex',
@@ -235,7 +243,7 @@ const useStyles = makeStyles(theme => ({
 	
 export default function FormPanel(props){
 	
-	//console.log(userName,' form creds')
+	//console.log( selectOptions(programArray(props.programs.edges)), ' Array');
 	const phone = (props.phone==null)?'(402) 902-3128':props.phone;
 	const headline = props.headline;
 	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
@@ -254,7 +262,7 @@ export default function FormPanel(props){
 		}
 	  )
 	const handleChange = event => {
-		setState({'formData':{'programCode':event.target.value}});
+		setState({'formData':{[event.target.name]:event.target.value}});
 		//console.log(state, 'onChange')
 	};
 	const handleSubmit = (e)=>{
@@ -273,7 +281,7 @@ export default function FormPanel(props){
 		  "universityId": "102",
 		  "programCode": "BSBA - MKTG",
 		  "firstName": "_TestName3",
-		  "lastName": "_TestLastName3",
+		  "lastName": "_TestLastName5",
 		  "secondaryLastName": "_TestSecondaryLastName",
 		  "email": "test@tertsr.er",
 		  "cellNumber": "145694851231",
@@ -306,8 +314,8 @@ export default function FormPanel(props){
 		  body		  
 		};
 		
-		fetch('https://test-peru.startuniversity.net/api/peruleads/addlead', init)
-		.then((response) => response.text())
+		fetch(midpoint+'/?url='+encodeURI(endpoint), init)
+		.then((response) => response.json())
 		.then((json) => {
 		 console.log(json, 'Re4sponse')
 		})
@@ -316,13 +324,42 @@ export default function FormPanel(props){
 		  console.log(e.message)
 		});
 	}
-	React.useEffect(()=>{		
+	React.useEffect(()=>{	
+		console.log(state, 'change')	
 		if(props.state.formSelect!=='')setState({'formData':{'programCode':props.state.formSelect}})
 			//console.log(state,' useEffect')
 			},[props.state.formSelect]
 	);
 	const inputLabel = React.useRef(null);
 	return(
+		<Formik
+                initialValues={{ programCode: '', firstName: '',lastName: '', email: '', phoneNumber:''}}
+                onSubmit={(values, { setSubmitting }) => {
+                   setSubmitting(true);
+                  axios.post(contactFormEndpoint,
+                    values,
+                    {
+                      headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json',
+                      }
+                    },
+                  ).then((resp) => {
+                    setSubmitionCompleted(true);
+                  }
+                  );
+                }}
+
+                validationSchema={Yup.object().shape({
+                  email: Yup.string()
+                    .email()
+                    .required('Required'),
+                  name: Yup.string()
+                    .required('Required'),
+                  comment: Yup.string()
+                    .required('Required'),
+                })}
+              >
 		 <StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
 		      <Spacer id="leadform"/>
@@ -340,6 +377,7 @@ export default function FormPanel(props){
 					        <Select
 					          labelId="programs-label"
 					          id="programs"
+					          name="programCode"
 					          variant='outlined' 
 					          margin='dense'
 					          value={state.formData.programCode}
@@ -347,7 +385,7 @@ export default function FormPanel(props){
 					          className={classes.select}
 					        >
 						        <MenuItem value=''>Please Select a Program</MenuItem>
-						        {selectOptions(programOptions)}
+						        {selectOptions(programArray(props.programs.edges))}
 					        </Select>
 					        </FormControl>
 		            </Grid>
@@ -361,6 +399,8 @@ export default function FormPanel(props){
 		                id="firstName"
 		                label="First Name"
 		                margin='dense'
+		                value={state.formData.firstName||''}
+		                onChange={handleChange}
 		                 className={classes.textfield}
 		              />
 		            </Grid>

@@ -1,13 +1,18 @@
 import React from "react"
 import { graphql } from "gatsby"
+import queryString from 'query-string'
 
 import Layout from "../components/layout"
 
 
-export default ({data}) => {
+export default ({data, location}) => {
+//parse pararmeters for cofingruation. console.log(queryString.parse(location.search),' master')
 	return (
+
     <Layout
-    {...data.contentfulNestedTabbedLandingPage}/>
+    {...data.contentfulNestedTabbedLandingPage}
+    programs={data.allContentfulProgramInfo}/>
+
   )
 }
 
@@ -47,7 +52,11 @@ export const query = graphql`
 		            programs {
 		              pageName
 		              programDetails {
-					  	content
+			              headline
+						  content
+		              }
+		              careerOpportunities{
+		              	content
 		              }
 		              applyBy
 		              totalCost
@@ -65,7 +74,8 @@ export const query = graphql`
 	              transferrableCredits
 	              tuition
 	              programDetails {
-	               content
+		              headline
+					  content
 	              }
 	              careerOpportunities{
 		              content
@@ -116,5 +126,15 @@ export const query = graphql`
 	            content
 	          }
 		}
+		allContentfulProgramInfo {
+			edges{
+				node{
+					id
+			        shortName
+			        programCode
+			        pageSlug
+			    }
+		     }
+		  }
 	}  
 `
