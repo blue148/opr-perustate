@@ -26,7 +26,7 @@ require('dotenv').config({
 })
 
 const crmConfig = {
-	midpoint:process.env.AE_ENDPOINT
+	midpoint:process.env.AE_ENDPOINT,
 	endpoint:process.env.CRM_ENDPOINT
   
 }
@@ -332,34 +332,6 @@ export default function FormPanel(props){
 	);
 	const inputLabel = React.useRef(null);
 	return(
-		<Formik
-                initialValues={{ programCode: '', firstName: '',lastName: '', email: '', phoneNumber:''}}
-                onSubmit={(values, { setSubmitting }) => {
-                   setSubmitting(true);
-                  axios.post(contactFormEndpoint,
-                    values,
-                    {
-                      headers: {
-                        'Access-Control-Allow-Origin': '*',
-                        'Content-Type': 'application/json',
-                      }
-                    },
-                  ).then((resp) => {
-                    setSubmitionCompleted(true);
-                  }
-                  );
-                }}
-
-                validationSchema={Yup.object().shape({
-                  email: Yup.string()
-                    .email()
-                    .required('Required'),
-                  name: Yup.string()
-                    .required('Required'),
-                  comment: Yup.string()
-                    .required('Required'),
-                })}
-              >
 		 <StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
 		      <Spacer id="leadform"/>
@@ -370,10 +342,10 @@ export default function FormPanel(props){
 		        <form className={classes.form} onSubmit={handleSubmit} >
 		          <Grid container spacing={0}>
 		            <Grid item xs={12}> 
-		            <FormControl fullWidth className={classes.selectControl+' selectControl'}>
-		            	<InputLabel ref={inputLabel} id="programs-label" variant="outlined">
-				         Select a Program
-				        </InputLabel>
+			            <FormControl fullWidth className={classes.selectControl+' selectControl'}>
+			            	<InputLabel ref={inputLabel} id="programs-label" variant="outlined">
+					         Select a Program
+					        </InputLabel>
 					        <Select
 					          labelId="programs-label"
 					          id="programs"
@@ -387,7 +359,7 @@ export default function FormPanel(props){
 						        <MenuItem value=''>Please Select a Program</MenuItem>
 						        {selectOptions(programArray(props.programs.edges))}
 					        </Select>
-					        </FormControl>
+					    </FormControl>
 		            </Grid>
 		            <Grid item xs={12} >
 		              <TextField
