@@ -27,7 +27,7 @@ require('dotenv').config({
 
 const crmConfig = {
 	midpoint:process.env.AE_ENDPOINT,
-	endpoint:process.env.CRM_ENDPOINT
+	endpoint:encodeURI(process.env.CRM_ENDPOINT)
   
 }
 const { midpoint, endpoint } = crmConfig;
@@ -242,7 +242,6 @@ const useStyles = makeStyles(theme => ({
 	
 	
 export default function FormPanel(props){
-	
 	//console.log( selectOptions(programArray(props.programs.edges)), ' Array');
 	const phone = (props.phone==null)?'(402) 902-3128':props.phone;
 	const headline = props.headline;
@@ -313,8 +312,9 @@ export default function FormPanel(props){
 		  headers,
 		  body		  
 		};
-		
-		fetch(midpoint+'/?url='+encodeURI(endpoint), init)
+		const url = midpoint+'?url='+endpoint;
+		console.log(url,' submit')
+		fetch(url, init)
 		.then((response) => response.json())
 		.then((json) => {
 		 console.log(json, 'Re4sponse')
