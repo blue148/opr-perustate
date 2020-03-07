@@ -311,7 +311,7 @@ export default function FormPanel(props){
 							const url = midpoint+'?url='+encodeURIComponent(endpoint);
 							console.log(body,' submit body')
 							fetch(endpoint, init)
-							.then((response) => response.json())
+							.then((response) => response.text())
 							.then((json) => {
 							 console.log(json, 'Re4sponse')
 							})
