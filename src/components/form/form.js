@@ -165,6 +165,7 @@ const useStyles = makeStyles(theme => ({
 	
 	
 export default function FormPanel(props){
+	console.log(endpoint,' env');
 	const phone = (props.phone==null)?'(402) 902-3128':props.phone;
 	const headline = props.headline;
 	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
@@ -307,7 +308,7 @@ export default function FormPanel(props){
 							  headers,
 							  body		  
 							};
-							const url = midpoint+'?url='+endpoint;
+							const url = midpoint+'?url='+encodeURIComponent(endpoint);
 							console.log(body,' submit body')
 							fetch(url, init)
 							.then((response) => response.json())
