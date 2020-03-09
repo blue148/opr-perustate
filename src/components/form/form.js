@@ -30,7 +30,7 @@ const crmConfig = {
 }
 const { midpoint, endpoint } = crmConfig;
 
-
+////Nove this to scss due to FOUC
 const StyledContainer = styled(Container)`
 	background-color:${props=>props.theme.shade};
 	bottom:0;
@@ -184,77 +184,16 @@ export default function FormPanel(props){
 	  )
 	const handleChange = event => {
 		setState({'formData':{[event.target.name]:event.target.value}});
-		//console.log(state, 'onChange')
 	};
-	/*const handleSubmit = (e)=>{
-		e.preventDefault();
-		Object.keys(e.target).map((item,index)=>{
-			if(e.target[item].name){
-				setState({[e.target[item].name]:e.target[item].value})
-				}
-			return true;
-		})
-		//console.log(e.target.firstName.value, 'form submit');
-		const headers = new Headers();
-		headers.append('Content-Type', 'application/json');
-		
-		const body = `{
-		  "universityId": "102",
-		  "programCode": "BSBA - MKTG",
-		  "firstName": "_TestName3",
-		  "lastName": "_TestLastName5",
-		  "secondaryLastName": "_TestSecondaryLastName",
-		  "email": "test@tertsr.er",
-		  "cellNumber": "145694851231",
-		  "phoneNumber": "14567894521",
-		  "countryCode": "US",
-		  "comments": "",
-		  "origin": "website",
-		  "source": "testSource",
-		  "subSource": "testSubSource",
-		  "campaignName": "",
-		  "adGroupName": "",
-		  "keyword": "",
-		  "matchType": "testmatchtype",
-		  "network": "testnetwork",
-		  "device": "testdevice",
-		  "deviceModel": "testdevicemodel",
-		  "creative": "testcreative",
-		  "placement": "testplacement",
-		  "target": "testtarget",
-		  "adPosition": "testadposition",
-		  "feedItemId": "testfeeditemid",
-		  "agencyTrackingCode": "testagencytrackingcode",
-		  "webUrl": "https://opr-peru.netlify.com/lp/homepage",
-		  "ip": ""
-		}`;
-		
-		const init = {
-		  method: 'POST',
-		  headers,
-		  body		  
-		};
-		const url = midpoint+'?url='+endpoint;
-		
-		fetch(url, init)
-		.then((response) => response.json())
-		.then((json) => {
-		 console.log(json, 'Re4sponse')
-		})
-		.catch((e) => {
-		  // error in e.message
-		  console.log(e.message)
-		});
-	}*/
 
 	React.useEffect(()=>{	
-		console.log(state, 'change')	
+		//console.log(state, 'change')	
 		if(props.state.formSelect!=='')setState({'formData':{'programCode':props.state.formSelect}})
 			},[props.state.formSelect]
 	);
 	const inputLabel = React.useRef(null);
 	const handleOnChange=(value)=>{
-		console.log(typeof(value));
+		//console.log(typeof(value));
 	}
 	return(
 		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
@@ -306,7 +245,7 @@ export default function FormPanel(props){
 							const init = {
 							  method: 'POST',
 							  headers,
-							  body		  
+							  body:JSON.stringify(body)		  
 							};
 							const url = midpoint+'?url='+encodeURIComponent(endpoint);
 							console.log(body,' submit body')
