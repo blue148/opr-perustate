@@ -13,7 +13,7 @@ import Footer from "./footer"
 import FormPanel from "./form/form"
 import update from 'immutability-helper'
 import styled, {ThemeProvider} from "styled-components"
-import "./layout.css"
+import "./tabbedlayout.scss"
 import Icons from "../images/symbol-defs.svg"
 import ScrollIntoView from 'react-scroll-into-view'
 

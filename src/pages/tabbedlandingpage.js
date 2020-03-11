@@ -1,8 +1,8 @@
 import React from "react"
 import { graphql } from "gatsby"
-import queryString from 'query-string'
+//import queryString from 'query-string'
 
-import Layout from "../components/layout"
+import Layout from "../components/tabbedlayout"
 
 
 export default ({data, location}) => {
@@ -19,7 +19,7 @@ export default ({data, location}) => {
 
 
 export const query = graphql`
-	query landingpagequery($slug: String){	
+	query tabbedpagequery($slug: String){	
 		contentfulNestedTabbedLandingPage(slug: { eq: $slug }){
 			id
 			slug
