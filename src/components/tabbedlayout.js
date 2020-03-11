@@ -13,7 +13,7 @@ import Footer from "./footer"
 import FormPanel from "./form/form"
 import update from 'immutability-helper'
 import styled, {ThemeProvider} from "styled-components"
-import "./layout.css"
+import "./tabbedlayout.scss"
 import Icons from "../images/symbol-defs.svg"
 import ScrollIntoView from 'react-scroll-into-view'
 
@@ -154,7 +154,7 @@ export default class Layout extends React.Component{
 						<Bottom {...this.props.bottomContentSection}/>						
 					</ContentArea>
 
-					<FormPanel phone={this.props.phonenumber} headline={this.props.formheadline} state={this.state} programs={this.props.programs}/>
+					<FormPanel phone={this.props.phonenumber} headline={this.props.formheadline} state={this.state} programs={this.props.programs} location={this.props.location}/>
 					<Footer/>
 				</Main>
 				<MobileBottomBar>

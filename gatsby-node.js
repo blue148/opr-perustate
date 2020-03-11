@@ -12,7 +12,8 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
-  const landingPage = path.resolve('./src/pages/landingpage.js')
+  const tabbedPage = path.resolve('./src/pages/tabbedlandingpage.js')
+  const singleProgram = path.resolve('./src/pages/singleprogram.js')
   return new Promise((resolve, reject) => {
     
     resolve(
@@ -27,11 +28,11 @@ exports.createPages = ({ graphql, actions }) => {
 		        }
 		      }
 		    } 
-		    allContentfulProgramInfo {
+		    allContentfulSingleProgramLandingPage {
 			    edges {
 			      node {
 			        id
-			        pageSlug
+			        slug
 			      }
 			    }
 			  }         
@@ -47,18 +48,18 @@ exports.createPages = ({ graphql, actions }) => {
 		result.data.allContentfulNestedTabbedLandingPage.edges.forEach((edge) => {
 			createPage({
 				path: `/lp/${edge.node.slug}/`,
-				component: landingPage,
+				component: tabbedPage,
 				context:{
 					slug: edge.node.slug
 				}
 			})
         })
-        result.data.allContentfulProgramInfo.edges.forEach((edge) => {
+        result.data.allContentfulSingleProgramLandingPage.edges.forEach((edge) => {
 			createPage({
-				path: `/lp/${edge.node.pageslug}/`,
-				component: landingPage,
+				path: `/lp/${edge.node.slug}/`,
+				component: singleProgram,
 				context:{
-					slug: edge.node.pageslug
+					slug: edge.node.slug
 				}
 			})
         })

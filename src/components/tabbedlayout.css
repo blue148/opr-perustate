@@ -1,0 +1,173 @@
+/***BRAND COLORS AND STYLES***/
+/****COLORS****/
+/***FONTS***/
+f {
+  width: auto;
+}
+
+html {
+  font-family: myriad-pro, "Open Sans", sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: myriad-pro, "Open Sans", sans-serif;
+}
+
+h1, h2, h3, h4 {
+  text-align: center;
+  color: #003478;
+  font-family: myriad-pro, "Open Sans", sans-serif;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 11vw;
+  line-height: 12vw;
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 3rem;
+    line-height: 1.4;
+  }
+}
+
+h2 {
+  font-size: 2.4rem;
+  line-height: 120%;
+}
+
+@media (min-width: 768px) {
+  h2 {
+    font-size: 2.5rem;
+    line-height: 1.4;
+  }
+}
+
+h3 {
+  font-size: 1.9375rem;
+  line-height: 1.25;
+}
+
+h4 {
+  font-size: 1.5625rem;
+  line-height: 1.4;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  text-rendering: optimizeLegibility;
+  font-family: myriad-pro, "Open Sans", sans-serif;
+}
+
+li {
+  font-size: 1rem;
+  line-height: 1.4;
+  font-family: myriad-pro, "Open Sans", sans-serif;
+}
+
+.show {
+  display: block;
+  opacity: 1;
+  transition: .5s;
+}
+
+.button {
+  text-transform: uppercase;
+  font-weight: 800;
+  font-family: myriad-pro, "Open Sans", sans-serif;
+  font-size: 1rem;
+  -webkit-transition: .5s;
+  transition: .5s;
+  border: none;
+  padding: .8rem;
+  margin: 0 auto;
+  border-radius: 3px;
+  display: block;
+}
+
+.button.primary {
+  background-color: #fec413;
+  color: #002856;
+}
+
+.button.primary:hover {
+  background-color: #0e356f;
+  color: white;
+}
+
+.button.secondary {
+  background-color: #00aeef;
+  color: #002856;
+}
+
+.button.secondary:hover {
+  background-color: #0e356f;
+  color: white;
+}
+
+.button.tertiary {
+  background-color: #002856;
+  color: white;
+}
+
+.button.tertiary:hover {
+  background-color: #006699;
+  color: white;
+}
+
+.button.action {
+  background-color: #fec413;
+  color: #002856;
+}
+
+.button.action:hover {
+  background-color: #0e356f;
+  color: white;
+}
+
+section {
+  padding: 3rem 1rem 3rem;
+}
+
+section section > section {
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .desktop-shim {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+.formPanel {
+  font-size: 3rem;
+}
+
+@media (max-width: 1290px) {
+  .formPanel {
+    left: 850px;
+  }
+}
+
+/***SCREEN READER ONLY***/
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
