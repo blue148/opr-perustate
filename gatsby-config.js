@@ -58,7 +58,24 @@ module.exports = {
 	        id:`qsg0lqq`
         }
       }
-    }
+    },
+    {
+	    resolve: 'gatsby-plugin-google-tagmanager',
+	    options: {
+	      id: 'GTM-WVQZZ82',
+	
+	      // Include GTM in development.
+	      // Defaults to false meaning GTM will only be loaded in production.
+	      includeInDevelopment: true
+	
+	      // datalayer to be set before GTM is loaded
+	      // should be an object or a function that is executed in the browser
+	      // Defaults to null
+	
+	
+	      // Specify optional GTM environment details.
+	    },
+	}
 	  
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline

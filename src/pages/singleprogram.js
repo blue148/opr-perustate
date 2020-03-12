@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
+import { Helmet } from "react-helmet"
 //import queryString from 'query-string'
 
 import Layout from "../components/singleprogramlayout"
@@ -8,11 +9,17 @@ import Layout from "../components/singleprogramlayout"
 export default ({data, location}) => {
 //parse pararmeters for cofingruation. console.log(queryString.parse(location.search),' master')
 	return (
-
-    <Layout
-    {...data.contentfulSingleProgramLandingPage}
-    programs={data.allContentfulProgramInfo}
-    location={location}/>
+	<>
+		<Helmet>
+		  <meta charSet="utf-8" />
+		  <title>{data.contentfulSingleProgramLandingPage.heroArea.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;")}</title>
+		  <meta name="robots" content="noindex, nofollow"/>
+		</Helmet>
+		<Layout
+		{...data.contentfulSingleProgramLandingPage}
+		programs={data.allContentfulProgramInfo}
+		location={location}/>
+    </>
 
   )
 }
@@ -35,53 +42,28 @@ export const query = graphql`
 		          }
 		        }
 		      }
-		      programContent {
-		        selectedProgram {
-		          pageName {
-		            en_US
-		          }
-		          programCode {
-		            en_US
-		          }
-		          programDetails {
-		            en_US {
-		              headline
-		              content
-		            }
-		          }
-		          programInfo {
-		            en_US {
-		              items {
-		                content {
-		                  icon
-		                  tagline
-		                }
-		              }
-		            }
-		          }
-		          careerOpportunities {
-		            en_US {
-		              headline
-		              content
-		            }
-		          }
-		          applyBy {
-		            en_US
-		          }
-		          startClasses {
-		            en_US
-		          }
-		          creditHours {
-		            en_US
-		          }
-		          totalCost {
-		            en_US
-		          }
-		          tuition {
-		            en_US
-		          }
-		        }
-		      }
+    	      programContent {
+			    programCode
+			    pageName
+	            programDetails {
+	              headline
+	              content
+	            }
+	            programInfo {
+	              items {
+	                content {
+	                  icon
+	                  tagline
+	                }
+	              }
+	            }
+	            careerOpportunities {
+	              headline
+	              content
+	            }
+	            applyBy
+	            startClasses
+	          }
 		      accolades {
 		        items {
 		          content {

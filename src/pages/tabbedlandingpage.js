@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
+import {Helmet} from "react-helmet"
 //import queryString from 'query-string'
 
 import Layout from "../components/tabbedlayout"
@@ -8,11 +9,17 @@ import Layout from "../components/tabbedlayout"
 export default ({data, location}) => {
 //parse pararmeters for cofingruation. console.log(queryString.parse(location.search),' master')
 	return (
-
-    <Layout
-    {...data.contentfulNestedTabbedLandingPage}
-    programs={data.allContentfulProgramInfo}
-    location={location}/>
+	<>
+		<Helmet>
+			  <meta charSet="utf-8" />
+			  <title>{data.contentfulNestedTabbedLandingPage.heroArea.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;")}</title>
+			  <meta name="robots" content="noindex, nofollow"/>
+			</Helmet>
+	    <Layout
+	    {...data.contentfulNestedTabbedLandingPage}
+	    programs={data.allContentfulProgramInfo}
+	    location={location}/>
+    </>
 
   )
 }
@@ -56,7 +63,16 @@ export const query = graphql`
 			              headline
 						  content
 		              }
+		              programInfo {
+			              items {
+			                content {
+			                  icon
+			                  tagline
+			                }
+			              }
+			          }
 		              careerOpportunities{
+		              	headline
 		              	content
 		              }
 		              applyBy
