@@ -63,16 +63,7 @@ export const query = graphql`
 			              headline
 						  content
 		              }
-		              programInfo {
-			              items {
-			                content {
-			                  icon
-			                  tagline
-			                }
-			              }
-			          }
 		              careerOpportunities{
-		              	headline
 		              	content
 		              }
 		              applyBy
