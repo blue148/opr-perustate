@@ -195,6 +195,13 @@ export default function FormPanel(props){
 	const handleOnChange=(value)=>{
 		//console.log(typeof(value));
 	}
+	///parse location string for ad vars
+	///from google: {lpurl}?utm_source=sem&utm_medium=google&utm_campaign={_campaignname}&utm_adgroup={_adgroupname}&utm_term={keyword}&matchtype={matchtype}&network={network}&device={device}&devicemodel={devicemodel}&creative={creative}&placement={placement}&target={target}&adposition={adposition}&feeditemid={feeditemid}&adgroup_id={adgroupid}&target_id={targetid}&agencytrackingcode=v1-{campaignid}
+	///from facebook:?utm_source=paidsocial&utm_medium=facebook&utm_campaign={{campaign.name}}&utm_adgroup={{adset.name}}&network={{site_source_name}}&placement={{placement}}&adgroup_id={{adset.id}}&agencytrackingcode=v1-{{campaign.id}}
+	const searchVars = (props.location.search)?
+			JSON.parse('{"' + props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) })
+		:''
+		console.log(searchVars)
 	return(
 		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
@@ -207,7 +214,8 @@ export default function FormPanel(props){
 				 <Formik
 		                initialValues={{ email: '', firstName: '',lastName:'', phoneNumber: '',programCode:'',programs:props.programs.edges }}
 		                onSubmit={(values, { setSubmitting }) => {
-		                   
+		                   //while sumbmitting and waiting for a repsonse, show spinner
+		                   //on response, if success, show thank you
 		                   const headers = new Headers();
 							headers.append('Content-Type', 'application/json');
 							
@@ -218,26 +226,26 @@ export default function FormPanel(props){
 							  "lastName": values.lastName,
 							  "secondaryLastName": "",
 							  "email": values.email,
-							  "cellNumber": "",
-							  "phoneNumber": values.phoneNumber,
+							  "phoneNumber": "",
+							  "cellNumber": values.phoneNumber,
 							  "countryCode": "US",
 							  "comments": "",
-							  "origin": "website",
-							  "source": "testSource",
-							  "subSource": "testSubSource",
-							  "campaignName": "",
-							  "adGroupName": "",
-							  "keyword": "",
-							  "matchType": "testmatchtype",
-							  "network": "testnetwork",
-							  "device": "testdevice",
-							  "deviceModel": "testdevicemodel",
-							  "creative": "testcreative",
-							  "placement": "testplacement",
-							  "target": "testtarget",
-							  "adPosition": "testadposition",
-							  "feedItemId": "testfeeditemid",
-							  "agencyTrackingCode": "testagencytrackingcode",
+							  "origin": "Website RFI",
+							  "source": searchVars.utm_source,
+							  "subSource": searchVars.utm_medium,
+							  "campaignName": searchVars.utm_campaign,
+							  "adGroupName": searchVars.utm_adgroup,
+							  "keyword": searchVars.utm_term,
+							  "matchType": searchVars.matchtype,
+							  "network": searchVars.network,
+							  "device": searchVars.device,
+							  "deviceModel": searchVars.devicemodel,
+							  "creative": searchVars.creative,
+							  "placement": searchVars.placement,
+							  "target": searchVars.target,
+							  "adPosition": searchVars.adposition,
+							  "feedItemId": searchVars.feeditemid,
+							  "agencyTrackingCode": searchVars.agencytrackingcode,
 							  "webUrl": props.location.href,
 							  "ip": ""
 							};
@@ -249,7 +257,7 @@ export default function FormPanel(props){
 							};
 							const url = midpoint+'?url='+encodeURIComponent(endpoint);
 							console.log(body,' submit body')
-							fetch(endpoint, init)
+							fetch(url, init)
 							.then((response) => response.text())
 							.then((json) => {
 							 console.log(json, 'Re4sponse')
