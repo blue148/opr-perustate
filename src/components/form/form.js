@@ -265,8 +265,9 @@ export default function FormPanel(props){
 								setSubmitting(false)
 								})
 							.then((json) => {
-							if(json.Success)setState({submitted:true},()=>console.log(this.state))
+							
 							 console.log(json, 'Re4sponse')
+							 if(json.Success)setState({submitted:true},()=>console.log(this.state))
 							})
 							.catch((e) => {
 							  // error in e.message
