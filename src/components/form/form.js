@@ -11,7 +11,8 @@ import {
 	makeStyles,
 	Grid,
 	TextField,
-	CssBaseline,	
+	CssBaseline,
+	CircularProgress	
 } from '@material-ui/core';
 import MaterialUiPhoneNumber from '../phonenumberformatter'
 import {Formik} from 'formik';
@@ -210,8 +211,9 @@ export default function FormPanel(props){
 		        <FormHeadline>
 		          {cleanHeadline||'Need More Information?'}
 		        </FormHeadline>
-
+ 
 				 <Formik
+				 	className={state.submitted?'hide':''}
 		                initialValues={{ email: '', firstName: '',lastName:'', phoneNumber: '',programCode:'',programs:props.programs.edges }}
 		                onSubmit={(values, { setSubmitting }) => {
 		                   //while sumbmitting and waiting for a repsonse, show spinner
@@ -258,8 +260,12 @@ export default function FormPanel(props){
 							const url = midpoint+'?url='+encodeURIComponent(endpoint);
 							console.log(body,' submit body')
 							fetch(url, init)
-							.then((response) => response.text())
+							.then((response) => {
+								response.json();
+								setSubmitting(false)
+								})
 							.then((json) => {
+							if(json.Success)setState({submitted:true},()=>console.log(this.state))
 							 console.log(json, 'Re4sponse')
 							})
 							.catch((e) => {
@@ -295,7 +301,10 @@ export default function FormPanel(props){
 		                    handleReset,
 		                  } = props;
 
-		                  return (		                  
+		                  return (
+			                  <>
+			                  <CircularProgress variant='indeterminate'/>
+		                  
 		                    <form onSubmit={handleSubmit} className={classes.form}>
 		                    
 		                    	<Grid container spacing={0}>
@@ -411,6 +420,7 @@ export default function FormPanel(props){
 									</Grid>
 								</Grid>
 		                    </form>
+		                    </>
 		                  );
 		                }}
 		        </Formik>
