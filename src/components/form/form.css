@@ -1,6 +1,10 @@
 /***BRAND COLORS AND STYLES***/
 /****COLORS****/
 /***FONTS***/
+.hide {
+  display: none;
+}
+
 .form-cta-group {
   margin: 1rem auto;
 }

@@ -188,21 +188,16 @@ export default function FormPanel(props){
 	};
 
 	React.useEffect(()=>{	
-		//console.log(state, 'change')	
 		if(props.state.formSelect!=='')setState({'formData':{'programCode':props.state.formSelect}})
 			},[props.state.formSelect]
 	);
 	const inputLabel = React.useRef(null);
-	const handleOnChange=(value)=>{
-		//console.log(typeof(value));
-	}
 	///parse location string for ad vars
 	///from google: {lpurl}?utm_source=sem&utm_medium=google&utm_campaign={_campaignname}&utm_adgroup={_adgroupname}&utm_term={keyword}&matchtype={matchtype}&network={network}&device={device}&devicemodel={devicemodel}&creative={creative}&placement={placement}&target={target}&adposition={adposition}&feeditemid={feeditemid}&adgroup_id={adgroupid}&target_id={targetid}&agencytrackingcode=v1-{campaignid}
 	///from facebook:?utm_source=paidsocial&utm_medium=facebook&utm_campaign={{campaign.name}}&utm_adgroup={{adset.name}}&network={{site_source_name}}&placement={{placement}}&adgroup_id={{adset.id}}&agencytrackingcode=v1-{{campaign.id}}
 	const searchVars = (props.location.search)?
 			JSON.parse('{"' + props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) })
 		:''
-		console.log(searchVars)
 	return(
 		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
@@ -213,9 +208,11 @@ export default function FormPanel(props){
 		        </FormHeadline>
  
 				 <Formik
-				 	className={state.submitted?'hide':''}
+				 	
 		                initialValues={{ email: '', firstName: '',lastName:'', phoneNumber: '',programCode:'',programs:props.programs.edges }}
-		                onSubmit={(values, { setSubmitting }) => {
+		                onSubmit={(values, { setSubmitting}) => {
+			               // setSubmitting(true)
+			               
 		                   //while sumbmitting and waiting for a repsonse, show spinner
 		                   //on response, if success, show thank you
 		                   const headers = new Headers();
@@ -248,7 +245,7 @@ export default function FormPanel(props){
 							  "adPosition": searchVars.adposition,
 							  "feedItemId": searchVars.feeditemid,
 							  "agencyTrackingCode": searchVars.agencytrackingcode,
-							  "webUrl": props.location.href,
+							  "webUrl": props.location.origin+props.location.pathanme,
 							  "ip": ""
 							};
 							
@@ -258,16 +255,14 @@ export default function FormPanel(props){
 							  body:JSON.stringify(body)		  
 							};
 							const url = midpoint+'?url='+encodeURIComponent(endpoint);
-							console.log(body,' submit body')
 							fetch(url, init)
 							.then((response) => {
-								response.json();
+								
 								setSubmitting(false)
+								return response.json()
 								})
 							.then((json) => {
-							
-							 console.log(json, 'Re4sponse')
-							 if(json.Success)setState({submitted:true},()=>console.log(this.state))
+								if(json.Success)setState({'submitted':true})
 							})
 							.catch((e) => {
 							  // error in e.message
@@ -294,19 +289,20 @@ export default function FormPanel(props){
 		                    values,
 		                    touched,
 		                    errors,
-		                    dirty,
 		                    isSubmitting,
 		                    handleChange,
 		                    handleBlur,
 		                    handleSubmit,
-		                    handleReset,
 		                  } = props;
-
-		                  return (
-			                  <>
-			                  <CircularProgress variant='indeterminate'/>
-		                  
-		                    <form onSubmit={handleSubmit} className={classes.form}>
+		                 return(
+							<>
+							<div className={"form_overlay "+isSubmitting===true?'':'hide'}>
+				                <CircularProgress variant='indeterminate' />
+							</div>
+							<div className={"successContainer "+state.submitted?'':'hide'}>
+								<h3>We have received your request and will contact you shortly</h3>
+							</div>
+		                    <form onSubmit={handleSubmit} className={[classes.form, state.submitted?'hide':''].join(' ')}>
 		                    
 		                    	<Grid container spacing={0}>
 									<Grid item xs={12}> 
