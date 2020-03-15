@@ -300,7 +300,7 @@ export default function FormPanel(props){
 		                 return(
 							<>
 							<div className={["form_overlay",isSubmitting===true?'':'hide'].join(' ')}>
-				                <CircularProgress variant='indeterminate' thickness="5"/>
+				                <CircularProgress variant='indeterminate' thickness={5}/>
 				                <h4>Sending Request</h4>
 							</div>
 							
