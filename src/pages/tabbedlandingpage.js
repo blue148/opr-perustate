@@ -8,11 +8,12 @@ import Layout from "../components/tabbedlayout"
 
 export default ({data, location}) => {
 //parse pararmeters for cofingruation. console.log(queryString.parse(location.search),' master')
+//add META field to CMS: Title,
 	return (
 	<>
 		<Helmet>
 			  <meta charSet="utf-8" />
-			  <title>{data.contentfulNestedTabbedLandingPage.heroArea.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;")}</title>
+			  <title>{data.contentfulNestedTabbedLandingPage.heroArea.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, " ")}</title>
 			  <meta name="robots" content="noindex, nofollow"/>
 			</Helmet>
 	    <Layout

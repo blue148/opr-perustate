@@ -26,3 +26,21 @@
 .MuiInputLabel-outlined{
 	transform: translate(14px, 14px) scale(1)!important;
 }
+.successContainer{
+	background:$shade;
+	width:100%;
+	padding: 6vh 1rem;
+}
+.form_overlay{
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	background:rgba(255,255,255,.8);
+    z-index: 1000;
+    text-align: center;
+    padding-top: 50%;
+    .MuiCircularProgress-colorPrimary{
+	    color:$brandmediumblue;
+    }
+}

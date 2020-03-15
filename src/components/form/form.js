@@ -166,7 +166,7 @@ const useStyles = makeStyles(theme => ({
 	
 	
 export default function FormPanel(props){
-	console.log(endpoint,' env');
+
 	const phone = (props.phone==null)?'(402) 902-3128':props.phone;
 	const headline = props.headline;
 	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
@@ -203,9 +203,13 @@ export default function FormPanel(props){
 		      <CssBaseline />
 		      <Spacer id="leadform"/>
 		      <FormBox className={classes.paper}>
-		        <FormHeadline>
+		        <FormHeadline className={state.submitted?'hide':''}>
 		          {cleanHeadline||'Need More Information?'}
 		        </FormHeadline>
+		        <div className={["successContainer",state.submitted?'':'hide'].join(' ')}>
+					<h3>Thank you for yoru request.</h3>
+					<h4>We have received your request and will contact you shortly</h4>
+				</div>
  
 				 <Formik
 				 	
@@ -245,7 +249,7 @@ export default function FormPanel(props){
 							  "adPosition": searchVars.adposition,
 							  "feedItemId": searchVars.feeditemid,
 							  "agencyTrackingCode": searchVars.agencytrackingcode,
-							  "webUrl": props.location.origin+props.location.pathanme,
+							  "webUrl": props.location.origin+props.location.pathname,
 							  "ip": ""
 							};
 							
@@ -256,8 +260,7 @@ export default function FormPanel(props){
 							};
 							const url = midpoint+'?url='+encodeURIComponent(endpoint);
 							fetch(url, init)
-							.then((response) => {
-								
+							.then((response) => {	
 								setSubmitting(false)
 								return response.json()
 								})
@@ -265,7 +268,6 @@ export default function FormPanel(props){
 								if(json.Success)setState({'submitted':true})
 							})
 							.catch((e) => {
-							  // error in e.message
 							  console.log(e.message)
 							});
 		                }}
@@ -293,15 +295,15 @@ export default function FormPanel(props){
 		                    handleChange,
 		                    handleBlur,
 		                    handleSubmit,
+		                    submitForm
 		                  } = props;
 		                 return(
 							<>
-							<div className={"form_overlay "+isSubmitting===true?'':'hide'}>
-				                <CircularProgress variant='indeterminate' />
+							<div className={["form_overlay",isSubmitting===true?'':'hide'].join(' ')}>
+				                <CircularProgress variant='indeterminate' thickness="5"/>
+				                <h4>Sending Request</h4>
 							</div>
-							<div className={"successContainer "+state.submitted?'':'hide'}>
-								<h3>We have received your request and will contact you shortly</h3>
-							</div>
+							
 		                    <form onSubmit={handleSubmit} className={[classes.form, state.submitted?'hide':''].join(' ')}>
 		                    
 		                    	<Grid container spacing={0}>

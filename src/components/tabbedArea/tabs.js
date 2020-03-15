@@ -81,8 +81,7 @@ const TabsPanel = (props)=>{
 ////CONTENT PANEL -> make external functional component
 
 const ContentPanel = (props) =>{
-	/**pull in prgoramCode form content**/
-
+	/**pull in programCode from content and replace programMapping**/
 	const ref = React.createRef();	
 	const handleClick = (e,slug) =>{
 		window.scrollTo(0, (ref.current.offsetTop - (90 + ref.current.parentNode.offsetHeight)))
@@ -130,7 +129,8 @@ const ContentPanelContainer = (props) =>{
 				active={props.active}
 				{...props[index]} 
 				id={props[index].pageName}
-				key={index} 
+				key={index}
+				itemKey={index} 
 				onStateChange={props.onStateChange}
 				onParentStateChange={props.onParentStateChange}
 				/>
@@ -140,6 +140,7 @@ const ContentPanelContainer = (props) =>{
 				id={props[index].pageName}
 				active={props.active.activeTab} 
 				key={index}
+				itemKey={index}
 				onStateChange={props.onStateChange}/>
 		)
 		return programPanel
@@ -172,6 +173,7 @@ export class NestedPanel extends React.Component{
 					id={subSlug}
 					active={this.props.active.activeSubTab} 
 					key={index}
+					itemKey={index}
 					onStateChange={this.props.onStateChange}
 					onParentStateChange={this.props.onParentStateChange}/>
 				

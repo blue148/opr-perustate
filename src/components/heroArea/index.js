@@ -163,7 +163,6 @@ const Items = (props) =>(
 export default class HeroArea extends React.Component{
 	
 	render(){
-		console.log(this.props,' hero')
 		const {image, headline, items} = this.props
 		const imgBg = (image)?image.fields.file.en_US.url:'';
 		//remove and p and f tags to clean up the code then add nbsp in the last space for text wrapping.
