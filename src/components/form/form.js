@@ -58,7 +58,7 @@ const StyledContainer = styled(Container)`
 `
 const FormBox = styled.div`
 		padding: 0;
-		top:90px;
+
 		@media (min-width: 768px) {
 			width:355px;
 			height: 100%;
@@ -202,7 +202,7 @@ export default function FormPanel(props){
 		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
 		      <Spacer id="leadform"/>
-		      <FormBox className={classes.paper}>
+		      <FormBox className={[classes.paper, 'formBox'].join(' ')}>
 		        <FormHeadline className={state.submitted?'hide':''}>
 		          {cleanHeadline||'Need More Information?'}
 		        </FormHeadline>

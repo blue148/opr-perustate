@@ -41,6 +41,10 @@
   padding: 6vh 1rem;
 }
 
+.formBox {
+  position: relative;
+}
+
 .form_overlay {
   width: 100%;
   height: 100%;
