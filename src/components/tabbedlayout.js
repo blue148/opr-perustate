@@ -72,8 +72,9 @@ export default class Layout extends React.Component{
 	
 	
 	componentDidMount(){
-		const targetProgram = JSON.parse('{"' + this.props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}')||'';
-		if(targetProgram){
+		
+		if(this.props.location.search){
+			const targetProgram = JSON.parse('{"' + this.props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}')||'';
 			this.handleStateChange('',targetProgram.targetprogram, '','')
 		}
 		
