@@ -1,13 +1,9 @@
 import React from "react"
 import styled from "styled-components"
 import ScrollIntoView from 'react-scroll-into-view'
-import uiStyles from './ui.module.css';
+import './ui.scss';
 
 const ButtonLink = styled.a`
-	display:block;
-	@media (min-width:768px){
-	min-width:250px;
-	}
 `
 
 export class Button extends React.Component{
@@ -40,7 +36,7 @@ Button.defaultProps={
 ///Not sure we are even using this
 const TabItem = (props)=>{
 	return(
-		<div className={[uiStyles.tab, props.tabClass].join(' ')} >
+		<div className={['tab', props.tabClass].join(' ')} >
 				<button onClick={props.onClick} data-target={props.id}> {props.title} </button>
 		</div>
 	)	

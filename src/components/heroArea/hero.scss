@@ -16,6 +16,9 @@
 	@media (min-width:768px){
 		padding:1.5rem 0;
 		margin-bottom:0;
+			background: -moz-linear-gradient(78deg, $brandmediumblue -2%, $brandblue 50%, $brandmediumblue 91%);
+	background: -webkit-linear-gradient(78deg, $brandmediumblue -2%,  $brandblue 50%, $brandmediumblue 91%);
+	background: linear-gradient($brandmediumblue -2%, $brandblue 50%, $brandmediumblue 91%);
 		&::before{
 			content:'';
 			top:0;

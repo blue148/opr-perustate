@@ -20,6 +20,9 @@
   .HeroBox {
     padding: 1.5rem 0;
     margin-bottom: 0;
+    background: -moz-linear-gradient(78deg, #003478 -2%, #006699 50%, #003478 91%);
+    background: -webkit-linear-gradient(78deg, #003478 -2%, #006699 50%, #003478 91%);
+    background: linear-gradient(#003478 -2%, #006699 50%, #003478 91%);
     display: grid;
     justify-content: center;
   }

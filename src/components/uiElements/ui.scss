@@ -21,3 +21,12 @@
 	}
 	
 }
+a{
+	&.button{
+		display:block;
+		@media (min-width:768px){
+			min-width:250px;
+		}
+	}
+
+}

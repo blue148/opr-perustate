@@ -12,14 +12,19 @@ export default ({data, location}) => {
 	return (
 	<>
 		<Helmet>
+			
+
 			  <meta charSet="utf-8" />
 			  <title>{data.contentfulNestedTabbedLandingPage.heroArea.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, " ")}</title>
 			  <meta name="robots" content="noindex, nofollow"/>
 			</Helmet>
+
+
 	    <Layout
 	    {...data.contentfulNestedTabbedLandingPage}
 	    programs={data.allContentfulProgramInfo}
 	    location={location}/>
+
     </>
 
   )

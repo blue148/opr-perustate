@@ -18,3 +18,13 @@
   display: block;
   padding: 1rem;
 }
+
+a.button {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  a.button {
+    min-width: 250px;
+  }
+}
