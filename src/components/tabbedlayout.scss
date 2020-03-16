@@ -137,6 +137,16 @@ section{
 	overflow:scroll;
 	height:100vh;
 	top:90px;
+	.mainContainer{
+		overflow-y:visible;
+		display:grid;
+		grid-template:auto/1fr;
+		@media (min-width: 768px) {
+			grid-template:1fr/auto;
+			padding-bottom:70px;
+		}
+
+	}
 
 }
 /***SCREEN READER ONLY***/

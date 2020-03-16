@@ -4,7 +4,6 @@ import Header from "./header/header"
 import Hero from "./heroArea"
 import MainArea from "./mainArea"
 import TabbedArea from "./tabbedArea/tabs"
-//import TabbedArea from "./tabbedArea"
 import Accolades from "./accolades"
 import Testimonial from "./testimonial"
 import Awards from "./awards"
@@ -20,20 +19,9 @@ import ScrollIntoView from 'react-scroll-into-view'
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
 
 const Page = styled.div`
-	position:fixed;
-	overflow:scroll;
-	height:100vh;
-	top:90px;
+
 `
 const Main = styled.main`
-	overflow-y:visible;
-	display:grid;
-	grid-template:auto/1fr;
-	@media (min-width: 768px) {
-		grid-template:1fr/auto;
-		padding-bottom:70px;
-	}
-
 `
 
 const ContentArea = styled.section`
@@ -142,7 +130,7 @@ export default class Layout extends React.Component{
 			<Header {...this.props.tabbedContent} onStateChange={this.handleStateChange} state={this.state}/>
 		    <Page className="pageContainer">   
 			    
-				<Main>
+				<Main className="mainContainer">
 
 					<ContentArea>
 						<Hero {...this.props.heroArea}/>

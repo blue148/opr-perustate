@@ -191,14 +191,15 @@ export default function FormPanel(props){
 		if(props.state.formSelect!=='')setState({'formData':{'programCode':props.state.formSelect}})
 			},[props.state.formSelect]
 	);
+	
 	const inputLabel = React.useRef(null);
 	///parse location string for ad vars
-	///from google: {lpurl}?utm_source=sem&utm_medium=google&utm_campaign={_campaignname}&utm_adgroup={_adgroupname}&utm_term={keyword}&matchtype={matchtype}&network={network}&device={device}&devicemodel={devicemodel}&creative={creative}&placement={placement}&target={target}&adposition={adposition}&feeditemid={feeditemid}&adgroup_id={adgroupid}&target_id={targetid}&agencytrackingcode=v1-{campaignid}
-	///from facebook:?utm_source=paidsocial&utm_medium=facebook&utm_campaign={{campaign.name}}&utm_adgroup={{adset.name}}&network={{site_source_name}}&placement={{placement}}&adgroup_id={{adset.id}}&agencytrackingcode=v1-{{campaign.id}}
+	/*** from google: {lpurl}?utm_source=sem&utm_medium=google&utm_campaign={_campaignname}&utm_adgroup={_adgroupname}&utm_term={keyword}&matchtype={matchtype}&network={network}&device={device}&devicemodel={devicemodel}&creative={creative}&placement={placement}&target={target}&adposition={adposition}&feeditemid={feeditemid}&adgroup_id={adgroupid}&target_id={targetid}&agencytrackingcode=v1-{campaignid}
+	**** from facebook:?utm_source=paidsocial&utm_medium=facebook&utm_campaign={{campaign.name}}&utm_adgroup={{adset.name}}&network={{site_source_name}}&placement={{placement}}&adgroup_id={{adset.id}}&agencytrackingcode=v1-{{campaign.id}}*/
+	
 	const searchVars = (props.location.search)?
-			JSON.parse('{"' + props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) })
-		:''
-		console.log(props.state, 'passed state')
+		JSON.parse('{"' + props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) }):''
+		
 	return(
 		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />

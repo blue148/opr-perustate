@@ -167,6 +167,19 @@ section section > section {
   top: 90px;
 }
 
+.pageContainer .mainContainer {
+  overflow-y: visible;
+  display: grid;
+  grid-template: auto/1fr;
+}
+
+@media (min-width: 768px) {
+  .pageContainer .mainContainer {
+    grid-template: 1fr/auto;
+    padding-bottom: 70px;
+  }
+}
+
 /***SCREEN READER ONLY***/
 .sr-only {
   position: absolute;
