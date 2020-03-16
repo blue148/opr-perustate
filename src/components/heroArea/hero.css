@@ -50,6 +50,19 @@
   }
 }
 
+.HeroBox h1 {
+  color: white;
+  z-index: 2;
+  text-shadow: rgba(0, 0, 0, 0.5) -3px 3px 10px;
+}
+
+@media (min-width: 768px) {
+  .HeroBox h1 {
+    margin: 2rem auto;
+    width: 100%;
+  }
+}
+
 .iconGrid {
   display: grid;
   grid-template: auto/100%;

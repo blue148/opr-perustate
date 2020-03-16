@@ -11,13 +11,7 @@ const HeroBox = styled.section`
 	}
 `
 const HeroHeadline = styled.h1`
-	color:white;
-	z-index:2;
-	text-shadow:rgba(0,0,0,.5) -3px 3px 10px;
-	@media (min-width:768px){
-		margin: 2rem auto;
-		width: 100%;
-		}
+	
 `
 const ItemsBox = styled.section`
 	

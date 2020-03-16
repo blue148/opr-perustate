@@ -178,7 +178,7 @@ export default function FormPanel(props){
 			lastName:'',
 			email:'',
 			phoneNumber:'',
-			programCode:'',
+			programCode:props.state.formSelect,
 			},
 		submitted:false
 		}
@@ -198,6 +198,7 @@ export default function FormPanel(props){
 	const searchVars = (props.location.search)?
 			JSON.parse('{"' + props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) })
 		:''
+		console.log(props.state, 'passed state')
 	return(
 		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
@@ -212,216 +213,215 @@ export default function FormPanel(props){
 				</div>
  
 				 <Formik
-				 	
-		                initialValues={{ email: '', firstName: '',lastName:'', phoneNumber: '',programCode:'',programs:props.programs.edges }}
-		                onSubmit={(values, { setSubmitting}) => {
-			               // setSubmitting(true)
-			               
-		                   //while sumbmitting and waiting for a repsonse, show spinner
-		                   //on response, if success, show thank you
-		                   const headers = new Headers();
-							headers.append('Content-Type', 'application/json');
-							
-							const body = {
-							 "universityId": "102",
-							  "programCode": values.programCode,
-							  "firstName": values.firstName,
-							  "lastName": values.lastName,
-							  "secondaryLastName": "",
-							  "email": values.email,
-							  "phoneNumber": "",
-							  "cellNumber": values.phoneNumber,
-							  "countryCode": "US",
-							  "comments": "",
-							  "origin": "Website RFI",
-							  "source": searchVars.utm_source,
-							  "subSource": searchVars.utm_medium,
-							  "campaignName": searchVars.utm_campaign,
-							  "adGroupName": searchVars.utm_adgroup,
-							  "keyword": searchVars.utm_term,
-							  "matchType": searchVars.matchtype,
-							  "network": searchVars.network,
-							  "device": searchVars.device,
-							  "deviceModel": searchVars.devicemodel,
-							  "creative": searchVars.creative,
-							  "placement": searchVars.placement,
-							  "target": searchVars.target,
-							  "adPosition": searchVars.adposition,
-							  "feedItemId": searchVars.feeditemid,
-							  "agencyTrackingCode": searchVars.agencytrackingcode,
-							  "webUrl": props.location.origin+props.location.pathname,
-							  "ip": ""
-							};
-							
-							const init = {
-							  method: 'POST',
-							  headers,
-							  body:JSON.stringify(body)		  
-							};
-							const url = midpoint+'?url='+encodeURIComponent(endpoint);
-							fetch(url, init)
-							.then((response) => {	
-								setSubmitting(false)
-								return response.json()
-								})
-							.then((json) => {
-								if(json.Success)setState({'submitted':true})
+			 		enableReinitialize={true}
+			 		initialValues={{ email: '', firstName: '',lastName:'', phoneNumber: '', programCode:props.state.formSelect ,programs:props.programs.edges }}
+	                onSubmit={(values, { setSubmitting}) => {
+	                   //while sumbmitting and waiting for a repsonse, show spinner
+	                   //on response, if success, show thank you
+	                   const headers = new Headers();
+						headers.append('Content-Type', 'application/json');
+						
+						const body = {
+						 "universityId": "102",
+						  "programCode": values.programCode,
+						  "firstName": values.firstName,
+						  "lastName": values.lastName,
+						  "secondaryLastName": "",
+						  "email": values.email,
+						  "phoneNumber": "",
+						  "cellNumber": values.phoneNumber,
+						  "countryCode": "US",
+						  "comments": "",
+						  "origin": "Website RFI",
+						  "source": searchVars.utm_source,
+						  "subSource": searchVars.utm_medium,
+						  "campaignName": searchVars.utm_campaign,
+						  "adGroupName": searchVars.utm_adgroup,
+						  "keyword": searchVars.utm_term,
+						  "matchType": searchVars.matchtype,
+						  "network": searchVars.network,
+						  "device": searchVars.device,
+						  "deviceModel": searchVars.devicemodel,
+						  "creative": searchVars.creative,
+						  "placement": searchVars.placement,
+						  "target": searchVars.target,
+						  "adPosition": searchVars.adposition,
+						  "feedItemId": searchVars.feeditemid,
+						  "agencyTrackingCode": searchVars.agencytrackingcode,
+						  "webUrl": props.location.origin+props.location.pathname,
+						  "ip": ""
+						};
+						
+						const init = {
+						  method: 'POST',
+						  headers,
+						  body:JSON.stringify(body)		  
+						};
+						const url = midpoint+'?url='+encodeURIComponent(endpoint);
+						fetch(url, init)
+						.then((response) => {	
+							setSubmitting(false)
+							return response.json()
 							})
-							.catch((e) => {
-							  console.log(e.message)
-							});
-		                }}
-		
-		                validationSchema={Yup.object().shape({
-		                  email: Yup.string()
-		                    .email()
-		                    .required('Required'),
-		                  firstName: Yup.string()
-		                    .required('Required'),
-		                  lastName: Yup.string()
-		                    .required('Required'),
-		                  phoneNumber: Yup.string()
-		                    .required('Required'),
-		                  programCode: Yup.string()
-		                    .required('Required')
-		                })}
-		              >
-		                {(props) => {
-		                  const {
-		                    values,
-		                    touched,
-		                    errors,
-		                    isSubmitting,
-		                    handleChange,
-		                    handleBlur,
-		                    handleSubmit,
-		                    submitForm
-		                  } = props;
-		                 return(
-							<>
-							<div className={["form_overlay",isSubmitting===true?'':'hide'].join(' ')}>
-				                <CircularProgress variant='indeterminate' thickness={5}/>
-				                <h4>Sending Request</h4>
-							</div>
-							
-		                    <form onSubmit={handleSubmit} className={[classes.form, state.submitted?'hide':''].join(' ')}>
-		                    
-		                    	<Grid container spacing={0}>
-									<Grid item xs={12}> 
-							            <FormControl fullWidth className={classes.selectControl+' selectControl'}>
-							            	<InputLabel ref={inputLabel} id="programs-label" variant="outlined">
-									         Select a Program
-									        </InputLabel>
-									        <Select
-									          labelId="programs-label"
-									          id="programs"
-									          name="programCode"
-									          variant='outlined' 
-									          margin='dense'
-									          value={values.programCode}
-									          onChange={handleChange}
-									          className={classes.select}
-									          error={errors.programCode && touched.programCode && <FormHelperText>'Please choose a program of interest'</FormHelperText>}
-									        >
-										        <MenuItem value=''>Please Select a Program</MenuItem>
-										        {selectOptions(programArray(values.programs))}
-									        </Select>
-									    </FormControl>
-						            </Grid>
-						            <Grid item xs={12} >
-										<TextField
-										label="First Name"
-										name="firstName"
-										id="firstName"
-										className={classes.textfield}
-										value={values.firstName}
-										onChange={handleChange}
-										onBlur={handleBlur}
-										error={errors.firstName && touched.firstName}
-										helperText={(errors.firstName && touched.firstName) && errors.firstName  && 'Your first name is required'}
-										variant="outlined"
-										fullWidth
-										margin='dense'
-										/>
-									</Grid>
-									 <Grid item xs={12} >
-										<TextField
-										label="Last Name"
-										name="lastName"
-										id="lastName"
-										className={classes.textfield}
-										value={values.lastName}
-										onChange={handleChange}
-										onBlur={handleBlur}
-										error={errors.lastName && touched.lastName}
-										helperText={(errors.lastName && touched.lastName) && errors.lastName && 'Your last name is required'}
-										variant="outlined"
-										fullWidth
-										margin='dense'
-										/>
-									</Grid>	
-									<Grid item xs={12}>
-										<TextField
-										variant="outlined"
-										error={errors.email && touched.email}
-										helperText={(errors.email && touched.email) && errors.email && 'Please provide a valid email address'}
-										fullWidth
-										id="email"
-										label="Email Address"
-										name="email"
-										autoComplete="email"
-										margin='dense'
-										className={classes.textfield}
-										onChange={handleChange}
-										onBlur={handleBlur}
-										/>
-									</Grid>
-									<Grid item xs={12}>
-
-										<MaterialUiPhoneNumber
-										disableCountryCode
-										disableDropdown
-										defaultCountry="us"
-										regions={"america"}
-										variant="outlined"
-										fullWidth
-										id="phoneNumber"
-										label="Phone"
-										name="phoneNumber"
-										margin='dense'
-										className={classes.textfield}
-										onChange={handleChange('phoneNumber')}
-										onBlur={handleBlur}
-										error={errors.phoneNumber && touched.phoneNumber}
-										helperText={(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber && 'Your phone number is required'}
-										/>
+						.then((json) => {
+							if(json.Success)setState({'submitted':true})
+						})
+						.catch((e) => {
+						  console.log(e.message)
+						});
+	                }}
 	
-									</Grid>
+	                validationSchema={Yup.object().shape({
+	                  email: Yup.string()
+	                    .email()
+	                    .required('Required'),
+	                  firstName: Yup.string()
+	                    .required('Required'),
+	                  lastName: Yup.string()
+	                    .required('Required'),
+	                  phoneNumber: Yup.string()
+	                    .required('Required'),
+	                  programCode: Yup.string()
+	                    .required('Required')
+	                })}
+	              >
+	                {(props) => {
+	                  const {
+	                    values,
+	                    touched,
+	                    errors,
+	                    isSubmitting,
+	                    handleChange,
+	                    handleBlur,
+	                    handleSubmit,
+	                    submitForm
+	                  } = props;
+	                  console.log(values,'formik values')
+	                 return(
+						<>
+						<div className={["form_overlay",isSubmitting===true?'':'hide'].join(' ')}>
+			                <CircularProgress variant='indeterminate' thickness={5}/>
+			                <h4>Sending Request</h4>
+						</div>
+						
+	                    <form onSubmit={handleSubmit} className={[classes.form, state.submitted?'hide':''].join(' ')}>
+	                    
+	                    	<Grid container spacing={0}>
+								<Grid item xs={12}> 
+						            <FormControl fullWidth className={classes.selectControl+' selectControl'}>
+						            	<InputLabel ref={inputLabel} id="programs-label" variant="outlined">
+								         Select a Program
+								        </InputLabel>
+								        <Select
+								          labelId="programs-label"
+								          id="programs"
+								          name="programCode"
+								          variant='outlined' 
+								          margin='dense'
+								          value={values.programCode}
+								          onChange={handleChange}
+								          className={classes.select}
+								          error={errors.programCode && touched.programCode && <FormHelperText>'Please choose a program of interest'</FormHelperText>}
+								        >
+									        <MenuItem value=''>Please Select a Program</MenuItem>
+									        {selectOptions(programArray(values.programs))}
+								        </Select>
+								    </FormControl>
+					            </Grid>
+					            <Grid item xs={12} >
+									<TextField
+									label="First Name"
+									name="firstName"
+									id="firstName"
+									className={classes.textfield}
+									value={values.firstName}
+									onChange={handleChange}
+									onBlur={handleBlur}
+									error={errors.firstName && touched.firstName}
+									helperText={(errors.firstName && touched.firstName) && errors.firstName  && 'Your first name is required'}
+									variant="outlined"
+									fullWidth
+									margin='dense'
+									/>
 								</Grid>
-								<Grid container justify="flex-end">
-									<Grid item xs={12}>
-										<Button
-										type="submit"
-										fullWidth
-										variant="contained"
-										color="primary"
-										className={classes.submit+' button primary'}
-										>
-											Send Request
-										</Button>
-										<CTASection >
-											or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>
-											<span className="desktop-only">{phone}</span>
-										</CTASection>
-										<CTPAText>
-											<p>By submitting this form, I am providing my digital signature agreeing that Peru State College may email me or contact me regarding educational services by telephone and/or text message utilizing automated technology at the telephone number(s) provided above. I understand this consent is not a condition to attend Peru State College or to purchase any other goods or services.</p>
-										</CTPAText>
-									</Grid>
+								 <Grid item xs={12} >
+									<TextField
+									label="Last Name"
+									name="lastName"
+									id="lastName"
+									className={classes.textfield}
+									value={values.lastName}
+									onChange={handleChange}
+									onBlur={handleBlur}
+									error={errors.lastName && touched.lastName}
+									helperText={(errors.lastName && touched.lastName) && errors.lastName && 'Your last name is required'}
+									variant="outlined"
+									fullWidth
+									margin='dense'
+									/>
+								</Grid>	
+								<Grid item xs={12}>
+									<TextField
+									variant="outlined"
+									error={errors.email && touched.email}
+									helperText={(errors.email && touched.email) && errors.email && 'Please provide a valid email address'}
+									fullWidth
+									id="email"
+									label="Email Address"
+									name="email"
+									autoComplete="email"
+									margin='dense'
+									className={classes.textfield}
+									onChange={handleChange}
+									onBlur={handleBlur}
+									/>
 								</Grid>
-		                    </form>
-		                    </>
-		                  );
-		                }}
+								<Grid item xs={12}>
+
+									<MaterialUiPhoneNumber
+									disableCountryCode
+									disableDropdown
+									defaultCountry="us"
+									regions={"america"}
+									variant="outlined"
+									fullWidth
+									id="phoneNumber"
+									label="Phone"
+									name="phoneNumber"
+									margin='dense'
+									className={classes.textfield}
+									onChange={handleChange('phoneNumber')}
+									onBlur={handleBlur}
+									error={errors.phoneNumber && touched.phoneNumber}
+									helperText={(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber && 'Your phone number is required'}
+									/>
+
+								</Grid>
+							</Grid>
+							<Grid container justify="flex-end">
+								<Grid item xs={12}>
+									<Button
+									type="submit"
+									fullWidth
+									variant="contained"
+									color="primary"
+									className={classes.submit+' button primary'}
+									>
+										Send Request
+									</Button>
+									<CTASection >
+										or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>
+										<span className="desktop-only">{phone}</span>
+									</CTASection>
+									<CTPAText>
+										<p>By submitting this form, I am providing my digital signature agreeing that Peru State College may email me or contact me regarding educational services by telephone and/or text message utilizing automated technology at the telephone number(s) provided above. I understand this consent is not a condition to attend Peru State College or to purchase any other goods or services.</p>
+									</CTPAText>
+								</Grid>
+							</Grid>
+	                    </form>
+	                    </>
+	                  );
+	                }}
 		        </Formik>
 		      </FormBox>
 		    </StyledContainer>
