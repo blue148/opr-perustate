@@ -2,7 +2,6 @@ import React from "react"
 
 import Header from "./header/header"
 import Hero from "./heroArea"
-//import MainArea from "./mainArea"
 import Accolades from "./accolades"
 import Testimonial from "./testimonial"
 import Awards from "./awards"

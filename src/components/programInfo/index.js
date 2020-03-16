@@ -70,12 +70,15 @@ const Info = (props) =>{
 	 )
 }
 
-const CareerPanel = (props)=>(
+const CareerPanel = (props)=>{
+	const headline = props.headline||'Career Opportunities';
+	return(
 		<div key={props.panelKey}>
-			<h4>Career Opportunities</h4>
+			<h4 dangerouslySetInnerHTML={{__html:headline.replace(/ (?=[^ ]*$)/i, "&nbsp;")}}/>
 			<div className="program-info-career" dangerouslySetInnerHTML={{__html:props.content}}/>
 		</div>
 	)
+	}
 
 ////STRUCTURE AND CONTENT FOR TAB PANEL
 const PanelContent = (props)=>{
@@ -91,7 +94,7 @@ const PanelContent = (props)=>{
 			</div>
 			<div className="program-info-details" dangerouslySetInnerHTML={{__html:props.programDetails.content}}/>
 			{(props.careerOpportunities)?
-				<CareerPanel panelKey={props.id+'-'+props.itemKey} content={props.careerOpportunities.content}/>
+				<CareerPanel panelKey={props.id+'-'+props.itemKey} content={props.careerOpportunities.content} headline={props.careerOpportunities.headline}/>
 				:null}
 			
 		</div>

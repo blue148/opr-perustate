@@ -66,14 +66,19 @@ const MobileBottomBar = styled.div`
 export default class Layout extends React.Component{
 	constructor(props){
 		super(props)
+		
 		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:'',formSelect:''}
-		//console.log(props, 'master')
 	}
 	
 	
-	
+	componentDidMount(){
+		const targetProgram = JSON.parse('{"' + this.props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}')||'';
+		if(targetProgram){
+			this.handleStateChange('',targetProgram.targetprogram, '','')
+		}
+		
+	}
 	handleStateChange=(e,tabState,subTabState,formSelect)=>{
-		//console.log(tabState, subTabState, 'state change')
 		if(tabState===null)tabState=this.state.activeTab;
 		
 		const tabArray = tabState.split('__');

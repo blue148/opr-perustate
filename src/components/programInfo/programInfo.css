@@ -17,6 +17,11 @@
   }
 }
 
+.program-content-area h4 {
+  text-align: left;
+  font-size: 1.5625rem;
+}
+
 @media (min-width: 768px) {
   .program-details-area {
     display: grid;
