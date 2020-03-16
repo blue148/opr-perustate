@@ -37,8 +37,6 @@ const TabsPanel = (props)=>{
 
 	const {direction,parent,title} = props||'';
 	const handleClick = (e,props)=>{
-			//console.log(props,' tab handle click')
-			
 		e.preventDefault();
 		props.click(e,props.tabState, props.subTabState)
 	}
@@ -165,8 +163,6 @@ export class NestedPanel extends React.Component{
 		const subpanels =  Object.keys(this.props.programs).map((program, index)=>{
 			if(isNaN(program))return true;
 			const subSlug = slugify([this.props.pageName,this.props.programs[index].pageName].join('__'),{remove: /[*+~.()'"!:@]/g,lower:true});
-			//const activeClass = (subSlug === this.props.active.activeSubTab)?'selected':'';
-
 			return(
 				<ContentPanel 
 					{...this.props.programs[index]} 
@@ -211,7 +207,7 @@ export class NestedPanel extends React.Component{
 							direction="vertical" 
 							{...this.props.programs} 
 							active={this.props.active.activeSubTab} 
-							onTabClick={this.props.onTabClick} 
+							onTabClick={this.props.onParentStateChange} 
 							onStateChange={this.props.onStateChange}
 							parent={this.slug}
 							viewport='nested'
@@ -290,7 +286,7 @@ export default class TabbedArea extends React.Component{
 					<TabsPanel {...this.props} 
 						active={this.props.state.activeTab}
 						onStateChange = {this.props.onStateChange}
-						onTabClick={this.handleTabClick}
+						onTabClick={this.props.onParentStateChange}
 						id="tabPanelTop"
 						viewport="desktop-only"
 					/>

@@ -180,6 +180,29 @@ section section > section {
   }
 }
 
+.pageContainer .mainContainer .contentArea {
+  margin: 0;
+  padding: 0 1rem;
+  overflow: hidden;
+  grid-column: 1;
+  margin-top: 0;
+  padding-bottom: 1rem;
+}
+
+@media (min-width: 7678px) {
+  .pageContainer .mainContainer .contentArea {
+    margin: 0px 0px 0px 2rem;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .pageContainer .mainContainer .contentArea {
+    grid-column: 1/2;
+    grid-row: 1;
+  }
+}
+
 /***SCREEN READER ONLY***/
 .sr-only {
   position: absolute;

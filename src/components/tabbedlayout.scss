@@ -145,6 +145,22 @@ section{
 			grid-template:1fr/auto;
 			padding-bottom:70px;
 		}
+		.contentArea{
+			margin:0;
+			padding: 0 1rem;	
+			@media (min-width:7678px){
+				margin:0px 0px 0px 2rem;
+				max-width:100%;
+			}
+			overflow:hidden;
+			grid-column:1;
+			margin-top:0;
+			padding-bottom:1rem;
+			@media (min-width: 768px) {
+				grid-column:1/2;
+				grid-row:1;
+			}
+		}
 
 	}
 

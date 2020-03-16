@@ -25,22 +25,9 @@ const Main = styled.main`
 `
 
 const ContentArea = styled.section`
-	margin:0;
-	padding: 0 1rem;	
-	@media (min-width:7678px){
-		margin:0px 0px 0px 2rem;
-		max-width:100%;
-	}
-	overflow:hidden;
-	grid-column:1;
-	margin-top:0;
-	padding-bottom:1rem;
-	@media (min-width: 768px) {
-		grid-column:1/2;
-		grid-row:1;
-	}
+	
 `
-const MobileBottomBar = styled.div`
+const MobileBottomBar = styled.nav`
 	width:100%;
 	background:black;
 	position:fixed;
@@ -138,7 +125,7 @@ export default class Layout extends React.Component{
 			    
 				<Main className="mainContainer">
 
-					<ContentArea>
+					<ContentArea className="contentArea">
 						<Hero {...this.props.heroArea}/>
 						<MainArea {...this.props.mainContentSection}/>
 						<TabbedArea {...this.props.tabbedContent} onParentStateChange={this.handleParentState} onStateChange={this.handleStateChange} state={this.state}/>
