@@ -297,7 +297,6 @@ export default function FormPanel(props){
 	                    handleSubmit,
 	                    submitForm
 	                  } = props;
-	                  console.log(values,'formik values')
 	                 return(
 						<>
 						<div className={["form_overlay",isSubmitting===true?'':'hide'].join(' ')}>
