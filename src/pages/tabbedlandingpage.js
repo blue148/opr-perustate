@@ -17,7 +17,6 @@ export default ({data, location}) => {
 			  <meta charSet="utf-8" />
 			  <title>{data.contentfulNestedTabbedLandingPage.heroArea.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, " ")}</title>
 			  <meta name="robots" content="noindex, nofollow"/>
-			  <script>{`window.dataLayer=[]`}</script>
 			</Helmet>
 
 
