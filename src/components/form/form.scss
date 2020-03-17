@@ -2,6 +2,30 @@
 .hide{
 	display:none;
 }
+.formPanel{
+	background-color:$shade;
+	bottom:0;
+	grid-column:1;
+	order:20;
+	margin-top:0;
+	padding:0;
+	width:100%;
+	@media (min-width: 768px) {
+		grid-column:2/3;
+		grid-row:1;
+		z-index:99;
+		right: 9%;
+		top: 0px;
+		position: fixed;
+		width:357px!important;
+	}
+	@media (max-width:1290px){
+		left:850px;
+	}
+	@media (max-width:768px){
+		left:750px;
+		}
+}
 .form-cta-group{
 	margin:1rem auto;
 	p{
@@ -14,6 +38,21 @@
 .MuiContainer-root{
 	@media (min-width:768px){
 		width:357px;
+	}
+	&.textfield{
+		position: relative;
+	    border-radius: 4px;
+	    color: rgba(0, 0, 0, 0.87);
+	    cursor: text;
+	    display: inline-flex;
+	    position: relative;
+	    font-size: 1rem;
+	    box-sizing: border-box;
+	    align-items: center;
+	    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+	    font-weight: 400;
+	    line-height: 1.1875em;
+	    letter-spacing: 0.00938em;
 	}
 }
 .MuiGrid-item{

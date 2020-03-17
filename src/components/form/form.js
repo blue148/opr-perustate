@@ -33,28 +33,7 @@ const { midpoint, endpoint } = crmConfig;
 
 ////Nove this to scss due to FOUC
 const StyledContainer = styled(Container)`
-	background-color:${props=>props.theme.shade};
-	bottom:0;
-	grid-column:1;
-	order:20;
-	margin-top:0;
-	padding:0;
-	width:100%;
-	@media (min-width: 768px) {
-		grid-column:2/3;
-		grid-row:1;
-		z-index:99;
-		right: 9%;
-		top: 0px;
-		position: fixed;
-		width:357px!important;
-	}
-	@media (max-width:1290px){
-		left:850px;
-	}
-	@media (max-width:768px){
-		left:750px;
-		}
+	
 `
 const FormBox = styled.div`
 		padding: 0;
@@ -109,7 +88,15 @@ const Spacer = styled.span`
 //pull these from GQL
 //need to add key and sort
 const programArray = (props)=>{
-	return Object.keys(props).map((item,index)=>(
+	const sorted = props.sort(function(a, b){
+		  var x = a.node.pageSlug;
+		  var y = b.node.pageSlug;
+		  if (x < y) {return -1;}
+		  if (x > y) {return 1;}
+		  return 0;
+		});
+		console.log(sorted,' programarray');
+	return Object.keys(sorted).map((item,index)=>(
 			{text:props[index].node.shortName,
 				value:props[index].node.programCode,
 				key:props[index].node.programCode,
@@ -125,13 +112,13 @@ const selectOptions =(props)=>{
 }
 const useStyles = makeStyles(theme => ({
 	paper: {
-	display: 'flex',
-	flexDirection: 'column',
-	alignItems: 'center',
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
 	},
 	form: {
-	width: '90%', // Fix IE 11 issue.
-	margin:0,
+		width: '90%', // Fix IE 11 issue.
+		margin:0,
 	},
 	selectControl:{
 		background:'white',
@@ -149,9 +136,9 @@ const useStyles = makeStyles(theme => ({
 		marginTop: theme.spacing(2),
 	},
 	submit: {
-	margin: theme.spacing(3, 0, 2),
-	height:'3rem',
-	fontSize:'1.4rem',
+		margin: theme.spacing(3, 0, 2),
+		height:'3rem',
+		fontSize:'1.4rem',
 	},
 	headline:{
 		marginBottom: theme.spacing(4)
@@ -335,7 +322,7 @@ export default function FormPanel(props){
 										label="First Name"
 										name="firstName"
 										id="firstName"
-										className={classes.textfield}
+										className={[classes.textfield,'textfield'].join(' ')}
 										value={values.firstName}
 										onChange={handleChange}
 										onBlur={handleBlur}
@@ -351,7 +338,7 @@ export default function FormPanel(props){
 										label="Last Name"
 										name="lastName"
 										id="lastName"
-										className={classes.textfield}
+										className={[classes.textfield, 'textfield'].join(' ')}
 										value={values.lastName}
 										onChange={handleChange}
 										onBlur={handleBlur}

@@ -7,7 +7,7 @@
   justify-items: center;
   color: white;
   background-image: none;
-  background-color: #003478;
+  background: #003478;
   background: -moz-linear-gradient(78deg, #003478 -2%, #006699 50%, #003478 91%);
   background: -webkit-linear-gradient(78deg, #003478 -2%, #006699 50%, #003478 91%);
   background: linear-gradient(#003478 -2%, #006699 50%, #003478 91%);
@@ -20,21 +20,8 @@
   .HeroBox {
     padding: 1.5rem 0;
     margin-bottom: 0;
-    background: -moz-linear-gradient(78deg, #003478 -2%, #006699 50%, #003478 91%);
-    background: -webkit-linear-gradient(78deg, #003478 -2%, #006699 50%, #003478 91%);
-    background: linear-gradient(#003478 -2%, #006699 50%, #003478 91%);
     display: grid;
     justify-content: center;
-  }
-  .HeroBox::before {
-    content: '';
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.65);
-    position: absolute;
-    z-index: 1;
   }
   .HeroBox * {
     z-index: 3;

@@ -8,6 +8,16 @@ import './hero.scss';
 const HeroBox = styled.section`
 	@media (min-width:768px){
 		background-image:${props=> `url(${props.backgroundImage})`};
+		&::before{
+			content:'';
+			top:0;
+			bottom:0;
+			left:0;
+			right:0;
+			background-color:rgba(0,0,0,.65);
+			position:absolute;
+			z-index:1;
+		}
 	}
 `
 const HeroHeadline = styled.h1`
