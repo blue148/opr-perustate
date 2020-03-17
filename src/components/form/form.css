@@ -72,6 +72,35 @@
   letter-spacing: 0.00938em;
 }
 
+.MuiContainer-root.textfield .MuiOutlinedInput-inputMarginDense {
+  padding-top: 10.5px;
+  padding-bottom: 10.5px;
+}
+
+.MuiContainer-root.textfield .MuiOutlinedInput-input {
+  padding: 18.5px 14px;
+}
+
+.MuiContainer-root.textfield .MuiInputBase-inputMarginDense {
+  padding-top: 3px;
+}
+
+.MuiContainer-root.textfield .MuiInputBase-input {
+  font: inherit;
+  color: currentColor;
+  width: 100%;
+  border: 0;
+  height: 1.1875em;
+  margin: 0;
+  display: block;
+  padding: 6px 0 7px;
+  min-width: 0;
+  background: none;
+  box-sizing: content-box;
+  animation-name: mui-auto-fill-cancel;
+  -webkit-tap-highlight-color: transparent;
+}
+
 .MuiGrid-item {
   padding: 0;
   line-height: 1;
