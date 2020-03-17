@@ -17,7 +17,6 @@ import {
 import MaterialUiPhoneNumber from '../phonenumberformatter'
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import {Helmet} from 'react-helmet';
 
 import './form.scss'
 
@@ -181,7 +180,8 @@ export default function FormPanel(props){
 			phoneNumber:'',
 			programCode:props.state.formSelect,
 			},
-		submitted:false
+		submitted:false,
+		request:false
 		}
 	  )
 	const handleChange = event => {
@@ -200,12 +200,10 @@ export default function FormPanel(props){
 	
 	const searchVars = (props.location.search)?
 		JSON.parse('{"' + props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) }):''
-		
 	return(
 		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
 		      <Spacer id="leadform"/>
-		      <p onClick={()=>{window.dataLayer.push({event:'Request Info Button Click'})}}>Leanrn things</p>
 		      <FormBox className={[classes.paper, 'formBox'].join(' ')}>
 		        <FormHeadline className={state.submitted?'hide':''}>
 		          {cleanHeadline||'Need More Information?'}
@@ -217,11 +215,12 @@ export default function FormPanel(props){
  
 				 <Formik
 			 		enableReinitialize={true}
-			 		initialValues={{ email: '', firstName: '',lastName:'', phoneNumber: '', programCode:props.state.formSelect ,programs:props.programs.edges }}
+			 		initialValues={{ email: '', firstName: '',lastName:'', phoneNumber: '', programCode:props.state.formSelect ,programs:props.programs.edges,request:false }}
 	                onSubmit={(values, { setSubmitting}) => {
 	                   //while sumbmitting and waiting for a repsonse, show spinner
-	                   //on response, if success, show thank you
-	                   
+	                   //on response, if success, redirect to viewdo, else show thankyou message
+	                   setState({request:true})
+	                   if(values.request!==true)window.dataLayer.push({event:'Request Info Button Click'});
 	                   const headers = new Headers();
 					   headers.append('Content-Type', 'application/json');
 						
@@ -262,7 +261,7 @@ export default function FormPanel(props){
 						  body:JSON.stringify(body)		  
 						};
 						const url = midpoint+'?url='+encodeURIComponent(endpoint);
-						/*fetch(url, init)
+						fetch(url, init)
 						.then((response) => {	
 							setSubmitting(false)
 							return response.json()
@@ -272,7 +271,7 @@ export default function FormPanel(props){
 						})
 						.catch((e) => {
 						  console.log(e.message)
-						});*/
+						});
 	                }}
 	
 	                validationSchema={Yup.object().shape({
@@ -302,127 +301,127 @@ export default function FormPanel(props){
 	                  } = props;
 	                 return(
 						<>
-						<div className={["form_overlay",isSubmitting===true?'':'hide'].join(' ')}>
-			                <CircularProgress variant='indeterminate' thickness={5}/>
-			                <h4>Sending Request</h4>
-						</div>
-						
-	                    <form onSubmit={handleSubmit} className={[classes.form, state.submitted?'hide':''].join(' ')}>
-	                    
-	                    	<Grid container spacing={0}>
-								<Grid item xs={12}> 
-						            <FormControl fullWidth className={classes.selectControl+' selectControl'}>
-						            	<InputLabel ref={inputLabel} id="programs-label" variant="outlined">
-								         Select a Program
-								        </InputLabel>
-								        <Select
-								          labelId="programs-label"
-								          id="programs"
-								          name="programCode"
-								          variant='outlined' 
-								          margin='dense'
-								          value={values.programCode}
-								          onChange={handleChange}
-								          className={classes.select}
-								          error={errors.programCode && touched.programCode && <FormHelperText>'Please choose a program of interest'</FormHelperText>}
-								        >
-									        <MenuItem value=''>Please Select a Program</MenuItem>
-									        {selectOptions(programArray(values.programs))}
-								        </Select>
-								    </FormControl>
-					            </Grid>
-					            <Grid item xs={12} >
-									<TextField
-									label="First Name"
-									name="firstName"
-									id="firstName"
-									className={classes.textfield}
-									value={values.firstName}
-									onChange={handleChange}
-									onBlur={handleBlur}
-									error={errors.firstName && touched.firstName}
-									helperText={(errors.firstName && touched.firstName) && errors.firstName  && 'Your first name is required'}
-									variant="outlined"
-									fullWidth
-									margin='dense'
-									/>
+							<div className={["form_overlay",isSubmitting===true?'':'hide'].join(' ')}>
+				                <CircularProgress variant='indeterminate' thickness={5}/>
+				                <h4>Sending Request</h4>
+							</div>
+							
+		                    <form onSubmit={handleSubmit} className={[classes.form, state.submitted?'hide':''].join(' ')}>
+		                    
+		                    	<Grid container spacing={0}>
+									<Grid item xs={12}> 
+							            <FormControl fullWidth className={classes.selectControl+' selectControl'}>
+							            	<InputLabel ref={inputLabel} id="programs-label" variant="outlined">
+									         Select a Program
+									        </InputLabel>
+									        <Select
+									          labelId="programs-label"
+									          id="programs"
+									          name="programCode"
+									          variant='outlined' 
+									          margin='dense'
+									          value={values.programCode}
+									          onChange={handleChange}
+									          className={classes.select}
+									          error={errors.programCode && touched.programCode && <FormHelperText>'Please choose a program of interest'</FormHelperText>}
+									        >
+										        <MenuItem value=''>Please Select a Program</MenuItem>
+										        {selectOptions(programArray(values.programs))}
+									        </Select>
+									    </FormControl>
+						            </Grid>
+						            <Grid item xs={12} >
+										<TextField
+										label="First Name"
+										name="firstName"
+										id="firstName"
+										className={classes.textfield}
+										value={values.firstName}
+										onChange={handleChange}
+										onBlur={handleBlur}
+										error={errors.firstName && touched.firstName}
+										helperText={(errors.firstName && touched.firstName) && errors.firstName  && 'Your first name is required'}
+										variant="outlined"
+										fullWidth
+										margin='dense'
+										/>
+									</Grid>
+									 <Grid item xs={12} >
+										<TextField
+										label="Last Name"
+										name="lastName"
+										id="lastName"
+										className={classes.textfield}
+										value={values.lastName}
+										onChange={handleChange}
+										onBlur={handleBlur}
+										error={errors.lastName && touched.lastName}
+										helperText={(errors.lastName && touched.lastName) && errors.lastName && 'Your last name is required'}
+										variant="outlined"
+										fullWidth
+										margin='dense'
+										/>
+									</Grid>	
+									<Grid item xs={12}>
+										<TextField
+										variant="outlined"
+										error={errors.email && touched.email}
+										helperText={(errors.email && touched.email) && errors.email && 'Please provide a valid email address'}
+										fullWidth
+										id="email"
+										label="Email Address"
+										name="email"
+										autoComplete="email"
+										margin='dense'
+										className={classes.textfield}
+										onChange={handleChange}
+										onBlur={handleBlur}
+										/>
+									</Grid>
+									<Grid item xs={12}>
+	
+										<MaterialUiPhoneNumber
+										disableCountryCode
+										disableDropdown
+										defaultCountry="us"
+										regions={"america"}
+										variant="outlined"
+										fullWidth
+										id="phoneNumber"
+										label="Phone"
+										name="phoneNumber"
+										margin='dense'
+										className={classes.textfield}
+										onChange={handleChange('phoneNumber')}
+										onBlur={handleBlur}
+										error={errors.phoneNumber && touched.phoneNumber}
+										helperText={(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber && 'Your phone number is required'}
+										/>
+	
+									</Grid>
 								</Grid>
-								 <Grid item xs={12} >
-									<TextField
-									label="Last Name"
-									name="lastName"
-									id="lastName"
-									className={classes.textfield}
-									value={values.lastName}
-									onChange={handleChange}
-									onBlur={handleBlur}
-									error={errors.lastName && touched.lastName}
-									helperText={(errors.lastName && touched.lastName) && errors.lastName && 'Your last name is required'}
-									variant="outlined"
-									fullWidth
-									margin='dense'
-									/>
-								</Grid>	
-								<Grid item xs={12}>
-									<TextField
-									variant="outlined"
-									error={errors.email && touched.email}
-									helperText={(errors.email && touched.email) && errors.email && 'Please provide a valid email address'}
-									fullWidth
-									id="email"
-									label="Email Address"
-									name="email"
-									autoComplete="email"
-									margin='dense'
-									className={classes.textfield}
-									onChange={handleChange}
-									onBlur={handleBlur}
-									/>
+								<Grid container justify="flex-end">
+									<Grid item xs={12}>
+										<Button
+										type="submit"
+										fullWidth
+										variant="contained"
+										color="primary"
+										className={classes.submit+' button primary'}
+										
+										>
+											Send Request
+										</Button>
+										<CTASection >
+											or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>
+											<span className="desktop-only">{phone}</span>
+										</CTASection>
+										<CTPAText>
+											<p>By submitting this form, I am providing my digital signature agreeing that Peru State College may email me or contact me regarding educational services by telephone and/or text message utilizing automated technology at the telephone number(s) provided above. I understand this consent is not a condition to attend Peru State College or to purchase any other goods or services.</p>
+										</CTPAText>
+									</Grid>
 								</Grid>
-								<Grid item xs={12}>
-
-									<MaterialUiPhoneNumber
-									disableCountryCode
-									disableDropdown
-									defaultCountry="us"
-									regions={"america"}
-									variant="outlined"
-									fullWidth
-									id="phoneNumber"
-									label="Phone"
-									name="phoneNumber"
-									margin='dense'
-									className={classes.textfield}
-									onChange={handleChange('phoneNumber')}
-									onBlur={handleBlur}
-									error={errors.phoneNumber && touched.phoneNumber}
-									helperText={(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber && 'Your phone number is required'}
-									/>
-
-								</Grid>
-							</Grid>
-							<Grid container justify="flex-end">
-								<Grid item xs={12}>
-									<Button
-									type="submit"
-									fullWidth
-									variant="contained"
-									color="primary"
-									className={classes.submit+' button primary'}
-									onClick={()=>{window.dataLayer.push({event:'Request Info Button Click'})}}
-									>
-										Send Request
-									</Button>
-									<CTASection >
-										or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>
-										<span className="desktop-only">{phone}</span>
-									</CTASection>
-									<CTPAText>
-										<p>By submitting this form, I am providing my digital signature agreeing that Peru State College may email me or contact me regarding educational services by telephone and/or text message utilizing automated technology at the telephone number(s) provided above. I understand this consent is not a condition to attend Peru State College or to purchase any other goods or services.</p>
-									</CTPAText>
-								</Grid>
-							</Grid>
-	                    </form>
+		                    </form>
 	                    </>
 	                  );
 	                }}
