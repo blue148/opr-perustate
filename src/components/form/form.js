@@ -205,6 +205,7 @@ export default function FormPanel(props){
 		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
 		      <Spacer id="leadform"/>
+		      <p onClick={()=>{window.dataLayer.push({event:'Request Info Button Click'})}}>Leanrn things</p>
 		      <FormBox className={[classes.paper, 'formBox'].join(' ')}>
 		        <FormHeadline className={state.submitted?'hide':''}>
 		          {cleanHeadline||'Need More Information?'}

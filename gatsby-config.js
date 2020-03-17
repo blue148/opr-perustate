@@ -59,7 +59,7 @@ module.exports = {
         }
       }
     },
-   /*{
+   {
 	    resolve: 'gatsby-plugin-google-tagmanager',
 	    options: {
 	      id: 'GTM-WVQZZ82',
@@ -78,8 +78,8 @@ module.exports = {
 	
 	      // Specify optional GTM environment details.
 	    },
-	},*/
-	{
+	},
+	/*{
       resolve: `gatsby-plugin-google-gtag`,
       options: {
 	       trackingIds:[
@@ -102,7 +102,7 @@ module.exports = {
           //exclude: ["/preview/**", "/do-not-track/me/too/"],
         },
       },
-    },
+    },*/
 	  
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
