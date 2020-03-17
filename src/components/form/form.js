@@ -95,7 +95,6 @@ const programArray = (props)=>{
 		  if (x > y) {return 1;}
 		  return 0;
 		});
-		console.log(sorted,' programarray');
 	return Object.keys(sorted).map((item,index)=>(
 			{text:props[index].node.shortName,
 				value:props[index].node.programCode,
