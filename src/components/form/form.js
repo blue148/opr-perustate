@@ -202,7 +202,7 @@ export default function FormPanel(props){
 		JSON.parse('{"' + props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) }):''
 		
 	return(
-		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>?
+		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
 		      <Spacer id="leadform"/>
 		      <FormBox className={[classes.paper, 'formBox'].join(' ')}>
@@ -220,11 +220,9 @@ export default function FormPanel(props){
 	                onSubmit={(values, { setSubmitting}) => {
 	                   //while sumbmitting and waiting for a repsonse, show spinner
 	                   //on response, if success, show thank you
-	                   if (typeof window !== 'undefined'){
-		                   window.dataLayer.push({event: 'Request Info Button Click'});
-		                   }
+	                   
 	                   const headers = new Headers();
-						headers.append('Content-Type', 'application/json');
+					   headers.append('Content-Type', 'application/json');
 						
 						const body = {
 						 "universityId": "102",
@@ -410,6 +408,7 @@ export default function FormPanel(props){
 									variant="contained"
 									color="primary"
 									className={classes.submit+' button primary'}
+									onClick={()=>{window.dataLayer.push({event:'Request Info Button Click'})}}
 									>
 										Send Request
 									</Button>

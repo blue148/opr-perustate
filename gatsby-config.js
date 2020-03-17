@@ -59,7 +59,7 @@ module.exports = {
         }
       }
     },
-    {
+   {
 	    resolve: 'gatsby-plugin-google-tagmanager',
 	    options: {
 	      id: 'GTM-WVQZZ82',
@@ -71,7 +71,9 @@ module.exports = {
 	      // datalayer to be set before GTM is loaded
 	      // should be an object or a function that is executed in the browser
 	      // Defaults to null
-	      defaultDataLayer:{},
+	      defaultDataLayer:function(){
+		      return ''
+	      },
 	
 	
 	      // Specify optional GTM environment details.
