@@ -3,8 +3,12 @@ import styled from 'styled-components'
 import {Button} from '../uiElements'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faTimesCircle} from '@fortawesome/free-solid-svg-icons'
+import Icon from '../../images/icons'
 import './programInfo.scss';
 
+const MainBox = styled.section`
+
+`
 const ButtonArea = styled.div`
 	display:grid;
 	grid-template-columns:1fr 1fr;
@@ -29,11 +33,11 @@ const CloseButton = styled.a`
 	font-size:25px;
 	color:${props=>props.theme.darkgray};
     float: right;
-    margin-top: -17px;
-    margin-right: -10px;
+    margin-top: 0px;
+    margin-right: 0px;
 }
 `
-
+const ItemStack = styled.div``
 
 ////STRUCTURE FOR THE APPPLY AND START DATE LISTS
 const Dates = (props) =>{
@@ -51,53 +55,71 @@ const Dates = (props) =>{
 
 ////STRUCTURE AND CONTENT FOR INFO AREA OF EACH PROGRAM PANEL
 const Info = (props) =>{
-	const infoArray = ['transferrableCredits','tuition','creditHours','totalCost'];
-	const infoItem = Object.keys(props).map((item,index)=>{
-		if(infoArray.indexOf(item)>-1){
-			const nameSpaced = item.split(/(?=[A-Z])/).join(' ');
-			const name = nameSpaced.charAt(0).toUpperCase()+nameSpaced.slice(1);
-			if(props[item]!= null){
-				return (<p className="programInfoItem" id={item} key={index}><strong>{name}</strong> {props[item]}</p>)
-			}
-			return false
-			}
-		return true
+	const {items} = props.programInfo;
+	const infoItem = Object.keys(items).map((item,index)=>{	
+			const tagline = items[item].content.tagline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;");					
+			if(index>=3)return false;
+			return (
+				<ItemStack key={index} className="iconStack">
+					<div className="iconBox">
+						<Icon name={items[item].content.icon}/>
+					</div>
+					<p className="programInfoItem" id={item} key={index} dangerouslySetInnerHTML={{
+						__html:items[item].content.tagline
+						.replace(/(<([/fp]+)>)/ig,"")
+						.replace(/<\/?span[^>]*>/ig,"")
+						.replace(/ (?=[^ ]*$)/i, "&nbsp;")}}/>
+				</ItemStack>
+			)
+		
+		
 	})
 	return(
-		 <div className="program-info program-info-area" key={props.itemKey}>
-		 	{infoItem}
-		 </div>
-	 )
+		<>
+			<h4>Program Highlights</h4>
+			 <section className="program-info program-callouts" key={props.itemKey}>
+			 
+			 	{infoItem}
+			 </section>
+		</>
+	)
+		
 }
 
 const CareerPanel = (props)=>{
 	const headline = props.headline||'Career Opportunities';
 	return(
-		<div key={props.panelKey}>
+		<section className="careerSection" key={props.panelKey}>
 			<h4 dangerouslySetInnerHTML={{__html:headline.replace(/ (?=[^ ]*$)/i, "&nbsp;")}}/>
 			<div className="program-info-career" dangerouslySetInnerHTML={{__html:props.content}}/>
-		</div>
+		</section>
 	)
 	}
 
 ////STRUCTURE AND CONTENT FOR TAB PANEL
 const PanelContent = (props)=>{
 	return (
-		<div className="program-content-area">
+		<section className="program-content-area">
 			
-			<div className="program-details-area">
+			<section className="program-details-area">
 				<Info {...props}/>
-				<div className="program-info program-info-dates">
+				<section className="program-info program-dates">
 					<Dates title="Apply By" items={props.applyBy}/>
 					<Dates title="Start Classes" items={props.startClasses}/>
-				</div>
-			</div>
-			<div className="program-info-details" dangerouslySetInnerHTML={{__html:props.programDetails.content}}/>
+					<Button label="Apply Now" className="applyButton" theme="secondary" outlink="https://online.peru.edu/apply-now">
+						Apply Now
+					</Button>
+					<span className="bg-image">
+						<Icon name="symbol-defs_svg__icon-calendar" />
+					</span>
+				</section>
+			</section>
+			<section className="program-info-details" dangerouslySetInnerHTML={{__html:props.programDetails.content}}/>
 			{(props.careerOpportunities)?
 				<CareerPanel panelKey={props.id+'-'+props.itemKey} content={props.careerOpportunities.content} headline={props.careerOpportunities.headline}/>
 				:null}
 			
-		</div>
+		</section>
 	)
 }
 
@@ -125,7 +147,6 @@ export default class ProgramInfo extends React.Component{
 	render(){
 		//add nbsp in the last space for text wrapping.
 		const cleanHeadline = this.props.pageName.replace(/ (?=[^ ]*$)/i, "&nbsp;");
-
 		return(		
 			<>
 				<CloseButton

@@ -25,6 +25,10 @@
   }
 }
 
+.tabbedArea .tab {
+  border-bottom: none;
+}
+
 .tabPanel {
   display: grid;
   grid-template: minmax(3rem, 1fr)/repeat(auto-fit, minmax(100px, 1fr));
@@ -211,14 +215,23 @@
 @media (min-width: 768px) {
   .contentPanel {
     padding: 1.6rem 1.6rem 0;
+    padding: 0;
   }
 }
 
 .contentPanel h3 {
-  font-size: 1.8rem;
-  line-height: 1.2;
-  text-align: left;
-  margin-bottom: 0;
+  font-size: 1.5rem;
+  line-height: 1.7;
+  padding: 1.3rem 1rem 0;
+}
+
+@media (min-width: 768px) {
+  .contentPanel h3 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    text-align: left;
+    margin-bottom: 1.3rem;
+  }
 }
 
 .contentPanel.selected {
@@ -372,7 +385,7 @@
     left: 0;
     bottom: 0;
     z-index: 40000;
-    padding: 1rem;
+    padding: 0rem;
   }
   .contentPanel.selected .nestedContentPanel .accordion-trigger {
     display: none !important;
