@@ -41,8 +41,10 @@ const StyledButton = styled(Button)`
 `
 //need to pull the icon by name
 const Items = (props) =>(
+
 	<ItemsBox className="iconGrid">
-		 {Object.keys(props).map((item, index)=>{
+		 {
+			 Object.keys(props).map((item, index)=>{
 			 const text = props[item].content.tagline
 			 return(
 				<ItemStack key={index} className="iconStack">
@@ -61,13 +63,13 @@ export default class HeroArea extends React.Component{
 		const {image, headline, items} = this.props
 		const imgBg = (image)?image.fields.file.en_US.url:'';
 		//remove and p and f tags to clean up the code then add nbsp in the last space for text wrapping.
-		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;"):'';
+		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';
 
 		return(
 			<HeroBox key={this.props.index} backgroundImage={imgBg} className="HeroBox">
 				<div className="desktop-shim">
 	                <HeroHeadline dangerouslySetInnerHTML={{__html:cleanHeadline}} className="HeroHeadline"/>
-					<Items {...items}/>
+					{(items)?<Items {...items}/>:null}
 	
 					<StyledButton label="Learn More" theme="primary" jumplink="leadform" className="hero-button"/>
 				</div>

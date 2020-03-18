@@ -11,9 +11,24 @@
 @media (min-width: 768px) {
   .accolades {
     display: grid;
-    grid-template-columns: minmax(0, 850px) calc(315px + 5%);
     justify-content: center;
   }
+}
+
+@media (min-width: 768px) and (max-width: 1400px) {
+  .accolades {
+    grid-template-columns: minmax(0, 725px) calc(340px + 5%);
+  }
+}
+
+@media (min-width: 768px) and (min-width: 1401px) {
+  .accolades {
+    grid-template-columns: minmax(0, 800px) calc(340px + 5%);
+  }
+}
+
+.accolades .iconGrid {
+  grid-row-gap: .5rem;
 }
 
 @media (max-width: 768px) {

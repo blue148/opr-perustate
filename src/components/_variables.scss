@@ -25,3 +25,9 @@ $brandfont:'Open Sans';
 			grid-template-columns: minmax(0,800px) calc(340px + 5%);
 	}
 }
+@mixin angle-gradient{
+	background:$brandmediumblue;
+	background: -moz-linear-gradient(78deg, $brandmediumblue -2%, $brandblue 50%, $brandmediumblue 91%);
+	background: -webkit-linear-gradient(78deg, $brandmediumblue -2%,  $brandblue 50%, $brandmediumblue 91%);
+	background: linear-gradient(78deg, $brandmediumblue -2%, $brandblue 50%, $brandmediumblue 91%);
+}

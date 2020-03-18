@@ -240,24 +240,35 @@ export default function FormPanel(props){
 						  "webUrl": props.location.origin+props.location.pathname,
 						  "ip": ""
 						};
-						
+						const viewDoData = [
+							"firstname="+values.firstName,
+							"lastname="+values.lastName,
+							"email="+values.email,
+							"phone="+values.phoneNumber.replace(/[^A-Z0-9]+/ig, ""),
+							"program="+values.programCode
+						]
 						const init = {
 						  method: 'POST',
 						  headers,
 						  body:JSON.stringify(body)		  
 						};
 						const url = midpoint+'?url='+encodeURIComponent(endpoint);
-						fetch(url, init)
+						console.log(viewDoData.join('&'));
+						/*fetch(url, init)
 						.then((response) => {	
 							setSubmitting(false)
 							return response.json()
 							})
 						.then((json) => {
-							if(json.Success)setState({'submitted':true})
+							if(json.Success){
+								setState({'submitted':true})
+								//'https://xapi.view.do/v1/experience/link/vb-edu-rfi-peru/org?useExisting=true&utm_source=online.peru.edu&utm_medium=referral&campaignKey=lp&'+encodeURIComponent(viewDoData)
+								//location.href = 
+								}
 						})
 						.catch((e) => {
 						  console.log(e.message)
-						});
+						});*/
 	                }}
 	
 	                validationSchema={Yup.object().shape({

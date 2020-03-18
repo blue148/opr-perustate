@@ -4,10 +4,10 @@ import {Button} from '../uiElements'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 import Icon from '../../images/icons'
-import './programInfo.scss';
+import './programContent.scss';
 
 const MainBox = styled.section`
-
+	margin-top:0;
 `
 const ButtonArea = styled.div`
 	display:grid;
@@ -33,11 +33,12 @@ const CloseButton = styled.a`
 	font-size:25px;
 	color:${props=>props.theme.darkgray};
     float: right;
-    margin-top: 0px;
-    margin-right: 0px;
+    margin-top: -17px;
+    margin-right: -10px;
 }
 `
 const ItemStack = styled.div``
+
 
 ////STRUCTURE FOR THE APPPLY AND START DATE LISTS
 const Dates = (props) =>{
@@ -57,8 +58,7 @@ const Dates = (props) =>{
 const Info = (props) =>{
 	const {items} = props.programInfo;
 	const infoItem = Object.keys(items).map((item,index)=>{	
-			const tagline = items[item].content.tagline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;");					
-			if(index>=3)return false;
+			const tagline = items[item].content.tagline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;");					if(index>=3)return false;
 			return (
 				<ItemStack key={index} className="iconStack">
 					<div className="iconBox">
@@ -81,16 +81,15 @@ const Info = (props) =>{
 			 
 			 	{infoItem}
 			 </section>
-		</>
-	)
-		
+		 </>
+	 )
 }
 
 const CareerPanel = (props)=>{
 	const headline = props.headline||'Career Opportunities';
 	return(
 		<section className="careerSection" key={props.panelKey}>
-			<h4 dangerouslySetInnerHTML={{__html:headline.replace(/ (?=[^ ]*$)/i, "&nbsp;")}}/>
+			<h3 dangerouslySetInnerHTML={{__html:headline.replace(/(<([/fp]+)>)/ig,"").replace(/<\/?span[^>]*>/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;")}}/>
 			<div className="program-info-career" dangerouslySetInnerHTML={{__html:props.content}}/>
 		</section>
 	)
@@ -99,10 +98,9 @@ const CareerPanel = (props)=>{
 ////STRUCTURE AND CONTENT FOR TAB PANEL
 const PanelContent = (props)=>{
 	return (
-		<section className="program-content-area">
-			
+		<>
 			<section className="program-details-area">
-				<Info {...props}/>
+				<Info {...props} programInfo={props.programInfo}/>
 				<section className="program-info program-dates">
 					<Dates title="Apply By" items={props.applyBy}/>
 					<Dates title="Start Classes" items={props.startClasses}/>
@@ -114,16 +112,15 @@ const PanelContent = (props)=>{
 					</span>
 				</section>
 			</section>
-			<section className="program-info-details" dangerouslySetInnerHTML={{__html:props.programDetails.content}}/>
 			{(props.careerOpportunities)?
 				<CareerPanel panelKey={props.id+'-'+props.itemKey} content={props.careerOpportunities.content} headline={props.careerOpportunities.headline}/>
 				:null}
 			
-		</section>
+		</>
 	)
 }
 
-export default class ProgramInfo extends React.Component{
+export default class ProgramContent extends React.Component{
 
 	handleClose = (e,target,formSelect) =>{
 		//console.log(formSelect,' onClose')
@@ -146,29 +143,18 @@ export default class ProgramInfo extends React.Component{
 	}
 	render(){
 		//add nbsp in the last space for text wrapping.
-		const cleanHeadline = this.props.pageName.replace(/ (?=[^ ]*$)/i, "&nbsp;");
+		const cleanHeadline = this.props.programDetails.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;");
+
 		return(		
-			<>
-				<CloseButton
-						href="#"
-						className="menu-close mobile-only"
-						onClick={(e)=>this.handleClose(e,this.props.id,'')}
-						aria-label="Close program details">
-						<span className="sr-only">Close</span>
-						<FontAwesomeIcon icon={faTimesCircle}/>
-					</CloseButton>
-				<h3 dangerouslySetInnerHTML={{__html:cleanHeadline}}/>	
-				<PanelContent {...this.props}/>
-				<ButtonArea className="program-info-buttons">
-					<Button label="Request Info" theme="primary mobile-only" jumplink='leadform' onClick={(e)=>this.handleParentChange(e,this.props.programLink)}>
-						Request Info
-					</Button>
-					<Button label="Apply Now" theme="secondary" outlink="https://online.peru.edu/apply-now">
-						Apply Now
-					</Button>
-					
-				</ButtonArea>
-			</>
+			<MainBox className="mainArea singleProgram">
+				<div className="desktop-shim">
+					<section className="program-intro">
+						<h3 dangerouslySetInnerHTML={{__html:cleanHeadline}}/>
+						<div className="program-info-details" dangerouslySetInnerHTML={{__html:this.props.programDetails.content}}/>	
+					</section>
+					<PanelContent {...this.props}/>
+				</div>
+			</MainBox>
 		)
 	}
 }

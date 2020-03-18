@@ -9,6 +9,9 @@
 	@media (min-width:768px){
 		@include section-shim;
 	}
+	.iconGrid{
+		grid-row-gap:.5rem;
+	}
 }
 
 @media (max-width:768px){

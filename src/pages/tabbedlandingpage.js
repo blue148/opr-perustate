@@ -72,6 +72,14 @@ export const query = graphql`
 		              careerOpportunities{
 		              	content
 		              }
+		              programInfo{
+			              items{
+				              content{
+					              tagline
+					              icon
+				              }
+				            }
+			              }
 		              applyBy
 		              totalCost
 		              startClasses
