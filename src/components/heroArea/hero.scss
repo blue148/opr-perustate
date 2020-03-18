@@ -9,7 +9,7 @@
 	background:$brandmediumblue;
 	background: -moz-linear-gradient(78deg, $brandmediumblue -2%, $brandblue 50%, $brandmediumblue 91%);
 	background: -webkit-linear-gradient(78deg, $brandmediumblue -2%,  $brandblue 50%, $brandmediumblue 91%);
-	background: linear-gradient($brandmediumblue -2%, $brandblue 50%, $brandmediumblue 91%);
+	background: linear-gradient(78deg,$brandmediumblue -2%, $brandblue 50%, $brandmediumblue 91%);
 	margin: 0 -1rem 0;
 	padding: 1rem;
 	position:relative;
@@ -20,6 +20,13 @@
 			z-index:3;
 		}
 		@include section-shim;
+	}
+	.desktop-shim{
+		display: grid;
+		grid-template: auto/1fr;
+		@media (min-width:768px){
+			
+		}
 	}
 	h1{
 		color:white;

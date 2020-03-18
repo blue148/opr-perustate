@@ -2,6 +2,7 @@ import React from "react"
 
 import Header from "./header/header"
 import Hero from "./heroArea"
+import ProgramContent from './programContent'
 import Accolades from "./accolades"
 import Testimonial from "./testimonial"
 import Awards from "./awards"
@@ -143,7 +144,8 @@ export default class Layout extends React.Component{
 
 					<ContentArea>
 						<Hero {...this.props.heroArea}/>
-						<Accolades {...this.props.accolades}/>
+						<ProgramContent {...this.props.programContent}/>
+						<Accolades {...this.props.accolades} />
 						<Testimonial {...this.props.testimonial}/>
 						<Awards {...this.props.awards}/>
 						<Bottom {...this.props.bottomContentSection}/>						

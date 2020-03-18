@@ -132,6 +132,12 @@ section{
 		left:850px;
 	}
 }
+.singleprogramlayout__Page-emqmqk .accolades{
+	display:none;
+	@media (min-width:768px){
+		display:block;
+	}
+}
 /***SCREEN READER ONLY***/
 .sr-only {
   position: absolute;

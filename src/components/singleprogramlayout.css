@@ -160,6 +160,16 @@ section section > section {
   }
 }
 
+.singleprogramlayout__Page-emqmqk .accolades {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .singleprogramlayout__Page-emqmqk .accolades {
+    display: block;
+  }
+}
+
 /***SCREEN READER ONLY***/
 .sr-only {
   position: absolute;
