@@ -160,12 +160,12 @@ section section > section {
   }
 }
 
-.singleprogramlayout__Page-emqmqk .accolades {
+.singleprogramlayout__Page-emqmqj .accolades {
   display: none;
 }
 
 @media (min-width: 768px) {
-  .singleprogramlayout__Page-emqmqk .accolades {
+  .singleprogramlayout__Page-emqmqj .accolades {
     display: block;
   }
 }

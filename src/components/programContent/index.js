@@ -146,9 +146,9 @@ export default class ProgramContent extends React.Component{
 		const cleanHeadline = this.props.programDetails.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;");
 
 		return(		
-			<MainBox className="mainArea">
+			<MainBox className="mainArea singleProgram">
 				<div className="desktop-shim">
-					<section className="program-info">
+					<section className="program-intro">
 						<h3 dangerouslySetInnerHTML={{__html:cleanHeadline}}/>
 						<div className="program-info-details" dangerouslySetInnerHTML={{__html:this.props.programDetails.content}}/>	
 					</section>

@@ -5,29 +5,29 @@
   top: 90px;
 }
 
-.mainArea {
+.mainArea.singleProgram {
   padding: 0;
 }
 
 @media (min-width: 768px) {
-  .mainArea {
+  .mainArea.singleProgram {
     padding: 2.3rem 1rem 2.3rem;
   }
 }
 
-.mainArea h3 {
+.mainArea.singleProgram h3 {
   text-transform: capitalize;
   text-align: center;
   margin-bottom: 1.3rem;
 }
 
 @media (min-width: 768px) {
-  .mainArea h3 {
+  .mainArea.singleProgram h3 {
     text-align: left;
   }
 }
 
-.mainArea h4 {
+.mainArea.singleProgram h4 {
   text-align: center;
   font-size: 1.5625rem;
   color: black;
@@ -36,45 +36,57 @@
 }
 
 @media (min-width: 768px) {
-  .mainArea h4 {
+  .mainArea.singleProgram h4 {
     text-align: left;
   }
 }
 
-.mainArea .program-info-details {
-  margin: 0 0 3rem;
+.mainArea.singleProgram .program-intro {
+  padding: 0;
+  margin: 1.3rem auto;
 }
 
 @media (min-width: 768px) {
-  .mainArea .program-info-details {
+  .mainArea.singleProgram .program-intro {
+    padding: 0;
+    margin-bottom: 1.3rem;
+  }
+}
+
+.mainArea.singleProgram .program-info-details {
+  margin-bottom: 1.3rem;
+}
+
+@media (min-width: 768px) {
+  .mainArea.singleProgram .program-info-details {
     margin: 0 0 1.3rem;
   }
 }
 
-.mainArea .careerSection {
+.mainArea.singleProgram .careerSection {
   padding: 1rem 0;
 }
 
-.program-content-area {
+.mainArea.singleProgram .program-content-area {
   max-height: calc(100% - 100px);
   overflow-y: scroll;
 }
 
 @media (min-width: 768px) {
-  .program-content-area {
+  .mainArea.singleProgram .program-content-area {
     max-height: none;
     overflow-y: visible;
   }
 }
 
-.program-content-area h4 {
+.mainArea.singleProgram .program-content-area h4 {
   text-align: left;
   font-size: 1.5625rem;
   color: black;
   margin-bottom: 1.3rem;
 }
 
-.program-details-area {
+.mainArea.singleProgram .program-details-area {
   margin: 0 -1rem;
   padding: 1rem;
   background: #003478;
@@ -84,7 +96,7 @@
 }
 
 @media (min-width: 768px) {
-  .program-details-area {
+  .mainArea.singleProgram .program-details-area {
     display: grid;
     align-items: start;
     grid-template: 1fr/49% 1fr 49%;
@@ -94,7 +106,7 @@
     align-items: center;
     justify-items: center;
   }
-  .program-details-area::before {
+  .mainArea.singleProgram .program-details-area::before {
     content: '';
     width: 1px;
     grid-column: 2;
@@ -106,50 +118,51 @@
   }
 }
 
-.program-details-area h4 {
+.mainArea.singleProgram .program-details-area h4 {
   color: white;
 }
 
 @media (min-width: 768px) {
-  .program-details-area h4 {
+  .mainArea.singleProgram .program-details-area h4 {
     display: none;
   }
 }
 
-.program-details-area .program-info {
+.mainArea.singleProgram .program-details-area .program-info {
   display: grid;
   grid-template: auto/1fr;
   grid-auto-flow: row;
   grid-column-gap: .2rem;
-  grid-row-gap: 0;
+  grid-row-gap: 1rem;
   align-content: start;
+  border-bottom: none;
   padding: 1rem 0;
 }
 
 @media (min-width: 768px) {
-  .program-details-area .program-info {
-    grid-row-gap: 1rem;
+  .mainArea.singleProgram .program-details-area .program-info {
+    grid-template: auto/1fr 1fr 1fr;
     grid-column-gap: 1.5rem;
     border-bottom: none;
   }
 }
 
-.program-details-area .program-info p {
+.mainArea.singleProgram .program-details-area .program-info p {
   margin-bottom: 0;
   text-align: left;
 }
 
 @media (min-width: 768px) {
-  .program-details-area .program-info p {
+  .mainArea.singleProgram .program-details-area .program-info p {
     text-align: left;
   }
 }
 
-.program-details-area .program-info p strong {
+.mainArea.singleProgram .program-details-area .program-info p strong {
   font-size: 1.1rem;
 }
 
-.program-details-area .program-info.program-callouts {
+.mainArea.singleProgram .program-details-area .program-info.program-callouts {
   display: grid;
   padding: 1.3rem 0;
   justify-content: center;
@@ -159,7 +172,7 @@
 }
 
 @media (min-width: 768px) {
-  .program-details-area .program-info.program-callouts {
+  .mainArea.singleProgram .program-details-area .program-info.program-callouts {
     grid-column: 1;
     justify-items: start;
     grid-template: auto/1fr;
@@ -173,7 +186,7 @@
   }
 }
 
-.program-details-area .program-info.program-callouts .iconStack {
+.mainArea.singleProgram .program-details-area .program-info.program-callouts .iconStack {
   display: grid;
   grid-template-columns: 55px 1fr;
   grid-column-gap: 1.2rem;
@@ -187,7 +200,7 @@
 }
 
 @media (min-width: 768px) {
-  .program-details-area .program-info.program-callouts .iconStack {
+  .mainArea.singleProgram .program-details-area .program-info.program-callouts .iconStack {
     justify-items: start;
     max-width: none;
     margin: 0;
@@ -197,7 +210,7 @@
   }
 }
 
-.program-details-area .program-info.program-callouts .iconStack .iconBox {
+.mainArea.singleProgram .program-details-area .program-info.program-callouts .iconStack .iconBox {
   grid-column: 1/2;
   grid-row: 1;
   width: 55px;
@@ -212,13 +225,13 @@
 }
 
 @media (min-width: 768px) {
-  .program-details-area .program-info.program-callouts .iconStack .iconBox {
+  .mainArea.singleProgram .program-details-area .program-info.program-callouts .iconStack .iconBox {
     width: 55px;
     height: 55px;
   }
 }
 
-.program-details-area .program-info.program-callouts .iconStack .iconBox svg {
+.mainArea.singleProgram .program-details-area .program-info.program-callouts .iconStack .iconBox svg {
   width: 100%;
   height: 100%;
   align-self: center;
@@ -227,7 +240,7 @@
   grid-row: 1;
 }
 
-.program-details-area .program-info.program-callouts .iconStack p {
+.mainArea.singleProgram .program-details-area .program-info.program-callouts .iconStack p {
   color: white;
   font-size: 1.43rem;
   line-height: 1.2;
@@ -242,14 +255,14 @@
 }
 
 @media (min-width: 768px) {
-  .program-details-area .program-info.program-callouts .iconStack p {
+  .mainArea.singleProgram .program-details-area .program-info.program-callouts .iconStack p {
     text-align: left;
     justify-self: start;
     line-height: 1.2;
   }
 }
 
-.program-details-area .program-info.program-dates {
+.mainArea.singleProgram .program-details-area .program-info.program-dates {
   grid-column-gap: 1rem;
   grid-row-gap: 2.5rem;
   grid-template: 1fr/50% 50%;
@@ -260,12 +273,12 @@
   border-top: solid 1px #cccccc;
 }
 
-.program-details-area .program-info.program-dates * {
+.mainArea.singleProgram .program-details-area .program-info.program-dates * {
   z-index: 2;
 }
 
 @media (min-width: 768px) {
-  .program-details-area .program-info.program-dates {
+  .mainArea.singleProgram .program-details-area .program-info.program-dates {
     grid-column: 3;
     grid-column-gap: 2rem;
     grid-template: auto/1fr 1fr;
@@ -275,7 +288,7 @@
   }
 }
 
-.program-details-area .program-info.program-dates .bg-image {
+.mainArea.singleProgram .program-details-area .program-info.program-dates .bg-image {
   position: absolute;
   z-index: 1;
   bottom: 0;
@@ -284,14 +297,14 @@
 }
 
 @media (min-width: 768px) {
-  .program-details-area .program-info.program-dates .bg-image {
+  .mainArea.singleProgram .program-details-area .program-info.program-dates .bg-image {
     top: -37%;
     width: 142%;
     left: -22%;
   }
 }
 
-.program-details-area .program-info.program-dates .bg-image svg {
+.mainArea.singleProgram .program-details-area .program-info.program-dates .bg-image svg {
   fill: white;
   opacity: .1;
   width: 250px;
@@ -299,24 +312,24 @@
 }
 
 @media (min-width: 768px) {
-  .program-details-area .program-info.program-dates .bg-image svg {
+  .mainArea.singleProgram .program-details-area .program-info.program-dates .bg-image svg {
     width: 360px;
     height: 350px;
   }
 }
 
-.program-details-area .program-info.program-dates .programInfoItem.programInfoDate {
+.mainArea.singleProgram .program-details-area .program-info.program-dates .programInfoItem.programInfoDate {
   text-align: center;
 }
 
-.program-details-area .program-info.program-dates .programInfoItem.programInfoDate p {
+.mainArea.singleProgram .program-details-area .program-info.program-dates .programInfoItem.programInfoDate p {
   font-weight: 600;
   font-size: 1.3rem;
   color: white;
   line-height: 1.2;
 }
 
-.program-details-area .program-info.program-dates .programInfoItem.programInfoDate p::after {
+.mainArea.singleProgram .program-details-area .program-info.program-dates .programInfoItem.programInfoDate p::after {
   content: '';
   width: 100%;
   display: block;
@@ -324,36 +337,30 @@
   margin: 4px 0;
 }
 
-.program-details-area .program-info.program-dates .programInfoItem.programInfoDate ul {
+.mainArea.singleProgram .program-details-area .program-info.program-dates .programInfoItem.programInfoDate ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.program-details-area .program-info.program-dates .programInfoItem.programInfoDate ul li {
+.mainArea.singleProgram .program-details-area .program-info.program-dates .programInfoItem.programInfoDate ul li {
   color: white;
   font-size: 1.1rem;
   font-weight: 400;
 }
 
-.program-details-area .program-info.program-dates .programInfoItem.programInfoDate ul li:first-child {
+.mainArea.singleProgram .program-details-area .program-info.program-dates .programInfoItem.programInfoDate ul li:first-child {
   font-weight: 600;
 }
 
-.program-details-area .program-info.program-dates .programInfoItem.programInfoDate ul li:nth-child(2) {
+.mainArea.singleProgram .program-details-area .program-info.program-dates .programInfoItem.programInfoDate ul li:nth-child(2) {
   fonr-weight: 200;
 }
 
-.program-details-area .program-info.program-dates .applyButton {
+.mainArea.singleProgram .program-details-area .program-info.program-dates .applyButton {
   grid-column: 1/3;
   justify-self: center;
   font-size: 1.5rem;
   padding: .3rem;
   width: 100%;
-}
-
-@media (min-width: 768px) {
-  .program-details-area .program-info.program-dates .applyButton {
-    width: 80%;
-  }
 }
