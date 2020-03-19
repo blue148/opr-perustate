@@ -8,20 +8,20 @@
   justify-content: center;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .accolades {
     display: grid;
     justify-content: center;
   }
 }
 
-@media (min-width: 768px) and (max-width: 1400px) {
+@media (min-width: 1024px) and (max-width: 1400px) {
   .accolades {
     grid-template-columns: minmax(0, 725px) calc(340px + 5%);
   }
 }
 
-@media (min-width: 768px) and (min-width: 1401px) {
+@media (min-width: 1024px) and (min-width: 1401px) {
   .accolades {
     grid-template-columns: minmax(0, 800px) calc(340px + 5%);
   }
@@ -31,7 +31,7 @@
   grid-row-gap: .5rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .IconBox {
     grid-template: 1fr/75px 1fr;
   }

@@ -16,7 +16,7 @@
   position: relative;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .HeroBox {
     padding: 1.5rem 0;
     margin-bottom: 0;
@@ -28,13 +28,13 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 1400px) {
+@media (min-width: 1024px) and (max-width: 1400px) {
   .HeroBox {
     grid-template-columns: minmax(0, 725px) calc(340px + 5%);
   }
 }
 
-@media (min-width: 768px) and (min-width: 1401px) {
+@media (min-width: 1024px) and (min-width: 1401px) {
   .HeroBox {
     grid-template-columns: minmax(0, 800px) calc(340px + 5%);
   }
@@ -51,7 +51,7 @@
   text-shadow: rgba(0, 0, 0, 0.5) -3px 3px 10px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .HeroBox h1 {
     margin: 2rem auto;
     width: 100%;
@@ -70,7 +70,7 @@
   grid-row-gap: 2rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .iconGrid {
     grid-template-columns: repeat(3, 33%);
     grid-template-rows: 1fr;
@@ -111,7 +111,7 @@
   grid-template: 1fr/1fr;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .iconGrid .iconStack .iconBox {
     width: 65px;
     height: 65px;
@@ -143,7 +143,7 @@
   text-shadow: rgba(0, 0, 0, 0.5) -3px 3px 10px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .iconGrid .iconStack p {
     text-align: center;
     justify-self: center;
@@ -154,7 +154,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .iconGrid .iconStack {
     justify-items: center;
     max-width: 75%;
@@ -168,7 +168,7 @@
   width: 75vw;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .hero-button {
     width: auto;
     display: none;

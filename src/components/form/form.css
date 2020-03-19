@@ -15,7 +15,7 @@
   width: 100%;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .formPanel {
     grid-column: 2/3;
     grid-row: 1;
@@ -29,11 +29,12 @@
 
 @media (max-width: 1290px) {
   .formPanel {
-    left: 850px;
+    left: auto;
+    right: 1rem;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .formPanel {
     left: 750px;
   }
@@ -50,7 +51,7 @@
   font-size: 1.3rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .MuiContainer-root {
     width: 357px;
   }

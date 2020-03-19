@@ -31,7 +31,7 @@ h1 {
   line-height: 12vw;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   h1 {
     font-size: 3rem;
     line-height: 1.4;
@@ -43,7 +43,7 @@ h2 {
   line-height: 120%;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   h2 {
     font-size: 2.5rem;
     line-height: 1.4;
@@ -143,7 +143,7 @@ section section > section {
   padding: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .desktop-shim {
     width: 100%;
     margin: 0 auto;
@@ -164,7 +164,7 @@ section section > section {
   display: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .singleprogramlayout__Page-emqmqj .accolades {
     display: block;
   }

@@ -7,10 +7,21 @@
   justify-content: center;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .awards-area {
     display: grid;
-    grid-template-columns: minmax(0, 850px) calc(315px + 5%);
     justify-content: center;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .awards-area {
+    grid-template-columns: minmax(0, 725px) calc(340px + 5%);
+  }
+}
+
+@media (min-width: 1024px) and (min-width: 1401px) {
+  .awards-area {
+    grid-template-columns: minmax(0, 800px) calc(340px + 5%);
   }
 }

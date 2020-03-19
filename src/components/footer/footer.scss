@@ -9,7 +9,7 @@
 	justify-items:center;
 	padding: 1rem 1rem;
 	height:calc(100% + 200px);
-	@media (min-width:768px){
+	@media (min-width:1024px){
 		@include section-shim;
 		margin-bottom:0;
 		padding-bottom:2rem;

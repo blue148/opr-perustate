@@ -6,7 +6,7 @@
 	grid-template-rows:auto;
 	justify-items: center;
 	justify-content: center;
-	@media (min-width:768px){
+	@media (min-width:1024px){
 		@include section-shim;
 	}
 	.iconGrid{
@@ -14,7 +14,7 @@
 	}
 }
 
-@media (max-width:768px){
+@media (max-width:1024px){
 		.IconBox{
 		grid-template:1fr/75px 1fr;
 		.iconBox{

@@ -20,7 +20,7 @@ a.button {
   padding: .8rem 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .mobile-only {
     display: block !important;
   }
@@ -62,7 +62,7 @@ header .headerContainer .buttonContainer {
   margin-right: 1rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   header .headerContainer .buttonContainer .buttonField {
     display: none;
   }
@@ -72,7 +72,7 @@ header .headerContainer .buttonContainer .button#apply-now {
   display: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   header .headerContainer .buttonContainer .button#apply-now {
     display: block;
     box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.5);

@@ -5,14 +5,14 @@
 }
 .mainArea.singleProgram{
 	padding:0;
-	@media (min-width:768px){
+	@media (min-width:1024px){
 		padding: 2.3rem 1rem 2.3rem;
 	}
 	h3{
 		text-transform:capitalize;
 		text-align:center;
 		margin-bottom:1.3rem;
-		@media (min-width:768px){
+		@media (min-width:1024px){
 			text-align:left;
 		}
 	}
@@ -22,21 +22,21 @@
 	    color:black;
 	    margin-bottom:1.3rem;
 	    text-transform: capitalize;
-	    @media (min-width:768px){
+	    @media (min-width:1024px){
 		    text-align: left;
 	    }
     }
     .program-intro {
 	    padding:0;
 	    margin:1.3rem auto;
-	    @media (min-width:768px){
+	    @media (min-width:1024px){
 		    padding: 0;
 		    margin-bottom: 1.3rem;
     	}
     }
     .program-info-details{
 	    margin-bottom:1.3rem;
-		 @media (min-width:768px){
+		 @media (min-width:1024px){
 			 margin:0 0 1.3rem ;
 		 }
 	 }
@@ -47,7 +47,7 @@
 	.program-content-area {
 	    max-height: calc(100% - 100px);
 	    overflow-y: scroll;
-	    @media (min-width:768px){
+	    @media (min-width:1024px){
 		    max-height: none;
 		    overflow-y: visible;
 	    }
@@ -62,7 +62,7 @@
 		margin:0 -1rem;
 		padding:1rem;
 		@include angle-gradient;
-		@media (min-width:768px){
+		@media (min-width:1024px){
 			display: grid;
 			align-items: start;
 		    grid-template: 1fr/49% 1fr 49%;
@@ -84,7 +84,7 @@
 		}
 		h4{
 			color:white;
-			@media (min-width:768px){
+			@media (min-width:1024px){
 				display:none;
 			}
 		}
@@ -100,7 +100,7 @@
 		    border-bottom: none;
 		    padding:1rem 0;
 		
-		    @media (min-width:768px){
+		    @media (min-width:1024px){
 			    grid-template:auto/1fr 1fr 1fr;
 			    grid-column-gap: 1.5rem;
 			    border-bottom:none;
@@ -108,7 +108,7 @@
 		    p{
 			    margin-bottom:0;
 			    text-align: left;
-			    @media (min-width:768px){
+			    @media (min-width:1024px){
 				    text-align: left;
 			    }
 			    strong{
@@ -122,7 +122,7 @@
 			    grid-template: 1fr/ max-content;
 			    border-top:solid 1px $lightgray;
 			    grid-row-gap:.5rem;
-			    @media (min-width:768px){
+			    @media (min-width:1024px){
 				    grid-column: 1;
 					justify-items: start;
 				    grid-template: auto/1fr;
@@ -145,7 +145,7 @@
 					margin: 0 auto 1rem;
 					padding:0;
 					z-index:2;
-					@media (min-width:768px){
+					@media (min-width:1024px){
 						justify-items: start;
 					    max-width: none;
 					    margin: 0;
@@ -160,7 +160,7 @@
 						width:55px;
 						height:55px;
 						box-shadow: rgba(0,0,0,.5) -3px 3px 10px;
-						@media (min-width:768px){
+						@media (min-width:1024px){
 							width: 55px;
 							height: 55px;
 						}
@@ -192,7 +192,7 @@
 						align-self:center;
 						margin-bottom:0;
 						text-shadow:rgba(0,0,0,.5) -3px 3px 10px;
-						@media (min-width:768px){
+						@media (min-width:1024px){
 							 text-align:left;
 							 justify-self:start;
 							 line-height: 1.2;
@@ -214,7 +214,7 @@
 				    z-index:2;
 				}
 	
-			    @media (min-width:768px){
+			    @media (min-width:1024px){
 				    grid-column: 3;
 			        grid-column-gap: 2rem;
 			        grid-template: auto/1fr 1fr;
@@ -228,7 +228,7 @@
 				    bottom: 0;
 				    display: block;
 				    text-align: center;
-				    @media (min-width:768px){
+				    @media (min-width:1024px){
 					    top:-37%;
 					    width: 142%;
 						left: -22%;
@@ -239,7 +239,7 @@
 					    opacity: .1;
 					    width:250px;
 					    height:250px;
-					    @media (min-width:768px){
+					    @media (min-width:1024px){
 						    width: 360px;
 							height: 350px;
 					    }
@@ -290,7 +290,7 @@
 				    font-size:1.5rem;
 				    padding:.3rem;
 				    width:100%;
-				    @media (min-width:768px){
+				    @media (min-width:1024px){
 					    
 				    }
 			    }

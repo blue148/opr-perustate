@@ -5,7 +5,7 @@
   padding: 0 0 3rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .tabbedArea {
     display: grid;
     justify-content: center;
@@ -13,13 +13,13 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 1400px) {
+@media (min-width: 1024px) and (max-width: 1400px) {
   .tabbedArea {
     grid-template-columns: minmax(0, 725px) calc(340px + 5%);
   }
 }
 
-@media (min-width: 768px) and (min-width: 1401px) {
+@media (min-width: 1024px) and (min-width: 1401px) {
   .tabbedArea {
     grid-template-columns: minmax(0, 800px) calc(340px + 5%);
   }
@@ -110,7 +110,7 @@
   border-bottom: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .tabPanel.vertical {
     margin-top: 2rem;
     max-height: 300px;
@@ -142,7 +142,7 @@
   color: inherit;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .tabPanel.vertical li.leader {
     display: block;
   }
@@ -161,7 +161,7 @@
   text-transform: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .tabPanel.vertical li a {
     display: block;
     padding: 1rem 0 1rem 0.5rem;
@@ -196,7 +196,7 @@
   pointer-events: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .tabPanel.vertical li.selected > span {
     display: block;
     width: 90%;
@@ -212,7 +212,7 @@
   margin: 0 auto;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .contentPanel {
     padding: 1.6rem 1.6rem 0;
     padding: 0;
@@ -225,7 +225,7 @@
   padding: 1.3rem 1rem 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .contentPanel h3 {
     font-size: 1.8rem;
     line-height: 1.2;
@@ -266,7 +266,7 @@
   opacity: 1;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .contentPanel {
     display: block;
     opacity: 1;

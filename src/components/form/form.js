@@ -192,7 +192,7 @@ export default function FormPanel(props){
 		          {cleanHeadline||'Need More Information?'}
 		        </FormHeadline>
 		        <div className={["successContainer",state.submitted?'':'hide'].join(' ')}>
-					<h3>Thank you for yoru request.</h3>
+					<h3>Thank you for your request.</h3>
 					<h4>We have received your request and will contact you shortly</h4>
 				</div>
  
@@ -270,9 +270,8 @@ export default function FormPanel(props){
 							})
 						.then((json) => {
 							if(json.Success){
-								setState({'submitted':true})
-								window.location.href = viewDoUrl;								
-								}
+								(viewDoUrl)?window.location.href = viewDoUrl:setState({'submitted':true})								
+							}
 						})
 						.catch((e) => {
 						  console.log(e.message)

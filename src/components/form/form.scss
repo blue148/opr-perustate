@@ -10,7 +10,7 @@
 	margin-top:0;
 	padding:0;
 	width:100%;
-	@media (min-width: 768px) {
+	@media (min-width: 1024px) {
 		grid-column:2/3;
 		grid-row:1;
 		z-index:99;
@@ -20,9 +20,10 @@
 		width:357px!important;
 	}
 	@media (max-width:1290px){
-		left:850px;
+		left:auto;
+		right:1rem;
 	}
-	@media (max-width:768px){
+	@media (max-width:1024px){
 		left:750px;
 		}
 }
@@ -36,7 +37,7 @@
 	}
 }
 .MuiContainer-root{
-	@media (min-width:768px){
+	@media (min-width:1024px){
 		width:357px;
 	}
 	&.textfield{

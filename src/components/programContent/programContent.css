@@ -9,7 +9,7 @@
   padding: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram {
     padding: 2.3rem 1rem 2.3rem;
   }
@@ -21,7 +21,7 @@
   margin-bottom: 1.3rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram h3 {
     text-align: left;
   }
@@ -35,7 +35,7 @@
   text-transform: capitalize;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram h4 {
     text-align: left;
   }
@@ -46,7 +46,7 @@
   margin: 1.3rem auto;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram .program-intro {
     padding: 0;
     margin-bottom: 1.3rem;
@@ -57,7 +57,7 @@
   margin-bottom: 1.3rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram .program-info-details {
     margin: 0 0 1.3rem;
   }
@@ -72,7 +72,7 @@
   overflow-y: scroll;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram .program-content-area {
     max-height: none;
     overflow-y: visible;
@@ -95,7 +95,7 @@
   background: linear-gradient(78deg, #003478 -2%, #006699 50%, #003478 91%);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram .program-details-area {
     display: grid;
     align-items: start;
@@ -122,7 +122,7 @@
   color: white;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram .program-details-area h4 {
     display: none;
   }
@@ -139,7 +139,7 @@
   padding: 1rem 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram .program-details-area .program-info {
     grid-template: auto/1fr 1fr 1fr;
     grid-column-gap: 1.5rem;
@@ -152,7 +152,7 @@
   text-align: left;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram .program-details-area .program-info p {
     text-align: left;
   }
@@ -171,7 +171,7 @@
   grid-row-gap: .5rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram .program-details-area .program-info.program-callouts {
     grid-column: 1;
     justify-items: start;
@@ -199,7 +199,7 @@
   z-index: 2;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram .program-details-area .program-info.program-callouts .iconStack {
     justify-items: start;
     max-width: none;
@@ -224,7 +224,7 @@
   grid-template: 1fr/1fr;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram .program-details-area .program-info.program-callouts .iconStack .iconBox {
     width: 55px;
     height: 55px;
@@ -254,7 +254,7 @@
   text-shadow: rgba(0, 0, 0, 0.5) -3px 3px 10px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram .program-details-area .program-info.program-callouts .iconStack p {
     text-align: left;
     justify-self: start;
@@ -277,7 +277,7 @@
   z-index: 2;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram .program-details-area .program-info.program-dates {
     grid-column: 3;
     grid-column-gap: 2rem;
@@ -296,7 +296,7 @@
   text-align: center;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram .program-details-area .program-info.program-dates .bg-image {
     top: -37%;
     width: 142%;
@@ -311,7 +311,7 @@
   height: 250px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mainArea.singleProgram .program-details-area .program-info.program-dates .bg-image svg {
     width: 360px;
     height: 350px;

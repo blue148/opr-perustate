@@ -77,6 +77,7 @@ export default class Layout extends React.Component{
 		
 	}
 	handleStateChange=(e,tabState,subTabState,formSelect)=>{
+		
 		if(tabState===null)tabState=this.state.activeTab;
 		
 		const tabArray = tabState.split('__');
@@ -90,7 +91,7 @@ export default class Layout extends React.Component{
 			subTab = '';
 			tab = tabState;
 			tabPanel = tab+'_panel';
-			subTabPanel = '';
+			subTabPanel = tab+'_panel';
 		}else{
 			subTab = tabState;
 			tab = tabArray[0];

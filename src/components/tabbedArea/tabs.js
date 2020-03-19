@@ -34,7 +34,7 @@ const programMapping =
 
 ////TABS PANEL -> Make external functional component
 const TabsPanel = (props)=>{
-	
+
 	//destructure the three items needed from props
 	const {direction,parent,title} = props||'';
 	//use the passed click prop
@@ -57,7 +57,7 @@ const TabsPanel = (props)=>{
 		const formSelect =  (programCode)?programCode:'';
 		
 		//build state values based on passed props, which are pageSLugs
-		const tabState = (parent)?[ parent, pageSlug ].join('__'): parentSlug;
+		const tabState = (parent)?[ parent, pageSlug ].join('__'): (pageSlug)?pageSlug:parentSlug;
 		
 		const subTabState=(props[tab].programs)?tabState+'__'+props[tab].programs[0].pageSlug:'';
 		
@@ -106,22 +106,25 @@ const TabsPanel = (props)=>{
 ////CONTENT PANEL -> make external functional component
 
 const ContentPanel = (props) =>{
+	//console.log(props, 'contentpanel')
 	/**  TODO::: pull in programCode from content and replace programMapping.  **/
+	const {pageSlug, id} = props;
 	const ref = React.createRef();	
 	const handleClick = (e,slug) =>{
 		window.scrollTo(0, (ref.current.offsetTop - (90 + ref.current.parentNode.offsetHeight)))
 		e.preventDefault()
 		///need to detect tab or subtab
 		if(props.active===slug){
-				props.onStateChange(e,'')
-			}else{
-				props.onStateChange(e,slug)
-				window.scrollTo(0, (ref.current.offsetTop - 90))
+			props.onStateChange(e,'')
+		}else{
+			props.onStateChange(e,slug)
+			window.scrollTo(0, (ref.current.offsetTop - 90))
 			}
         }
-	const slug = slugify(props.id,{remove: /[*+~.()'"!:@]/g,lower:true});
+        
+	const slug = (pageSlug)?pageSlug:slugify(id,{remove: /[*+~.()'"!:@]/g,lower:true});
 	const activeClass = (slug === props.active)?'selected':'';
-	const slugPanel = slug+'_panel' 
+//const slugPanel = props.pageSlug+'_panel'//slug+'_panel' 
 	
 	return(
 		<div 
@@ -137,13 +140,13 @@ const ContentPanel = (props) =>{
 				<h4 
 					className='tab mobile-only' 
 					ref={ref} 
-					data-target={slugPanel} 
+					data-target={slug+'_panel'} 
 				>
 					{props.pageName}				
 				</h4> 
 
 			</ScrollIntoView>
-			 <div className="contentTarget " id={slugPanel}>
+			 <div className="contentTarget " id={slug+'_panel'}>
 			 	
 		 		<ProgramInfo {...props} programLink={programMapping[props.pageName]}/>		 		
 		 	</div>
@@ -156,6 +159,7 @@ const ContentPanel = (props) =>{
 ////CONTAINER TO HOLD ALL THE CONTENT PANELS
 const ContentPanelContainer = (props) =>{
 	const panels = Object.keys(props).map((child, index)=>{
+		
 		if(isNaN(child))return true;
 		///if programs exist, this is a nested tab panel
 		const programPanel = (props[index].programs)?(
@@ -163,6 +167,7 @@ const ContentPanelContainer = (props) =>{
 				active={props.active}
 				{...props[index]} 
 				id={props[index].pageName}
+				pageSlug={props[index].pageSlug}
 				key={index}
 				itemKey={index} 
 				onStateChange={props.onStateChange}
@@ -172,6 +177,7 @@ const ContentPanelContainer = (props) =>{
 			<ContentPanel 
 				{...props[index]} 
 				id={props[index].pageName}
+				pageSlug={props[index].pageSlug}
 				active={props.active.activeTab} 
 				key={index}
 				itemKey={index}
@@ -199,10 +205,12 @@ export class NestedPanel extends React.Component{
 			
 			if(isNaN(program))return true;
 			const subSlug = [this.slug,this.props.programs[index].pageSlug].join('__');
+			//console.log(subSlug, 'subpage slug')
 			return(
 				<ContentPanel 
 					{...this.props.programs[index]} 
 					id={subSlug}
+					pageSlug={subSlug}
 					active={this.props.active.activeSubTab} 
 					key={index}
 					itemKey={index}
@@ -261,9 +269,9 @@ export class NestedPanel extends React.Component{
 export default class TabbedArea extends React.Component{
 	constructor(props){
 		super(props)
-		//console.log(props[0],' build')
+//		console.log(props[0],' build')
 		if(props[0]){
-			const initTab = (isMobile)?'':slugify(props[0].pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
+			const initTab = (isMobile)?'':(props[0].pageSlug)?props[0].pageSlug:slugify(props[0].pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
 			//check for subtabs, then activate the first on if this is desktop
 			const subTabCheck = (props[0].programs)?props[0].programs[0].pageSlug:'';
 			const initSubTab = (isMobile)?'':initTab+'__'+subTabCheck;
@@ -276,7 +284,6 @@ export default class TabbedArea extends React.Component{
 	}
 	
 	handleStateChange =(e,tabState,subTabState,formSelect)=>{
-		console.log(tabState, subTabState, 'tabs')
 		if(tabState===null)tabState=this.state.activeTab;
 		const tabArray = tabState.split('__');
 		//console.log(tabArray,' array')

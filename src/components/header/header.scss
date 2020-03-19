@@ -16,7 +16,7 @@ a{
 	    padding: .8rem 0;
 	}
 }
-@media (max-width:768px){
+@media (max-width:1024px){
 	.mobile-only{
 		display:block!important;
 	}
@@ -52,7 +52,7 @@ header{
 			justify-self:end;
 			padding-right:1rem;
 			margin-right:1rem;
-				@media (max-width: 768px) {
+				@media (max-width: 1024px) {
 					.buttonField{
 						display:none;
 						}
@@ -60,7 +60,7 @@ header{
 			.button{
 				&#apply-now{
 					display:none;
-					@media (min-width:768px){
+					@media (min-width:1024px){
 						display:block;
 						box-shadow:1px 3px 6px rgba(0,0,0,.5);
 					}
