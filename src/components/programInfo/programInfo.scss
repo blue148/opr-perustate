@@ -4,7 +4,7 @@
 }
 .contentTarget{
 	.program-content-area {
-	    max-height: calc(100% - 100px);
+	    max-height: calc(100% - 170px);
 	    overflow-y: scroll;
 	    padding:0 0 1.3rem;
 	    @media (min-width:768px){
@@ -246,7 +246,7 @@
 						     
 					    }
 				    }
-				    .applyButton{
+				    .apply-now.button{
 					    grid-column:1/3;
 					    justify-self:center;
 					    font-size:1.5rem;
@@ -276,6 +276,9 @@
 		  position:static;
 		  z-index: 1;
 		  padding:inherit;
+	  }
+	  .apply-now.button{
+		  width:100%;
 	  }
 	}
 	

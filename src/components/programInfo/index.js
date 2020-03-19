@@ -1,6 +1,6 @@
 import React from "react"
 import styled from 'styled-components'
-import {Button} from '../uiElements'
+import {ApplyNowButton,Button} from '../uiElements'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 import Icon from '../../images/icons'
@@ -101,9 +101,7 @@ const PanelContent = (props)=>{
 				<section className="program-info program-dates">
 					<Dates title="Apply By" items={props.applyBy}/>
 					<Dates title="Start Classes" items={props.startClasses}/>
-					<Button label="Apply Now" className="applyButton" theme="secondary" outlink="https://online.peru.edu/apply-now">
-						Apply Now
-					</Button>
+					<ApplyNowButton location={props.location}/>
 					<span className="bg-image">
 						<Icon name="symbol-defs_svg__icon-calendar" />
 					</span>
@@ -131,7 +129,7 @@ export default class ProgramInfo extends React.Component{
 		}
 	}
 	handleParentChange = (e,props)=>{
-		//console.log(props,' parent change')
+		console.log(props,' programInfo jump');
 		this.props.onParentStateChange(props);
 		this.props.onStateChange(e,null,'',props);
 	}
@@ -155,12 +153,15 @@ export default class ProgramInfo extends React.Component{
 				<h3 dangerouslySetInnerHTML={{__html:cleanHeadline}}/>	
 				<PanelContent {...this.props}/>
 				<ButtonArea className="program-info-buttons">
-					<Button label="Request Info" theme="primary mobile-only" jumplink='leadform' onClick={(e)=>this.handleParentChange(e,this.props.programLink)}>
+					<Button 
+						label="Request Info" 
+						theme="primary mobile-only" 
+						jumplink='leadform' 
+						onClick={(e)=>this.handleParentChange(e,this.props.programLink)}
+						>
 						Request Info
 					</Button>
-					<Button label="Apply Now" theme="secondary" outlink="https://online.peru.edu/apply-now">
-						Apply Now
-					</Button>
+					<ApplyNowButton location={this.props.location}/>
 					
 				</ButtonArea>
 			</>

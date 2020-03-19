@@ -6,7 +6,7 @@
 }
 
 .contentTarget .program-content-area {
-  max-height: calc(100% - 100px);
+  max-height: calc(100% - 170px);
   overflow-y: scroll;
   padding: 0 0 1.3rem;
 }
@@ -301,7 +301,7 @@
   fonr-weight: 200;
 }
 
-.contentTarget .program-details-area .program-info.program-dates .applyButton {
+.contentTarget .program-details-area .program-info.program-dates .apply-now.button {
   grid-column: 1/3;
   justify-self: center;
   font-size: 1.5rem;
@@ -310,7 +310,7 @@
 }
 
 @media (min-width: 768px) {
-  .contentTarget .program-details-area .program-info.program-dates .applyButton {
+  .contentTarget .program-details-area .program-info.program-dates .apply-now.button {
     font-size: 1.5rem;
     padding: .3rem;
     width: 100%;
@@ -335,6 +335,10 @@
     z-index: 1;
     padding: inherit;
   }
+}
+
+.contentTarget .program-info-buttons .apply-now.button {
+  width: 100%;
 }
 
 .contentTarget .program-info-details {

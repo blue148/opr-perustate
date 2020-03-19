@@ -34,41 +34,68 @@ const programMapping =
 
 ////TABS PANEL -> Make external functional component
 const TabsPanel = (props)=>{
-
+	
+	//destructure the three items needed from props
 	const {direction,parent,title} = props||'';
+	//use the passed click prop
 	const handleClick = (e,props)=>{
 		e.preventDefault();
-		props.click(e,props.tabState, props.subTabState)
+		props.onStateChange(e, props.tabState, props.subTabState, props.formSelect)
 	}
+	//inactive list header
 	const titleLead = (title)?<li className="leader">{title}</li>:'';
+
+	//build the list items for the tabs
 	const tabItems = Object.keys(props).map((tab, index)=>{
+		//if the key is not numeric, skip it
 		if(isNaN(tab))return true;
 		
-		const{pageName}=props[index];
+		//destructure the good bits
+		const{pageSlug, pageName, programCode}=props[index];
+		//if there is no pageSlug, this is a container for other pages. Build a slugified name
+		const parentSlug = (pageSlug)?'':slugify(pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
+		const formSelect =  (programCode)?programCode:'';
 		
-		const tabState = (parent)?slugify([parent,pageName].join('__'),{remove: /[*+~.()'"!:@]/g,lower:true}):slugify(pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
-		const subTabState=(props[tab].programs)?tabState+'__'+slugify(props[tab].programs[0].pageName,{remove: /[*+~.()'"!:@]/g,lower:true}):'';
+		//build state values based on passed props, which are pageSLugs
+		const tabState = (parent)?[ parent, pageSlug ].join('__'): parentSlug;
+		
+		const subTabState=(props[tab].programs)?tabState+'__'+props[tab].programs[0].pageSlug:'';
+		
 		const activeClass = (tabState===props.active)?'selected':'';
 		const Chevron = (parent)?<span><FontAwesomeIcon icon={faChevronRight} className="tab-arrow-icon"/></span>:'';
-		
-		//Mobile needs to trigger Dialog. 
-		
-		
-		//return tab
+				//return tab
 		return (
 			<li 
 				className={[tab, activeClass].join(' ')}
 				key={index} 
 				>
-				<a href={"#"+tabState} onClick={(e)=>handleClick(e,{click:props.onStateChange,tabState:tabState,subTabState:subTabState})}> 
+				<a 
+					href={"#"+tabState} 
+					onClick={(e)=>
+							handleClick(e,
+								{
+									onStateChange:props.onStateChange,
+									tabState:tabState,
+									subTabState:subTabState,
+									formSelect:formSelect
+								}
+							)
+							}> 
 					{pageName} 
 				</a>
 				{Chevron}
 			</li>
 		)
 	})
+	////end Object mapping
+	
 	return (
-		<ul id={props.id} className={["tabPanel ",direction,props.viewport].join(' ')}>
+		<ul 
+			id={props.id} 
+			className={
+				["tabPanel ",direction,props.viewport].join(' ')
+			}
+			>
 			{titleLead}
 			{tabItems}
 		</ul>
@@ -79,7 +106,7 @@ const TabsPanel = (props)=>{
 ////CONTENT PANEL -> make external functional component
 
 const ContentPanel = (props) =>{
-	/**pull in programCode from content and replace programMapping**/
+	/**  TODO::: pull in programCode from content and replace programMapping.  **/
 	const ref = React.createRef();	
 	const handleClick = (e,slug) =>{
 		window.scrollTo(0, (ref.current.offsetTop - (90 + ref.current.parentNode.offsetHeight)))
@@ -101,13 +128,22 @@ const ContentPanel = (props) =>{
 			className={"contentPanel "+activeClass} 
 			id={slug}
 		>
-			<ScrollIntoView selector={"#"+slug} className="accordion-trigger mobile-only" alignToTop={true} onClick={(e)=>handleClick(e,slug,ref)}>
-				<h4 className='tab mobile-only' ref={ref} data-target={slugPanel} >
+			<ScrollIntoView 
+				selector={"#"+slug} 
+				className="accordion-trigger mobile-only" 
+				alignToTop={true} 
+				onClick={(e)=>handleClick(e,slug,ref)}
+			>
+				<h4 
+					className='tab mobile-only' 
+					ref={ref} 
+					data-target={slugPanel} 
+				>
 					{props.pageName}				
 				</h4> 
 
 			</ScrollIntoView>
-			 <div className="contentTarget" id={slugPanel}>
+			 <div className="contentTarget " id={slugPanel}>
 			 	
 		 		<ProgramInfo {...props} programLink={programMapping[props.pageName]}/>		 		
 		 	</div>
@@ -150,7 +186,6 @@ const ContentPanelContainer = (props) =>{
 export class NestedPanel extends React.Component{
 	constructor(props){
 		super(props)
-
 		this.slug = slugify(this.props.pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
 		
 	}
@@ -161,8 +196,9 @@ export class NestedPanel extends React.Component{
 		const ref = React.createRef();
 		///create stack of content sub panels
 		const subpanels =  Object.keys(this.props.programs).map((program, index)=>{
+			
 			if(isNaN(program))return true;
-			const subSlug = slugify([this.props.pageName,this.props.programs[index].pageName].join('__'),{remove: /[*+~.()'"!:@]/g,lower:true});
+			const subSlug = [this.slug,this.props.programs[index].pageSlug].join('__');
 			return(
 				<ContentPanel 
 					{...this.props.programs[index]} 
@@ -229,16 +265,18 @@ export default class TabbedArea extends React.Component{
 		if(props[0]){
 			const initTab = (isMobile)?'':slugify(props[0].pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
 			//check for subtabs, then activate the first on if this is desktop
-			const subTabCheck = (props[0].programs)?slugify(props[0].programs[0].pageName,{remove: /[*+~.()'"!:@]/g,lower:true}):'';
+			const subTabCheck = (props[0].programs)?props[0].programs[0].pageSlug:'';
 			const initSubTab = (isMobile)?'':initTab+'__'+subTabCheck;
 
 			this.props.onStateChange('',initTab,initSubTab,'')
+			
 		}	else{
 			this.props.onStateChange('','','','')
 		}
 	}
 	
 	handleStateChange =(e,tabState,subTabState,formSelect)=>{
+		console.log(tabState, subTabState, 'tabs')
 		if(tabState===null)tabState=this.state.activeTab;
 		const tabArray = tabState.split('__');
 		//console.log(tabArray,' array')
@@ -280,6 +318,7 @@ export default class TabbedArea extends React.Component{
   
    
 	render(){
+		
 		return(
 			<section id="tabbedArea" className="tabbedArea">
 				<div className="desktop-shim">

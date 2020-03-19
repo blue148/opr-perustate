@@ -3,7 +3,7 @@ import styled from "styled-components"
 import slugify from 'slugify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faTimesCircle, faChevronRight, faChevronLeft,  faBars} from '@fortawesome/free-solid-svg-icons'
-import {Button} from '../uiElements'
+import {ApplyNowButton} from '../uiElements'
 import './mobilemenu.scss'
 
 const CloseButton = styled.a`
@@ -221,7 +221,7 @@ export default class MobileMenu extends React.Component{
 					>
 						
 						<li className="buttonArea">
-						    <Button label="Apply Now" theme="secondary" outlink="https://online.peru.edu/apply-now"/>
+						    <ApplyNowButton className="mobile-only" location={this.props.location}/>
 						</li>
 					</MenuList>
 					

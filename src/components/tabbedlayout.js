@@ -62,7 +62,17 @@ export default class Layout extends React.Component{
 		
 		if(this.props.location.search){
 			const targetProgram = JSON.parse('{"' + this.props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}')||'';
-			this.handleStateChange('',targetProgram.targetprogram, '','')
+			//console.log(this.props.programs,targetProgram.targetprogram)
+			//find program code
+			if(targetProgram.targetprogram){
+				const tArr = targetProgram.targetprogram.split('__');
+				const pageSlug = (tArr[1])?tArr[1]:tArr[0];
+				const pCode = Object.keys(this.props.programs.edges).reduce((result, item)=>{
+					if(this.props.programs.edges[item].node.pageSlug===pageSlug)result.push(this.props.programs.edges[item].node.programCode);
+					return result;		
+					},[])
+				this.handleStateChange('',targetProgram.targetprogram, '',pCode);
+			}
 		}
 		
 	}
@@ -87,7 +97,9 @@ export default class Layout extends React.Component{
 			tabPanel = tab+'_panel';
 			subTabPanel = subTab+'_panel';
 		}
+		
 		if(subTabState)subTab=subTabState;
+		
 		const updatedState = update(
 		   this.state,{
 			   'activeTab':{$set:tab},
@@ -120,22 +132,34 @@ export default class Layout extends React.Component{
 	  return (
 		<ThemeProvider theme={theme}>
 			<Icons/>
-			<Header {...this.props.tabbedContent} onStateChange={this.handleStateChange} state={this.state}/>
+			<Header {...this.props.tabbedContent} location={this.props.location} onStateChange={this.handleStateChange} state={this.state}/>
 		    <Page className="pageContainer">   
 			    
 				<Main className="mainContainer">
 
 					<ContentArea className="contentArea">
-						<Hero {...this.props.heroArea}/>
+						<Hero {...this.props.heroArea}
+						location={this.props.location} />
 						<MainArea {...this.props.mainContentSection}/>
-						<TabbedArea {...this.props.tabbedContent} onParentStateChange={this.handleParentState} onStateChange={this.handleStateChange} state={this.state}/>
+						<TabbedArea 
+							location={this.props.location} 
+							{...this.props.tabbedContent} 
+							onParentStateChange={this.handleParentState} 
+							onStateChange={this.handleStateChange} 
+							state={this.state}/>
 						<Accolades {...this.props.accolades}/>
 						<Testimonial {...this.props.testimonial}/>
 						<Awards {...this.props.awards}/>
 						<Bottom {...this.props.bottomContentSection}/>						
 					</ContentArea>
 
-					<FormPanel phone={this.props.phonenumber} headline={this.props.formheadline} state={this.state} programs={this.props.programs} location={this.props.location}/>
+					<FormPanel 
+						phone={this.props.phonenumber} 
+						headline={this.props.formheadline} 
+						state={this.state} 
+						programs={this.props.programs} 
+						location={this.props.location}
+						isSingle={false}/>
 					<Footer/>
 				</Main>
 				<MobileBottomBar>

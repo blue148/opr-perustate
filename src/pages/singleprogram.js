@@ -18,7 +18,8 @@ export default ({data, location}) => {
 		<Layout
 		{...data.contentfulSingleProgramLandingPage}
 		programs={data.allContentfulProgramInfo}
-		location={location}/>
+		location={location}
+		/>
     </>
 
   )

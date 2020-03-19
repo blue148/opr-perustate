@@ -1,6 +1,6 @@
 import React from "react"
 import styled from 'styled-components'
-import {Button} from '../uiElements'
+import {ApplyNowButton, Button} from '../uiElements'
 import Icon from '../../images/icons'
 import './programContent.scss';
 
@@ -75,9 +75,7 @@ const PanelContent = (props)=>{
 				<section className="program-info program-dates">
 					<Dates title="Apply By" items={props.applyBy}/>
 					<Dates title="Start Classes" items={props.startClasses}/>
-					<Button label="Apply Now" className="applyButton" theme="secondary" outlink="https://online.peru.edu/apply-now">
-						Apply Now
-					</Button>
+					<ApplyNowButton location={props.location}/>
 					<span className="bg-image">
 						<Icon name="symbol-defs_svg__icon-calendar" />
 					</span>

@@ -23,7 +23,8 @@ export default ({data, location}) => {
 	    <Layout
 	    {...data.contentfulNestedTabbedLandingPage}
 	    programs={data.allContentfulProgramInfo}
-	    location={location}/>
+	    location={location}
+	    />
 
     </>
 
@@ -64,7 +65,9 @@ export const query = graphql`
 		        ... on ContentfulProgramTabContent {
 	              pageName
 		            programs {
+			          pageSlug
 		              pageName
+		              programCode
 		              programDetails {
 			              headline
 						  content
@@ -90,6 +93,8 @@ export const query = graphql`
 				}
 				... on ContentfulProgramInfo {
 	              pageName
+	              pageSlug
+	              programCode
 	              applyBy
 	              startClasses
 	              totalCost

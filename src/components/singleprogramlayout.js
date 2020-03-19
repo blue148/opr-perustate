@@ -76,7 +76,8 @@ const MobileBottomBar = styled.div`
 export default class Layout extends React.Component{
 	constructor(props){
 		super(props)
-		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:'',formSelect:''}
+
+		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:'',formSelect:this.props.programContent.programCode}
 		//console.log(props, 'master')
 	}
 	
@@ -137,21 +138,27 @@ export default class Layout extends React.Component{
 	  return (
 		<ThemeProvider theme={theme}>
 			<Icons/>
-			<Header {...this.props.tabbedContent} onStateChange={this.handleStateChange} state={this.state}/>
+			<Header {...this.props.tabbedContent} location={this.props.location} onStateChange={this.handleStateChange} state={this.state}/>
 		    <Page className="singleProgramPage">   
 			    
 				<Main>
 
 					<ContentArea>
-						<Hero {...this.props.heroArea}/>
-						<ProgramContent {...this.props.programContent}/>
+						<Hero {...this.props.heroArea} location={this.props.location}/>
+						<ProgramContent {...this.props.programContent} location={this.props.location}/>
 						<Accolades {...this.props.accolades} />
 						<Testimonial {...this.props.testimonial}/>
 						<Awards {...this.props.awards}/>
 						<Bottom {...this.props.bottomContentSection}/>						
 					</ContentArea>
 
-					<FormPanel phone={this.props.phonenumber} headline={this.props.formheadline} state={this.state} programs={this.props.programs} location={this.props.location}/>
+					<FormPanel 
+						phone={this.props.phonenumber} 
+						headline={this.props.formheadline} 
+						state={this.state} 
+						programs={this.props.programs} 
+						location={this.props.location}
+						isSingle={true}/>
 					<Footer/>
 				</Main>
 				<MobileBottomBar>

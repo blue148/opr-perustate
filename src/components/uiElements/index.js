@@ -17,11 +17,10 @@ export class Button extends React.Component{
 				</ButtonLink>
 			</ScrollIntoView>
 		:
-			<ScrollIntoView selector="#" className={this.props.className}>
 				<ButtonLink id={buttonId} aria-label={this.props.label} className={"button "+[this.props.theme,this.props.className].join(' ')} href={this.props.outlink||"#"} target="_blank">
 					{this.props.label}
 				</ButtonLink>
-			</ScrollIntoView>
+
 		return button;
 	}
 	
@@ -37,7 +36,11 @@ Button.defaultProps={
 const TabItem = (props)=>{
 	return(
 		<div className={['tab', props.tabClass].join(' ')} >
-				<button onClick={props.onClick} data-target={props.id}> {props.title} </button>
+			<button 
+				onClick={props.onClick} 
+				data-target={props.id}> 
+				{props.title} 
+			</button>
 		</div>
 	)	
 }
@@ -49,6 +52,15 @@ export class Tab extends React.Component{
 			
 		)
 	}
+}
+
+export class ApplyNowButton extends Button{
+	render(){
+		const searchVars = (this.props.location)?this.props.location.search:'';
+		return(
+		<Button label="Apply Now" theme="secondary" className={["apply-now",this.props.className].join(' ')} outlink={"https://online.peru.edu/apply-now"+searchVars}/>
+		)
+		}
 }
 
 

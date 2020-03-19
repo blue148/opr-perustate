@@ -198,7 +198,16 @@ export default function FormPanel(props){
  
 				 <Formik
 			 		enableReinitialize={true}
-			 		initialValues={{ email: '', firstName: '',lastName:'', phoneNumber: '', programCode:props.state.formSelect ,programs:props.programs.edges,request:false }}
+			 		initialValues={{ 
+				 		email: '', 
+				 		firstName: '',
+				 		lastName:'', 
+				 		phoneNumber: '', 
+				 		programCode:props.state.formSelect ,
+				 		programs:props.programs.edges,
+				 		request:false,
+				 		isSingle:props.isSingle||false
+				 		}}
 	                onSubmit={(values, { setSubmitting}) => {
 	                   //while sumbmitting and waiting for a repsonse, show spinner
 	                   //on response, if success, redirect to viewdo, else show thankyou message
@@ -242,9 +251,8 @@ export default function FormPanel(props){
 							"firstname="+encodeURIComponent(values.firstName),
 							"lastname="+encodeURIComponent(values.lastName),
 							"email="+encodeURIComponent(values.email),
-							"phone="+values.phoneNumber.replace(/[^A-Z0-9]+/ig, ""),
-							"segment="+encodeURIComponent(values.programCode),
-							"campaignKey=test"
+							"phone="+encodeURIComponent("+1"+values.phoneNumber.replace(/[^A-Z0-9]+/ig, "")),
+							"segment="+encodeURIComponent(values.programCode)
 						]
 						const init = {
 						  method: 'POST',
@@ -306,7 +314,7 @@ export default function FormPanel(props){
 		                    
 		                    	<Grid container spacing={0}>
 									<Grid item xs={12}> 
-							            <FormControl fullWidth className={classes.selectControl+' selectControl'}>
+							            <FormControl fullWidth className={[classes.selectControl,' selectControl', values.isSingle?"hide":""].join(' ')}>
 							            	<InputLabel ref={inputLabel} id="programs-label" variant="outlined">
 									         Select a Program
 									        </InputLabel>
