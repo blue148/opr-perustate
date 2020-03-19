@@ -99,6 +99,15 @@ export const query = graphql`
 		              headline
 					  content
 	              }
+	              programInfo{
+			              items{
+				              content{
+					              tagline
+					              icon
+				              }
+				            }
+			              }
+
 	              careerOpportunities{
 		              content
 		              }

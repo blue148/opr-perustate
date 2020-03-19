@@ -6,9 +6,7 @@ import {faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 import Icon from '../../images/icons'
 import './programInfo.scss';
 
-const MainBox = styled.section`
 
-`
 const ButtonArea = styled.div`
 	display:grid;
 	grid-template-columns:1fr 1fr;
@@ -57,22 +55,19 @@ const Dates = (props) =>{
 const Info = (props) =>{
 	const {items} = props.programInfo;
 	const infoItem = Object.keys(items).map((item,index)=>{	
-			const tagline = items[item].content.tagline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;");					
-			if(index>=3)return false;
-			return (
-				<ItemStack key={index} className="iconStack">
-					<div className="iconBox">
-						<Icon name={items[item].content.icon}/>
-					</div>
-					<p className="programInfoItem" id={item} key={index} dangerouslySetInnerHTML={{
-						__html:items[item].content.tagline
-						.replace(/(<([/fp]+)>)/ig,"")
-						.replace(/<\/?span[^>]*>/ig,"")
-						.replace(/ (?=[^ ]*$)/i, "&nbsp;")}}/>
-				</ItemStack>
-			)
-		
-		
+		if(index>=3)return false;
+		return (
+			<ItemStack key={index} className="iconStack">
+				<div className="iconBox">
+					<Icon name={items[item].content.icon}/>
+				</div>
+				<p className="programInfoItem" id={item} key={index} dangerouslySetInnerHTML={{
+					__html:items[item].content.tagline
+					.replace(/(<([/fp]+)>)/ig,"")
+					.replace(/<\/?span[^>]*>/ig,"")
+					.replace(/ (?=[^ ]*$)/i, "&nbsp;")}}/>
+			</ItemStack>
+		)
 	})
 	return(
 		<>

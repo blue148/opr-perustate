@@ -1,42 +1,13 @@
 import React from "react"
 import styled from 'styled-components'
 import {Button} from '../uiElements'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 import Icon from '../../images/icons'
 import './programContent.scss';
 
 const MainBox = styled.section`
 	margin-top:0;
 `
-const ButtonArea = styled.div`
-	display:grid;
-	grid-template-columns:1fr 1fr;
-	grid-auto-flow:column;
-	grid-auto-columns:1fr;
-	grid-column-gap:.5rem;
-	justify-content:center;
-	background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 38%, rgba(255,255,255,1) 100%);
-	background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 38%,rgba(255,255,255,1) 100%);
-	background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 38%,rgba(255,255,255,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
-	padding-top:2rem;
-	@media (min-width:768px){
-		grid-template-columns:max-content;
-		grid-auto-columns:max-content;
-		background: transparent;
-	}
-		
-`
-const CloseButton = styled.a`
-	margin-bottom:.3rem;
-	font-size:25px;
-	color:${props=>props.theme.darkgray};
-    float: right;
-    margin-top: -17px;
-    margin-right: -10px;
-}
-`
+
 const ItemStack = styled.div``
 
 
@@ -58,7 +29,7 @@ const Dates = (props) =>{
 const Info = (props) =>{
 	const {items} = props.programInfo;
 	const infoItem = Object.keys(items).map((item,index)=>{	
-			const tagline = items[item].content.tagline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;");					if(index>=3)return false;
+			if(index>=3)return false;
 			return (
 				<ItemStack key={index} className="iconStack">
 					<div className="iconBox">

@@ -36,13 +36,13 @@ const StyledContainer = styled(Container)`
 	
 `
 const FormBox = styled.div`
-		padding: 0;
+	padding: 0;
 
-		@media (min-width: 768px) {
-			width:355px;
-			height: 100%;
-			overflow-y: auto;
-			}
+	@media (min-width: 768px) {
+		width:355px;
+		height: 100%;
+		overflow-y: auto;
+		}
 `
 
 const FormHeadline = styled.h2`
@@ -170,9 +170,6 @@ export default function FormPanel(props){
 		request:false
 		}
 	  )
-	const handleChange = event => {
-		setState({'formData':{[event.target.name]:event.target.value}});
-	};
 
 	React.useEffect(()=>{	
 		if(props.state.formSelect!=='')setState({'formData':{'programCode':props.state.formSelect}})
@@ -240,21 +237,25 @@ export default function FormPanel(props){
 						  "webUrl": props.location.origin+props.location.pathname,
 						  "ip": ""
 						};
+
 						const viewDoData = [
-							"firstname="+values.firstName,
-							"lastname="+values.lastName,
-							"email="+values.email,
+							"firstname="+encodeURIComponent(values.firstName),
+							"lastname="+encodeURIComponent(values.lastName),
+							"email="+encodeURIComponent(values.email),
 							"phone="+values.phoneNumber.replace(/[^A-Z0-9]+/ig, ""),
-							"program="+values.programCode
+							"segment="+encodeURIComponent(values.programCode),
+							"campaignKey=test"
 						]
 						const init = {
 						  method: 'POST',
 						  headers,
 						  body:JSON.stringify(body)		  
 						};
+						///format View.DO url
+						
+						const viewDoUrl = 'https://xapi.view.do/v1/experience/link/vb-edu-rfi-peru/org?useExisting=true&utm_source=online.peru.edu&utm_medium=referral&campaignKey=lp&'+viewDoData.join('&');
 						const url = midpoint+'?url='+encodeURIComponent(endpoint);
-						console.log(viewDoData.join('&'));
-						/*fetch(url, init)
+						fetch(url, init)
 						.then((response) => {	
 							setSubmitting(false)
 							return response.json()
@@ -262,13 +263,12 @@ export default function FormPanel(props){
 						.then((json) => {
 							if(json.Success){
 								setState({'submitted':true})
-								//'https://xapi.view.do/v1/experience/link/vb-edu-rfi-peru/org?useExisting=true&utm_source=online.peru.edu&utm_medium=referral&campaignKey=lp&'+encodeURIComponent(viewDoData)
-								//location.href = 
+								window.location.href = viewDoUrl;								
 								}
 						})
 						.catch((e) => {
 						  console.log(e.message)
-						});*/
+						});
 	                }}
 	
 	                validationSchema={Yup.object().shape({
@@ -294,7 +294,6 @@ export default function FormPanel(props){
 	                    handleChange,
 	                    handleBlur,
 	                    handleSubmit,
-	                    submitForm,
 	                  } = props;
 	                 return(
 						<>
