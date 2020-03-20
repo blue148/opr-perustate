@@ -3,6 +3,7 @@
 /***FONTS***/
 f {
   width: auto;
+  font-size: 1rem;
 }
 
 html {
@@ -81,11 +82,11 @@ li {
   transition: .5s;
 }
 
-.button {
+.singleProgramPage .button {
   text-transform: uppercase;
   font-weight: 800;
   font-family: myriad-pro, "Open Sans", sans-serif;
-  font-size: 1rem;
+  font-size: 1.3rem;
   -webkit-transition: .5s;
   transition: .5s;
   border: none;
@@ -95,44 +96,49 @@ li {
   display: block;
 }
 
-.button.primary {
+.singleProgramPage .button.primary {
   background-color: #fec413;
   color: #002856;
 }
 
-.button.primary:hover {
+.singleProgramPage .button.primary:hover {
   background-color: #0e356f;
   color: white;
 }
 
-.button.secondary {
+.singleProgramPage .button.secondary {
   background-color: #00aeef;
   color: #002856;
 }
 
-.button.secondary:hover {
+.singleProgramPage .button.secondary:hover {
   background-color: #0e356f;
   color: white;
 }
 
-.button.tertiary {
+.singleProgramPage .button.tertiary {
   background-color: #002856;
   color: white;
 }
 
-.button.tertiary:hover {
+.singleProgramPage .button.tertiary:hover {
   background-color: #006699;
   color: white;
 }
 
-.button.action {
+.singleProgramPage .button.action {
   background-color: #fec413;
   color: #002856;
 }
 
-.button.action:hover {
+.singleProgramPage .button.action:hover {
   background-color: #0e356f;
   color: white;
+}
+
+.singleProgramPage .formPanel .button {
+  margin: 1.5rem 0 1rem;
+  padding: 0;
 }
 
 section {
@@ -166,7 +172,7 @@ section section > section {
 
 @media (min-width: 1024px) {
   .singleprogramlayout__Page-emqmqj .accolades {
-    display: block;
+    display: grid;
   }
 }
 

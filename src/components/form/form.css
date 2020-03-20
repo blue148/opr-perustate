@@ -5,6 +5,10 @@
   display: none;
 }
 
+.single-program.selectControl {
+  display: none;
+}
+
 .formPanel {
   background-color: #efefef;
   bottom: 0;
@@ -38,6 +42,11 @@
   .formPanel {
     left: 750px;
   }
+}
+
+.formPanel .button {
+  margin: 1.5rem auto 1rem;
+  padding: 0;
 }
 
 .form-cta-group {

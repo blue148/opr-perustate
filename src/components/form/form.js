@@ -121,6 +121,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	selectControl:{
 		background:'white',
+
 		
 	},
 	select: {
@@ -135,7 +136,7 @@ const useStyles = makeStyles(theme => ({
 		marginTop: theme.spacing(2),
 	},
 	submit: {
-		margin: theme.spacing(3, 0, 2),
+		marginTop: theme.spacing(5),
 		height:'3rem',
 		fontSize:'1.4rem',
 	},
@@ -313,7 +314,7 @@ export default function FormPanel(props){
 		                    
 		                    	<Grid container spacing={0}>
 									<Grid item xs={12}> 
-							            <FormControl fullWidth className={[classes.selectControl,' selectControl', values.isSingle?"hide":""].join(' ')}>
+							            <FormControl fullWidth className={[classes.selectControl,' selectControl', values.isSingle?"single-program":""].join(' ')}>
 							            	<InputLabel ref={inputLabel} id="programs-label" variant="outlined">
 									         Select a Program
 									        </InputLabel>
@@ -326,6 +327,7 @@ export default function FormPanel(props){
 									          value={values.programCode}
 									          onChange={handleChange}
 									          className={classes.select}
+									          style={{whiteSpace: 'normal'}}
 									          error={errors.programCode && touched.programCode && <FormHelperText>'Please choose a program of interest'</FormHelperText>}
 									        >
 										        <MenuItem value=''>Please Select a Program</MenuItem>
@@ -406,11 +408,11 @@ export default function FormPanel(props){
 								<Grid container justify="flex-end">
 									<Grid item xs={12}>
 										<Button
-										type="submit"
-										fullWidth
-										variant="contained"
-										color="primary"
-										className={classes.submit+' button primary'}
+											type="submit"
+											fullWidth
+											variant="contained"
+											color="primary"
+											className={classes.submit+' button primary'}
 										
 										>
 											Send Request

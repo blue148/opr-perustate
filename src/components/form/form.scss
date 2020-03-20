@@ -2,6 +2,11 @@
 .hide{
 	display:none;
 }
+.single-program{
+	&.selectControl{
+		display:none;
+	}
+}
 .formPanel{
 	background-color:$shade;
 	bottom:0;
@@ -26,6 +31,10 @@
 	@media (max-width:1024px){
 		left:750px;
 		}
+	.button{
+		margin:1.5rem auto 1rem;
+		padding:0;
+	}
 }
 .form-cta-group{
 	margin:1rem auto;

@@ -12,7 +12,12 @@ export default ({data, location}) => {
 	<>
 		<Helmet>
 		  <meta charSet="utf-8" />
-		  <title>{data.contentfulSingleProgramLandingPage.heroArea.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;")}</title>
+		  <title>{
+			  (data.contentfulSingleProgramLandingPage.metaTitle)?
+			  	data.contentfulSingleProgramLandingPage.metaTitle:
+			  	data.contentfulSingleProgramLandingPage.heroArea.headline.replace(/(<([/fp]+)>)/ig,"")
+			  	}
+			</title>
 		  <meta name="robots" content="noindex, nofollow"/>
 		</Helmet>
 		<Layout
@@ -29,86 +34,87 @@ export default ({data, location}) => {
 export const query = graphql`
 	query singleprogramquery($slug: String){	
 		contentfulSingleProgramLandingPage(slug: { eq: $slug }) {
-			pageName
-		      slug
-		      heroArea {
-		        headline
-		        image {
-		          fields {
-		            file {
-		              en_US {
-		                url
-		              }
-		            }
-		          }
-		        }
-		      }
-    	      programContent {
-			    programCode
-			    pageName
-	            programDetails {
-	              headline
-	              content
+		  pageName
+		  metaTitle
+	      slug
+	      heroArea {
+	        headline
+	        image {
+	          fields {
+	            file {
+	              en_US {
+	                url
+	              }
 	            }
-	            programInfo {
-	              items {
-	                content {
-	                  icon
-	                  tagline
+	          }
+	        }
+	      }
+	      programContent {
+		    programCode
+		    pageName
+            programDetails {
+              headline
+              content
+            }
+            programInfo {
+              items {
+                content {
+                  icon
+                  tagline
+                }
+              }
+            }
+            careerOpportunities {
+              headline
+              content
+            }
+            applyBy
+            startClasses
+          }
+	      accolades {
+	        items {
+	          content {
+	            icon
+	            tagline
+	          }
+	        }
+	        headline
+	      }
+	      testimonial {
+		      
+	        testimonial {
+		        image {
+	                fields {
+	                  file {
+	                    en_US {
+	                      url
+	                    }
+	                  }
+	                }
+	            }
+				content
+	        }
+	      }
+	      awards {
+	        headline
+	        items {
+	          content {
+	            image {
+	              fields {
+	                file {
+	                  en_US {
+	                    url
+	                  }
 	                }
 	              }
 	            }
-	            careerOpportunities {
-	              headline
-	              content
-	            }
-	            applyBy
-	            startClasses
 	          }
-		      accolades {
-		        items {
-		          content {
-		            icon
-		            tagline
-		          }
-		        }
-		        headline
-		      }
-		      testimonial {
-			      
-		        testimonial {
-			        image {
-		                fields {
-		                  file {
-		                    en_US {
-		                      url
-		                    }
-		                  }
-		                }
-		            }
-					content
-		        }
-		      }
-		      awards {
-		        headline
-		        items {
-		          content {
-		            image {
-		              fields {
-		                file {
-		                  en_US {
-		                    url
-		                  }
-		                }
-		              }
-		            }
-		          }
-		        }
-		      }
-		      bottomContentSection {
-		        headline
-		        content
-		      }
+	        }
+	      }
+	      bottomContentSection {
+	        headline
+	        content
+	      }
 			
 		}
 		allContentfulProgramInfo {

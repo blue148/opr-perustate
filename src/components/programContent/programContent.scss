@@ -31,7 +31,7 @@
 	    margin:1.3rem auto;
 	    @media (min-width:1024px){
 		    padding: 0;
-		    margin-bottom: 1.3rem;
+		    margin:0 auto 1.3rem;
     	}
     }
     .program-info-details{
@@ -287,8 +287,6 @@
 			    .apply-now.button{
 				    grid-column:1/3;
 				    justify-self:center;
-				    font-size:1.5rem;
-				    padding:.3rem;
 				    width:100%;
 				    @media (min-width:1024px){
 					    

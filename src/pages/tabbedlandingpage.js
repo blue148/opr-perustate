@@ -37,6 +37,7 @@ export const query = graphql`
 		contentfulNestedTabbedLandingPage(slug: { eq: $slug }){
 			id
 			slug
+			metaTitle
 			phonenumber
 			formheadline
 			heroArea {

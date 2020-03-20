@@ -1,6 +1,6 @@
 import React from "react"
 import styled from 'styled-components'
-import {ApplyNowButton, Button} from '../uiElements'
+import {ApplyNowButton} from '../uiElements'
 import Icon from '../../images/icons'
 import './programContent.scss';
 
@@ -57,10 +57,23 @@ const Info = (props) =>{
 }
 
 const CareerPanel = (props)=>{
-	const headline = props.headline||'Career Opportunities';
+	const {headline}=props;
+	const headlineFmt = ()=>{
+		const headlineClean = (headline)?
+		headline
+		.replace(/<\/?br[^>]*>/ig,"")
+		.replace(/(<([/fp]+)>)/ig,"")
+		.replace(/<\/?span[^>]*>/ig,"")
+		.replace(/ (?=[^ ]*$)/i, "&nbsp;"):null;
+		
+		const finalHeadline = (headlineClean)?
+		 <h3 dangerouslySetInnerHTML={{__html:headlineClean}}/>:null;
+		 return finalHeadline;
+	 }
+	
 	return(
 		<section className="careerSection" key={props.panelKey}>
-			<h3 dangerouslySetInnerHTML={{__html:headline.replace(/(<([/fp]+)>)/ig,"").replace(/<\/?span[^>]*>/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;")}}/>
+			{headlineFmt()}
 			<div className="program-info-career" dangerouslySetInnerHTML={{__html:props.content}}/>
 		</section>
 	)
