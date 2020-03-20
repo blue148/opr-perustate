@@ -68,7 +68,13 @@ li{
 	opacity: 1;
 	transition:.5s;
 }
+header.singleProgramPage{
+		.menu-toggle{
+			display:none;
+		}
+	}
 .singleProgramPage{
+	
 	.button{
 		text-transform:uppercase;
 		font-weight:800;

@@ -8,7 +8,7 @@ import './header.scss'
 export default class Header extends React.Component{
 	render(){
 		return(
-			<header>
+			<header className={this.props.className}>
 				<div className="headerContainer">
 				    <div className='logobox'>
 				      <Logo/>
