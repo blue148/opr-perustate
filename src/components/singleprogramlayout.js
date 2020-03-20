@@ -65,6 +65,7 @@ const MobileBottomBar = styled.div`
 	    width: 100%;
 	    text-align: center;
 		.button{
+			font-size:1rem;
 			height:75%;
 			width:80%;
 			}

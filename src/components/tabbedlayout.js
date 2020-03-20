@@ -42,6 +42,7 @@ const MobileBottomBar = styled.nav`
 	    width: 100%;
 	    text-align: center;
 		.button{
+			font-size:1rem;
 			height:75%;
 			width:80%;
 			}
@@ -77,10 +78,10 @@ export default class Layout extends React.Component{
 		
 	}
 	handleStateChange=(e,tabState,subTabState,formSelect)=>{
+		console.log(tabState,subTabState,formSelect, 'on state,change')
+		const thisTabState = (tabState===null||!(tabState))?tabState=this.state.activeTab:tabState;
 		
-		if(tabState===null)tabState=this.state.activeTab;
-		
-		const tabArray = tabState.split('__');
+		const tabArray = thisTabState.split('__');
 		
 		var subTab = '';
 		var tab = '';
@@ -89,11 +90,11 @@ export default class Layout extends React.Component{
 		
 		if(tabArray.length < 2){
 			subTab = '';
-			tab = tabState;
+			tab = thisTabState;
 			tabPanel = tab+'_panel';
 			subTabPanel = tab+'_panel';
 		}else{
-			subTab = tabState;
+			subTab = thisTabState;
 			tab = tabArray[0];
 			tabPanel = tab+'_panel';
 			subTabPanel = subTab+'_panel';
@@ -116,8 +117,8 @@ export default class Layout extends React.Component{
 	
 	
 	
-	handleParentState=(props)=>{
-
+	handleParentState=(e,tab,subtab,props)=>{
+		console.log(props,' on parent change')
 		const updatedState = update(
 		   this.state,{
 			   'formSelect':{$set:props}

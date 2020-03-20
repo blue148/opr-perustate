@@ -15,11 +15,8 @@ const Headline = styled.h3`
 const ItemsBox = styled.section`
 	display:grid;
 	grid-template-rows: 1fr;
-	grid-template-columns:repeat(auto-fill, 100px);
 	justify-items:center;
 	justify-content:center;
-	grid-auto-flow:column;
-	grid-auto-columns:100px;
 	grid-gap:2rem;
 	margin:0 auto;
 	padding:0;
@@ -39,15 +36,14 @@ const ItemStack = styled.div`
 	grid-column-gap:1rem;
 	align-items:center;
 	width:100%;
-	grid-template-columns:100px 46%;
 	justify-items:center;
-	margin: .5rem auto 2rem;
+	margin: .5rem auto .5rem;
 	z-index:2;
 
 	.iconBox{
 		grid-row:1/2;
 		grid-column:1;
-		width:100px;
+		width:150px;
 		height:auto;
 		align-content:center;
 		justify-content:center;

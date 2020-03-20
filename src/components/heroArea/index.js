@@ -51,7 +51,7 @@ const Items = (props) =>(
 					<div className="iconBox">
 						<Icon name={props[item].content.icon} fill="#000"/>
 					</div>
-					<p dangerouslySetInnerHTML={{__html:text}}/>
+					<p dangerouslySetInnerHTML={{__html:text.replace(/(<([/fp]+)>)/ig,"")}}/>
 				</ItemStack>
 			)}
 		)}

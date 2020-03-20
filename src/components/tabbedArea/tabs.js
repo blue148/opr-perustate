@@ -181,7 +181,8 @@ const ContentPanelContainer = (props) =>{
 				active={props.active.activeTab} 
 				key={index}
 				itemKey={index}
-				onStateChange={props.onStateChange}/>
+				onStateChange={props.onStateChange}
+				onParentStateChange={props.onStateChange}/>
 		)
 		return programPanel
 	});

@@ -111,6 +111,14 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+.MuiContainer-root .MuiSelect-selectMenu {
+  max-width: 330px;
+}
+
+.MuiMenuItem-root {
+  white-space: normal;
+}
+
 .MuiGrid-item {
   padding: 0;
   line-height: 1;

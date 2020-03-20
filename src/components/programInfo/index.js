@@ -129,8 +129,8 @@ export default class ProgramInfo extends React.Component{
 		}
 	}
 	handleParentChange = (e,props)=>{
-		console.log(props,' programInfo jump');
-		this.props.onParentStateChange(props);
+		//console.log(this.props,' programInfo jump');
+		//this.props.onParentStateChange(e,null,'',props);
 		this.props.onStateChange(e,null,'',props);
 	}
 	handleClickOutside = (e) => {
@@ -140,6 +140,7 @@ export default class ProgramInfo extends React.Component{
 	render(){
 		//add nbsp in the last space for text wrapping.
 		const cleanHeadline = this.props.pageName.replace(/ (?=[^ ]*$)/i, "&nbsp;");
+		console.log(this.props,'program info');
 		return(		
 			<>
 				<CloseButton
@@ -157,7 +158,7 @@ export default class ProgramInfo extends React.Component{
 						label="Request Info" 
 						theme="primary mobile-only" 
 						jumplink='leadform' 
-						onClick={(e)=>this.handleParentChange(e,this.props.programLink)}
+						onClick={(e)=>this.props.onStateChange(e,null,'',this.props.programLink)}
 						>
 						Request Info
 					</Button>
