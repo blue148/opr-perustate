@@ -82,14 +82,28 @@ const Info = (props) =>{
 }
 
 const CareerPanel = (props)=>{
-	const headline = props.headline||'Career Opportunities';
+	const {headline}=props;
+	
+	const headlineFmt = ()=>{
+		const headlineClean = (headline)?
+		headline
+		.replace(/<\/?br[^>]*>/ig,"")
+		.replace(/(<([/fp]+)>)/ig,"")
+		.replace(/<\/?span[^>]*>/ig,"")
+		.replace(/ (?=[^ ]*$)/i, "&nbsp;"):null;
+		
+		const finalHeadline = (headlineClean)?
+		 <h3 dangerouslySetInnerHTML={{__html:headlineClean}}/>:null;
+		 return finalHeadline;
+	 }
+	
 	return(
 		<section className="careerSection" key={props.panelKey}>
-			<h4 dangerouslySetInnerHTML={{__html:headline.replace(/ (?=[^ ]*$)/i, "&nbsp;")}}/>
+			{headlineFmt()}
 			<div className="program-info-career" dangerouslySetInnerHTML={{__html:props.content}}/>
 		</section>
 	)
-	}
+}
 
 ////STRUCTURE AND CONTENT FOR TAB PANEL
 const PanelContent = (props)=>{
@@ -98,6 +112,7 @@ const PanelContent = (props)=>{
 			
 			<section className="program-details-area">
 				<Info {...props}/>
+				
 				<section className="program-info program-dates">
 					<Dates title="Apply By" items={props.applyBy}/>
 					<Dates title="Start Classes" items={props.startClasses}/>
@@ -106,7 +121,9 @@ const PanelContent = (props)=>{
 						<Icon name="symbol-defs_svg__icon-calendar" />
 					</span>
 				</section>
+				
 			</section>
+			
 			<section className="program-info-details" dangerouslySetInnerHTML={{__html:props.programDetails.content}}/>
 			{(props.careerOpportunities)?
 				<CareerPanel panelKey={props.id+'-'+props.itemKey} content={props.careerOpportunities.content} headline={props.careerOpportunities.headline}/>
@@ -119,10 +136,8 @@ const PanelContent = (props)=>{
 export default class ProgramInfo extends React.Component{
 
 	handleClose = (e,target,formSelect) =>{
-		console.log(target,' onClose')
 		e.preventDefault();
 		const tabArray = target.split('__');
-		console.log(tabArray, 'tabArray')
 		this.props.onStateChange(e,
 			(tabArray[1])?
 			tabArray[0]:
@@ -131,10 +146,7 @@ export default class ProgramInfo extends React.Component{
 			formSelect)
 			
 	}
-	/*handleParentChange = (e,props)=>{
-		//this.props.onParentStateChange(e,null,'',props);
-		this.props.onStateChange(e,null,'',props);
-	}*/
+
 	handleClickOutside = (e) => {
 		e.preventDefault();
 		this.props.onStateChange(e,null,'','');
@@ -142,19 +154,22 @@ export default class ProgramInfo extends React.Component{
 	render(){
 		//add nbsp in the last space for text wrapping.
 		const cleanHeadline = this.props.pageName.replace(/ (?=[^ ]*$)/i, "&nbsp;");
-		//console.log(this.props,'program info');
+
 		return(		
 			<>
 				<CloseButton
-						href="#"
-						className="menu-close mobile-only"
-						onClick={(e)=>this.handleClose(e,this.props.id,'')}
-						aria-label="Close program details">
-						<span className="sr-only">Close</span>
-						<FontAwesomeIcon icon={faTimesCircle}/>
-					</CloseButton>
+					href="#"
+					className="menu-close mobile-only"
+					onClick={(e)=>this.handleClose(e,this.props.id,'')}
+					aria-label="Close program details">
+					<span className="sr-only">Close</span>
+					<FontAwesomeIcon icon={faTimesCircle}/>
+				</CloseButton>
+					
 				<h3 dangerouslySetInnerHTML={{__html:cleanHeadline}}/>	
+				
 				<PanelContent {...this.props}/>
+				
 				<ButtonArea className="program-info-buttons">
 					<Button 
 						label="Request Info" 

@@ -78,7 +78,7 @@ export default class Layout extends React.Component{
 		
 	}
 	handleStateChange=(e,tabState,subTabState,formSelect)=>{
-		console.log(tabState,subTabState,formSelect, 'on state,change')
+		console.log(tabState,'tabState',subTabState,formSelect, 'on state,change')
 		const thisTabState = (tabState===null)?
 				tabState=this.state.activeTab:
 				tabState;

@@ -54,12 +54,14 @@ const TabsPanel = (props)=>{
 		const{pageSlug, pageName, programCode}=props[index];
 		//if there is no pageSlug, this is a container for other pages. Build a slugified name
 		const parentSlug = (pageSlug)?'':slugify(pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
-		const formSelect =  (programCode)?programCode:'';
+		
 		
 		//build state values based on passed props, which are pageSLugs
 		const tabState = (parent)?[ parent, pageSlug ].join('__'): (pageSlug)?pageSlug:parentSlug;
 		
 		const subTabState=(props[tab].programs)?tabState+'__'+props[tab].programs[0].pageSlug:'';
+		
+		const formSelect =  (subTabState)?props[tab].programs[0].programCode:props[tab].programCode;
 		
 		const activeClass = (tabState===props.active)?'selected':'';
 		const Chevron = (parent)?<span><FontAwesomeIcon icon={faChevronRight} className="tab-arrow-icon"/></span>:'';
@@ -93,7 +95,7 @@ const TabsPanel = (props)=>{
 		<ul 
 			id={props.id} 
 			className={
-				["tabPanel ",direction,props.viewport].join(' ')
+				["tabPanel ", direction, props.viewport].join(' ')
 			}
 			>
 			{titleLead}
@@ -106,7 +108,6 @@ const TabsPanel = (props)=>{
 ////CONTENT PANEL -> make external functional component
 
 const ContentPanel = (props) =>{
-	//console.log(props, 'contentpanel')
 	/**  TODO::: pull in programCode from content and replace programMapping.  **/
 	const {pageSlug, id} = props;
 	const ref = React.createRef();	
@@ -270,60 +271,21 @@ export class NestedPanel extends React.Component{
 export default class TabbedArea extends React.Component{
 	constructor(props){
 		super(props)
-//		console.log(props[0],' build')
+		console.log(props[0],' build')
 		if(props[0]){
 			const initTab = (isMobile)?'':(props[0].pageSlug)?props[0].pageSlug:slugify(props[0].pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
 			//check for subtabs, then activate the first on if this is desktop
-			const subTabCheck = (props[0].programs)?props[0].programs[0].pageSlug:'';
-			const initSubTab = (isMobile)?'':initTab+'__'+subTabCheck;
+			const subTabCheck = (props[0].programs)?'__'+props[0].programs[0].pageSlug:'';
+			const initSubTab = (isMobile)?'':initTab+subTabCheck;
+			const formSelect = (subTabCheck)?props[0].programs[0].programCode:props[0].programCode;
 
-			this.props.onStateChange('',initTab,initSubTab,'')
+			this.props.onStateChange('',initTab,initSubTab,formSelect)
 			
 		}	else{
 			this.props.onStateChange('','','','')
 		}
 	}
-	
-	handleStateChange =(e,tabState,subTabState,formSelect)=>{
-		if(tabState===null)tabState=this.state.activeTab;
-		const tabArray = tabState.split('__');
-		//console.log(tabArray,' array')
-		
-		if(isMobile){
-			
-		}
-		var subTab = '';
-		var tab = '';
-		var tabPanel = '';
-		var subTabPanel = '';
-		
-		if(tabArray.length < 2){
-			subTab = '';
-			tab = tabState;
-			tabPanel = tab+'_panel';
-			subTabPanel = '';
-		}else{
-			subTab = tabState;
-			tab = tabArray[0];
-			tabPanel = tab+'_panel';
-			subTabPanel = subTab+'_panel';
-		}
-		if(subTabState)subTab=subTabState;
-		
-		e.preventDefault();
-		const updatedState = update(
-		   this.state,{
-			   'activeTab':{$set:tab},
-			   'activePanel':{$set:tabPanel},
-   			   'activeSubTab':{$set:subTab},
-			   'activeSubPanel':{$set:subTabPanel},
-			   'formSelect':{$set:formSelect}
-		   }
-		)	  
-	   this.setState(updatedState)
-	   
-   }
-  
+	  
    
 	render(){
 		
