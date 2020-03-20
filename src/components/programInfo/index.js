@@ -119,20 +119,22 @@ const PanelContent = (props)=>{
 export default class ProgramInfo extends React.Component{
 
 	handleClose = (e,target,formSelect) =>{
-		//console.log(formSelect,' onClose')
+		console.log(target,' onClose')
 		e.preventDefault();
 		const tabArray = target.split('__');
-		if(tabArray.length<2){
-			this.props.onStateChange(e,'','',formSelect);
-		}else{
-			this.props.onStateChange(e,tabArray[0],'',formSelect);
-		}
+		console.log(tabArray, 'tabArray')
+		this.props.onStateChange(e,
+			(tabArray[1])?
+			tabArray[0]:
+			'',
+			'',
+			formSelect)
+			
 	}
-	handleParentChange = (e,props)=>{
-		//console.log(this.props,' programInfo jump');
+	/*handleParentChange = (e,props)=>{
 		//this.props.onParentStateChange(e,null,'',props);
 		this.props.onStateChange(e,null,'',props);
-	}
+	}*/
 	handleClickOutside = (e) => {
 		e.preventDefault();
 		this.props.onStateChange(e,null,'','');
@@ -140,7 +142,7 @@ export default class ProgramInfo extends React.Component{
 	render(){
 		//add nbsp in the last space for text wrapping.
 		const cleanHeadline = this.props.pageName.replace(/ (?=[^ ]*$)/i, "&nbsp;");
-		console.log(this.props,'program info');
+		//console.log(this.props,'program info');
 		return(		
 			<>
 				<CloseButton
@@ -158,7 +160,7 @@ export default class ProgramInfo extends React.Component{
 						label="Request Info" 
 						theme="primary mobile-only" 
 						jumplink='leadform' 
-						onClick={(e)=>this.props.onStateChange(e,null,'',this.props.programLink)}
+						onClick={(e)=>this.props.onStateChange(e,'','',this.props.programLink)}
 						>
 						Request Info
 					</Button>

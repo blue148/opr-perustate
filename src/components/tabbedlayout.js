@@ -79,7 +79,9 @@ export default class Layout extends React.Component{
 	}
 	handleStateChange=(e,tabState,subTabState,formSelect)=>{
 		console.log(tabState,subTabState,formSelect, 'on state,change')
-		const thisTabState = (tabState===null||!(tabState))?tabState=this.state.activeTab:tabState;
+		const thisTabState = (tabState===null)?
+				tabState=this.state.activeTab:
+				tabState;
 		
 		const tabArray = thisTabState.split('__');
 		
@@ -89,6 +91,7 @@ export default class Layout extends React.Component{
 		var subTabPanel = '';
 		
 		if(tabArray.length < 2){
+			console.log(thisTabState,' single tab')
 			subTab = '';
 			tab = thisTabState;
 			tabPanel = tab+'_panel';
@@ -111,7 +114,7 @@ export default class Layout extends React.Component{
 			   'formSelect':{$set:formSelect}
 		   }
 		)	  
-	   this.setState(updatedState)
+	   this.setState(updatedState,()=>console.log(this.state))
 		
 	}
 	

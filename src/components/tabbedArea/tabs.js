@@ -176,7 +176,7 @@ const ContentPanelContainer = (props) =>{
 		):(
 			<ContentPanel 
 				{...props[index]} 
-				id={props[index].pageName}
+				id={props[index].pageSlug}
 				pageSlug={props[index].pageSlug}
 				active={props.active.activeTab} 
 				key={index}
