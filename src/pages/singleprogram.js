@@ -125,6 +125,7 @@ export const query = graphql`
 					id
 					contentful_id
 			        shortName
+			        pageName
 			        programCode
 			        pageSlug
 			        applyBy

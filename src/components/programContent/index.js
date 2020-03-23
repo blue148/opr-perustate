@@ -15,7 +15,7 @@ const ItemStack = styled.div``
 const Dates = (props) =>{
 	const {items, title} = props;
 	//CREATE LIST OF DATES FROM PROVIDED CSV STRING
-	const list = items.split(',').map((item,index)=>(<li key={index}>{item}</li>))
+	const list = (items)?items.split(',').map((item,index)=>(<li key={index}>{item}</li>)):'';
 	//CREATE ID FRIENDLY STRING FROM TITLE
 	const elemId = title.split(' ').join('').toLowerCase();
 	return (
