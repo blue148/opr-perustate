@@ -154,7 +154,7 @@ export default class ProgramInfo extends React.Component{
 	render(){
 		//add nbsp in the last space for text wrapping.
 		const cleanHeadline = this.props.pageName.replace(/ (?=[^ ]*$)/i, "&nbsp;");
-
+		console.log(this.props,' prog info')
 		return(		
 			<>
 				<CloseButton

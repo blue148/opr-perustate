@@ -50,6 +50,8 @@ export const query = graphql`
 	        }
 	      }
 	      programContent {
+		    id
+		    contentful_id
 		    programCode
 		    pageName
             programDetails {
@@ -121,9 +123,12 @@ export const query = graphql`
 			edges{
 				node{
 					id
+					contentful_id
 			        shortName
 			        programCode
 			        pageSlug
+			        applyBy
+		            startClasses
 			    }
 		     }
 		  }

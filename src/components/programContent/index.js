@@ -13,13 +13,14 @@ const ItemStack = styled.div``
 
 ////STRUCTURE FOR THE APPPLY AND START DATE LISTS
 const Dates = (props) =>{
+	const {items, title} = props;
 	//CREATE LIST OF DATES FROM PROVIDED CSV STRING
-	const list = props.items.split(',').map((item,index)=>(<li key={index}>{item}</li>))
+	const list = items.split(',').map((item,index)=>(<li key={index}>{item}</li>))
 	//CREATE ID FRIENDLY STRING FROM TITLE
-	const elemId = props.title.split(' ').join('').toLowerCase();
+	const elemId = title.split(' ').join('').toLowerCase();
 	return (
 		<div className="programInfoItem programInfoDate" id={elemId.charAt(0)+elemId.slice(1)}>
-			<p>{props.title}</p>
+			<p>{title}</p>
 			<ul>{list}</ul>
 		</div>
 	)
@@ -81,13 +82,23 @@ const CareerPanel = (props)=>{
 
 ////STRUCTURE AND CONTENT FOR TAB PANEL
 const PanelContent = (props)=>{
+	const{programs} = props;
+	//get the data from the Program Info source	
+	const targetProgram = Object.keys(programs.edges).reduce((obj, index) => {
+	    if(programs.edges[index].node.contentful_id===props.contentful_id){
+		    obj=programs.edges[index].node;
+		   }
+		   return obj
+	  },{})
+	  
+	  
 	return (
 		<>
 			<section className="program-details-area">
 				<Info {...props} programInfo={props.programInfo}/>
 				<section className="program-info program-dates">
-					<Dates title="Apply By" items={props.applyBy}/>
-					<Dates title="Start Classes" items={props.startClasses}/>
+					<Dates title="Apply By" items={targetProgram.applyBy}/>
+					<Dates title="Start Classes" items={targetProgram.startClasses}/>
 					<ApplyNowButton location={props.location}/>
 					<span className="bg-image">
 						<Icon name="symbol-defs_svg__icon-calendar" />
@@ -123,6 +134,7 @@ export default class ProgramContent extends React.Component{
 		e.preventDefault();
 		this.props.onStateChange(e,null,'','');
 	}
+
 	render(){
 		//add nbsp in the last space for text wrapping.
 		const cleanHeadline = this.props.programDetails.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;");

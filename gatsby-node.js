@@ -32,6 +32,7 @@ exports.createPages = ({ graphql, actions }) => {
 			    edges {
 			      node {
 			        id
+			        contentful_id
 			        slug
 			      }
 			    }

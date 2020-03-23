@@ -135,7 +135,6 @@ export default class Layout extends React.Component{
 	
 	
 	render(){
-
 	  return (
 		<ThemeProvider theme={theme}>
 			<Icons/>
@@ -146,7 +145,7 @@ export default class Layout extends React.Component{
 
 					<ContentArea>
 						<Hero {...this.props.heroArea} location={this.props.location}/>
-						<ProgramContent {...this.props.programContent} location={this.props.location}/>
+						<ProgramContent {...this.props.programContent} programs={this.props.programs} location={this.props.location}/>
 						<Accolades {...this.props.accolades} />
 						<Testimonial {...this.props.testimonial}/>
 						<Awards {...this.props.awards}/>
