@@ -294,14 +294,12 @@
   bottom: 0;
   display: block;
   text-align: center;
-}
-
-@media (min-width: 1024px) {
-  .mainArea.singleProgram .program-details-area .program-info.program-dates .bg-image {
-    top: -37%;
-    width: 142%;
-    left: -22%;
-  }
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: top center;
+  width: 100%;
+  height: 100%;
+  opacity: .1;
 }
 
 .mainArea.singleProgram .program-details-area .program-info.program-dates .bg-image svg {

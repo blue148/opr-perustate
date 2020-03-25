@@ -4,6 +4,7 @@ import {ApplyNowButton,Button} from '../uiElements'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 import Icon from '../../images/icons'
+import Calendar from '../../icons/icon-calendar-bg.svg'
 import './programInfo.scss';
 
 
@@ -117,9 +118,7 @@ const PanelContent = (props)=>{
 					<Dates title="Apply By" items={props.applyBy}/>
 					<Dates title="Start Classes" items={props.startClasses}/>
 					<ApplyNowButton location={props.location}/>
-					<span className="bg-image">
-						<Icon name="symbol-defs_svg__icon-calendar" />
-					</span>
+					<span className="bg-image" style={{backgroundImage:`url(${Calendar})`}}/>
 				</section>
 				
 			</section>
@@ -154,7 +153,7 @@ export default class ProgramInfo extends React.Component{
 	render(){
 		//add nbsp in the last space for text wrapping.
 		const cleanHeadline = this.props.pageName.replace(/ (?=[^ ]*$)/i, "&nbsp;");
-		console.log(this.props,' prog info')
+		//console.log(this.props,' prog info')
 		return(		
 			<>
 				<CloseButton

@@ -2,6 +2,7 @@ import React from "react"
 import styled from 'styled-components'
 import {ApplyNowButton} from '../uiElements'
 import Icon from '../../images/icons'
+import Calendar from '../../icons/icon-calendar-bg.svg'
 import './programContent.scss';
 
 const MainBox = styled.section`
@@ -91,7 +92,7 @@ const PanelContent = (props)=>{
 		   return obj
 	  },{})
 	  
-	  
+	  //console.log(targetProgram)
 	return (
 		<>
 			<section className="program-details-area">
@@ -100,9 +101,7 @@ const PanelContent = (props)=>{
 					<Dates title="Apply By" items={targetProgram.applyBy}/>
 					<Dates title="Start Classes" items={targetProgram.startClasses}/>
 					<ApplyNowButton location={props.location}/>
-					<span className="bg-image">
-						<Icon name="symbol-defs_svg__icon-calendar" />
-					</span>
+					<span className="bg-image" style={{backgroundImage:`url(${Calendar})`}}/>
 				</section>
 			</section>
 			{(props.careerOpportunities)?

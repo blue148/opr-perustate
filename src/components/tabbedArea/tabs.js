@@ -271,14 +271,13 @@ export class NestedPanel extends React.Component{
 export default class TabbedArea extends React.Component{
 	constructor(props){
 		super(props)
-		console.log(props[0],' build')
+		//console.log(props,' build')
 		if(props[0]){
 			const initTab = (isMobile)?'':(props[0].pageSlug)?props[0].pageSlug:slugify(props[0].pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
 			//check for subtabs, then activate the first on if this is desktop
 			const subTabCheck = (props[0].programs)?'__'+props[0].programs[0].pageSlug:'';
 			const initSubTab = (isMobile)?'':initTab+subTabCheck;
-			const formSelect = (subTabCheck)?props[0].programs[0].programCode:props[0].programCode;
-
+			const formSelect = ''//(subTabCheck)?props[0].programs[0].programCode:props[0].programCode;
 			this.props.onStateChange('',initTab,initSubTab,formSelect)
 			
 		}	else{
