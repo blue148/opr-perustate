@@ -5,7 +5,14 @@ require('dotenv').config({
 
 const contentfulConfig = {
   spaceId: process.env.CONTENTFUL_SPACE_ID,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
+	accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+}
+if(process.env.CONTENTFUL_PREVIEW_TOKEN){
+	contentfulConfig.host='preview.contentful.com';
+	contentfulConfig.accessToken=process.env.CONTENTFUL_PREVIEW_TOKEN;
+	console.log(contentfulConfig,' Preview')
+}else{
+	console.log(contentfulConfig, ' live')
 }
 const { spaceId, accessToken } = contentfulConfig
 
@@ -45,6 +52,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-contentful',
       options: contentfulConfig,
+ 
     },
 	{
     resolve: "gatsby-plugin-react-svg",
