@@ -89,7 +89,7 @@ li {
   -webkit-transition: .5s;
   transition: .5s;
   border: none;
-  padding: .8rem;
+  padding: 0.3rem 0.8rem;
   margin: 0 auto;
   border-radius: 3px;
   display: block;
