@@ -36,9 +36,27 @@ export const query = graphql`
 		contentfulSingleProgramLandingPage(slug: { eq: $slug }) {
 		  pageName
 		  metaTitle
+			phonenumber
+			formheadline
 	      slug
+	      callout{
+				content{
+					icon
+					message
+					display
+				}
+			}
 	      heroArea {
 	        headline
+	        subHeadline
+	        itemsType
+	        bullets
+	        items{
+		        content{
+			        icon
+			        tagline
+			        }
+			    }
 	        image {
 	          fields {
 	            file {

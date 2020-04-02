@@ -1,0 +1,92 @@
+/***BRAND COLORS AND STYLES***/
+/****COLORS****/
+/***FONTS***/
+.callout {
+  background-color: #006699;
+  padding: .5rem;
+  margin: 0 -1rem;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .callout {
+    display: grid;
+    grid-template-columns: minmax(0, 725px) calc(340px + 5%);
+    display: grid;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .callout {
+    grid-template-columns: minmax(0, 725px) calc(340px + 5%);
+  }
+}
+
+@media (min-width: 1024px) and (min-width: 1401px) {
+  .callout {
+    grid-template-columns: minmax(0, 800px) calc(340px + 5%);
+  }
+}
+
+@media (min-width: 1024px) {
+  .callout .desktop-shim > * {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.callout .desktop-shim {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  width: 95%;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.callout .iconBox {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: .2rem;
+}
+
+@media (min-width: 1024px) {
+  .callout .iconBox {
+    display: block;
+    height: 60px;
+    width: 60px;
+    margin-right: 0;
+  }
+}
+
+.callout .iconBox svg {
+  height: 50px;
+  width: 50px;
+  margin: -5px 0 0 -5px;
+}
+
+@media (min-width: 1024px) {
+  .callout .iconBox svg {
+    width: 60px;
+    height: 60px;
+    margin: 0;
+  }
+}
+
+.callout h3 {
+  display: inline-block;
+  vertical-align: middle;
+  color: white;
+  margin: 0;
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+  font-size: 5.5vw;
+}
+
+@media (min-width: 1024px) {
+  .callout h3 {
+    display: block;
+    font-size: 2.3rem;
+  }
+}

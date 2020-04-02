@@ -10,6 +10,7 @@ import Awards from "./awards"
 import Bottom from "./bottomContentSection"
 import Footer from "./footer"
 import FormPanel from "./form/form"
+import Callout from "./callout/callout"
 import update from 'immutability-helper'
 import styled, {ThemeProvider} from "styled-components"
 import "./tabbedlayout.scss"
@@ -114,7 +115,7 @@ export default class Layout extends React.Component{
 			   'formSelect':{$set:formSelect}
 		   }
 		)	  
-	   this.setState(updatedState,()=>console.log(this.state,' handle change'))
+	   this.setState(updatedState)
 		
 	}
 	
@@ -145,6 +146,14 @@ export default class Layout extends React.Component{
 					<ContentArea className="contentArea">
 						<Hero {...this.props.heroArea}
 						location={this.props.location} />
+						{(this.props.callout)?(
+							<Callout
+								{...this.props.callout.content}
+								/>
+							)
+							:null
+						}
+						
 						<MainArea {...this.props.mainContentSection}/>
 						<TabbedArea 
 							location={this.props.location} 

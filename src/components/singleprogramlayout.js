@@ -9,6 +9,7 @@ import Awards from "./awards"
 import Bottom from "./bottomContentSection"
 import Footer from "./footer"
 import FormPanel from "./form/form"
+import Callout from "./callout/callout"
 import update from 'immutability-helper'
 import styled, {ThemeProvider} from "styled-components"
 import "./singleprogramlayout.scss"
@@ -21,7 +22,7 @@ const Page = styled.div`
 	position:fixed;
 	overflow:scroll;
 	height:100vh;
-	top:90px;
+	top:60px;
 `
 const Main = styled.main`
 	overflow-y:visible;
@@ -145,6 +146,13 @@ export default class Layout extends React.Component{
 
 					<ContentArea>
 						<Hero {...this.props.heroArea} location={this.props.location}/>
+						{(this.props.callout && this.props.callout.content.display===true)?(
+							<Callout
+								{...this.props.callout.content}
+								/>
+							)
+							:null
+						}
 						<ProgramContent {...this.props.programContent} programs={this.props.programs} location={this.props.location}/>
 						<Accolades {...this.props.accolades} />
 						<Testimonial {...this.props.testimonial}/>

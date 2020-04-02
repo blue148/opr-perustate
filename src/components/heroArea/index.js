@@ -40,7 +40,9 @@ const StyledButton = styled(Button)`
 
 `
 //need to pull the icon by name
-const Items = (props) =>(
+const Items = (props) =>{
+	if(props==='') return false;
+	return(
 
 	<ItemsBox className="iconGrid">
 		 {
@@ -57,21 +59,32 @@ const Items = (props) =>(
 		)}
 	</ItemsBox>
 	)
+	}
 export default class HeroArea extends React.Component{
 	
 	render(){
-		const {image, headline, items} = this.props
+		const {image, headline, subHeadline, itemsType} = this.props
 		const imgBg = (image)?image.fields.file.en_US.url:'';
 		//remove and p and f tags to clean up the code then add nbsp in the last space for text wrapping.
 		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';
+		const cleanSubHead = (subHeadline)?subHeadline.replace(/(<([/fp]+)>)/ig,""):'';
+		const cleanBullets = (this.props.bullets)?this.props.bullets.replace(/(<([/f]+)>)/ig,""):null;
 
 		return(
 			<HeroBox key={this.props.index} backgroundImage={imgBg} className="HeroBox">
 				<div className="desktop-shim">
 	                <HeroHeadline dangerouslySetInnerHTML={{__html:cleanHeadline}} className="HeroHeadline"/>
-					{(items)?<Items {...items}/>:null}
+	                {(cleanSubHead)?
+		                (<h2 dangerouslySetInnerHTML={{__html:cleanSubHead}} className="HeroSubHeadline"/>)
+		                :null
+		            }
+	                {(itemsType==='bullets')?
+		                (<div className="HeroBullets" dangerouslySetInnerHTML={{__html:cleanBullets}}/>)
+		                :
+		                (this.props.items)?(<Items {...this.props.items}/>):null
+		            }
 	
-					<StyledButton label="Learn More" theme="primary" jumplink="leadform" className="hero-button"/>
+					<StyledButton label="Request Info" theme="primary" jumplink="leadform" className="hero-button"/>
 				</div>
               </HeroBox>
 			

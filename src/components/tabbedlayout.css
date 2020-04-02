@@ -164,7 +164,7 @@ section section > section {
   position: fixed;
   overflow: scroll;
   height: 100vh;
-  top: 90px;
+  top: 60px;
 }
 
 .pageContainer .mainContainer {

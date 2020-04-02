@@ -40,24 +40,34 @@ export const query = graphql`
 			metaTitle
 			phonenumber
 			formheadline
+			callout{
+				content{
+					icon
+					message
+					display
+				}
+			}
 			heroArea {
-	            headline
-	            image {
-	              fields {
-	                file {
-	                  en_US {
-	                    url
-	                  }
-	                }
-	              }
-	            }
-	            items {
-	              content {
-	                icon
-	                tagline
-	              }
-	            }
-	          }
+		        headline
+		        subHeadline
+		        itemsType
+		        bullets @skip(if:false)
+		        items{
+			        content{
+				        icon
+				        tagline
+				        }
+				    }
+		        image {
+		          fields {
+		            file {
+		              en_US {
+		                url
+		              }
+		            }
+		          }
+		        }
+		      }
 	          mainContentSection {
 	            headline
 	            content
