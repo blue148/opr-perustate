@@ -12,7 +12,7 @@ if(process.env.CONTENTFUL_PREVIEW_TOKEN){
 	contentfulConfig.host='preview.contentful.com';
 	contentfulConfig.accessToken=process.env.CONTENTFUL_PREVIEW_TOKEN;
 }else{
-	console.log(contentfulConfig, ' live')
+	//console.log(contentfulConfig, ' live')
 }
 const { spaceId, accessToken } = contentfulConfig
 
