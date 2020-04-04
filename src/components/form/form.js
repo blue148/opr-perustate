@@ -228,7 +228,7 @@ export default function FormPanel(props){
 	                   //while sumbmitting and waiting for a repsonse, show spinner
 	                   //on response, if success, redirect to viewdo, else show thankyou message
 	                   setState({request:true})
-	                   //if(values.request!==true)window.dataLayer.push({event:'Request Info Button Click'});
+	                   if(values.request!==true)window.dataLayer.push({event:'Request Info Button Click'});
 	                   const headers = new Headers();
 					   headers.append('Content-Type', 'application/json');
 						
