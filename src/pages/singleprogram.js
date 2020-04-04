@@ -36,8 +36,6 @@ export const query = graphql`
 		contentfulSingleProgramLandingPage(slug: { eq: $slug }) {
 		  pageName
 		  metaTitle
-			phonenumber
-			formheadline
 	      slug
 	      callout{
 				content{
@@ -135,6 +133,14 @@ export const query = graphql`
 	        headline
 	        content
 	      }
+	      formSettings {
+            headline
+            subheadline
+            successMsg
+            redirect
+            redirectUrl
+            phone
+          }
 			
 		}
 		allContentfulProgramInfo {

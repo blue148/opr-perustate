@@ -168,8 +168,7 @@ export default class Layout extends React.Component{
 					</ContentArea>
 
 					<FormPanel 
-						phone={this.props.phonenumber} 
-						headline={this.props.formheadline} 
+						{...this.props.formSettings}
 						state={this.state} 
 						programs={this.props.programs} 
 						location={this.props.location}

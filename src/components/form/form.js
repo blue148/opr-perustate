@@ -51,6 +51,9 @@ const FormHeadline = styled.h2`
 	line-height:1.4;
 	font-size:1.7rem;
 `
+const FormSubHeadline=styled.h3`
+
+`
 const CTPAText = styled.div`
 	margin-top:1rem;
 		p{
@@ -153,10 +156,17 @@ const useStyles = makeStyles(theme => ({
 	
 	
 export default function FormPanel(props){
-
-	const phone = (props.phone==null)?'(402) 902-3128':props.phone;
-	const headline = props.headline;
+	
+	const {phone,headline, subheadline, redirect, redirectUrl, successMsg} = props;
+	//const {phone} = (props.formSettings.phone==null)?'(402) 902-3128':props.formSetting.phone;
+	//const headline = props.headline;
 	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
+	const cleanSubHeadline = (subheadline)?subheadline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
+	const submitSuccess = (successMsg)?successMsg:
+					(<>
+						<h3>Thank you for your request.</h3>
+						<h4>We have received your request and will contact you shortly</h4>
+					</>)
 	const classes = useStyles();
 	const [state, setState] = React.useReducer(
 	    (state, newState) => ({...state, ...newState}),
@@ -192,11 +202,16 @@ export default function FormPanel(props){
 		        <FormHeadline className={state.submitted?'hide':''}>
 		          {cleanHeadline||'Need More Information?'}
 		        </FormHeadline>
-		        <div className={["successContainer",state.submitted?'':'hide'].join(' ')}>
-					<h3>Thank you for your request.</h3>
-					<h4>We have received your request and will contact you shortly</h4>
-				</div>
- 
+		        
+		        {(cleanSubHeadline)?(
+			        <FormSubHeadline className={state.submitted?'hide':''}>
+			          {cleanSubHeadline}
+			        </FormSubHeadline>
+			        )
+			        :null
+			      }
+		        <div className={["successContainer",state.submitted?'':'hide'].join(' ')}
+		        	dangerouslySetInnerHTML={{__html:submitSuccess}}/> 
 				 <Formik
 			 		enableReinitialize={true}
 			 		initialValues={{ 
@@ -213,7 +228,7 @@ export default function FormPanel(props){
 	                   //while sumbmitting and waiting for a repsonse, show spinner
 	                   //on response, if success, redirect to viewdo, else show thankyou message
 	                   setState({request:true})
-	                   if(values.request!==true)window.dataLayer.push({event:'Request Info Button Click'});
+	                   //if(values.request!==true)window.dataLayer.push({event:'Request Info Button Click'});
 	                   const headers = new Headers();
 					   headers.append('Content-Type', 'application/json');
 						
@@ -247,7 +262,7 @@ export default function FormPanel(props){
 						  "webUrl": props.location.origin+props.location.pathname,
 						  "ip": ""
 						};
-
+						
 						const viewDoData = [
 							"firstname="+encodeURIComponent(values.firstName),
 							"lastname="+encodeURIComponent(values.lastName),
@@ -261,8 +276,8 @@ export default function FormPanel(props){
 						  body:JSON.stringify(body)		  
 						};
 						///format View.DO url
-						
-						const viewDoUrl = 'https://xapi.view.do/v1/experience/link/vb-edu-rfi-peru/org?useExisting=true&utm_source=online.peru.edu&utm_medium=referral&campaignKey=lp&'+viewDoData.join('&');
+//'https://xapi.view.do/v1/experience/link/vb-edu-rfi-peru/org?useExisting=true&utm_source=online.peru.edu&utm_medium=referral&campaignKey=lp&'
+						const redirectTarget = (redirect && redirectUrl)?redirectUrl+viewDoData.join('&'):null;
 						const url = midpoint+'?url='+encodeURIComponent(endpoint);
 						fetch(url, init)
 						.then((response) => {	
@@ -271,7 +286,7 @@ export default function FormPanel(props){
 							})
 						.then((json) => {
 							if(json.Success){
-								(viewDoUrl)?window.location.href = viewDoUrl:setState({'submitted':true})								
+								(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})								
 							}
 						})
 						.catch((e) => {
@@ -386,21 +401,21 @@ export default function FormPanel(props){
 									<Grid item xs={12}>
 	
 										<MaterialUiPhoneNumber
-										disableCountryCode
-										disableDropdown
-										defaultCountry="us"
-										regions={"america"}
-										variant="outlined"
-										fullWidth
-										id="phoneNumber"
-										label="Phone"
-										name="phoneNumber"
-										margin='dense'
-										className={classes.textfield}
-										onChange={handleChange('phoneNumber')}
-										onBlur={handleBlur}
-										error={errors.phoneNumber && touched.phoneNumber}
-										helperText={(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber && 'Your phone number is required'}
+											disableCountryCode
+											disableDropdown
+											defaultCountry="us"
+											regions={"america"}
+											variant="outlined"
+											fullWidth
+											id="phoneNumber"
+											label="Phone"
+											name="phoneNumber"
+											margin='dense'
+											className={classes.textfield}
+											onChange={handleChange('phoneNumber')}
+											onBlur={handleBlur}
+											error={errors.phoneNumber && touched.phoneNumber}
+											helperText={(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber && 'Your phone number is required'}
 										/>
 	
 									</Grid>

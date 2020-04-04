@@ -38,8 +38,6 @@ export const query = graphql`
 			id
 			slug
 			metaTitle
-			phonenumber
-			formheadline
 			callout{
 				content{
 					icon
@@ -172,6 +170,15 @@ export const query = graphql`
 	            headline
 	            content
 	          }
+	          formSettings {
+	            headline
+	            subheadline
+	            successMsg
+	            redirect
+	            redirectUrl
+	            phone
+	          }
+	         
 		}
 		allContentfulProgramInfo {
 			edges{
