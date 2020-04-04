@@ -146,7 +146,7 @@ export default class Layout extends React.Component{
 					<ContentArea className="contentArea">
 						<Hero {...this.props.heroArea}
 						location={this.props.location} />
-						{(this.props.callout)?(
+						{(this.props.callout && this.props.callout.content.display)?(
 							<Callout
 								{...this.props.callout.content}
 								/>
