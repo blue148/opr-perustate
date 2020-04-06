@@ -76,6 +76,7 @@ header .headerContainer .buttonContainer .button#apply-now {
   header .headerContainer .buttonContainer .button#apply-now {
     display: block;
     box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.5);
+    padding: .3rem;
   }
 }
 
