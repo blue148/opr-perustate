@@ -59,8 +59,8 @@ const ItemStack = styled.div`
 			height:75px;
 		}
 		svg{
-			width:90%;
-			height:90%;
+			width:60%;
+			height:60%;
 			align-self:center;
 			justify-self:center;
 			grid-column:1;
