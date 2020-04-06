@@ -66,8 +66,10 @@ export default class HeroArea extends React.Component{
 		const {image, headline, subHeadline, itemsType} = this.props
 		const imgBg = (image)?image.fields.file.en_US.url:'';
 		//remove and p and f tags to clean up the code then add nbsp in the last space for text wrapping.
-		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';
-		const cleanSubHead = (subHeadline)?subHeadline.replace(/(<([/fp]+)>)/ig,""):'';
+		const cleanHeadline = (headline)?headline.replace(/(<([/f]+)>)/ig,""):'';
+		const subHeadlineCheck = (subHeadline==='<p><br></p>')?null:subHeadline;
+		const cleanSubHead = (subHeadlineCheck)?subHeadline.replace(/(<([/f]+)>)/ig,"").replace(/<p[^>]*>/g, '').replace(/<\/p>/g, '<br />'):'';
+		console.log(cleanSubHead)
 		const cleanBullets = (this.props.bullets)?this.props.bullets.replace(/(<([/f]+)>)/ig,""):null;
 
 		return(

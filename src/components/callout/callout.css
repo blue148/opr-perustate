@@ -44,9 +44,15 @@
   align-items: center;
 }
 
+@media (min-width: 1024px) {
+  .callout .desktop-shim {
+    display: block;
+  }
+}
+
 .callout .iconBox {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   display: inline-block;
   vertical-align: middle;
   margin-right: .2rem;
@@ -54,23 +60,23 @@
 
 @media (min-width: 1024px) {
   .callout .iconBox {
-    display: block;
-    height: 60px;
-    width: 60px;
+    display: inline-block;
+    /*height:45px;
+			width:45px;*/
     margin-right: 0;
   }
 }
 
 .callout .iconBox svg {
-  height: 50px;
-  width: 50px;
+  height: 45px;
+  width: 45px;
   margin: -5px 0 0 -5px;
 }
 
 @media (min-width: 1024px) {
   .callout .iconBox svg {
-    width: 60px;
-    height: 60px;
+    /*width:60px;
+				height:60px;*/
     margin: 0;
   }
 }
@@ -87,6 +93,6 @@
 @media (min-width: 1024px) {
   .callout h3 {
     display: block;
-    font-size: 2.3rem;
+    font-size: 1.5rem;
   }
 }

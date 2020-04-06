@@ -69,6 +69,7 @@ const MobileBottomBar = styled.div`
 			font-size:1rem;
 			height:75%;
 			width:80%;
+		    padding: .6rem;
 			}
 		}
 	@media(min-width:768px){

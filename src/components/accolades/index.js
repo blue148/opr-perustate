@@ -92,7 +92,7 @@ const ItemStack = styled.div`
 const Items = (props) =>(
 	<ItemsBox className="iconGrid">
 		 {Object.keys(props).map((item, index)=>{
-			 const text = props[item].content.tagline
+			 const text = props[item].content.tagline.replace(/(<([/fp]+)>)/ig,"")
 			 return(
 			 
 				<ItemStack key={index} className="IconBox">

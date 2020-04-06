@@ -22,26 +22,29 @@
 	    width: 95%;
 	    margin: 0 auto;
 	    align-items: center;
+	    @media (min-width:1024px){
+		    display:block;
+	    }
 	}
 	.iconBox{
-		width:50px;
-		height:50px;
+		width:45px;
+		height:45px;
 		display: inline-block;
 		vertical-align: middle;
 		margin-right:.2rem;
 		@media (min-width:1024px){
-			display:block;
-			height:60px;
-			width:60px;
+			display:inline-block;
+			/*height:45px;
+			width:45px;*/
 			margin-right:0;
 		}
 		svg{
-			height:50px;
-			width:50px;
+			height:45px;
+			width:45px;
 			margin:-5px 0 0 -5px;
 			@media(min-width:1024px){
-				width:60px;
-				height:60px;
+				/*width:60px;
+				height:60px;*/
 				margin:0;
 			}
 		}
@@ -55,7 +58,7 @@
 		font-size:5.5vw;
 		@media(min-width:1024px){
 			display:block;
-			font-size:2.3rem;
+			font-size:1.5rem;
 		}
 	}
 }
