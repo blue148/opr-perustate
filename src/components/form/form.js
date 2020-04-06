@@ -281,12 +281,12 @@ export default function FormPanel(props){
 						const url = midpoint+'?url='+encodeURIComponent(endpoint);
 						fetch(url, init)
 						.then((response) => {	
-							
+							setSubmitting(false)
 							return response.json()
 							})
 						.then((json) => {
 							if(json.Success){
-								setSubmitting(false)
+								
 								(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})								
 							}
 							
