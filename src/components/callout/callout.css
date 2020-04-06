@@ -51,8 +51,8 @@
 }
 
 .callout .iconBox {
-  width: 45px;
-  height: 45px;
+  width: 35px;
+  height: 35px;
   display: inline-block;
   vertical-align: middle;
   margin-right: .2rem;
@@ -61,22 +61,22 @@
 @media (min-width: 1024px) {
   .callout .iconBox {
     display: inline-block;
-    /*height:45px;
-			width:45px;*/
-    margin-right: 0;
+    height: 35px;
+    width: 35px;
+    margin-right: .8rem;
   }
 }
 
 .callout .iconBox svg {
-  height: 45px;
-  width: 45px;
+  height: 35px;
+  width: 35px;
   margin: -5px 0 0 -5px;
 }
 
 @media (min-width: 1024px) {
   .callout .iconBox svg {
-    /*width:60px;
-				height:60px;*/
+    width: 35px;
+    height: 35px;
     margin: 0;
   }
 }
