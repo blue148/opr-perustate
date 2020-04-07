@@ -162,6 +162,8 @@ export default function FormPanel(props){
 	//const headline = props.headline;
 	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
 	const cleanSubHeadline = (subheadline)?subheadline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
+	//clear if subheadline is only a br
+	
 	const submitSuccess = (successMsg)?successMsg:
 					(<>
 						<h3>Thank you for your request.</h3>
@@ -203,7 +205,7 @@ export default function FormPanel(props){
 		          {cleanHeadline||'Need More Information?'}
 		        </FormHeadline>
 		        
-		        {(cleanSubHeadline)?(
+		        {(cleanSubHeadline.replace(/(<([/br]+)>)/ig,""))?(
 			        <FormSubHeadline className={state.submitted?'hide':''}>
 			          {cleanSubHeadline}
 			        </FormSubHeadline>
