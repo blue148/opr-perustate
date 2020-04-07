@@ -14,7 +14,7 @@ export default class Header extends React.Component{
 				      <Logo/>
 				    </div>
 				    <nav className="buttonContainer">
-					    <Button label="Apply Now" theme="secondary" className='apply-now header-item aide' outlink={["https://online.peru.edu/apply-now",(this.props.location)?this.props.location.search:''].join('')}/>
+					    <Button label="Apply Now" theme="secondary" className='apply-now header-item aide' outlink={["https://online.peru.edu/apply-now",(this.props.location)?this.props.location.search:'? null'].join('')}/>
 						<MobileMenu {...this.props}/>
 					</nav>
 					
