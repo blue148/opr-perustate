@@ -178,24 +178,32 @@ export default function FormPanel(props){
 			email:'',
 			phoneNumber:'',
 			programCode:props.state.formSelect,
+			location:props.location,
 			},
 		submitted:false,
 		request:false
 		}
 	  )
 
-	React.useEffect(()=>{	
+	React.useEffect(()=>{
 		if(props.state.formSelect!=='')setState({'formData':{'programCode':props.state.formSelect}})
 			},[props.state.formSelect]
 	);
 	
 	const inputLabel = React.useRef(null);
 	///parse location string for ad vars
+	
 	/*** from google: {lpurl}?utm_source=sem&utm_medium=google&utm_campaign={_campaignname}&utm_adgroup={_adgroupname}&utm_term={keyword}&matchtype={matchtype}&network={network}&device={device}&devicemodel={devicemodel}&creative={creative}&placement={placement}&target={target}&adposition={adposition}&feeditemid={feeditemid}&adgroup_id={adgroupid}&target_id={targetid}&agencytrackingcode=v1-{campaignid}
 	**** from facebook:?utm_source=paidsocial&utm_medium=facebook&utm_campaign={{campaign.name}}&utm_adgroup={{adset.name}}&network={{site_source_name}}&placement={{placement}}&adgroup_id={{adset.id}}&agencytrackingcode=v1-{{campaign.id}}*/
 	
-	const searchVars = (props.location.search)?
-		JSON.parse('{"' + props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) }):''
+	const searchParams = (props.location)?new URLSearchParams(props.location.search):'';
+	const searchVars = {}
+	//(props.location.search)?JSON.parse('{"' + props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) }):''
+	if(searchParams){
+		for(var item of searchParams.entries()){
+			searchVars[item[0]]=decodeURIComponent(item[1])
+		}
+	}
 	return(
 		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
@@ -233,7 +241,6 @@ export default function FormPanel(props){
 	                   if(values.request!==true)window.dataLayer.push({event:'Request Info Button Click'});
 	                   const headers = new Headers();
 					   headers.append('Content-Type', 'application/json');
-						
 						const body = {
 						 "universityId": "102",
 						  "programCode": values.programCode,
@@ -278,7 +285,7 @@ export default function FormPanel(props){
 						  body:JSON.stringify(body)		  
 						};
 						///format View.DO url
-//'https://xapi.view.do/v1/experience/link/vb-edu-rfi-peru/org?useExisting=true&utm_source=online.peru.edu&utm_medium=referral&campaignKey=lp&'
+/*https://xapi.view.do/v1/experience/link/vb-edu-rfi-peru/org?useExisting=true&utm_source=online.peru.edu&utm_medium=referral&campaignKey=lp&*/
 						const redirectTarget = (redirect && redirectUrl)?redirectUrl+viewDoData.join('&'):null;
 						const url = midpoint+'?url='+encodeURIComponent(endpoint);
 						fetch(url, init)

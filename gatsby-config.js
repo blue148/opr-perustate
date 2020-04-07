@@ -16,11 +16,11 @@ if(process.env.CONTENTFUL_PREVIEW_TOKEN){
 }
 const { spaceId, accessToken } = contentfulConfig
 
-if (!spaceId || !accessToken) {
+/*if (!spaceId || !accessToken) {
   throw new Error(
     'Contentful spaceId and the access token need to be provided.'
   )
-}
+}*/
 
 module.exports = {
   siteMetadata: {

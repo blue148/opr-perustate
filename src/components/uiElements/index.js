@@ -57,7 +57,6 @@ export class Tab extends React.Component{
 export class ApplyNowButton extends Button{
 	render(){
 		const searchVars = ["https://online.peru.edu/apply-now",(this.props.location)?this.props.location.search:''].join('');
-		console.log(searchVars, 'Apply now', this.props.className)
 		return(
 		<Button label="Apply Now" theme="secondary" className={["apply-now",this.props.className].join(' ')} outlink={searchVars}/>
 		)

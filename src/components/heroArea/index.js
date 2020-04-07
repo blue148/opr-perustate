@@ -69,7 +69,6 @@ export default class HeroArea extends React.Component{
 		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';
 		const subHeadlineCheck = (subHeadline==='<p><br></p>')?null:subHeadline;
 		const cleanSubHead = (subHeadlineCheck)?subHeadline.replace(/(<([/f]+)>)/ig,"").replace(/<p[^>]*>/g, '').replace(/<\/p>/g, '<br />'):'';
-		console.log(cleanSubHead)
 		const cleanBullets = (this.props.bullets)?this.props.bullets.replace(/(<([/f]+)>)/ig,""):null;
 
 		return(

@@ -57,14 +57,19 @@ export default class Layout extends React.Component{
 	constructor(props){
 		super(props)
 		
-		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:'',formSelect:''}
+		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:'',formSelect:'',location:''}
 	}
 	
 	
 	componentDidMount(){
+		this.setState({location:window.location},()=>this.drillDown(this.state.location));
 		
-		if(this.props.location.search){
-			const targetProgram = JSON.parse('{"' + this.props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}')||'';
+		//if(this.props.location.search){			
+		//}
+		
+	}
+	drillDown = (location)=>{
+		const targetProgram = JSON.parse('{"' + location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}')||'';
 			//console.log(this.props.programs,targetProgram.targetprogram)
 			//find program code
 			if(targetProgram.targetprogram){
@@ -76,8 +81,6 @@ export default class Layout extends React.Component{
 					},[])
 				this.handleStateChange('',targetProgram.targetprogram, '',pCode);
 			}
-		}
-		
 	}
 	handleStateChange=(e,tabState,subTabState,formSelect)=>{
 		//console.log(tabState,'tabState',subTabState,formSelect, 'on state,change')
@@ -139,14 +142,14 @@ export default class Layout extends React.Component{
 	  return (
 		<ThemeProvider theme={theme}>
 			<Icons/>
-			<Header {...this.props.tabbedContent} location={this.props.location} onStateChange={this.handleStateChange} state={this.state}/>
+			<Header {...this.props.tabbedContent} location={this.state.location} onStateChange={this.handleStateChange} state={this.state}/>
 		    <Page className="pageContainer">   
 			    
 				<Main className="mainContainer">
 
 					<ContentArea className="contentArea">
 						<Hero {...this.props.heroArea}
-						location={this.props.location} />
+						location={this.state.location} />
 						{(this.props.callout && this.props.callout.content.display)?(
 							<Callout
 								{...this.props.callout.content}
@@ -155,9 +158,9 @@ export default class Layout extends React.Component{
 							:null
 						}
 						
-						<MainArea {...this.props.mainContentSection}/>
+						<MainArea {...this.props.mainContentSection} />
 						<TabbedArea 
-							location={this.props.location} 
+							location={this.state.location} 
 							{...this.props.tabbedContent} 
 							onParentStateChange={this.handleParentState} 
 							onStateChange={this.handleStateChange} 
@@ -172,7 +175,7 @@ export default class Layout extends React.Component{
 						{...this.props.formSettings}
 						state={this.state} 
 						programs={this.props.programs} 
-						location={this.props.location}
+						location={this.state.location}
 						isSingle={false}/>
 					<Footer/>
 				</Main>

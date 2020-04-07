@@ -84,7 +84,9 @@ export default class Layout extends React.Component{
 		//console.log(props, 'master')
 	}
 	
-	
+	componentDidMount(){
+		this.setState({location:window.location});
+	}
 	
 	handleStateChange=(e,tabState,subTabState,formSelect)=>{
 		//console.log(tabState, subTabState, 'state change')
@@ -140,13 +142,13 @@ export default class Layout extends React.Component{
 	  return (
 		<ThemeProvider theme={theme}>
 			<Icons/>
-			<Header className="singleProgramPage" {...this.props.tabbedContent} location={this.props.location} onStateChange={this.handleStateChange} state={this.state}/>
+			<Header className="singleProgramPage" {...this.props.tabbedContent} location={this.state.location} onStateChange={this.handleStateChange} state={this.state}/>
 		    <Page className="singleProgramPage">   
 			    
 				<Main>
 
 					<ContentArea>
-						<Hero {...this.props.heroArea} location={this.props.location}/>
+						<Hero {...this.props.heroArea} location={this.state.location}/>
 						{(this.props.callout && this.props.callout.content.display===true)?(
 							<Callout
 								{...this.props.callout.content}
@@ -154,7 +156,7 @@ export default class Layout extends React.Component{
 							)
 							:null
 						}
-						<ProgramContent {...this.props.programContent} programs={this.props.programs} location={this.props.location}/>
+						<ProgramContent {...this.props.programContent} programs={this.props.programs} location={this.state.location}/>
 						<Accolades {...this.props.accolades} />
 						<Testimonial {...this.props.testimonial}/>
 						<Awards {...this.props.awards}/>
@@ -167,7 +169,7 @@ export default class Layout extends React.Component{
 						//headline={this.props.formheadline} 
 						state={this.state} 
 						programs={this.props.programs} 
-						location={this.props.location}
+						location={this.state.location}
 						isSingle={true}/>
 					<Footer/>
 				</Main>

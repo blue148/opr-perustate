@@ -160,12 +160,12 @@ const ContentPanel = (props) =>{
 ////CONTAINER TO HOLD ALL THE CONTENT PANELS
 const ContentPanelContainer = (props) =>{
 	const panels = Object.keys(props).map((child, index)=>{
-		
 		if(isNaN(child))return true;
 		///if programs exist, this is a nested tab panel
 		const programPanel = (props[index].programs)?(
 			<NestedPanel 
 				active={props.active}
+				location={props.location}
 				{...props[index]} 
 				id={props[index].pageName}
 				pageSlug={props[index].pageSlug}
@@ -182,6 +182,7 @@ const ContentPanelContainer = (props) =>{
 				active={props.active.activeTab} 
 				key={index}
 				itemKey={index}
+				location={props.location}
 				onStateChange={props.onStateChange}
 				onParentStateChange={props.onStateChange}/>
 		)
@@ -200,7 +201,6 @@ export class NestedPanel extends React.Component{
 	
 	
 	render(){
-		
 		const ref = React.createRef();
 		///create stack of content sub panels
 		const subpanels =  Object.keys(this.props.programs).map((program, index)=>{
@@ -210,7 +210,8 @@ export class NestedPanel extends React.Component{
 			//console.log(subSlug, 'subpage slug')
 			return(
 				<ContentPanel 
-					{...this.props.programs[index]} 
+					{...this.props.programs[index]}
+					location={this.props.location} 
 					id={subSlug}
 					pageSlug={subSlug}
 					active={this.props.active.activeSubTab} 
@@ -287,7 +288,7 @@ export default class TabbedArea extends React.Component{
 	  
    
 	render(){
-		
+
 		return(
 			<section id="tabbedArea" className="tabbedArea">
 				<div className="desktop-shim">
