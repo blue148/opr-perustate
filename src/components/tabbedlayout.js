@@ -69,6 +69,7 @@ export default class Layout extends React.Component{
 		
 	}
 	drillDown = (location)=>{
+		if(!location.search)return false;
 		const targetProgram = JSON.parse('{"' + location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}')||'';
 			//console.log(this.props.programs,targetProgram.targetprogram)
 			//find program code
