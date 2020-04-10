@@ -1,4 +1,4 @@
-import React from "react"
+import React,{useEffect} from "react"
 import { graphql } from "gatsby"
 import { Helmet } from "react-helmet"
 //import queryString from 'query-string'
@@ -8,6 +8,13 @@ import Layout from "../components/singleprogramlayout"
 
 export default ({data, location}) => {
 //parse pararmeters for cofingruation. console.log(queryString.parse(location.search),' master')
+useEffect(()=>{
+	window.dataLayer.push({
+	     'experimentId': '0LOOzST8RcC_-Fd2ey_uLQ',
+	     'variationId': '0'
+	  })
+	},[]
+	)
 	return (
 	<>
 		<Helmet>
