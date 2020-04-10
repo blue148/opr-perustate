@@ -12,7 +12,12 @@ export default ({data, location}) => {
 	return (
 	<>
 		<Helmet>
-			
+			<script>{`
+				window.dataLayer.push({
+				     'experimentId': '0LOOzST8RcC_-Fd2ey_uLQ',
+				     'variationId': '0'
+				  })`}
+			</script>
 
 			  <meta charSet="utf-8" />
 			  <title>{data.contentfulNestedTabbedLandingPage.heroArea.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, " ")}</title>
