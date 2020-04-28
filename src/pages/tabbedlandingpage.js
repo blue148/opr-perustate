@@ -9,11 +9,15 @@ import Layout from "../components/tabbedlayout"
 export default ({data, location}) => {
 //parse pararmeters for cofingruation. console.log(queryString.parse(location.search),' master')
 //add META field to CMS: Title,
-useEffect(()=>{
-	window.dataLayer.push({
-				     'experimentId': '0LOOzST8RcC_-Fd2ey_uLQ',
+const expId = process.env.GATSBY_EXPID||null;
+	useEffect(()=>{
+		//if there is an experiment running, create data layer vars
+		if(expId){
+				window.dataLayer.push({
+				     'experimentId': expId,
 				     'variationId': '0'
 				  })
+		}
 	},[]
 	)
 	return (
