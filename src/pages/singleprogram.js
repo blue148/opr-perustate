@@ -30,6 +30,7 @@ const expId = process.env.GATSBY_EXPID||null;
 			  	}
 			</title>
 		  <meta name="robots" content="noindex, nofollow"/>
+		  <script src="https://www.googleoptimize.com/optimize.js?id=GTM-TRVW6KX"></script>
 		</Helmet>
 		<Layout
 		{...data.contentfulSingleProgramLandingPage}
