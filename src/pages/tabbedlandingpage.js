@@ -17,7 +17,7 @@ const expId = process.env.GATSBY_EXPID||null;
 				     'experimentId': expId,
 				     'variationId': '0',
 				     'expId': expId,
-				     'expVar': '0'
+				     'expVar': 0
 				  })
 		}
 	},[]
