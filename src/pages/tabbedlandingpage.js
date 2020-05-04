@@ -15,7 +15,9 @@ const expId = process.env.GATSBY_EXPID||null;
 		if(expId){
 				window.dataLayer.push({
 				     'experimentId': expId,
-				     'variationId': '0'
+				     'variationId': '0',
+				     'expId': expId,
+				     'expVar': '0'
 				  })
 		}
 	},[]
