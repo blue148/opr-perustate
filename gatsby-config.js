@@ -91,7 +91,7 @@ module.exports = {
 	      defaultDataLayer:function(){
 		      return {
   				     'experimentId': process.env.GATSBY_EXPID||null,
-				     'variationId': '0',
+				     'variationId': 0,
 
 		      }
 	      },
