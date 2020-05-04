@@ -11,14 +11,14 @@ export default ({data, location}) => {
 const expId = process.env.GATSBY_EXPID||null;
 	useEffect(()=>{
 		//if there is an experiment running, create data layer vars
-		if(expId){
+		/*if(expId){
 				window.dataLayer.push({
 				     'experimentId': expId,
 				     'variationId': '0',
 				     'expId': expId,
 				     'expVar': 0
 				  })
-		}
+		}*/
 	},[]
 	)
 	return (
