@@ -107,7 +107,10 @@ module.exports = {
 	      tagmanager: {
 	        id: 'GTM-WVQZZ82'
 	      }
-	    }
+	    },
+	    optimize: {
+	        id: process.env.GATSBY_EXPID,
+	      }
     },	  
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
