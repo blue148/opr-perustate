@@ -32,7 +32,6 @@ const expId = process.env.GATSBY_EXPID||null;
 			  <meta charSet="utf-8" />
 			  <title>{data.contentfulNestedTabbedLandingPage.heroArea.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, " ")}</title>
 			  <meta name="robots" content="noindex, nofollow"/>
-			  <script src="https://www.googleoptimize.com/optimize.js?id=GTM-TRVW6KX"></script>
 			</Helmet>
 
 
