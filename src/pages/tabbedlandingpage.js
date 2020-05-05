@@ -9,39 +9,26 @@ import Layout from "../components/tabbedlayout"
 export default ({data, location}) => {
 //parse pararmeters for cofingruation. console.log(queryString.parse(location.search),' master')
 //add META field to CMS: Title,
-const expId = process.env.GATSBY_EXPID||null;
-	useEffect(()=>{
-		//if there is an experiment running, create data layer vars
-		/*if(expId){
-				window.dataLayer.push({
-				    'experimentId': expId,
-				     'variationId': '0',
-				     'expId': expId,
-				     'expVar': 0
-				  })
-		}*/
-	},[]
-	)
 	return (
-	<>
-		<Helmet>
-			<script>{`
-				`}
-			</script>
-
-			  <meta charSet="utf-8" />
-			  <title>{data.contentfulNestedTabbedLandingPage.heroArea.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, " ")}</title>
-			  <meta name="robots" content="noindex, nofollow"/>
-			</Helmet>
-
-
-	    <Layout
-	    {...data.contentfulNestedTabbedLandingPage}
-	    programs={data.allContentfulProgramInfo}
-	    location={location}
-	    />
-
-    </>
+		<>
+			<Helmet>
+				<script>{`
+					`}
+				</script>
+	
+				  <meta charSet="utf-8" />
+				  <title>{data.contentfulNestedTabbedLandingPage.heroArea.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, " ")}</title>
+				  <meta name="robots" content="noindex, nofollow"/>
+				</Helmet>
+	
+	
+		    <Layout
+		    {...data.contentfulNestedTabbedLandingPage}
+		    programs={data.allContentfulProgramInfo}
+		    location={location}
+		    />
+	
+	    </>
 
   )
 }

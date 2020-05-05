@@ -8,38 +8,24 @@ import Layout from "../components/singleprogramlayout"
 
 export default ({data, location}) => {
 //parse pararmeters for cofingruation. console.log(queryString.parse(location.search),' master')
-const expId = process.env.GATSBY_EXPID||null;
-	useEffect(()=>{
-		//if there is an experiment running, create data layer vars
-		/*if(expId){
-				window.dataLayer.push({
-				     'experimentId': expId,
-				     'variationId': '0',
-				     'expId': expId,
-				     'expVar': 0
-				  })
-		}*/
-	},[]
-	)
 	return (
-	<>
-		<Helmet>
-		  <meta charSet="utf-8" />
-		  <title>{
-			  (data.contentfulSingleProgramLandingPage.metaTitle)?
-			  	data.contentfulSingleProgramLandingPage.metaTitle:
-			  	data.contentfulSingleProgramLandingPage.heroArea.headline.replace(/(<([/fp]+)>)/ig,"")
-			  	}
-			</title>
-		  <meta name="robots" content="noindex, nofollow"/>
-		  <script src="https://www.googleoptimize.com/optimize.js?id=GTM-TRVW6KX"></script>
-		</Helmet>
-		<Layout
-		{...data.contentfulSingleProgramLandingPage}
-		programs={data.allContentfulProgramInfo}
-		location={location}
-		/>
-    </>
+		<>
+			<Helmet>
+			  <meta charSet="utf-8" />
+			  <title>{
+				  (data.contentfulSingleProgramLandingPage.metaTitle)?
+				  	data.contentfulSingleProgramLandingPage.metaTitle:
+				  	data.contentfulSingleProgramLandingPage.heroArea.headline.replace(/(<([/fp]+)>)/ig,"")
+				  	}
+				</title>
+			  <meta name="robots" content="noindex, nofollow"/>
+			</Helmet>
+			<Layout
+			{...data.contentfulSingleProgramLandingPage}
+			programs={data.allContentfulProgramInfo}
+			location={location}
+			/>
+	    </>
 
   )
 }
