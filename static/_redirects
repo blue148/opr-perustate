@@ -1,2 +1,2 @@
+/apply target=:target	https://online.peru.edu/apply-now:target
 /	https://online.peru.edu
-/apply*	https://online.peru.edu/apply-now:splat
