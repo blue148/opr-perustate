@@ -1,5 +1,0 @@
-[[redirects]]
-  from = "/apply/*"
-  to = "https://online.peru.edu/:splat"
-  status = 200
-  force = true
