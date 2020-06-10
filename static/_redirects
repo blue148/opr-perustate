@@ -1,2 +1,2 @@
 /	https://online.peru.edu
-/apply/*	https://online.peru.edu/:splat
+/apply/*	https://online.peru.edu/apply-now/:splat
