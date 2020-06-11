@@ -1,11 +1,10 @@
-/go utm_source=:utm_source https://viewdo.video/vb-edu-4-peru?test=1&utm_source=:utmsource 301
+/go utm_source=:utm_source	https://viewdo.video/vb-edu-4-peru?test=1&utm_source=:utmsource	301
 
-/go https://viewdo.video/vb-edu-4-peru
+/go	https://viewdo.video/vb-edu-4-peru	301
 
-/ https://online.peru.edu
+/ https://online.peru.edu	301
 
 #/go eid=:eid utm_source=:utm_source utm_medium=:utm_medium utm_campaign=:utm_campaign utm_adgroup=:utm_adgroup network=:network placement=:placement adgroup_id=:adgroup_id agencytrackingcode=:agencytrackingcode	https://viewdo.video/vb-edu-4-peru/:splat?eid=:eid&utm_source=:utm_source&utm_medium=:utm_medium&utm_campaign=:utm_campaign&utm_adgroup=:utm_adgroup&network=:network&placement=:placement&adgroup_id=:adgroup_id&agencytrackingcode=:agencytrackingcode 301!
-
 
 
 #eid=b&utm_source=paidsocial&utm_medium=facebook&utm_campaign=ampaign.name&utm_adgroup=adset.name&network=site_source_name&placement=placement&adgroup_id=id&agencytrackingcode=v1-
