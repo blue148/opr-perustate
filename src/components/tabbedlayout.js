@@ -1,5 +1,6 @@
 import React from "react"
 
+import {ApplyNowButton} from './uiElements'
 import Header from "./header/header"
 import Hero from "./heroArea"
 import MainArea from "./mainArea"
@@ -15,9 +16,7 @@ import update from 'immutability-helper'
 import styled, {ThemeProvider} from "styled-components"
 import "./tabbedlayout.scss"
 import Icons from "../images/symbol-defs.svg"
-import ScrollIntoView from 'react-scroll-into-view';
-import {ApplyNowButton} from './uiElements'
-
+import ScrollIntoView from 'react-scroll-into-view'
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
 
 const Page = styled.div`
@@ -31,15 +30,16 @@ const ContentArea = styled.section`
 `
 const MobileBottomBar = styled.nav`
 	width:100%;
-	background:#006699;
+	background:black;
 	position:fixed;
-	bottom:0px;
+	bottom:-300px;
 	height:65px;
 	display:grid;
 	grid-template-columns: 1fr 1fr;
 	align-items:center;
 	justify-items:center;
 	z-index:30000;
+	transition:bottom .5s;
 	&>div{
 	    width: 100%;
 	    text-align: center;
@@ -53,18 +53,27 @@ const MobileBottomBar = styled.nav`
 	@media(min-width:768px){
 		display:none;
 		}
+	&.expose{
+		bottom:0px;
 `
 export default class Layout extends React.Component{
 	constructor(props){
 		super(props)
 		
-		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:'',formSelect:'',location:''}
+		this.state = {activeTab:'', 
+			activePanel:'',
+			activeSubTab:'', 
+			activeSubPanel:'',
+			formSelect:'',
+			location:'',
+			callout:false,
+			mobileInView:false}
 	}
 	
 	
 	componentDidMount(){
 		this.setState({location:window.location},()=>this.drillDown(this.state.location));
-		
+		this.setState({callout:(this.props.callout)?this.props.callout.content.display:false});
 		//if(this.props.location.search){			
 		//}
 		
@@ -125,7 +134,14 @@ export default class Layout extends React.Component{
 		
 	}
 	
-	
+	handleMobileScrollState = (mobileInView)=>{
+		const updatedState = update(
+			this.state,{
+				'mobileInView':{$set:(mobileInView)?mobileInView:false}
+			}
+		)
+		this.setState(updatedState)
+	}
 	
 	handleParentState=(e,tab,subtab,props)=>{
 		//console.log(props,' on parent change')
@@ -144,21 +160,31 @@ export default class Layout extends React.Component{
 	  return (
 		<ThemeProvider theme={theme}>
 			<Icons/>
-			<Header {...this.props.tabbedContent} location={this.state.location} onStateChange={this.handleStateChange} state={this.state}/>
-		    <Page className="pageContainer">   
-			    
-				<Main className="mainContainer">
-
-					<ContentArea className="contentArea">
-						<Hero {...this.props.heroArea}
-						location={this.state.location} />
-						{(this.props.callout && this.props.callout.content.display)?(
-							<Callout
+			
+			<Header 
+				{...this.props.tabbedContent} 
+				className={(!this.state.mobileInView)?'shiftTop':null}
+				location={this.state.location} 
+				onStateChange={this.handleStateChange} 
+				state={this.state}
+				children={(this.state.callout)?(
+								<Callout
 								{...this.props.callout.content}
 								/>
 							)
 							:null
 						}
+			/>
+		    <Page className={[(!this.state.mobileInView)?'shiftTop':null,"pageContainer"].join(' ')}>   
+			    
+				<Main className="mainContainer">
+
+					<ContentArea className="contentArea">
+					    <Hero {...this.props.heroArea}
+							location={this.state.location} 
+							onMobileScroll = {this.handleMobileScrollState}
+							/>
+						
 						
 						<MainArea {...this.props.mainContentSection} />
 						<TabbedArea 
@@ -181,7 +207,7 @@ export default class Layout extends React.Component{
 						isSingle={false}/>
 					<Footer/>
 				</Main>
-				<MobileBottomBar>
+				<MobileBottomBar className={(!this.state.mobileInView)?'expose':null}>
 					<ScrollIntoView selector="#leadform" className="buttonContainer" alignToTop={true}>
 						<button className="button action" type="button">Learn More</button>
 					</ScrollIntoView>
