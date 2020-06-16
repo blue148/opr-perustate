@@ -4,20 +4,29 @@ import Icon from '../../images/icons'
 import {Button} from '../uiElements'
 import './hero.scss';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
+
 
 const HeroBox = styled.section`
-	@media (min-width:768px){
 		background-image:${props=> `url(${props.backgroundImage})`};
+		background-position:center top;
+	    background-repeat: no-repeat;
+		background-size:auto 100%;
 		&::before{
 			content:'';
 			top:0;
 			bottom:0;
 			left:0;
 			right:0;
-			background-color:rgba(0,0,0,.65);
+			background-color:rgba(50,59,74,.75);
 			position:absolute;
 			z-index:1;
 		}
+	@media (min-width:768px){
+		background-position: left top;
+	    background-size: cover;
+
 	}
 `
 const HeroHeadline = styled.h1`
@@ -34,9 +43,11 @@ const StyledButton = styled(Button)`
 	width:80%;
 	width:75vw;
 	margin:0 auto;
-		@media (min-width:768px){
-			display:none;
-		}
+	z-index: 3;
+    border-radius: 5px;
+	@media (min-width:768px){
+		display:none;
+	}
 
 `
 //need to pull the icon by name
@@ -51,7 +62,8 @@ const Items = (props) =>{
 			 return(
 				<ItemStack key={index} className="iconStack">
 					<div className="iconBox">
-						<Icon name={props[item].content.icon} fill="#000"/>
+						<Icon name={props[item].content.icon} fill="#000" className="desktopIcon"/>
+						<FontAwesomeIcon icon={faCheck} className="mobileIcon"/>
 					</div>
 					<p dangerouslySetInnerHTML={{__html:text.replace(/(<([/fp]+)>)/ig,"")}}/>
 				</ItemStack>

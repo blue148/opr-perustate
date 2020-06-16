@@ -6,7 +6,7 @@ require('dotenv').config({
 const contentfulConfig = {
   spaceId: process.env.CONTENTFUL_SPACE_ID,
 	accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-	environment: 'master'
+	environment: 'heroimagetest'
 }
 if(process.env.CONTENTFUL_PREVIEW_TOKEN){
 	contentfulConfig.host='preview.contentful.com';

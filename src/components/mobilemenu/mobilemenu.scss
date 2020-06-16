@@ -20,6 +20,7 @@
 	z-index: 999;
 	width:80%;
 	max-width:300px;
+	background: $brandblue;
 	@media (min-width:768px){
 		position: relative;
 		left: auto;
@@ -43,12 +44,11 @@
 		margin: 0;
 		padding: 0;
 		/* Hide shadow w/ -8px while 'closed' */
-		-webkit-box-shadow: -8px 0 8px rgba(0,0,0,.5);
+		/*-webkit-box-shadow: -8px 0 8px rgba(0,0,0,.5);
 		 -moz-box-shadow: -8px 0 8px rgba(0,0,0,.5);
-		      box-shadow: -8px 0 8px rgba(0,0,0,.5);
+		      box-shadow: -8px 0 8px rgba(0,0,0,.5);*/
 		min-height: 100%;
 		width: 100%;
-		background: #1a1a1a;
 		@media (min-width:768px){
 
 		    
@@ -69,14 +69,15 @@
 			}
 		}
 		a,button{
-			padding: .75em 15px;
+			padding: .75em 0;
 			line-height: 1em;
-			font-size: 1em;
+			font-size: 1.1em;
+			font-weight:600;
 			color: #fff;
 			text-decoration: none;
 			text-align:left;
 			border:none;
-			border-bottom: 1px solid #383838;
+			//border-bottom: 1px solid #383838;
 			
 			display:inline-block;
 			background:transparent;
@@ -98,7 +99,7 @@
 		}
 		li{
 			&:first-child{
-				border-top: 1px solid #383838;		
+				//border-top: 1px solid #383838;		
 				
 			}
 			&.buttonArea{
@@ -108,7 +109,7 @@
 			&.menu-back{
 				display:grid;
 				grid-template-columns: 17px 1fr;
-				border-bottom: 1px solid #383838;
+				//border-bottom: 1px solid #383838;
 				a,button{
 					border:none;
 					display:inline;
@@ -125,9 +126,9 @@
 			&.top-level{
 				&> div{
 					display:grid;
-					grid-template-columns: 1fr 35px;
+					grid-template-columns: 1fr 11px;
 					grid-auto-flow: column;
-					border-bottom: 1px solid #383838;
+					//border-bottom: 1px solid #383838;
 					a,button{
 						border:none;
 						background:transparent;
@@ -155,16 +156,22 @@
 	  -moz-box-shadow: 3px 0 12px rgba(0,0,0,.25);
 	  -webkit-box-shadow: 3px 0 12px rgba(0,0,0,.25);
 	  box-shadow: 3px 0 12px rgba(0,0,0,.25);
+	  padding: 1rem 1.5rem;
 	  .menu-close{
 		z-index: 1001; 
 		width: 20px;
 		display: block;
 		height: 28px;
-		font-size: 25px;
+		font-size: 20px;
 	  }
 	  ul{
 		 // position: relative;
 		  z-index:1000;
+		  li{
+			  ul{
+				  background-color:$brandblue;
+			  }
+		  }
 	  }
 	  & + .backdrop{
 		  position: absolute;

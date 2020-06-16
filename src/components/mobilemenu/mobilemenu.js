@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import slugify from 'slugify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faTimesCircle, faChevronRight, faChevronLeft,  faBars} from '@fortawesome/free-solid-svg-icons'
+import {faTimes, faChevronRight, faChevronLeft,  faBars} from '@fortawesome/free-solid-svg-icons'
 import {ApplyNowButton} from '../uiElements'
 import './mobilemenu.scss'
 
@@ -208,7 +208,7 @@ export default class MobileMenu extends React.Component{
 						onClick={(e)=>this.handleMenuToggle(e)}
 						aria-label="Close main menu">
 						<span className="sr-only">Close</span>
-						<FontAwesomeIcon icon={faTimesCircle} inverse/>
+						<FontAwesomeIcon icon={faTimes} inverse/>
 					</CloseButton>
 					
 					

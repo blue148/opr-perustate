@@ -5,13 +5,8 @@
 	grid-template: auto 1fr/1fr;
 	justify-items:center;
 	color:white;
-	background-image: none;
-	background:$brandmediumblue;
-	background: -moz-linear-gradient(78deg, $brandmediumblue -2%, $brandblue 50%, $brandmediumblue 91%);
-	background: -webkit-linear-gradient(78deg, $brandmediumblue -2%,  $brandblue 50%, $brandmediumblue 91%);
-	background: linear-gradient(78deg,$brandmediumblue -2%, $brandblue 50%, $brandmediumblue 91%);
 	margin: 0 -1rem 0;
-	padding: 1rem;
+	padding: 2rem 3rem;
 	position:relative;
 	@media (min-width:1024px){
 		padding:1.5rem 0;
@@ -29,8 +24,9 @@
 		}
 	}
 	h1{
-		font-size: 9.5vw;
+		font-size: 12vw;
 		line-height:1.1;
+		text-align:left;
 		color:white;
 		z-index:2;
 		text-shadow:rgba(0,0,0,.5) -3px 3px 10px;
@@ -39,6 +35,7 @@
 			line-height: 1.2;
 			margin: 0 auto 1.5rem;
 			width: 100%;
+			text-align:center;
 			}
 	}
 	h2{
@@ -83,10 +80,8 @@
 	grid-auto-flow:row;
 	justify-items:start;
 	justify-content:start;
-	width:90%;
-	margin: 0 auto;
-    padding: 2rem 0;
-    grid-row-gap: 2rem;
+    padding: 1rem 0;
+    grid-row-gap: 0;
 	@media (min-width:1024px){
 		 grid-template-columns:repeat(3, 33%);
 		 grid-template-rows:1fr;
@@ -101,43 +96,64 @@
 	}
 	.iconStack{
 		display:grid;
-		grid-template-columns:60px 1fr;
-		grid-column-gap:1.2rem;
+		grid-template-columns:.9rem 1fr;
 		justify-items:start;
 		align-items:center;
 		max-width:none;
 		width:100%;
-		margin: 0 auto 1rem;
+		margin: 0 auto .5rem;
 		padding:0;
 		z-index:2;
+		grid-column-gap: .3rem;
 		.iconBox{
 			grid-column:1/2;
 			grid-row:1;
-			width:60px;
-			height:60px;
-			box-shadow: rgba(0,0,0,.5) -3px 3px 10px;
-			@media (min-width:1024px){
-				grid-column: 1;
-				grid-row: 1/2;
-			}
-			background-color:white;
-			border-radius:50%;
+			width:.9rem;
+			height:.9rem;
+			background-color:transparent;
 			align-content:center;
 			justify-content:center;
 			display:grid;
 			grid-template:1fr/1fr;
+			@media (min-width:1024px){
+				grid-column: 1;
+				grid-row: 1/2;
+				box-shadow: rgba(0,0,0,.5) -3px 3px 10px;
+				width:40px;
+				height: 40px;
+				background:white;
+				border-radius: 50%;
+				margin-bottom:.5rem;
+			}
 			svg{
-				width:75%;
-				height:75%;
+				width:100%;
+				height:100%;
 				align-self:center;
 				justify-self:center;
 				grid-column:1;
 				grid-row:1;
+				@media(min-width:768px){
+					width:75%;
+					height:75%;
+				}
+				&.icon{
+					display:none;
+					@media(min-width:768px){
+						display:block;
+					}
+				}
+				&.mobileIcon{
+					display:block;
+					@media(min-width:768px){
+						display:none;
+					}
+				}
+				
 			}
 		}
 		p{
 			color:white;
-			font-size:1.43rem;
+			font-size:.9rem;
 			line-height:1.2;
 			font-weight: 800;
 			grid-column:2/3;
@@ -150,10 +166,12 @@
 			@media (min-width:1024px){
 				 text-align:center;
 				 justify-self:center;
+				 align-self:start;
 				 line-height: 1.2;
 				 grid-column: 1;
 				 grid-row: 2/3;
 				 max-width: 75%;
+				 font-size:1.1rem;
 	
 			}
 		}

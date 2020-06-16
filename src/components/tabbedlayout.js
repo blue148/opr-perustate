@@ -15,7 +15,8 @@ import update from 'immutability-helper'
 import styled, {ThemeProvider} from "styled-components"
 import "./tabbedlayout.scss"
 import Icons from "../images/symbol-defs.svg"
-import ScrollIntoView from 'react-scroll-into-view'
+import ScrollIntoView from 'react-scroll-into-view';
+import {ApplyNowButton} from './uiElements'
 
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
 
@@ -30,7 +31,7 @@ const ContentArea = styled.section`
 `
 const MobileBottomBar = styled.nav`
 	width:100%;
-	background:black;
+	background:#006699;
 	position:fixed;
 	bottom:0px;
 	height:65px;
@@ -182,10 +183,10 @@ export default class Layout extends React.Component{
 				</Main>
 				<MobileBottomBar>
 					<ScrollIntoView selector="#leadform" className="buttonContainer" alignToTop={true}>
-						<button className="button action" type="button">Request Info</button>
+						<button className="button action" type="button">Learn More</button>
 					</ScrollIntoView>
 					<div  className="buttonContainer">
-						<a className="button tertiary" href={"tel:"+this.props.phonenumber}>Call Us</a>
+						<ApplyNowButton className="header-item" location={this.props.location}/>
 					</div>
 				</MobileBottomBar>
 		    </Page>
