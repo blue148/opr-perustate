@@ -269,7 +269,9 @@
 			
 		}
 		.nestedContentPanel{
-			display:none;
+			//display:none;
+			height:0;
+			overflow-y:hidden;
 			.accordion-trigger{
 				grid-template-columns: 1fr;
 				border-bottom-width: 1px;
@@ -349,6 +351,7 @@
 				display:block;
 				border: solid 2px $lightgray;
 				padding: 0;
+				height:auto;
 				.contentTarget{
 					display:none;
 				}

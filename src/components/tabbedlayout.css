@@ -217,14 +217,9 @@ section section > section {
 }
 
 header {
-  height: 96px;
   display: grid;
   grid-template: auto/1fr;
   transition: top 0.3s;
-}
-
-header.shiftTop {
-  top: -35px;
 }
 
 @media (min-width: 1024px) {
@@ -264,18 +259,4 @@ header .callout .desktop-shim h3 {
 
 header .callout .desktop-shim h3 a {
   color: #00aeef;
-}
-
-.pageContainer {
-  top: 95px;
-}
-
-.pageContainer.shiftTop {
-  top: 60px;
-}
-
-@media (min-width: 1024px) {
-  .pageContainer.shiftTop {
-    top: 95px;
-  }
 }

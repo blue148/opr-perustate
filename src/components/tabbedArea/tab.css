@@ -305,7 +305,8 @@
     margin: 1rem 0 2rem;
   }
   .contentPanel .nestedContentPanel {
-    display: none;
+    height: 0;
+    overflow-y: hidden;
   }
   .contentPanel .nestedContentPanel .accordion-trigger {
     grid-template-columns: 1fr;
@@ -369,6 +370,7 @@
     display: block;
     border: solid 2px #cccccc;
     padding: 0;
+    height: auto;
   }
   .contentPanel.selected .nestedContentPanel .contentTarget {
     display: none;

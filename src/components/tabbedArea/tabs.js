@@ -70,8 +70,10 @@ const TabsPanel = (props)=>{
 			<li 
 				className={[tab, activeClass].join(' ')}
 				key={index} 
+				id={tabState+"__anchor"}
 				>
 				<a 
+					
 					href={"#"+tabState} 
 					onClick={(e)=>
 							handleClick(e,

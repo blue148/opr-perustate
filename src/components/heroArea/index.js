@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import Icon from '../../images/icons'
 import {Button} from '../uiElements'
+import { InView } from 'react-intersection-observer'
 import './hero.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -45,6 +46,8 @@ const StyledButton = styled(Button)`
 	margin:0 auto;
 	z-index: 3;
     border-radius: 5px;
+    z-index:3;
+    position:relative;
 	@media (min-width:768px){
 		display:none;
 	}
@@ -97,7 +100,9 @@ export default class HeroArea extends React.Component{
 		                (this.props.items)?(<Items {...this.props.items}/>):null
 		            }
 	
-					<StyledButton label="Request Info" theme="primary" jumplink="leadform" className="hero-button"/>
+					<InView onChange={(inView, entry) => this.props.onMobileScroll(inView)}>
+						<StyledButton label="Request Info" theme="primary" jumplink="leadform" className="hero-button"/>
+					</InView>				
 				</div>
               </HeroBox>
 			

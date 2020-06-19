@@ -30,7 +30,7 @@ const ContentArea = styled.section`
 `
 const MobileBottomBar = styled.nav`
 	width:100%;
-	background:black;
+	background:#006699;
 	position:fixed;
 	bottom:-300px;
 	height:65px;
@@ -135,6 +135,7 @@ export default class Layout extends React.Component{
 	}
 	
 	handleMobileScrollState = (mobileInView)=>{
+		
 		const updatedState = update(
 			this.state,{
 				'mobileInView':{$set:(mobileInView)?mobileInView:false}
@@ -162,14 +163,15 @@ export default class Layout extends React.Component{
 			<Icons/>
 			
 			<Header 
-				{...this.props.tabbedContent} 
+				{...this.props.tabbedContent}
+				phone={this.props.formSettings.phone} 
 				className={(!this.state.mobileInView)?'shiftTop':null}
 				location={this.state.location} 
 				onStateChange={this.handleStateChange} 
 				state={this.state}
 				children={(this.state.callout)?(
 								<Callout
-								{...this.props.callout.content}
+									{...this.props.callout.content}
 								/>
 							)
 							:null

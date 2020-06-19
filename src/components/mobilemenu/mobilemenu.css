@@ -35,7 +35,7 @@
   }
 }
 
-.main-menu .button#apply-now {
+.main-menu .button {
   display: block;
   width: 80%;
   margin: 0 auto;
@@ -114,14 +114,39 @@
   }
 }
 
+.main-menu ul a.call-button {
+  color: #002856;
+}
+
+.main-menu ul a.call-button > * {
+  display: inline-block;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+
+.main-menu ul a.call-button span {
+  color: white;
+}
+
+.main-menu ul a.call-button svg {
+  background: #00aeef;
+  border-radius: 50%;
+  padding: 6px;
+  width: 1.8rem;
+  height: 1.8rem;
+  margin-left: .5rem;
+}
+
 .main-menu ul li.buttonArea {
   text-align: center;
   margin: 1rem auto;
+  position: absolute;
+  bottom: 0;
 }
 
 .main-menu ul li.menu-back {
   display: grid;
-  grid-template-columns: 17px 1fr;
+  grid-template-columns: 18px 1fr;
 }
 
 .main-menu ul li.menu-back a, .main-menu ul li.menu-back button {
@@ -133,7 +158,6 @@
 .main-menu ul li.menu-back span {
   color: white;
   align-self: center;
-  margin-left: 5px;
 }
 
 .main-menu ul li.top-level > div {

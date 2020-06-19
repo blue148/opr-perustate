@@ -1,7 +1,7 @@
 import React from "react"
 import MobileMenu from '../mobilemenu/mobilemenu'
 import Logo from "../../images/peru-logo-online-final.svg"
-import {ApplyNowButton} from '../uiElements'
+import {ApplyNowButton,CallButton} from '../uiElements'
 import './header.scss'
 
  
@@ -15,6 +15,7 @@ export default class Header extends React.Component{
 				    </div>
 				    <nav className="buttonContainer">
 					    <ApplyNowButton className="header-item" location={this.props.location}/>
+					    <CallButton label='' phone={this.props.phone}/>
 						<MobileMenu {...this.props}/>
 					</nav>
 					

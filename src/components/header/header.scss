@@ -44,14 +44,19 @@ header{
 		margin: 0 auto;
 		align-items:center;
 		height:100%;
+		width:100%;
 
 		.logobox{
 			width:160px;
 		}
 		.buttonContainer{
 			justify-self:end;
-			padding-right:1rem;
 			margin-right:1rem;
+			padding-right: 0;
+			display: grid;
+			grid-template: 1fr/auto;
+			align-content: start;
+			grid-column-gap: .5rem;
 				@media (max-width: 1024px) {
 					.buttonField{
 						display:none;
@@ -67,6 +72,25 @@ header{
 						min-width: auto;
 						font-size: 1rem;
 					}
+				}
+			}
+			&>.call-button{
+				width: 35px;
+				height: 35px;
+				display: block;
+				color: white;
+				font-size: 1.75rem;
+				line-height: 1.4;
+				margin-right: .2rem;
+				@media(min-width:768px){
+					display:none;
+				}
+				svg{
+					width: auto;
+					height: 69%;
+				}
+				span{
+					display: none;
 				}
 			}
 		}

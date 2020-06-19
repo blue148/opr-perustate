@@ -179,12 +179,10 @@ section{
 }
 
 header {
-    height: 96px;
     display: grid;
     grid-template: auto/1fr;
     transition:top .3s;
     &.shiftTop{
-	    top:-35px;
 	    @media(min-width:1024px){
 		    top:0;
 	    }
@@ -218,14 +216,4 @@ header {
 	    }
 	    
 	}
-}
-.pageContainer{
-	top:95px;
-	&.shiftTop{
-	    top:60px;
-	    @media(min-width:1024px){
-		    top:95px;
-	    }
-    }
-	
 }

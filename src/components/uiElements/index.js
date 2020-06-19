@@ -1,6 +1,8 @@
 import React from "react"
 import styled from "styled-components"
 import ScrollIntoView from 'react-scroll-into-view'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPhone } from '@fortawesome/free-solid-svg-icons'
 import './ui.scss';
 
 const ButtonLink = styled.a`
@@ -62,5 +64,21 @@ export class ApplyNowButton extends Button{
 		)
 		}
 }
+
+export class CallButton extends Button{
+	render(){
+		return(
+			<ButtonLink
+				className={["call-button","secondary",this.props.className].join(' ')} 
+				href={["tel:",this.props.phone].join('')}
+				>
+					<span>{this.props.label||"Call Us"}</span>
+					<FontAwesomeIcon icon={faPhone} className="phoneIcon"/>
+					
+			</ButtonLink>
+		)
+	}
+}
+
 
 

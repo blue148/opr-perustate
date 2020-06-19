@@ -3,7 +3,8 @@ import styled from "styled-components"
 import slugify from 'slugify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faTimes, faChevronRight, faChevronLeft,  faBars} from '@fortawesome/free-solid-svg-icons'
-import {ApplyNowButton} from '../uiElements'
+import {ApplyNowButton,CallButton} from '../uiElements'
+import ScrollIntoView from 'react-scroll-into-view'
 import './mobilemenu.scss'
 
 const CloseButton = styled.a`
@@ -32,9 +33,8 @@ const MenuContainer = styled.div`
 	}
 `
 const Hamburger = styled.a`
-	padding: .75em 15px;
-	line-height: 1em;
-	font-size: 1em;
+	padding: 0;
+	align-self: start;
 	color: #333;
 	&:hover, &:focus{
 		color:#c00;
@@ -57,27 +57,31 @@ const ListItem = (props) =>{
 	if(!title)return false;
 	
 	//BUILD CHILD LIST IF PROGRAMS ARE PRESENT
-	const childList =  (programs)?
-			
+	const childList =  (programs)?			
 			Object.keys(programs).map((item,index)=>{
 				const subtitle = programs[item].tabname||programs[item].pageName;///Check for deprecated tabName
 				const parent = slugify(title,{remove: /[*+~.()'"!:@]/g,lower:true});///slugify the parent pageName
-				const chainId=slugify([title,subtitle].join('__'),{remove: /[*+~.()'"!:@]/g,lower:true});///create the nested ID. Format is [parent]__[pagename]
-				
+				//Deprecate. We have a program page slug property to use instead const chainId=slugify([title,subtitle].join('__'),{remove: /[*+~.()'"!:@]/g,lower:true});///create the nested ID. Format is [parent]__[pagename]
+				const target = parent+"__"+programs[item].pageSlug;
+
 				return(
-					<li key={index} className={chainId}>		
+				<ScrollIntoView selector={"#"+target+"__anchor"} alignToTop={true} key={index}>	
+					<li className={target}   >
+							
 						 	<button
 						 		onClick={(e)=>{
 							 		e.preventDefault();
-							 		props.handleSlide(e,parent,chainId)
+							 		props.handleSlide(e,parent,target)
 							 		props.onMenuToggle(e)								
 								}}
 						 		>
 						 		{subtitle}
 						 	</button>
+						
 						 	
 					
-						</li>)		
+						</li>
+					</ScrollIntoView>)		
 			}):null;
 	//RETURN FULL LIST WITH NESTED CHILDREN IF BUILT
 	const slug = slugify(title,{remove: /[*+~.()'"!:@]/g, lower:true});
@@ -180,7 +184,7 @@ export default class MobileMenu extends React.Component{
 	}
 	
 	render(){
-		
+
 		return(		
 			<>	
 				<Hamburger 
@@ -222,6 +226,7 @@ export default class MobileMenu extends React.Component{
 						
 						<li className="buttonArea">
 						    <ApplyNowButton className="mobile-only" location={this.props.location}/>
+						    <CallButton label='Call Us' phone={this.props.phone}/>
 						</li>
 					</MenuList>
 					
