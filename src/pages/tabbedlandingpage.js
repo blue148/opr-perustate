@@ -1,16 +1,37 @@
 import React, {useEffect} from "react"
 import { graphql } from "gatsby"
 import {Helmet} from "react-helmet"
+import ApolloClient from 'apollo-boost';
+import gql from 'graphql-tag'
+import {ApolloProvider } from '@apollo/react-hooks'
 //import queryString from 'query-string'
 
 import Layout from "../components/tabbedlayout"
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`
+})
+
+const crmConfig = {
+	midpoint:process.env.GATSBY_AE_ENDPOINT,
+	endpoint:process.env.GATSBY_CRM_ENDPOINT,
+	apiKey:process.env.GATSBY_AE_KEY
+  
+}
+const { midpoint, endpoint, apiKey} = crmConfig;
+
+///GraphQL Query/Mutation
+const gqlClient = new ApolloClient({
+	uri: midpoint,
+	headers: {'x-api-key':apiKey}
+})
+
 
 
 export default ({data, location}) => {
 //parse pararmeters for cofingruation. console.log(queryString.parse(location.search),' master')
 //add META field to CMS: Title,
 	return (
-		<>
+		<ApolloProvider client={gqlClient}>
 			<Helmet>
 				<script>{`
 					`}
@@ -28,7 +49,7 @@ export default ({data, location}) => {
 		    location={location}
 		    />
 	
-	    </>
+	    </ApolloProvider>
 
   )
 }

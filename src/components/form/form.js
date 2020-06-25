@@ -1,4 +1,7 @@
 import React from "react"
+import ApolloClient from 'apollo-boost';
+import gql from 'graphql-tag'
+import { useMutation, ApolloProvider } from '@apollo/react-hooks'
 import styled from "styled-components"
 import {
 	InputLabel,
@@ -26,14 +29,28 @@ require('dotenv').config({
 
 const crmConfig = {
 	midpoint:process.env.GATSBY_AE_ENDPOINT,
-	endpoint:process.env.GATSBY_CRM_ENDPOINT
+	endpoint:process.env.GATSBY_CRM_ENDPOINT,
+	apiKey:process.env.GATSBY_AE_KEY
   
 }
-const { midpoint, endpoint } = crmConfig;
+const { midpoint, endpoint, apiKey} = crmConfig;
+
+///GraphQL Query/Mutation
+const gqlClient = new ApolloClient({
+	uri: midpoint,
+	headers: {'x-api-key':apiKey}
+})
+
+const leadFormSend = gql`
+  mutation leadformsend($leadInput: CreateLeadInput!) {
+	  createLead(lead: $leadInput)
+	}
+`
+
+
 
 ////Nove this to scss due to FOUC
-const StyledContainer = styled(Container)`
-	
+const StyledContainer = styled(Container)`	
 `
 const FormBox = styled.div`
 	padding: 0;
@@ -88,8 +105,8 @@ const Spacer = styled.span`
 		  margin-top:-85px;
 	  }
 `
-//pull these from GQL
-//need to add key and sort
+
+///Set up options 
 const programArray = (props)=>{
 	const sorted = props.sort(function(a, b){
 		  var x = a.node.pageSlug;
@@ -105,6 +122,7 @@ const programArray = (props)=>{
 				reference:props[index].node.pageSlug}		
 		))
 }
+
 const selectOptions =(props)=>{
 		
 	return Object.keys(props).map((item,index)=>{
@@ -156,6 +174,8 @@ const useStyles = makeStyles(theme => ({
 	
 	
 export default function FormPanel(props){
+	const [createLead, { data }] = useMutation(leadFormSend);
+	
 	
 	const {phone,headline, subheadline, redirect, redirectUrl, successMsg} = props;
 	//const {phone} = (props.formSettings.phone==null)?'(402) 902-3128':props.formSetting.phone;
@@ -204,260 +224,303 @@ export default function FormPanel(props){
 			searchVars[item[0]]=decodeURIComponent(item[1])
 		}
 	}
+	
+
+	
+	
+	
 	return(
-		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
-		      <CssBaseline />
-		      <Spacer id="leadform"/>
-		      <FormBox className={[classes.paper, 'formBox'].join(' ')}>
-		        <FormHeadline className={state.submitted?'hide':''}>
-		          {cleanHeadline||'Need More Information?'}
-		        </FormHeadline>
-		        
-		        {(cleanSubHeadline.replace(/(<([/br]+)>)/ig,""))?(
-			        <FormSubHeadline className={state.submitted?'hide':''}>
-			          {cleanSubHeadline}
-			        </FormSubHeadline>
-			        )
-			        :null
-			      }
-		        <div className={["successContainer",state.submitted?'':'hide'].join(' ')}
-		        	dangerouslySetInnerHTML={{__html:submitSuccess}}/> 
-				 <Formik
-			 		enableReinitialize={true}
-			 		initialValues={{ 
-				 		email: '', 
-				 		firstName: '',
-				 		lastName:'', 
-				 		phoneNumber: '', 
-				 		programCode:props.state.formSelect ,
-				 		programs:props.programs.edges,
-				 		request:false,
-				 		isSingle:props.isSingle||false
-				 		}}
-	                onSubmit={(values, { setSubmitting}) => {
-	                   //while sumbmitting and waiting for a repsonse, show spinner
-	                   //on response, if success, redirect to viewdo, else show thankyou message
-	                   setState({request:true})
-	                   if(values.request!==true)window.dataLayer.push({event:'Request Info Button Click'});
-	                   const headers = new Headers();
-					   headers.append('Content-Type', 'application/json');
-						const body = {
-						 "universityId": "102",
-						  "programCode": values.programCode,
-						  "firstName": values.firstName,
-						  "lastName": values.lastName,
-						  "secondaryLastName": "",
-						  "email": values.email,
-						  "phoneNumber": "",
-						  "cellNumber": values.phoneNumber,
-						  "countryCode": "US",
-						  "comments": "",
-						  "origin": "Website RFI",
-						  "source": searchVars.utm_source,
-						  "subSource": searchVars.utm_medium,
-						  "campaignName": searchVars.utm_campaign,
-						  "adGroupName": searchVars.utm_adgroup,
-						  "keyword": searchVars.utm_term,
-						  "matchType": searchVars.matchtype,
-						  "network": searchVars.network,
-						  "device": searchVars.device,
-						  "deviceModel": searchVars.devicemodel,
-						  "creative": searchVars.creative,
-						  "placement": searchVars.placement,
-						  "target": searchVars.target,
-						  "adPosition": searchVars.adposition,
-						  "feedItemId": searchVars.feeditemid,
-						  "agencyTrackingCode": searchVars.agencytrackingcode,
-						  "webUrl": props.location.origin+props.location.pathname,
-						  "ip": ""
-						};
-						
-						const viewDoData = [
-							"firstname="+encodeURIComponent(values.firstName),
-							"lastname="+encodeURIComponent(values.lastName),
-							"email="+encodeURIComponent(values.email),
-							"phone="+encodeURIComponent("+1"+values.phoneNumber.replace(/[^A-Z0-9]+/ig, "")),
-							"segment="+encodeURIComponent(values.programCode)
-						]
-						const init = {
-						  method: 'POST',
-						  headers,
-						  body:JSON.stringify(body)		  
-						};
-						///format View.DO url
-/*https://xapi.view.do/v1/experience/link/vb-edu-rfi-peru/org?useExisting=true&utm_source=online.peru.edu&utm_medium=referral&campaignKey=lp&*/
-						const redirectTarget = (redirect && redirectUrl)?redirectUrl+viewDoData.join('&'):null;
-						const url = midpoint+'?url='+encodeURIComponent(endpoint);
-						fetch(url, init)
-						.then((response) => {	
-							setSubmitting(false)
-							return response.json()
+			<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
+			      <CssBaseline />
+			      <Spacer id="leadform"/>
+			      <FormBox className={[classes.paper, 'formBox'].join(' ')}>
+			        <FormHeadline className={state.submitted?'hide':''}>
+			          {cleanHeadline||'Need More Information?'}
+			        </FormHeadline>
+			        
+			        {(cleanSubHeadline.replace(/(<([/br]+)>)/ig,""))?(
+				        <FormSubHeadline className={state.submitted?'hide':''}>
+				          {cleanSubHeadline}
+				        </FormSubHeadline>
+				        )
+				        :null
+				      }
+			        <div className={["successContainer",state.submitted?'':'hide'].join(' ')}
+			        	dangerouslySetInnerHTML={{__html:submitSuccess}}/> 
+					 <Formik
+				 		enableReinitialize={true}
+				 		initialValues={{ 
+					 		email: '', 
+					 		firstName: '',
+					 		lastName:'', 
+					 		phoneNumber: '', 
+					 		programCode:props.state.formSelect ,
+					 		programs:props.programs.edges,
+					 		request:false,
+					 		isSingle:props.isSingle||false
+					 		}}
+					 		
+		                onSubmit={(values, { setSubmitting}) => {
+			                
+			                
+		                   //while sumbmitting and waiting for a repsonse, show spinner
+		                   //on response, if success, redirect to viewdo, else show thankyou message
+		                   
+		                   
+		                   setState({request:true})
+		                   
+		                   //if(values.request!==true)window.dataLayer.push({event:'Request Info Button Click'});
+						   
+						   //add as variables to teh GraphQL mutation
+							const body = {
+									  captureUrl: 'http://www.Brant.info/',
+									  leadId: 'IzbRqqh9L2DP',
+									  email: 'Aurelio_Daniel@Kertzmann.co.uk',
+									  phoneNumber: '(662) 514-6736',
+									  phoneNumberCountry: 'US',
+									  firstName: 'Test',
+									  lastName: 'Test',
+									  partnerCode: 'PARISIAN_LLC-8EULoqfS1Y4x',
+									  collegeCode: 'AUER_UNIVERSITYSLoegaMRzVVR-F9oBRAaDaHh0',
+									  campusCode: 'DAMEONFURT-k3gyQ8vvHx7G',
+									  sourceCode: 'LINDGREN_BIZ-3kNYv8oYTSIQ',
+									  programCode: 'BOCRZ0OHWMRL-VELIT_CUMQUE_CUPIDITATE_DICTA_ATQUE_TOTAM_QUIBUSDAM_ET_-rHqzniwZXJoh',
+									  formType: 'Website_RFI',
+									  deviceType: 'TABLET',
+									  sourceTracking: {
+									    campaignId: '2871f8c8-60fb-434c-bd7e-f22cb247f842',
+									    campaignName: 'Business-focused mobile capacity',
+									    adGroupId: '3f5d3674-3760-4e16-bcdc-fcfc773b5eb9',
+									    keyword: 'Organic object-oriented capacity',
+									    keywordId: '07621e34-2343-491c-bf3a-bc95213e929a',
+									    matchType: 'EXACT',
+									    network: 'Zulauf LLC',
+									    creativeId: '5bc3a96e-2852-46d7-9cac-e94a60981fbb',
+									    placement: 'TOP',
+									    target: 'admissions',
+									    feedItemId: '352f63d2-689c-4e22-8b32-5d7ae0832b09',
+									    agencyTrackingCode: 'f3e354bd-08db-4193-8ec7-d6fa85c1d56c'
+									  }
+									}
+									/*{
+									"universityId": "102",
+									"programCode": values.programCode,
+									"firstName": values.firstName,
+									"lastName": values.lastName,
+									"secondaryLastName": "",
+									"email": values.email,
+									"phoneNumber": "",
+									"cellNumber": values.phoneNumber,
+									"countryCode": "US",
+									"comments": "",
+									"origin": "Website RFI",
+									"source": searchVars.utm_source,
+									"subSource": searchVars.utm_medium,
+									"campaignName": searchVars.utm_campaign,
+									"adGroupName": searchVars.utm_adgroup,
+									"keyword": searchVars.utm_term,
+									"matchType": searchVars.matchtype,
+									"network": searchVars.network,
+									"device": searchVars.device,
+									"deviceModel": searchVars.devicemodel,
+									"creative": searchVars.creative,
+									"placement": searchVars.placement,
+									"target": searchVars.target,
+									"adPosition": searchVars.adposition,
+									"feedItemId": searchVars.feeditemid,
+									"agencyTrackingCode": searchVars.agencytrackingcode,
+									"webUrl": props.location.origin+props.location.pathname,
+									"ip": ""
+								};*/
+							
+							
+							///build viewdo redirect 
+							const viewDoData = [
+								"firstname="+encodeURIComponent(values.firstName),
+								"lastname="+encodeURIComponent(values.lastName),
+								"email="+encodeURIComponent(values.email),
+								"phone="+encodeURIComponent("+1"+values.phoneNumber.replace(/[^A-Z0-9]+/ig, "")),
+								"segment="+encodeURIComponent(values.programCode)
+							]
+
+							createLead({ variables: {leadInput:body} }).then((response)=>{
+								setSubmitting(false);
+								//put redirect on creatlead:true
+								console.log(response);
 							})
-						.then((json) => {
-							if(json.Success){
+							 
+							///format View.DO url
+							/**xapi.view.do/v1/experience/link/vb-edu-rfi-peru/org?
+							useExisting=true&utm_source=online.peru.edu&utm_medium=referral&campaignKey=lp&**/
+							
+							const redirectTarget = (redirect && redirectUrl)?redirectUrl+viewDoData.join('&'):null;
+							
+							
+							//Success function
+							/*
+								if(json.Success){
+									(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})								
+								}
+							*/
 								
-								(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})								
-							}
 							
-						})
-						.catch((e) => {
-						  console.log(e.message)
-						});
-	                }}
-	
-	                validationSchema={Yup.object().shape({
-	                  email: Yup.string()
-	                    .email()
-	                    .required('Required'),
-	                  firstName: Yup.string()
-	                    .required('Required'),
-	                  lastName: Yup.string()
-	                    .required('Required'),
-	                  phoneNumber: Yup.string()
-	                    .required('Required'),
-	                  programCode: Yup.string()
-	                    .required('Required')
-	                })}
-	              >
-	                {(props) => {
-	                  const {
-	                    values,
-	                    touched,
-	                    errors,
-	                    isSubmitting,
-	                    handleChange,
-	                    handleBlur,
-	                    handleSubmit,
-	                  } = props;
-	                 return(
-						<>
-							<div className={["form_overlay",isSubmitting===true?'':'hide'].join(' ')}>
-				                <CircularProgress variant='indeterminate' thickness={5}/>
-				                <h4>Sending Request</h4>
-							</div>
-							
-		                    <form onSubmit={handleSubmit} className={[classes.form, state.submitted?'hide':''].join(' ')}>
-		                    
-		                    	<Grid container spacing={0}>
-									<Grid item xs={12}> 
-							            <FormControl fullWidth className={[classes.selectControl,' selectControl', values.isSingle?"single-program":""].join(' ')}>
-							            	<InputLabel ref={inputLabel} id="programs-label" variant="outlined">
-									         Select a Program
-									        </InputLabel>
-									        <Select
-									          labelId="programs-label"
-									          id="programs"
-									          name="programCode"
-									          variant='outlined' 
-									          margin='dense'
-									          value={values.programCode}
-									          onChange={handleChange}
-									          className={classes.select}
-									          style={{whiteSpace: 'normal'}}
-									          error={errors.programCode && touched.programCode && <FormHelperText>'Please choose a program of interest'</FormHelperText>}
-									        >
-										        <MenuItem value=''>Please Select a Program</MenuItem>
-										        {selectOptions(programArray(values.programs))}
-									        </Select>
-									    </FormControl>
-						            </Grid>
-						            <Grid item xs={12} >
-										<TextField
-										label="First Name"
-										name="firstName"
-										id="firstName"
-										className={[classes.textfield,'textfield'].join(' ')}
-										value={values.firstName}
-										onChange={handleChange}
-										onBlur={handleBlur}
-										error={errors.firstName && touched.firstName}
-										helperText={(errors.firstName && touched.firstName) && errors.firstName  && 'Your first name is required'}
-										variant="outlined"
-										fullWidth
-										margin='dense'
-										/>
-									</Grid>
-									 <Grid item xs={12} >
-										<TextField
-										label="Last Name"
-										name="lastName"
-										id="lastName"
-										className={[classes.textfield, 'textfield'].join(' ')}
-										value={values.lastName}
-										onChange={handleChange}
-										onBlur={handleBlur}
-										error={errors.lastName && touched.lastName}
-										helperText={(errors.lastName && touched.lastName) && errors.lastName && 'Your last name is required'}
-										variant="outlined"
-										fullWidth
-										margin='dense'
-										/>
-									</Grid>	
-									<Grid item xs={12}>
-										<TextField
-										variant="outlined"
-										error={errors.email && touched.email}
-										helperText={(errors.email && touched.email) && errors.email && 'Please provide a valid email address'}
-										fullWidth
-										id="email"
-										label="Email Address"
-										name="email"
-										autoComplete="email"
-										margin='dense'
-										className={classes.textfield}
-										onChange={handleChange}
-										onBlur={handleBlur}
-										/>
-									</Grid>
-									<Grid item xs={12}>
-	
-										<MaterialUiPhoneNumber
-											disableCountryCode
-											disableDropdown
-											defaultCountry="us"
-											regions={"america"}
+//-->call the GraphQL mutation key with the const body variables 
+							;
+		                }}
+		
+		                validationSchema={Yup.object().shape({
+		                  email: Yup.string()
+		                    .email()
+		                    .required('Required'),
+		                  firstName: Yup.string()
+		                    .required('Required'),
+		                  lastName: Yup.string()
+		                    .required('Required'),
+		                  phoneNumber: Yup.string()
+		                    .required('Required'),
+		                  programCode: Yup.string()
+		                    .required('Required')
+		                })}
+		              >
+		                {(props) => {
+		                  const {
+		                    values,
+		                    touched,
+		                    errors,
+		                    isSubmitting,
+		                    handleChange,
+		                    handleBlur,
+		                    handleSubmit,
+		                  } = props;
+		                 return(
+							<>
+								<div className={["form_overlay",isSubmitting===true?'':'hide'].join(' ')}>
+					                <CircularProgress variant='indeterminate' thickness={5}/>
+					                <h4>Sending Request</h4>
+								</div>
+								
+			                    <form onSubmit={handleSubmit} className={[classes.form, state.submitted?'hide':''].join(' ')}>
+			                    
+			                    	<Grid container spacing={0}>
+										<Grid item xs={12}> 
+								            <FormControl fullWidth className={[classes.selectControl,' selectControl', values.isSingle?"single-program":""].join(' ')}>
+								            	<InputLabel ref={inputLabel} id="programs-label" variant="outlined">
+										         Select a Program
+										        </InputLabel>
+										        <Select
+										          labelId="programs-label"
+										          id="programs"
+										          name="programCode"
+										          variant='outlined' 
+										          margin='dense'
+										          value={values.programCode}
+										          onChange={handleChange}
+										          className={classes.select}
+										          style={{whiteSpace: 'normal'}}
+										          error={errors.programCode && touched.programCode && <FormHelperText>'Please choose a program of interest'</FormHelperText>}
+										        >
+											        <MenuItem value=''>Please Select a Program</MenuItem>
+											        {selectOptions(programArray(values.programs))}
+										        </Select>
+										    </FormControl>
+							            </Grid>
+							            <Grid item xs={12} >
+											<TextField
+											label="First Name"
+											name="firstName"
+											id="firstName"
+											className={[classes.textfield,'textfield'].join(' ')}
+											value={values.firstName}
+											onChange={handleChange}
+											onBlur={handleBlur}
+											error={errors.firstName && touched.firstName}
+											helperText={(errors.firstName && touched.firstName) && errors.firstName  && 'Your first name is required'}
 											variant="outlined"
 											fullWidth
-											id="phoneNumber"
-											label="Phone"
-											name="phoneNumber"
+											margin='dense'
+											/>
+										</Grid>
+										 <Grid item xs={12} >
+											<TextField
+											label="Last Name"
+											name="lastName"
+											id="lastName"
+											className={[classes.textfield, 'textfield'].join(' ')}
+											value={values.lastName}
+											onChange={handleChange}
+											onBlur={handleBlur}
+											error={errors.lastName && touched.lastName}
+											helperText={(errors.lastName && touched.lastName) && errors.lastName && 'Your last name is required'}
+											variant="outlined"
+											fullWidth
+											margin='dense'
+											/>
+										</Grid>	
+										<Grid item xs={12}>
+											<TextField
+											variant="outlined"
+											error={errors.email && touched.email}
+											helperText={(errors.email && touched.email) && errors.email && 'Please provide a valid email address'}
+											fullWidth
+											id="email"
+											label="Email Address"
+											name="email"
+											autoComplete="email"
 											margin='dense'
 											className={classes.textfield}
-											onChange={handleChange('phoneNumber')}
+											onChange={handleChange}
 											onBlur={handleBlur}
-											error={errors.phoneNumber && touched.phoneNumber}
-											helperText={(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber && 'Your phone number is required'}
-										/>
-	
+											/>
+										</Grid>
+										<Grid item xs={12}>
+		
+											<MaterialUiPhoneNumber
+												disableCountryCode
+												disableDropdown
+												defaultCountry="us"
+												regions={"america"}
+												variant="outlined"
+												fullWidth
+												id="phoneNumber"
+												label="Phone"
+												name="phoneNumber"
+												margin='dense'
+												className={classes.textfield}
+												onChange={handleChange('phoneNumber')}
+												onBlur={handleBlur}
+												error={errors.phoneNumber && touched.phoneNumber}
+												helperText={(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber && 'Your phone number is required'}
+											/>
+		
+										</Grid>
 									</Grid>
-								</Grid>
-								<Grid container justify="flex-end">
-									<Grid item xs={12}>
-										<Button
-											type="submit"
-											fullWidth
-											variant="contained"
-											color="primary"
-											className={classes.submit+' button primary'}
-										
-										>
-											Send Request
-										</Button>
-										<CTASection >
-											or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>
-											<span className="desktop-only">{phone}</span>
-										</CTASection>
-										<CTPAText>
-											<p>By submitting this form, I am providing my digital signature agreeing that Peru State College may email me or contact me regarding educational services by telephone and/or text message utilizing automated technology at the telephone number(s) provided above. I understand this consent is not a condition to attend Peru State College or to purchase any other goods or services.</p>
-										</CTPAText>
+									<Grid container justify="flex-end">
+										<Grid item xs={12}>
+											<Button
+												type="submit"
+												fullWidth
+												variant="contained"
+												color="primary"
+												className={classes.submit+' button primary'}
+											
+											>
+												Send Request
+											</Button>
+											<CTASection >
+												or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>
+												<span className="desktop-only">{phone}</span>
+											</CTASection>
+											<CTPAText>
+												<p>By submitting this form, I am providing my digital signature agreeing that Peru State College may email me or contact me regarding educational services by telephone and/or text message utilizing automated technology at the telephone number(s) provided above. I understand this consent is not a condition to attend Peru State College or to purchase any other goods or services.</p>
+											</CTPAText>
+										</Grid>
 									</Grid>
-								</Grid>
-		                    </form>
-	                    </>
-	                  );
-	                }}
-		        </Formik>
-		      </FormBox>
-		    </StyledContainer>
+			                    </form>
+		                    </>
+		                  );
+		                }}
+			        </Formik>
+			      </FormBox>
+			    </StyledContainer>
 		)
 	}
