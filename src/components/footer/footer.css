@@ -10,6 +10,9 @@
   justify-items: center;
   padding: 1rem 1rem;
   height: calc(100% + 200px);
+  background-color: #003478;
+  color: #00aeef;
+  order: 25;
 }
 
 @media (min-width: 1024px) {
@@ -40,4 +43,36 @@
     grid-column: 1/2;
     justify-items: start;
   }
+}
+
+.footer .logoBox {
+  width: 150px;
+}
+
+.footer .linkBox {
+  grid-column: 1;
+  grid-row: 2/3;
+}
+
+@media (min-width: 768px) {
+  .footer .linkBox {
+    grid-column: 2/3;
+    grid-row: 1;
+  }
+}
+
+.footer .linkBox p {
+  font-size: .7rem;
+  margin-bottom: .3rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .footer .linkBox p {
+    text-align: left;
+  }
+}
+
+.footer .linkBox p a {
+  color: white;
 }

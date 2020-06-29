@@ -4,32 +4,13 @@ import './awards.scss';
 
 
 const ContentBox = styled.section`
-	display:grid;
-	padding:3rem 0;
-	margin:0 0 0 -.5rem;
-	background-color:white;
+	
 `
 const Headline = styled.h3`
-	margin:0 auto 2rem;
+	
 `
 const ItemsBox = styled.section`
-	display:grid;
-	grid-template-rows: 1fr;
-	justify-items:center;
-	justify-content:center;
-	grid-gap:2rem;
-	margin:0 auto;
-	padding:0;
-	width:100%;
-
-	@media (min-width:768px){
-	    padding: 0;
-	    width: 100%;
-	    grid-template-columns:repeat(auto-fit,minmax(130px, 30%));
-	    grid-auto-flow: column;
-	    grid-auto-columns: 130px;
-	    justify-content: center;
-	}
+	
 `
 const ItemStack = styled.div`
 	display:grid;
@@ -80,7 +61,7 @@ const ItemStack = styled.div`
 `
 //need to pull the icon by name
 const Items = (props) =>(
-	<ItemsBox className="iconGrid">
+	<section className="iconGrid">
 		 {Object.keys(props).map((item, index)=>{
 			 //check if there is a tagline
 			 const text = () =>{
@@ -92,16 +73,17 @@ const Items = (props) =>(
 			}
 			 return(
 //TODO: Run a check if the icon is an img from the library or an icon name. 			 
-			<ItemStack key={index}>
+			<div key={index}>
 				<div className="iconBox">
 					<img src={props[item].content.image.fields.file.en_US.url} alt="award" />
 				</div>
 				{text()}
-			</ItemStack>
+			</div>
 			)}
 		)}
-	</ItemsBox>
-	)
+	</section>
+)
+
 export default class Awards extends React.Component{
 	
 	render(){
@@ -111,12 +93,12 @@ export default class Awards extends React.Component{
 		
 
 		return(
-			<ContentBox className="awards-area">
+			<section className="awards-area">
 				<div className="desktop-shim">
-                <Headline dangerouslySetInnerHTML={{__html:cleanHeadline}}/>
-				<Items {...items}/>
+	                <h3 dangerouslySetInnerHTML={{__html:cleanHeadline}}/>
+					<Items {...items}/>
 				</div>
-              </ContentBox>
+            </section>
 			
 		)
 	}
