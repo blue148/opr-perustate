@@ -1,8 +1,10 @@
 import React from "react"
 import Icon from '../../images/icons'
-import {useMediaQuery} from '../hooks';
+//import {useMediaQuery} from '../hooks';
 import {Button} from '../uiElements'
 import './hero.scss';
+import {isMobile} from 'react-device-detect'
+
 
 
 //need to pull the icon by name
@@ -28,12 +30,11 @@ const Items = (props) =>{
 }
 
 export default function HeroArea(props){
-		const desktop = useMediaQuery('(min-width:768px)');
 
 		const {image, headline, subHeadline, itemsType} = props
 		const imgBg = (image)?image.fields.file.en_US.url:'';
 		
-		const backgroundImageProps = desktop?{backgroundImage:'url('+imgBg+')'}:null
+		const backgroundImageProps = (isMobile)?null:{backgroundImage:'url('+imgBg+')'};
 		
 		//remove and p and f tags to clean up the code then add nbsp in the last space for text wrapping.
 		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';

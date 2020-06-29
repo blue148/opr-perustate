@@ -10,7 +10,7 @@
   background: #003478;
   background: -moz-linear-gradient(78deg, #003478 -2%, #006699 50%, #003478 91%);
   background: -webkit-linear-gradient(78deg, #003478 -2%, #006699 50%, #003478 91%);
-  background: linear-gradient(78deg, #003478 -2%, #006699 50%, #003478 91%);
+  background-image: linear-gradient(78deg, #003478 -2%, #006699 50%, #003478 91%);
   margin: 0 -1rem 0;
   padding: 1rem;
   position: relative;

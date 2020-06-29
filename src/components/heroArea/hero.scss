@@ -10,7 +10,7 @@
 	background:$brandmediumblue;
 	background: -moz-linear-gradient(78deg, $brandmediumblue -2%, $brandblue 50%, $brandmediumblue 91%);
 	background: -webkit-linear-gradient(78deg, $brandmediumblue -2%,  $brandblue 50%, $brandmediumblue 91%);
-	background: linear-gradient(78deg,$brandmediumblue -2%, $brandblue 50%, $brandmediumblue 91%);
+	background-image: linear-gradient(78deg,$brandmediumblue -2%, $brandblue 50%, $brandmediumblue 91%);
 	margin: 0 -1rem 0;
 	padding: 1rem;
 	position:relative;
