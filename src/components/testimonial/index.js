@@ -4,51 +4,13 @@ import './testimonial.scss'
 
 
 const ContentBox = styled.section`
-	color:white;
-	background-color:${props=>props.theme.mediumgray};
-	margin: 0 -1rem;
 `
-const Content = styled.div`
-	color:white;
-	font-size:1.6rem;
-	p, blockquote{
-		
-		}
-	blockquote{
-		text-align:center;
-		line-height:1.3;
-		font-size:1.5rem;
-		border-bottom:solid 1px ${props=>props.theme.lightgray};
-		padding-bottom:1.8rem;
-		font-weight:400;
-		margin:0;
-		@media (min-width:768px){
-			padding-bottom:0;
-			border-bottom:none;
-			margin-bottom:1rem;
-		}
-	}
-	p{
-		text-align:center;
-		line-height:1.3;
-		margin-top:1rem;
-		span{
-			font-size:1.2rem;
-			font-weight:600;
-		}
-	}
-`
-const ImageBox = styled.div`
-	overflow:hidden;
-	width:275px;
-	height:275px;
-	margin:1rem auto;
-	border-radius:50%;
-	img{
-		width: 100%;
-	    height: auto;
-    }
-`
+const Content = (props)=>{
+	return <div className={props.className} dangerouslySetInnerHTML={{__html:props.content}}/>
+}
+const ImageBox = (props)=>(
+	<div className={props.className}>{props.children}</div>
+)
 
 export default class Testimonial extends React.Component{
 	
@@ -58,10 +20,10 @@ export default class Testimonial extends React.Component{
 		return(
 			<ContentBox className="testimonialarea">
 				<div className="desktop-shim">
-					<ImageBox>
+					<ImageBox className="testimonialarea-image-box">
 						<img src={imgBg} alt="testimonial"/>
 					</ImageBox>
-	                <Content dangerouslySetInnerHTML={{__html:content}}/>
+	                <Content className="testimonialarea-content" content={content}/>
 				</div>
 			</ContentBox>
 			

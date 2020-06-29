@@ -8,6 +8,25 @@
 	margin: 0 -1rem 0;
 	padding: 1rem 3rem;
 	position:relative;
+	
+	background-position:center top;
+    background-repeat: no-repeat;
+	background-size:auto 100%;
+	&::before{
+		content:'';
+		top:0;
+		bottom:0;
+		left:0;
+		right:0;
+		background-color:rgba(50,59,74,.75);
+		position:absolute;
+		z-index:1;
+	}
+	@media (min-width:768px){
+		background-position: left top;
+	    background-size: cover;
+
+	}
 	@media (min-width:1024px){
 		padding:1.5rem 0;
 		margin-bottom:0;	
@@ -185,7 +204,15 @@
 	}
 }
 .hero-button{
-	width: 75vw;
+	padding: 1rem 0;
+	width:80%;
+	margin:0 auto;
+    border-radius: 5px;
+    z-index:3;
+    position:relative;
+	@media (min-width:768px){
+		display:none;
+	}
 	@media (min-width:1024px){
 		width:auto;
 		display:none;

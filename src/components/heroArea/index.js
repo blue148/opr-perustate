@@ -10,25 +10,6 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 
 const HeroBox = styled.section`
-		background-image:${props=> `url(${props.backgroundImage})`};
-		background-position:center top;
-	    background-repeat: no-repeat;
-		background-size:auto 100%;
-		&::before{
-			content:'';
-			top:0;
-			bottom:0;
-			left:0;
-			right:0;
-			background-color:rgba(50,59,74,.75);
-			position:absolute;
-			z-index:1;
-		}
-	@media (min-width:768px){
-		background-position: left top;
-	    background-size: cover;
-
-	}
 `
 const HeroHeadline = styled.h1`
 	
@@ -40,17 +21,7 @@ const ItemStack = styled.div`
 	
 `
 const StyledButton = styled(Button)`
-	padding: 1rem 0;
-	width:80%;
-	width:75vw;
-	margin:0 auto;
-	z-index: 3;
-    border-radius: 5px;
-    z-index:3;
-    position:relative;
-	@media (min-width:768px){
-		display:none;
-	}
+	
 
 `
 //need to pull the icon by name
@@ -76,10 +47,13 @@ const Items = (props) =>{
 	)
 	}
 export default class HeroArea extends React.Component{
-	
-	render(){
+		render(){
 		const {image, headline, subHeadline, itemsType} = this.props
 		const imgBg = (image)?image.fields.file.en_US.url:'';
+		const backgroundImageProps = {
+			backgroundImage: 'url('+imgBg+')'
+		};
+
 		//remove and p and f tags to clean up the code then add nbsp in the last space for text wrapping.
 		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';
 		const subHeadlineCheck = (subHeadline==='<p><br></p>')?null:subHeadline;
@@ -87,7 +61,7 @@ export default class HeroArea extends React.Component{
 		const cleanBullets = (this.props.bullets)?this.props.bullets.replace(/(<([/f]+)>)/ig,""):null;
 
 		return(
-			<HeroBox key={this.props.index} backgroundImage={imgBg} className="HeroBox">
+			<HeroBox key={this.props.index} backgroundImage={imgBg} className="HeroBox" style={backgroundImageProps}>
 				<div className="desktop-shim">
 	                <HeroHeadline dangerouslySetInnerHTML={{__html:cleanHeadline}} className="HeroHeadline"/>
 	                {(cleanSubHead)?

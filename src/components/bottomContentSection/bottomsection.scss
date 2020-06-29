@@ -1,7 +1,25 @@
 @import '../_variables.scss';
 
 .bottomsection{
+	background-color:$lightgray;
+	margin:0 -1rem -1rem;
+	padding-bottom:3rem;
+	@media (min-width:768px){
+		background-color:$shade;
+		
+		}
 	@media (min-width:1024px){
 		@include section-shim;
+	}
+	h3{
+		
+	}
+	&_content{
+		margin:0 auto;
+		@media(min-width:768px){
+			width:95%;
+			max-width:850px;
+			text-align:center;
+		}
 	}
 }
