@@ -184,7 +184,7 @@ export default class MobileMenu extends React.Component{
 				<a
 					href="#"
 					className="backdrop"
-					tabindex="-1"
+					tabIndex="-1"
 					aria-hidden="true"
 					hidden
 					onClick={(e)=>this.handleMenuToggle(e)}
