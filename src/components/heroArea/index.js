@@ -4,7 +4,7 @@ import Icon from '../../images/icons'
 import {Button} from '../uiElements'
 import { InView } from 'react-intersection-observer'
 import './hero.scss';
-
+import PSC20Badge from '../../images/psc-20-in-20-badge-02.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
@@ -62,7 +62,10 @@ export default class HeroArea extends React.Component{
 
 		return(
 			<HeroBox key={this.props.index} backgroundImage={imgBg} className="HeroBox" style={backgroundImageProps}>
-				<div className="desktop-shim">
+				<div className="desktop-shim special-insert">
+					<div className="specialty-badge">
+						<PSC20Badge/>
+					</div>
 	                <HeroHeadline dangerouslySetInnerHTML={{__html:cleanHeadline}} className="HeroHeadline"/>
 	                {(cleanSubHead)?
 		                (<h2 dangerouslySetInnerHTML={{__html:cleanSubHead}} className="HeroSubHeadline"/>)
@@ -74,7 +77,7 @@ export default class HeroArea extends React.Component{
 		                (this.props.items)?(<Items {...this.props.items}/>):null
 		            }
 	
-					<InView onChange={(inView, entry) => this.props.onMobileScroll(inView)}>
+					<InView onChange={(inView, entry) => this.props.onMobileScroll(inView)} className="hero-button-area">
 						<StyledButton label="Request Info" theme="primary" jumplink="leadform" className="hero-button"/>
 					</InView>				
 				</div>
