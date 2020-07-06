@@ -4,6 +4,7 @@ import Icon from '../../images/icons'
 import {Button} from '../uiElements'
 import './hero.scss';
 import {isMobile} from 'react-device-detect'
+import PSC20Badge from '../../images/psc-20-in-20-badge-02.svg'
 
 
 
@@ -44,7 +45,10 @@ export default function HeroArea(props){
 
 		return(
 			<section key={props.index} className="HeroBox" style={backgroundImageProps}>
-				<div className="desktop-shim">
+				<div className="desktop-shim special-insert">
+					<div className="specialty-badge">
+						<PSC20Badge/>
+					</div>
 	                <h1 dangerouslySetInnerHTML={{__html:cleanHeadline}} className="HeroHeadline"/>
 	                {(cleanSubHead)?
 		                (<h2 dangerouslySetInnerHTML={{__html:cleanSubHead}} className="HeroSubHeadline"/>)
