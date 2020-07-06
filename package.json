@@ -52,7 +52,7 @@
     "react-responsive-tabs": "^3.3.0",
     "react-scripts": "^3.3.0",
     "react-scroll-into-view": "^1.7.0",
-    "sharp": "^0.24.0",
+    "sharp": "^0.25.4",
     "slugify": "^1.3.6",
     "styled-components": "^5.0.0",
     "yup": "^0.28.2"
@@ -62,7 +62,8 @@
     "contentful-import": "^7.4.3",
     "dotenv": "^8.2.0",
     "extract-text-webpack-plugin": "^3.0.2",
-    "gatsby": "^2.23.17",
+    "gatsby": "2.23.18",
+    "gatsby-cli": "2.12.54",
     "gh-pages": "^2.0.1",
     "inquirer": "^6.2.2",
     "less": "^3.11.1",
