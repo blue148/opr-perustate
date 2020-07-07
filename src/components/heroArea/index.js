@@ -36,7 +36,7 @@ export default function HeroArea(props){
 		const imgBg = (image)?image.fields.file.en_US.url:'';
 		
 		const backgroundImageProps = (!isMobile)?{backgroundImage:'url('+imgBg+')'}:null;
-		console.log(isMobile);
+		console.log(backgroundImageProps);
 		
 		//remove and p and f tags to clean up the code then add nbsp in the last space for text wrapping.
 		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';
