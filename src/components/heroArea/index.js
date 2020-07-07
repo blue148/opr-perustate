@@ -45,7 +45,7 @@ export default function HeroArea(props){
 		const cleanBullets = (props.bullets)?props.bullets.replace(/(<([/f]+)>)/ig,""):null;
 
 		return(
-			<section key={props.index} className="HeroBox" style={(!isMobile)?{backgroundImage:'url('+imgBg+')'}:null}>
+			<section key={props.index} className="HeroBox" style={backgroundImage:isMobile}>
 				<div className="desktop-shim special-insert">
 					<div className="specialty-badge">
 						<PSC20Badge/>
