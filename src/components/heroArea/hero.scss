@@ -34,6 +34,12 @@
 		}
 		@include section-shim;
 	}
+	@media(max-width:768px){
+		background: -moz-linear-gradient(78deg, $brandmediumblue -2%, $brandblue 50%, $brandmediumblue 91%);
+		background: -webkit-linear-gradient(78deg, $brandmediumblue -2%,  $brandblue 50%, $brandmediumblue 91%);
+		background-image: linear-gradient(78deg,$brandmediumblue -2%, $brandblue 50%, $brandmediumblue 91%)!important;
+
+	}
 	.desktop-shim{
 		display: grid;
 		grid-template: auto/1fr;
