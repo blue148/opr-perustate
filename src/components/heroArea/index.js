@@ -36,7 +36,7 @@ export default function HeroArea(props){
 		const imgBg = (image)?image.fields.file.en_US.url:'';
 		
 		const backgroundImageProps = (!isMobile)?{backgroundImage:'url('+imgBg+')'}:null;
-		console.log(backgroundImageProps);
+		
 		
 		//remove and p and f tags to clean up the code then add nbsp in the last space for text wrapping.
 		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';
@@ -45,7 +45,7 @@ export default function HeroArea(props){
 		const cleanBullets = (props.bullets)?props.bullets.replace(/(<([/f]+)>)/ig,""):null;
 
 		return(
-			<section key={props.index} className="HeroBox" style={backgroundImageProps}>
+			<section key={props.index} className="HeroBox" style={(!isMobile)?{backgroundImage:'url('+imgBg+')'}:null}>
 				<div className="desktop-shim special-insert">
 					<div className="specialty-badge">
 						<PSC20Badge/>
