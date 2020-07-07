@@ -35,7 +35,8 @@ export default function HeroArea(props){
 		const {image, headline, subHeadline, itemsType} = props
 		const imgBg = (image)?image.fields.file.en_US.url:'';
 		
-		const backgroundImageProps = (isMobile)?null:{backgroundImage:'url('+imgBg+')'};
+		const backgroundImageProps = (!isMobile)?{backgroundImage:'url('+imgBg+')'}:null;
+		console.log(isMobile);
 		
 		//remove and p and f tags to clean up the code then add nbsp in the last space for text wrapping.
 		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';
