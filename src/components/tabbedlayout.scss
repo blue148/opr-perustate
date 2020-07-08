@@ -165,7 +165,7 @@ section{
 
 	}
 	nav{
-		.mobileBottomBar{
+		&.mobileBottomBar{
 			width:100%;
 			background:black;
 			position:fixed;
@@ -176,13 +176,15 @@ section{
 			align-items:center;
 			justify-items:center;
 			z-index:30000;
+		    padding-left: 82px;
+			padding-right: 10px;
 			&>div{
 			    width: 100%;
 			    text-align: center;
 				.button{
 					font-size:1rem;
 					height:75%;
-					width:80%;
+					width:100%;
 					padding:.6rem;
 					}
 				}

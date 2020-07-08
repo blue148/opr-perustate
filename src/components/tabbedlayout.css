@@ -204,7 +204,7 @@ section section > section {
   }
 }
 
-.pageContainer nav .mobileBottomBar {
+.pageContainer nav.mobileBottomBar {
   width: 100%;
   background: black;
   position: fixed;
@@ -215,22 +215,24 @@ section section > section {
   align-items: center;
   justify-items: center;
   z-index: 30000;
+  padding-left: 82px;
+  padding-right: 10px;
 }
 
-.pageContainer nav .mobileBottomBar > div {
+.pageContainer nav.mobileBottomBar > div {
   width: 100%;
   text-align: center;
 }
 
-.pageContainer nav .mobileBottomBar > div .button {
+.pageContainer nav.mobileBottomBar > div .button {
   font-size: 1rem;
   height: 75%;
-  width: 80%;
+  width: 100%;
   padding: .6rem;
 }
 
 @media (min-width: 768px) {
-  .pageContainer nav .mobileBottomBar {
+  .pageContainer nav.mobileBottomBar {
     display: none;
   }
 }
