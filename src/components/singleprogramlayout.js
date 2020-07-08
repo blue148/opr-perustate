@@ -98,7 +98,7 @@ export default class Layout extends React.Component{
 		<ThemeProvider theme={theme}>
 			<Icons/>
 			<Header className="singleProgramPage" {...this.props.tabbedContent} location={this.state.location} onStateChange={this.handleStateChange} state={this.state}/>
-		    <Page className="pageContainer singleProgramPage">   
+		    <Page className="pageContainer singleProgram">   
 			    
 				<main>
 

@@ -134,67 +134,78 @@ section{
 	}
 }
 .pageContainer{
-	position:fixed;
-	overflow:scroll;
-	height:100vh;
-	top:60px;
-	.mainContainer{
-		overflow-y:visible;
-		display:grid;
-		grid-template:auto/1fr;
-		@media (min-width: 1024px) {
-			grid-template:1fr/auto;
-			padding-bottom:70px;
-		}
-		.contentArea{
-			margin:0;
-			padding: 0 1rem;	
-			@media (min-width:7678px){
-				margin:0px 0px 0px 2rem;
-				max-width:100%;
-			}
-			overflow:hidden;
-			grid-column:1;
-			margin-top:0;
-			padding-bottom:1rem;
-			@media (min-width: 1024px) {
-				grid-column:1/2;
-				grid-row:1;
-			}
-		}
-
-	}
-	nav{
-		&.mobileBottomBar{
-			width:100%;
-			background:black;
-			position:fixed;
-			bottom:0px;
-			height:65px;
+	&.tabbedLayout{
+		position:fixed;
+		overflow:scroll;
+		height:100vh;
+		top:60px;
+		.mainContainer{
+			overflow-y:visible;
 			display:grid;
-			grid-template-columns: 1fr 1fr;
-			align-items:center;
-			justify-items:center;
-			z-index:30000;
-		    padding-left: 82px;
-			padding-right: 10px;
-			&>div{
-			    width: 100%;
-			    text-align: center;
-			    padding: 0 5px;
-				.button{
-					font-size:1rem;
-					height:75%;
-					width:100%;
-					padding:.6rem;
+			grid-template:auto/1fr;
+			@media (min-width: 1024px) {
+				grid-template:1fr/auto;
+				padding-bottom:70px;
+			}
+			.contentArea{
+				margin:0;
+				padding: 0 1rem;	
+				@media (min-width:7678px){
+					margin:0px 0px 0px 2rem;
+					max-width:100%;
+				}
+				overflow:hidden;
+				grid-column:1;
+				margin-top:0;
+				padding-bottom:1rem;
+				@media (min-width: 1024px) {
+					grid-column:1/2;
+					grid-row:1;
+				}
+				.HeroBox{
+					.special-insert{
+						.iconGrid{
+							@media(min-width:768px){
+								grid-row:2;
+								grid-column:2;	
+							}
+						}
 					}
 				}
-			@media(min-width:768px){
-				display:none;
+			}
+	
+		}
+		nav{
+			&.mobileBottomBar{
+				width:100%;
+				background:black;
+				position:fixed;
+				bottom:0px;
+				height:65px;
+				display:grid;
+				grid-template-columns: 1fr 1fr;
+				align-items:center;
+				justify-items:center;
+				z-index:30000;
+			    padding-left: 82px;
+				padding-right: 10px;
+				&>div{
+				    width: 100%;
+				    text-align: center;
+				    padding: 0 5px;
+					.button{
+						font-size:1rem;
+						height:75%;
+						width:100%;
+						padding:.6rem;
+						}
+					}
+				@media(min-width:768px){
+					display:none;
+				}
 			}
 		}
 	}
-
 }
 
 /***SCREEN READER ONLY***/

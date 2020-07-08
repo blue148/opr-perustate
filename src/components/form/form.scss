@@ -115,6 +115,53 @@
 }
 .formBox{
 	position:relative;
+	padding: 0;
+
+	@media (min-width: 768px) {
+		width:355px;
+		height: 100%;
+		overflow-y: auto;
+	}
+	h2{
+		text-align:center;
+		margin:1rem auto 2rem;
+		line-height:1.4;
+		font-size:1.7rem;
+	}
+	.ctpaText{
+		margin-top:1rem;
+		p{
+			font-size:.6rem;
+			line-height:1rem;
+		}
+	}
+	.ctaSection{
+		text-align:center;
+		a{
+			font-size:1.6rem;
+			font-weight:600;
+			text-decoration:none;
+			color:$brandblue;
+		}
+		span{
+			font-size:1.3rem;
+			font-weight:600;
+			text-decoration:none;
+			color:$brandblue;
+		}
+	}
+	.spacer{
+		display: block; 
+		content: " "; 
+		margin-top: 0px; 
+		height: 0px; 
+		visibility: hidden; 
+		pointer-events: none;
+		@media (min-width:768px){
+		  height:85px;
+		  margin-top:-85px;
+		}
+	}
 }
 .form_overlay{
 	width:100%;

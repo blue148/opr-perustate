@@ -36,57 +36,21 @@ const StyledContainer = styled(Container)`
 	
 `
 const FormBox = styled.div`
-	padding: 0;
-
-	@media (min-width: 768px) {
-		width:355px;
-		height: 100%;
-		overflow-y: auto;
-		}
+	
 `
 
 const FormHeadline = styled.h2`
-	text-align:center;
-	margin:1rem auto 2rem;
-	line-height:1.4;
-	font-size:1.7rem;
 `
 const FormSubHeadline=styled.h3`
 
 `
 const CTPAText = styled.div`
-	margin-top:1rem;
-		p{
-			font-size:.6rem;
-			line-height:1rem;
-		}
 `
 const CTASection = styled.p`
-	text-align:center;
-	a{
-		font-size:1.6rem;
-		font-weight:600;
-		text-decoration:none;
-		color:${props=>props.theme.brandblue};
-	}
-	span{
-		font-size:1.3rem;
-		font-weight:600;
-		text-decoration:none;
-		color:${props=>props.theme.brandblue};
-	}
+	
 `
 const Spacer = styled.span`
- 	display: block; 
-	  content: " "; 
-	  margin-top: 0px; 
-	  height: 0px; 
-	  visibility: hidden; 
-	  pointer-events: none;
-	  @media (min-width:768px){
-		  height:85px;
-		  margin-top:-85px;
-	  }
+ 	
 `
 //pull these from GQL
 //need to add key and sort
@@ -207,7 +171,7 @@ export default function FormPanel(props){
 	return(
 		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
-		      <Spacer id="leadform"/>
+		      <Spacer className="spacer" id="leadform"/>
 		      <FormBox className={[classes.paper, 'formBox'].join(' ')}>
 		        <FormHeadline className={state.submitted?'hide':''}>
 		          {cleanHeadline||'Need More Information?'}
@@ -443,11 +407,11 @@ export default function FormPanel(props){
 										>
 											Send Request
 										</Button>
-										<CTASection >
+										<CTASection className="ctaSection">
 											or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>
 											<span className="desktop-only">{phone}</span>
 										</CTASection>
-										<CTPAText>
+										<CTPAText className="ctpaText">
 											<p>By submitting this form, I am providing my digital signature agreeing that Peru State College may email me or contact me regarding educational services by telephone and/or text message utilizing automated technology at the telephone number(s) provided above. I understand this consent is not a condition to attend Peru State College or to purchase any other goods or services.</p>
 										</CTPAText>
 									</Grid>

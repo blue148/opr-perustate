@@ -140,6 +140,65 @@
 
 .formBox {
   position: relative;
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .formBox {
+    width: 355px;
+    height: 100%;
+    overflow-y: auto;
+  }
+}
+
+.formBox h2 {
+  text-align: center;
+  margin: 1rem auto 2rem;
+  line-height: 1.4;
+  font-size: 1.7rem;
+}
+
+.formBox .ctpaText {
+  margin-top: 1rem;
+}
+
+.formBox .ctpaText p {
+  font-size: .6rem;
+  line-height: 1rem;
+}
+
+.formBox .ctaSection {
+  text-align: center;
+}
+
+.formBox .ctaSection a {
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #006699;
+}
+
+.formBox .ctaSection span {
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #006699;
+}
+
+.formBox .spacer {
+  display: block;
+  content: " ";
+  margin-top: 0px;
+  height: 0px;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .formBox .spacer {
+    height: 85px;
+    margin-top: -85px;
+  }
 }
 
 .form_overlay {

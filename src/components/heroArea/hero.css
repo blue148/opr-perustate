@@ -17,6 +17,9 @@
 }
 
 @media (min-width: 768px) {
+  .HeroBox {
+    max-width: none;
+  }
   .HeroBox::before {
     content: '';
     top: 0;
