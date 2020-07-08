@@ -190,7 +190,7 @@ section section > section {
   padding-bottom: 1rem;
 }
 
-@media (min-width: 7678px) {
+@media (min-width: 768px) {
   .pageContainer .mainContainer .contentArea {
     margin: 0px 0px 0px 2rem;
     max-width: 100%;

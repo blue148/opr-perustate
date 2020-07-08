@@ -73,7 +73,7 @@ header.singleProgramPage{
 			display:none;
 		}
 	}
-.singleProgramPage{
+.pageContainer{
 	position:fixed;
 	overflow:scroll;
 	height:100vh;
@@ -87,10 +87,10 @@ header.singleProgramPage{
 			padding-bottom:70px;
 		}
 	}
-	section{
+	.contentArea{
 		margin:0;
 		padding: 0 1rem;	
-		@media (min-width:7678px){
+		@media (min-width:768px){
 			margin:0px 0px 0px 2rem;
 			max-width:100%;
 		}

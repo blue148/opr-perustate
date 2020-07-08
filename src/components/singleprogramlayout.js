@@ -79,7 +79,15 @@ export default class Layout extends React.Component{
 	   this.setState(updatedState)
 		
 	}
-	
+	handleMobileScrollState = (mobileInView)=>{
+		
+		const updatedState = update(
+			this.state,{
+				'mobileInView':{$set:(mobileInView)?mobileInView:false}
+			}
+		)
+		this.setState(updatedState)
+	}
 	
 	
 	handleParentState=(props)=>{
@@ -99,15 +107,20 @@ export default class Layout extends React.Component{
 		<ThemeProvider theme={theme}>
 			<Icons/>
 			<Header className="singleProgramPage" {...this.props.tabbedContent} location={this.state.location} onStateChange={this.handleStateChange} state={this.state}/>
-		    <Page className="singleProgramPage">   
+		    <Page className="pageContainer">   
 			    
 				<Main>
 
-					<ContentArea>
-						<Hero {...this.props.heroArea} location={this.state.location}/>
+					<ContentArea className="contentArea">
+						<Hero 
+							{...this.props.heroArea} 
+							location={this.state.location} 
+							onMobileScroll = {this.handleMobileScrollState}
+						/>
 						{(this.props.callout && this.props.callout.content.display===true)?(
 							<Callout
 								{...this.props.callout.content}
+								
 								/>
 							)
 							:null
