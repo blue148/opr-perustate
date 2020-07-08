@@ -86,50 +86,7 @@ header.singleProgramPage .menu-toggle {
   display: none;
 }
 
-.singleProgramPage {
-  position: fixed;
-  overflow: scroll;
-  height: 100vh;
-  top: 60px;
-}
-
-.singleProgramPage main {
-  overflow-y: visible;
-  display: grid;
-  grid-template: auto/1fr;
-}
-
-@media (min-width: 768px) {
-  .singleProgramPage main {
-    grid-template: 1fr/auto;
-    padding-bottom: 70px;
-  }
-}
-
-.singleProgramPage section {
-  margin: 0;
-  padding: 0 1rem;
-  overflow: hidden;
-  grid-column: 1;
-  margin-top: 0;
-  padding-bottom: 1rem;
-}
-
-@media (min-width: 7678px) {
-  .singleProgramPage section {
-    margin: 0px 0px 0px 2rem;
-    max-width: 100%;
-  }
-}
-
-@media (min-width: 768px) {
-  .singleProgramPage section {
-    grid-column: 1/2;
-    grid-row: 1;
-  }
-}
-
-.singleProgramPage .button {
+.button {
   text-transform: uppercase;
   font-weight: 800;
   font-family: myriad-pro, "Open Sans", sans-serif;
@@ -143,52 +100,95 @@ header.singleProgramPage .menu-toggle {
   display: block;
 }
 
-.singleProgramPage .button.primary {
+.button.primary {
   background-color: #fec413;
   color: #002856;
 }
 
-.singleProgramPage .button.primary:hover {
+.button.primary:hover {
   background-color: #0e356f;
   color: white;
 }
 
-.singleProgramPage .button.secondary {
+.button.secondary {
   background-color: #00aeef;
   color: #002856;
 }
 
-.singleProgramPage .button.secondary:hover {
+.button.secondary:hover {
   background-color: #0e356f;
   color: white;
 }
 
-.singleProgramPage .button.tertiary {
+.button.tertiary {
   background-color: #002856;
   color: white;
 }
 
-.singleProgramPage .button.tertiary:hover {
+.button.tertiary:hover {
   background-color: #006699;
   color: white;
 }
 
-.singleProgramPage .button.action {
+.button.action {
   background-color: #fec413;
   color: #002856;
 }
 
-.singleProgramPage .button.action:hover {
+.button.action:hover {
   background-color: #0e356f;
   color: white;
 }
 
-.singleProgramPage .formPanel .button {
+.pageContainer {
+  position: fixed;
+  overflow: scroll;
+  height: 100vh;
+  top: 60px;
+}
+
+.pageContainer main {
+  overflow-y: visible;
+  display: grid;
+  grid-template: auto/1fr;
+}
+
+@media (min-width: 768px) {
+  .pageContainer main {
+    grid-template: 1fr/auto;
+    padding-bottom: 70px;
+  }
+}
+
+.pageContainer .formPanel .button {
   margin: 1.5rem 0 1rem;
   padding: 0;
 }
 
-.singleProgramPage nav.mobileBottomBar {
+.pageContainer .contentArea {
+  margin: 0;
+  padding: 0 1rem;
+  overflow: hidden;
+  grid-column: 1;
+  margin-top: 0;
+  padding-bottom: 1rem;
+}
+
+@media (min-width: 7678px) {
+  .pageContainer .contentArea {
+    margin: 0px 0px 0px 2rem;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pageContainer .contentArea {
+    grid-column: 1/2;
+    grid-row: 1;
+  }
+}
+
+.pageContainer nav.mobileBottomBar {
   width: 100%;
   background: black;
   position: fixed;
@@ -203,12 +203,13 @@ header.singleProgramPage .menu-toggle {
   padding-right: 10px;
 }
 
-.singleProgramPage nav.mobileBottomBar > div {
+.pageContainer nav.mobileBottomBar > div {
   width: 100%;
   text-align: center;
+  padding: 0 5px;
 }
 
-.singleProgramPage nav.mobileBottomBar > div .button {
+.pageContainer nav.mobileBottomBar > div .button {
   font-size: 1rem;
   height: 75%;
   width: 100%;
@@ -216,13 +217,24 @@ header.singleProgramPage .menu-toggle {
 }
 
 @media (min-width: 768px) {
-  .singleProgramPage nav.mobileBottomBar {
+  .pageContainer nav.mobileBottomBar {
     display: none;
   }
 }
 
 section {
-  padding: 3rem 1rem 3rem;
+  margin: 0;
+  grid-column: 1;
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  section {
+    grid-column: 1/2;
+    grid-row: 1;
+    margin: 0px 0px 0px 2rem;
+    max-width: 100%;
+  }
 }
 
 section section > section {

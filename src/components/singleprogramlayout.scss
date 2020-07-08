@@ -73,7 +73,55 @@ header.singleProgramPage{
 			display:none;
 		}
 	}
-.singleProgramPage{
+
+.button{
+	text-transform:uppercase;
+	font-weight:800;
+	   font-family: $sans-serif;
+	   font-size:1.3rem;
+	-webkit-transition:.5s;
+	transition:.5s;
+	border: none;
+    padding: .3rem .8rem;
+    margin:0 auto;
+    border-radius: 3px;
+    display: block;
+ 
+	
+	&.primary{
+		background-color:$actiongold;
+		color:$darkblue;
+		&:hover{
+			background-color:$secondaryblue;
+			color:white;
+		}
+	}
+	&.secondary{
+		background-color:$primaryblue;
+		color:$darkblue;
+		&:hover{
+			background-color:$secondaryblue;
+			color:white;
+		}
+	}
+	&.tertiary{
+		background-color:$darkblue;
+		color:white;
+		&:hover{
+			background-color:$brandblue;
+			color:white;
+		}
+	}
+	&.action{
+		background-color:$actiongold;
+		color:$darkblue;
+		&:hover{
+			background-color:$secondaryblue;
+			color:white;
+		}
+	}
+}
+.pageContainer{
 	position:fixed;
 	overflow:scroll;
 	height:100vh;
@@ -87,75 +135,29 @@ header.singleProgramPage{
 			padding-bottom:70px;
 		}
 	}
-	section{
-		margin:0;
-		padding: 0 1rem;	
-		@media (min-width:7678px){
-			margin:0px 0px 0px 2rem;
-			max-width:100%;
-		}
-		overflow:hidden;
-		grid-column:1;
-		margin-top:0;
-		padding-bottom:1rem;
-		@media (min-width: 768px) {
-			grid-column:1/2;
-			grid-row:1;
-		}
-	}
-	.button{
-		text-transform:uppercase;
-		font-weight:800;
-		   font-family: $sans-serif;
-		   font-size:1.3rem;
-		-webkit-transition:.5s;
-		transition:.5s;
-		border: none;
-	    padding: .3rem .8rem;
-	    margin:0 auto;
-	    border-radius: 3px;
-	    display: block;
-	 
-		
-		&.primary{
-			background-color:$actiongold;
-			color:$darkblue;
-			&:hover{
-				background-color:$secondaryblue;
-				color:white;
-			}
-		}
-		&.secondary{
-			background-color:$primaryblue;
-			color:$darkblue;
-			&:hover{
-				background-color:$secondaryblue;
-				color:white;
-			}
-		}
-		&.tertiary{
-			background-color:$darkblue;
-			color:white;
-			&:hover{
-				background-color:$brandblue;
-				color:white;
-			}
-		}
-		&.action{
-			background-color:$actiongold;
-			color:$darkblue;
-			&:hover{
-				background-color:$secondaryblue;
-				color:white;
-			}
-		}
-	}
+	
 	.formPanel{
 		.button{
 			margin:1.5rem 0 1rem;
 			padding:0;
 		}
 	}
+	.contentArea{
+			margin:0;
+			padding: 0 1rem;	
+			@media (min-width:7678px){
+				margin:0px 0px 0px 2rem;
+				max-width:100%;
+			}
+			overflow:hidden;
+			grid-column:1;
+			margin-top:0;
+			padding-bottom:1rem;
+			@media (min-width: 1024px) {
+				grid-column:1/2;
+				grid-row:1;
+			}
+		}
 	nav{
 		&.mobileBottomBar{
 			width:100%;
@@ -174,6 +176,7 @@ header.singleProgramPage{
 			&>div{
 			    width: 100%;
 			    text-align: center;
+			    padding: 0 5px;
 				.button{
 					font-size:1rem;
 					height:75%;
@@ -189,7 +192,16 @@ header.singleProgramPage{
 	}
 }
 section{
-	padding:3rem 1rem 3rem;
+	margin:0;
+	grid-column:1;
+	padding:0 1rem;
+	@media (min-width: 768px) {
+		grid-column:1/2;
+		grid-row:1;
+		margin:0px 0px 0px 2rem;
+		max-width:100%;
+	}
+
 	section > section{
 		padding:0;
 	}

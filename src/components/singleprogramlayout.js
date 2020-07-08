@@ -98,11 +98,11 @@ export default class Layout extends React.Component{
 		<ThemeProvider theme={theme}>
 			<Icons/>
 			<Header className="singleProgramPage" {...this.props.tabbedContent} location={this.state.location} onStateChange={this.handleStateChange} state={this.state}/>
-		    <Page className="singleProgramPage">   
+		    <Page className="pageContainer singleProgramPage">   
 			    
-				<Main>
+				<main>
 
-					<ContentArea>
+					<ContentArea className="contentArea">
 						<Hero {...this.props.heroArea} location={this.state.location}/>
 						{(this.props.callout && this.props.callout.content.display===true)?(
 							<Callout
@@ -127,7 +127,7 @@ export default class Layout extends React.Component{
 						location={this.state.location}
 						isSingle={true}/>
 					<Footer/>
-				</Main>
+				</main>
 				<nav className="mobileBottomBar">
 					<ScrollIntoView selector="#leadform" className="buttonContainer" alignToTop={true}>
 						<button className="button action" type="button">Request Info</button>
