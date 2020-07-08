@@ -152,7 +152,7 @@ export default class Layout extends React.Component{
 							:null
 						}
 			/>
-		    <Page className={[(!this.state.mobileInView)?'shiftTop':null,"pageContainer"].join(' ')}>   
+		    <Page className={[(!this.state.mobileInView)?'shiftTop':null,"pageContainer","tabbedlayout"].join(' ')}>   
 			    
 				<Main className="mainContainer">
 

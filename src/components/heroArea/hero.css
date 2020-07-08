@@ -74,9 +74,11 @@
 .HeroBox .desktop-shim.special-insert .specialty-badge {
   width: 112px;
   height: 112px;
-  grid-row: 2;
+  grid-row: 1;
+  grid-column: 1;
   z-index: 3;
   align-self: center;
+  justify-self: center;
 }
 
 @media (min-width: 768px) {
@@ -92,12 +94,24 @@
   height: 100%;
 }
 
-.HeroBox .desktop-shim.special-insert h1, .HeroBox .desktop-shim.special-insert .hero-button-area {
-  grid-column: 1/3;
+.HeroBox .desktop-shim.special-insert h1 {
+  grid-column: 2;
+  grid-row: 1;
 }
 
 @media (min-width: 768px) {
-  .HeroBox .desktop-shim.special-insert h1, .HeroBox .desktop-shim.special-insert .hero-button-area {
+  .HeroBox .desktop-shim.special-insert h1 {
+    grid-column: 2;
+  }
+}
+
+.HeroBox .desktop-shim.special-insert .hero-button-area {
+  grid-column: 1/3;
+  grid-row: 2;
+}
+
+@media (min-width: 768px) {
+  .HeroBox .desktop-shim.special-insert .hero-button-area {
     grid-column: 2;
   }
 }

@@ -161,27 +161,27 @@ section section > section {
   }
 }
 
-.pageContainer {
+.pageContainer.tabbedlayout {
   position: fixed;
   overflow: scroll;
   height: 100vh;
   top: 60px;
 }
 
-.pageContainer .mainContainer {
+.pageContainer.tabbedlayout .mainContainer {
   overflow-y: visible;
   display: grid;
   grid-template: auto/1fr;
 }
 
 @media (min-width: 1024px) {
-  .pageContainer .mainContainer {
+  .pageContainer.tabbedlayout .mainContainer {
     grid-template: 1fr/auto;
     padding-bottom: 70px;
   }
 }
 
-.pageContainer .mainContainer .contentArea {
+.pageContainer.tabbedlayout .mainContainer .contentArea {
   margin: 0;
   padding: 0 1rem;
   overflow: hidden;
@@ -191,20 +191,78 @@ section section > section {
 }
 
 @media (min-width: 768px) {
-  .pageContainer .mainContainer .contentArea {
-    margin: 0px 0px 0px 2rem;
+  .pageContainer.tabbedlayout .mainContainer .contentArea {
     max-width: 100%;
   }
 }
 
 @media (min-width: 1024px) {
-  .pageContainer .mainContainer .contentArea {
+  .pageContainer.tabbedlayout .mainContainer .contentArea {
     grid-column: 1/2;
     grid-row: 1;
   }
 }
 
-.pageContainer nav.mobileBottomBar {
+.pageContainer.tabbedlayout .mainContainer .contentArea .HeroBox {
+  padding: 4rem 0.5rem 1rem;
+}
+
+.pageContainer.tabbedlayout .mainContainer .contentArea .HeroBox .desktop-shim.special-insert {
+  grid-template: auto/min-content 1fr;
+}
+
+@media (min-width: 768px) {
+  .pageContainer.tabbedlayout .mainContainer .contentArea .HeroBox .desktop-shim.special-insert {
+    grid-template: auto/170px 1fr;
+  }
+}
+
+.pageContainer.tabbedlayout .mainContainer .contentArea .HeroBox .desktop-shim.special-insert .specialty-badge {
+  width: 112px;
+  height: 112px;
+  grid-row: 2;
+  grid-column: 1;
+  z-index: 3;
+  align-self: center;
+  justify-self: center;
+}
+
+@media (min-width: 768px) {
+  .pageContainer.tabbedlayout .mainContainer .contentArea .HeroBox .desktop-shim.special-insert .specialty-badge {
+    width: 170px;
+    height: 170px;
+    grid-row: 1/3;
+  }
+}
+
+.pageContainer.tabbedlayout .mainContainer .contentArea .HeroBox .desktop-shim.special-insert .specialty-badge svg {
+  width: 100%;
+  height: 100%;
+}
+
+.pageContainer.tabbedlayout .mainContainer .contentArea .HeroBox .desktop-shim.special-insert h1 {
+  grid-column: 1/3;
+  grid-row: 1;
+}
+
+@media (min-width: 768px) {
+  .pageContainer.tabbedlayout .mainContainer .contentArea .HeroBox .desktop-shim.special-insert h1 {
+    grid-column: 2;
+  }
+}
+
+.pageContainer.tabbedlayout .mainContainer .contentArea .HeroBox .desktop-shim.special-insert .hero-button-area {
+  grid-column: 1/3;
+  grid-row: 3;
+}
+
+@media (min-width: 768px) {
+  .pageContainer.tabbedlayout .mainContainer .contentArea .HeroBox .desktop-shim.special-insert .hero-button-area {
+    grid-column: 2;
+  }
+}
+
+.pageContainer.tabbedlayout nav.mobileBottomBar {
   width: 100%;
   background: #006699;
   position: fixed;
@@ -220,13 +278,13 @@ section section > section {
   padding-right: 10px;
 }
 
-.pageContainer nav.mobileBottomBar > div {
+.pageContainer.tabbedlayout nav.mobileBottomBar > div {
   width: 100%;
   text-align: center;
   padding: 0 5px;
 }
 
-.pageContainer nav.mobileBottomBar > div .button {
+.pageContainer.tabbedlayout nav.mobileBottomBar > div .button {
   font-size: 1rem;
   height: 75%;
   width: 100%;
@@ -234,12 +292,12 @@ section section > section {
 }
 
 @media (min-width: 768px) {
-  .pageContainer nav.mobileBottomBar {
+  .pageContainer.tabbedlayout nav.mobileBottomBar {
     display: none;
   }
 }
 
-.pageContainer nav.mobileBottomBar.expose {
+.pageContainer.tabbedlayout nav.mobileBottomBar.expose {
   bottom: 0px;
 }
 

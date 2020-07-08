@@ -73,7 +73,7 @@ header.singleProgramPage{
 			display:none;
 		}
 	}
-.pageContainer{
+.pageContainer.singleProgram{
 	position:fixed;
 	overflow:scroll;
 	height:100vh;
@@ -91,7 +91,7 @@ header.singleProgramPage{
 		margin:0;
 		padding: 0 1rem;	
 		@media (min-width:768px){
-			margin:0px 0px 0px 2rem;
+			//margin:0px 0px 0px 2rem;
 			max-width:100%;
 		}
 		overflow:hidden;
@@ -101,6 +101,9 @@ header.singleProgramPage{
 		@media (min-width: 768px) {
 			grid-column:1/2;
 			grid-row:1;
+		}
+		.HeroBox{
+			padding: 4rem 0 1rem;
 		}
 	}
 	.button{
