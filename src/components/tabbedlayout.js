@@ -29,32 +29,7 @@ const ContentArea = styled.section`
 	
 `
 const MobileBottomBar = styled.nav`
-	width:100%;
-	background:#006699;
-	position:fixed;
-	bottom:-300px;
-	height:65px;
-	display:grid;
-	grid-template-columns: 1fr 1fr;
-	align-items:center;
-	justify-items:center;
-	z-index:30000;
-	transition:bottom .5s;
-	&>div{
-	    width: 100%;
-	    text-align: center;
-		.button{
-			font-size:1rem;
-			height:75%;
-			width:80%;
-			padding:.6rem;
-			}
-		}
-	@media(min-width:768px){
-		display:none;
-		}
-	&.expose{
-		bottom:0px;
+	
 `
 export default class Layout extends React.Component{
 	constructor(props){
@@ -209,14 +184,14 @@ export default class Layout extends React.Component{
 						isSingle={false}/>
 					<Footer/>
 				</Main>
-				<MobileBottomBar className={(!this.state.mobileInView)?'expose':null}>
+				<nav className={['mobileBottomBar',(!this.state.mobileInView)?'expose':null].join(' ')}>
 					<ScrollIntoView selector="#leadform" className="buttonContainer" alignToTop={true}>
 						<button className="button action" type="button">Learn More</button>
 					</ScrollIntoView>
 					<div  className="buttonContainer">
 						<ApplyNowButton className="header-item" location={this.props.location}/>
 					</div>
-				</MobileBottomBar>
+				</nav>
 		    </Page>
 	    </ThemeProvider>
 	

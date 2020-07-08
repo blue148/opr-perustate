@@ -164,6 +164,40 @@ section{
 		}
 
 	}
+	nav{
+		&.mobileBottomBar{
+			width:100%;
+			background:#006699;
+			position:fixed;
+			bottom:-300px;
+			height:65px;
+			display:grid;
+			grid-template-columns: 1fr 1fr;
+			align-items:center;
+			justify-items:center;
+			z-index:30000;
+			transition:bottom .5s;
+			padding-left:82px;
+			padding-right:10px;
+			&>div{
+			    width: 100%;
+			    text-align: center;
+		        padding: 0 5px;
+				.button{
+					font-size:1rem;
+					height:75%;
+					width:100%;
+					padding:.6rem;
+					}
+				}
+			@media(min-width:768px){
+				display:none;
+				}
+			&.expose{
+				bottom:0px;		
+			}
+		}
+	}
 
 }
 /***SCREEN READER ONLY***/

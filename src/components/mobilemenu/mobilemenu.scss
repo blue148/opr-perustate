@@ -2,6 +2,22 @@
 
 .menu-toggle{
 	display: inline-block;
+	padding: 0;
+	align-self: start;
+	color: #333;
+	&:hover, &:focus{
+		color:#c00;
+	}
+	width:25px;
+	height:25px;
+	grid-column:2/3;
+	grid-row:1;
+	justify-self:end;
+	svg{
+		path{
+			fill:white;
+		}
+	}
 	@media (min-width:768px){
 		display:none;
 	}
@@ -207,5 +223,24 @@
 		  background: #000;
 		  background: rgba(0,0,0,.85);
 		  cursor: default;
+	  }
+	  .menuContainer{
+		  position:relative;
+			overflow:hidden;
+			min-height:100%;
+			ul{
+				position:absolute;
+				top:0;
+				bottom:0;
+				left:0;
+				right:0;
+				ul{
+					left:100%;
+					transition:.5s;
+					&.shown{
+						left:0;
+						}			
+				}
+			}
 	  }
 }

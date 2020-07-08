@@ -65,6 +65,7 @@ header .headerContainer .buttonContainer {
   grid-template: 1fr/auto;
   align-content: start;
   grid-column-gap: .5rem;
+  grid-auto-flow: column;
 }
 
 @media (max-width: 1024px) {

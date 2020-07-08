@@ -3,6 +3,22 @@
 /***FONTS***/
 .menu-toggle {
   display: inline-block;
+  padding: 0;
+  align-self: start;
+  color: #333;
+  width: 25px;
+  height: 25px;
+  grid-column: 2/3;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.menu-toggle:hover, .menu-toggle:focus {
+  color: #c00;
+}
+
+.menu-toggle svg path {
+  fill: white;
 }
 
 @media (min-width: 768px) {
@@ -225,4 +241,31 @@
   background: #000;
   background: rgba(0, 0, 0, 0.85);
   cursor: default;
+}
+
+.main-menu.opened .menuContainer,
+.main-menu[aria-expanded="true"] .menuContainer {
+  position: relative;
+  overflow: hidden;
+  min-height: 100%;
+}
+
+.main-menu.opened .menuContainer ul,
+.main-menu[aria-expanded="true"] .menuContainer ul {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.main-menu.opened .menuContainer ul ul,
+.main-menu[aria-expanded="true"] .menuContainer ul ul {
+  left: 100%;
+  transition: .5s;
+}
+
+.main-menu.opened .menuContainer ul ul.shown,
+.main-menu[aria-expanded="true"] .menuContainer ul ul.shown {
+  left: 0;
 }

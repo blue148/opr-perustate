@@ -14,43 +14,10 @@ const Overlay = styled.a`
 
 `
 const MenuContainer = styled.div`
-	position:relative;
-	overflow:hidden;
-	min-height:100%;
-	ul{
-		position:absolute;
-		top:0;
-		bottom:0;
-		left:0;
-		right:0;
-		ul{
-			left:100%;
-			transition:.5s;
-			&.shown{
-				left:0;
-				}			
-		}
-	}
+	
 `
 const Hamburger = styled.a`
-	padding: 0;
-	align-self: start;
-	color: #333;
-	&:hover, &:focus{
-		color:#c00;
-	}
-	width:25px;
-	height:25px;
-	grid-column:2/3;
-	grid-row:1;
-	justify-self:end;
-	svg{
-	path{
-		fill{
-			white;
-		}
-	}
-}
+	
 ` 
 const ListItem = (props) =>{
 	const {title, programs} = props;
@@ -155,7 +122,7 @@ const MenuList = (props) =>{
 		)
 	})
 	 return (
-		 <MenuContainer>
+		 <MenuContainer className="menuContainer">
 			<ul>
 				{list}
 				{props.children}
