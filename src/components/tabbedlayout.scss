@@ -164,8 +164,36 @@ section{
 		}
 
 	}
+	nav{
+		.mobileBottomBar{
+			width:100%;
+			background:black;
+			position:fixed;
+			bottom:0px;
+			height:65px;
+			display:grid;
+			grid-template-columns: 1fr 1fr;
+			align-items:center;
+			justify-items:center;
+			z-index:30000;
+			&>div{
+			    width: 100%;
+			    text-align: center;
+				.button{
+					font-size:1rem;
+					height:75%;
+					width:80%;
+					padding:.6rem;
+					}
+				}
+			@media(min-width:768px){
+				display:none;
+			}
+		}
+	}
 
 }
+
 /***SCREEN READER ONLY***/
 .sr-only {
   position: absolute;

@@ -28,31 +28,6 @@ const Main = styled.main`
 const ContentArea = styled.section`
 	
 `
-const MobileBottomBar = styled.nav`
-	width:100%;
-	background:black;
-	position:fixed;
-	bottom:0px;
-	height:65px;
-	display:grid;
-	grid-template-columns: 1fr 1fr;
-	align-items:center;
-	justify-items:center;
-	z-index:30000;
-	&>div{
-	    width: 100%;
-	    text-align: center;
-		.button{
-			font-size:1rem;
-			height:75%;
-			width:80%;
-			padding:.6rem;
-			}
-		}
-	@media(min-width:768px){
-		display:none;
-		}
-`
 export default class Layout extends React.Component{
 	constructor(props){
 		super(props)
@@ -180,14 +155,14 @@ export default class Layout extends React.Component{
 						isSingle={false}/>
 					<Footer/>
 				</Main>
-				<MobileBottomBar>
+				<nav className="mobileBottomBar">
 					<ScrollIntoView selector="#leadform" className="buttonContainer" alignToTop={true}>
 						<button className="button action" type="button">Request Info</button>
 					</ScrollIntoView>
 					<div  className="buttonContainer">
 						<a className="button tertiary" href={"tel:"+this.props.phonenumber}>Call Us</a>
 					</div>
-				</MobileBottomBar>
+				</nav>
 		    </Page>
 	    </ThemeProvider>
 	

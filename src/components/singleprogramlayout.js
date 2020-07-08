@@ -19,63 +19,18 @@ import ScrollIntoView from 'react-scroll-into-view'
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
 
 const Page = styled.div`
-	position:fixed;
-	overflow:scroll;
-	height:100vh;
-	top:60px;
+	
 `
 const Main = styled.main`
-	overflow-y:visible;
-	display:grid;
-	grid-template:auto/1fr;
-	@media (min-width: 768px) {
-		grid-template:1fr/auto;
-		padding-bottom:70px;
-	}
+	
 
 `
 
 const ContentArea = styled.section`
-	margin:0;
-	padding: 0 1rem;	
-	@media (min-width:7678px){
-		margin:0px 0px 0px 2rem;
-		max-width:100%;
-	}
-	overflow:hidden;
-	grid-column:1;
-	margin-top:0;
-	padding-bottom:1rem;
-	@media (min-width: 768px) {
-		grid-column:1/2;
-		grid-row:1;
-	}
+	
 `
 const MobileBottomBar = styled.div`
-	width:100%;
-	background:black;
-	position:fixed;
-	bottom:0px;
-	height:65px;
-	display:grid;
-	grid-template-columns: 1fr 1fr;
-	align-items:center;
-	justify-items:center;
-	z-index:30000;
-	&>div{
-	    width: 100%;
-	    text-align: center;
-		.button{
-			font-size:1rem;
-			height:75%;
-			width:80%;
-		    padding: .6rem;
-			}
-		}
-	@media(min-width:768px){
-		display:none;
-		}
-`
+	`
 export default class Layout extends React.Component{
 	constructor(props){
 		super(props)
@@ -173,14 +128,14 @@ export default class Layout extends React.Component{
 						isSingle={true}/>
 					<Footer/>
 				</Main>
-				<MobileBottomBar>
+				<nav className="mobileBottomBar">
 					<ScrollIntoView selector="#leadform" className="buttonContainer" alignToTop={true}>
 						<button className="button action" type="button">Request Info</button>
 					</ScrollIntoView>
 					<div  className="buttonContainer">
 						<a className="button tertiary" href={"tel:"+this.props.phonenumber}>Call Us</a>
 					</div>
-				</MobileBottomBar>
+				</nav>
 		    </Page>
 	    </ThemeProvider>
 	

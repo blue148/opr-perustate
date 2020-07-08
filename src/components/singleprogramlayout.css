@@ -86,6 +86,49 @@ header.singleProgramPage .menu-toggle {
   display: none;
 }
 
+.singleProgramPage {
+  position: fixed;
+  overflow: scroll;
+  height: 100vh;
+  top: 60px;
+}
+
+.singleProgramPage main {
+  overflow-y: visible;
+  display: grid;
+  grid-template: auto/1fr;
+}
+
+@media (min-width: 768px) {
+  .singleProgramPage main {
+    grid-template: 1fr/auto;
+    padding-bottom: 70px;
+  }
+}
+
+.singleProgramPage section {
+  margin: 0;
+  padding: 0 1rem;
+  overflow: hidden;
+  grid-column: 1;
+  margin-top: 0;
+  padding-bottom: 1rem;
+}
+
+@media (min-width: 7678px) {
+  .singleProgramPage section {
+    margin: 0px 0px 0px 2rem;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .singleProgramPage section {
+    grid-column: 1/2;
+    grid-row: 1;
+  }
+}
+
 .singleProgramPage .button {
   text-transform: uppercase;
   font-weight: 800;
@@ -143,6 +186,37 @@ header.singleProgramPage .menu-toggle {
 .singleProgramPage .formPanel .button {
   margin: 1.5rem 0 1rem;
   padding: 0;
+}
+
+.singleProgramPage nav .mobileBottomBar {
+  width: 100%;
+  background: black;
+  position: fixed;
+  bottom: 0px;
+  height: 65px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  z-index: 30000;
+}
+
+.singleProgramPage nav .mobileBottomBar > div {
+  width: 100%;
+  text-align: center;
+}
+
+.singleProgramPage nav .mobileBottomBar > div .button {
+  font-size: 1rem;
+  height: 75%;
+  width: 80%;
+  padding: .6rem;
+}
+
+@media (min-width: 768px) {
+  .singleProgramPage nav .mobileBottomBar {
+    display: none;
+  }
 }
 
 section {
