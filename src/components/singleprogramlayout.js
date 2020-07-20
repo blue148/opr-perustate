@@ -133,7 +133,7 @@ export default class Layout extends React.Component{
 						<button className="button action" type="button">Request Info</button>
 					</ScrollIntoView>
 					<div  className="buttonContainer">
-						<a className="button tertiary" href={"tel:"+this.props.phonenumber}>Call Us</a>
+						<a className="button tertiary" href={"tel:+1"+this.props.formSettings.phone.replace(/\D/g,'')}>Call Us</a>
 					</div>
 				</nav>
 		    </Page>
