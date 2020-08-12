@@ -16,7 +16,7 @@ export default class Testimonial extends React.Component{
 	
 	render(){
 		const {image, content} = this.props.testimonial||this.props;
-		const imgBg = (image)?image.fields.file.en_US.url:'';
+		const imgBg = (image && image.fields)?image.fields.file.en_US.url:'';
 		return(
 			<ContentBox className="testimonialarea">
 				<div className="desktop-shim">
