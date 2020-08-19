@@ -2,10 +2,8 @@ import React from "react"
 
 import Header from "./header/header"
 import Hero from "./heroArea"
-import ProgramContent from './programContent'
-import Accolades from "./accolades"
 import Testimonial from "./testimonial"
-import Awards from "./awards"
+import GeneralContent from "./contentSection"
 import Bottom from "./bottomContentSection"
 import Footer from "./footer"
 import FormPanel from "./form/form"
@@ -34,44 +32,17 @@ const MobileBottomBar = styled.div`
 export default class Layout extends React.Component{
 	constructor(props){
 		super(props)
-
-		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:'',formSelect:this.props.programContent.programCode}
 		//console.log(props, 'master')
+		this.state={location:''};
 	}
 	
 	componentDidMount(){
 		this.setState({location:window.location});
 	}
 	
-	handleStateChange=(e,tabState,subTabState,formSelect)=>{
-		//console.log(tabState, subTabState, 'state change')
-		if(tabState===null)tabState=this.state.activeTab;
-		
-		const tabArray = tabState.split('__');
-		
-		var subTab = '';
-		var tab = '';
-		var tabPanel = '';
-		var subTabPanel = '';
-		
-		if(tabArray.length < 2){
-			subTab = '';
-			tab = tabState;
-			tabPanel = tab+'_panel';
-			subTabPanel = '';
-		}else{
-			subTab = tabState;
-			tab = tabArray[0];
-			tabPanel = tab+'_panel';
-			subTabPanel = subTab+'_panel';
-		}
-		if(subTabState)subTab=subTabState;
+	handleStateChange=(formSelect)=>{
 		const updatedState = update(
 		   this.state,{
-			   'activeTab':{$set:tab},
-			   'activePanel':{$set:tabPanel},
-   			   'activeSubTab':{$set:subTab},
-			   'activeSubPanel':{$set:subTabPanel},
 			   'formSelect':{$set:formSelect}
 		   }
 		)	  
@@ -94,10 +65,11 @@ export default class Layout extends React.Component{
 	
 	
 	render(){
+		console.log(this.state)
 	  return (
 		<ThemeProvider theme={theme}>
 			<Icons/>
-			<Header className="singleProgramPage" {...this.props.tabbedContent} location={this.state.location} onStateChange={this.handleStateChange} state={this.state}/>
+			<Header className="singleProgramPage" location={this.state.location} onStateChange={this.handleStateChange} state={this.state}/>
 		    <Page className="pageContainer singleProgram">   
 			    
 				<main>
@@ -120,10 +92,24 @@ export default class Layout extends React.Component{
 							programs={this.props.programs} 
 							location={this.state.location}
 							isSingle={true}/>
-						<ProgramContent {...this.props.programContent} programs={this.props.programs} location={this.state.location}/>
-						<Accolades {...this.props.accolades} />
+						<GeneralContent
+							className="introduction-section"
+							{...this.props.introduction}
+							/>
+						<GeneralContent
+							className="tuition-section"
+							{...this.props.tuitionSection}
+							/>
+						<GeneralContent
+							className="education-section"
+							{...this.props.educationSection}
+							/>
+						<GeneralContent
+							className="apply-section"
+							{...this.props.applySection}
+							/>
+							
 						<Testimonial {...this.props.testimonial}/>
-						<Awards {...this.props.awards}/>
 						<Bottom {...this.props.bottomContentSection}/>						
 					</ContentArea>
 

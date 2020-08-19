@@ -114,7 +114,7 @@
 }
 
 .HeroBox .desktop-shim h1 {
-  font-size: 9.5vw;
+  font-size: 7.5vw;
   line-height: 1.1;
   color: white;
   z-index: 2;
@@ -180,7 +180,7 @@
 }
 
 .iconGrid {
-  display: grid;
+  display: none;
   grid-template: 1fr/auto;
   grid-auto-flow: column;
   justify-items: start;
@@ -194,6 +194,7 @@
 
 @media (min-width: 1024px) {
   .iconGrid {
+    display: grid;
     grid-template-columns: repeat(3, 33%);
     grid-template-rows: 1fr;
     width: 100%;
@@ -285,6 +286,7 @@
 }
 
 .hero-button {
+  display: none;
   padding: 1rem 0;
   width: 80%;
   width: 75vw;

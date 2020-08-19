@@ -250,11 +250,15 @@ section section > section {
 
 .formPanel {
   font-size: 3rem;
+  margin-left: -1rem;
+  width: 110%;
 }
 
 @media (max-width: 1290px) {
   .formPanel {
     left: 850px;
+    margin-left: 0;
+    width: 100%;
   }
 }
 

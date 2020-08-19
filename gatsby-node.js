@@ -14,6 +14,7 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
   const tabbedPage = path.resolve('./src/pages/tabbedlandingpage.js')
   const singleProgram = path.resolve('./src/pages/singleprogram.js')
+  const transferPage = path.resolve('./src/pages/transferpage.js')
   return new Promise((resolve, reject) => {
     
     resolve(
@@ -36,8 +37,16 @@ exports.createPages = ({ graphql, actions }) => {
 			        slug
 			      }
 			    }
-			  }         
+			  }
+			allContentfulNonProgramPage{
+				nodes{
+					id
+					contentful_id
+					slug
+				}
+			}           
 		  }
+		  
           `
       ).then(result => {
         if (result.errors) {
@@ -61,6 +70,16 @@ exports.createPages = ({ graphql, actions }) => {
 				component: singleProgram,
 				context:{
 					slug: edge.node.slug
+				}
+			})
+        })
+        //transfer students landing page
+         result.data.allContentfulNonProgramPage.nodes.forEach((node) => {
+			createPage({
+				path: `/lp/${node.slug}/`,
+				component: transferPage,
+				context:{
+					slug: node.slug
 				}
 			})
         })
