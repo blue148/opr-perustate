@@ -91,8 +91,8 @@ const PanelContent = (props)=>{
 		   }
 		   return obj
 	  },{})
-	  const applyDate = (targetProgram.applyBy)?targetProgram.applyBy:props.dates.apply;
-	  const startDate = (targetProgram.startClasses)?targetProgram.startClasses:props.dates.start;
+	  const applyDate = (targetProgram.applyBy)?targetProgram.applyBy:(props.dates)?props.dates.apply:null;
+	  const startDate = (targetProgram.startClasses)?targetProgram.startClasses:(props.dates)?props.dates.start:null;
 	  //console.log(targetProgram)
 	return (
 		<>

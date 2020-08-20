@@ -1,26 +1,32 @@
 @import "./_variables";
+.transferlayout__Page-kzwKko{
+	.tabbedArea{
+		grid-template-columns:1fr;
+	}
+	.mainArea.singleProgram{
+		grid-template-columns:minmax(0, 725px) calc(340px + 5%);
+		justify-content: start;
 
-.tabbedArea{
-	grid-template-columns:1fr;
-}
-
-.testimonialarea{
-	grid-template-rows:1fr;
-	padding:1rem;
-	.desktop-shim{
-		grid-template: auto/1fr;
-		justify-items:center;
-		@media(min-width:768px){
-			justify-items: inherit
-		}
-		svg{
-			width:100px;
-			height:auto;
-			justify-self:center;
-			path{
-				fill:white;
-
+	}
+	.testimonialarea{
+		grid-template-rows:1fr;
+		padding:1rem;
+		text-align:center;
+		.desktop-shim{
+			grid-template: auto/1fr;
+			justify-items:center;
+			@media(min-width:768px){
+				justify-items: inherit
 			}
-		}		
+			svg{
+				width:100px;
+				height:auto;
+				justify-self:center;
+				path{
+					fill:white;
+	
+				}
+			}		
+		}
 	}
 }

@@ -35,7 +35,7 @@
 		 h4{
 		    text-align:center;
 		    font-size: 1.5625rem;
-			 color:white;
+			color:black;
 		    margin-bottom:1.3rem;
 		    text-transform: capitalize;
 		    @media (min-width:1024px){
@@ -43,6 +43,11 @@
 			   
 		    }
 	    }
+	    .program-details-area{
+		    h4{
+			    color:white;
+		    }
+		}
 	}
 	&.section-columns{
 		&-2{
