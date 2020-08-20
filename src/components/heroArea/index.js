@@ -33,7 +33,7 @@ const Items = (props) =>{
 export default function HeroArea(props){
 
 		const {image, headline, subHeadline, itemsType} = props
-		const imgBg = (image)?(!isMobile)?image.fields.file.en_US.url:null:null;
+		const imgBg = (image && image.fields)?(!isMobile)?image.fields.file.en_US.url:null:null;
 		
 
 		

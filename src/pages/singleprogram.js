@@ -1,4 +1,4 @@
-import React,{useEffect} from "react"
+import React from "react"
 import { graphql } from "gatsby"
 import { Helmet } from "react-helmet"
 //import queryString from 'query-string'

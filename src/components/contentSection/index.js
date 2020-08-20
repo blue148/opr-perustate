@@ -109,12 +109,13 @@ export default class GeneralContent extends React.Component{
 		const cleanHeadline = this.props.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;");
 
 		return(		
-			<MainBox className="">
+			<MainBox className="content-wrapper">
 				<div className="desktop-shim">
 					<section className={this.props.className}>
 						<h3 dangerouslySetInnerHTML={{__html:cleanHeadline}}/>
-						<div className="program-info-details" dangerouslySetInnerHTML={{__html:this.props.content}}/>	
+						<div className="general-content" dangerouslySetInnerHTML={{__html:this.props.content}}/>	
 					</section>
+					{this.props.children}
 				</div>
 			</MainBox>
 		)

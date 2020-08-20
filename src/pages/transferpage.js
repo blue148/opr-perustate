@@ -1,4 +1,4 @@
-import React,{useEffect} from "react"
+import React from "react"
 import { graphql } from "gatsby"
 import { Helmet } from "react-helmet"
 //import queryString from 'query-string'
@@ -34,78 +34,144 @@ export default ({data, location}) => {
 export const query = graphql`
 	query transferpage($slug: String){	
 		contentfulNonProgramPage(slug: { eq: $slug }) {
-		  pageName
-	      slug
-	      callout{
+			pageName
+			slug
+			callout{
 				content{
 					icon
 					display
 				}
 			}
-	      heroArea {
-	        headline
-	        subHeadline
-	        itemsType
-	        bullets
-	        items{
-		        content{
-			        icon
-			        tagline
-			        }
-			    }
-	        image {
-	          fields {
-	            file {
-	              en_US {
-	                url
-	              }
-	            }
-	          }
-	        }
-	      }
-	      introduction {
-	        headline
-	        content
-	      }
-	      tuitionSection {
-	        headline
-	        content
-	      }
-	      educationSection {
-	        headline
-	        content
-	      }
-	      applySection {
-	        headline
-	        content
-	      }	      
-	      testimonial {
-		      
-	        testimonial {
-		        image {
-	                fields {
-	                  file {
-	                    en_US {
-	                      url
-	                    }
-	                  }
-	                }
-	            }
+			heroArea {
+				headline
+				subHeadline
+				bullets
+				image {
+					fields {
+						file {
+							en_US {
+								url
+							}
+						}
+					}
+				}
+				itemsType
+				items {
+					content {
+						icon
+						tagline
+					}
+				}
+			}
+			introduction {
+				headline
 				content
-	        }
-	      }
-	      bottomContentSection {
-	        headline
-	        content
-	      }
-	      formSettings {
-            headline
-            subheadline
-            successMsg
-            redirect
-            redirectUrl
-            phone
-          }
+			}
+			applySection {
+				headline
+				content
+			}
+			learningSection {
+				headline
+				content
+			}
+			educationSection {
+				headline
+				content
+			}
+			tuitionSection {
+				headline
+				content
+			}
+			testimonial {
+				testimonial {
+					content
+					image {
+						fields {
+							file {
+								en_US {
+									url
+								}
+							}
+						}
+					}
+				}
+			}
+			
+	        tabbedContent {
+		        ... on ContentfulProgramTabContent {
+	              	pageName
+		            programs {
+						pageSlug
+						pageName
+						programCode
+						programDetails {
+							headline
+							content
+						}
+						careerOpportunities{
+							content
+						}
+						programInfo{
+							items{
+								content{
+									tagline
+									icon
+								}
+							}
+						}
+						applyBy
+						totalCost
+						startClasses
+						tuition
+						transferrableCredits
+						creditHours
+					}
+				}
+				
+		    }
+		    programContent {
+				programDetails {
+					headline
+					content
+				}
+				programInfo {
+					items {
+						content {
+							icon
+							tagline
+						}
+					}
+				}
+			}
+			awards {
+				headline
+				items {
+					content {
+						image {
+							fields {
+								file {
+									en_US {
+										url
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			bottomContentSection {
+				headline
+				content
+			}
+			formSettings {
+				headline
+				subheadline
+				successMsg
+				redirect
+				redirectUrl
+				phone
+			}
 			
 		}
 		allContentfulProgramInfo {

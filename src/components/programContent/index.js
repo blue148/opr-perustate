@@ -31,7 +31,7 @@ const Dates = (props) =>{
 const Info = (props) =>{
 	const {items} = props.programInfo;
 	const infoItem = Object.keys(items).map((item,index)=>{	
-			if(index>=3)return false;
+			if(index>=4)return false;
 			return (
 				<ItemStack key={index} className="iconStack">
 					<div className="iconBox">
@@ -91,15 +91,20 @@ const PanelContent = (props)=>{
 		   }
 		   return obj
 	  },{})
-	  
+	  const applyDate = (targetProgram.applyBy)?targetProgram.applyBy:props.dates.apply;
+	  const startDate = (targetProgram.startClasses)?targetProgram.startClasses:props.dates.start;
 	  //console.log(targetProgram)
 	return (
 		<>
 			<section className="program-details-area">
 				<Info {...props} programInfo={props.programInfo}/>
 				<section className="program-info program-dates">
-					<Dates title="Apply By" items={targetProgram.applyBy}/>
-					<Dates title="Start Classes" items={targetProgram.startClasses}/>
+					{(applyDate)?(
+						<>
+							<Dates title="Apply By" items={applyDate}/>
+							<Dates title="Start Classes" items={startDate}/>
+						</>):null
+					}
 					<ApplyNowButton location={props.location}/>
 					<span className="bg-image" style={{backgroundImage:`url(${Calendar})`}}/>
 				</section>
