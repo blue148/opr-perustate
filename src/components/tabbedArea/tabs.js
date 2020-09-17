@@ -11,20 +11,20 @@ import './tab.scss';
 
 /**replace this with a GraphQL query**/
 const programMapping = 
-	{'Business Administration in Accounting':'BSBA - ACCT',
-	'Business Administration in Computer Management Information Systems (CMIS)':'BSBA - CMIS',
-	'Business Administration in Human Resources and Risk Management':'BSBA - HR',
-	'Business Administration in Management':'BSBA - MGMT',
-	'Business Administration in Management Applied Science (BAS)':'BAS - MGMT',
-	'Business Administration in Marketing':'BSBA - MKTG',
-	'Business Administration in Public Administration':'BSBA - PA',
-	'Criminal Justice in Counseling':'CJUS - CS',
-	'Criminal Justice in Adminstration':'CJUS - JA',
-	'Criminal Justice in Law & Society':'CJUS - LAW',
-	'Master of Science in Education':'MS - ED',
-	'Master of Science in Organizational Management':'MS - OM',
-	'Psychology':'BS/BA - PSYCH',
-	'Undecided':'Undergrad - Undecided'}
+	{'Business Administration in Accounting':'PERU_BSBA_ACCT',
+	'Business Administration in Computer Management Information Systems (CMIS)':'PERU_BSBA_CMIS',
+	'Business Administration in Human Resources and Risk Management':'PERU_BSBA_HR',
+	'Business Administration in Management':'PERU_BSBA_MGMT',
+	'Business Administration in Management Applied Science (BAS)':'PERU_BAS_MGMT',
+	'Business Administration in Marketing':'PERU_BSBA_MKTG',
+	'Business Administration in Public Administration':'PERU_BSBA_PA',
+	'Criminal Justice in Counseling':'PERU_CJUS_CS',
+	'Criminal Justice in Adminstration':'PERU_CJUS_JA',
+	'Criminal Justice in Law & Society':'PERU_CJUS_LAW',
+	'Master of Science in Education':'PERU_MS_ED',
+	'Master of Science in Organizational Management':'PERU_MS_OM',
+	'Psychology':'PERU_BS/BA_PSYCH',
+	'Undecided':'PERU_Undergrad_Undecided'}
 
 ////BUILD TABBED LAYOUT
 ////EACH TAB WILL NEED TO EXPOSE THE CORRESPONDING CONTENTPANEL ON CLICK, AS WELL AS HIDE ANY EXPOSED PANELS
@@ -61,7 +61,10 @@ const TabsPanel = (props)=>{
 		
 		const subTabState=(props[tab].programs)?tabState+'__'+props[tab].programs[0].pageSlug:'';
 		
-		const formSelect =  (subTabState)?props[tab].programs[0].programCode:props[tab].programCode;
+		const formValue = (subTabState)?props[tab].programs[0].programCode:props[tab].programCode;
+		
+		const formSelect =  (!formValue.startsWith('PERU_'))?'PERU_'+formValue.replace(' - ','_'):formValue;
+		
 		
 		const activeClass = (tabState===props.active)?'selected':'';
 		const Chevron = (parent)?<span><FontAwesomeIcon icon={faChevronRight} className="tab-arrow-icon"/></span>:'';
@@ -288,7 +291,7 @@ export default class TabbedArea extends React.Component{
 	  
    
 	render(){
-
+		console.log(this.props.state)
 		return(
 			<section id="tabbedArea" className="tabbedArea">
 				<div className="desktop-shim">
