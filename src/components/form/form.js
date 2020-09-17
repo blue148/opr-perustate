@@ -30,7 +30,7 @@ const crmConfig = {
   
 }
 const { midpoint, endpoint } = crmConfig;
-
+console.log(endpoint, midpoint);
 ////Nove this to scss due to FOUC
 const StyledContainer = styled(Container)`
 	
@@ -248,17 +248,18 @@ export default function FormPanel(props){
 						  headers,
 						  body:JSON.stringify(body)		  
 						};
-						///format View.DO url
-/*https://xapi.view.do/v1/experience/link/vb-edu-rfi-peru/org?useExisting=true&utm_source=online.peru.edu&utm_medium=referral&campaignKey=lp&*/
+
+
 						const redirectTarget = (redirect && redirectUrl)?redirectUrl+viewDoData.join('&'):null;
 						const url = midpoint+'?url='+encodeURIComponent(endpoint);
 						fetch(url, init)
 						.then((response) => {	
 							setSubmitting(false)
-							return response.json()
+							console.log(response.status, 'response');
+							return response
 							})
-						.then((json) => {
-							if(json.Success){
+						.then((response) => {
+							if(response.status===200){
 								
 								(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})								
 							}

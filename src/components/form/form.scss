@@ -95,9 +95,44 @@
 		max-width:330px;
 	}
 }
+.MuiPaper-root {
+  background: #fff;
+  padding: 8px;
+}
+.MuiPaper-rounded {
+  border-radius: 4px;
+}
+.MuiList-root {
+  margin: 0;
+  padding: 0;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  position: relative;
+  list-style: none;
+}
+.MuiList-padding {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.MuiListItem-root.Mui-selected, .MuiListItem-root.Mui-selected:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
 .MuiMenuItem-root{
-		white-space: normal;
-	}
+  width: auto;
+  overflow: hidden;
+  font-size: 1rem;
+  box-sizing: border-box;
+  min-height: 48px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  /*! line-height: 1.5; */
+  padding-top: 6px;
+  white-space: normal;
+  letter-spacing: 0.00938em;
+  padding-bottom: 6px;
+  display: block;
+  padding: 6px 10px 0;
+}
 .MuiGrid-item{
 	padding:0;
 	line-height:1;
