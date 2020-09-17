@@ -282,7 +282,7 @@ export default function FormPanel(props){
 									(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})
 									}*/
 							}).catch((e)=>{
-								console.log(e.message, 'Errormessage')
+								console.log(e, '  Errormessage')
 								
 							})
 		                }}
