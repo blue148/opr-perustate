@@ -3,7 +3,7 @@ import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 
 
 const crmConfig = {
-	midpoint:process.env.GATSBY_AE_ENDPOINT,
+	midpoint:process.env.V2_ENDPOINT,
 	apiKey:process.env.GATSBY_AE_KEY
   
 }
