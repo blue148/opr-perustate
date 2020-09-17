@@ -114,8 +114,8 @@ const MobileBottomBar = styled.div`
 export default class Layout extends React.Component{
 	constructor(props){
 		super(props)
-
-		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:'',formSelect:this.props.programContent.programCode}
+		const targetProgram = (this.props.programContent.programCode)?'PERU_'+this.props.programContent.programCode.replace(' - ','_'):'PERU_UNDERGRAD_UNDECIDED';
+		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:'',formSelect:targetProgram}
 	}
 	
 	componentDidMount(){
