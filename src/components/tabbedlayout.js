@@ -16,6 +16,35 @@ import styled, {ThemeProvider} from "styled-components"
 import "./tabbedlayout.scss"
 import Icons from "../images/symbol-defs.svg"
 import ScrollIntoView from 'react-scroll-into-view'
+/// -->import Apollo modules for form api fetch
+/// -->**TODO: create module for all Apollo/GraphQL functions
+import fetch from 'cross-fetch'
+import { 
+	ApolloProvider,
+	ApolloClient, 
+	InMemoryCache, 
+	HttpLink  
+} from '@apollo/client';
+
+const crmConfig = {
+	midpoint:process.env.GATSBY_AE_ENDPOINT,
+	apiKey:process.env.GATSBY_AE_KEY
+  
+}
+
+const { midpoint, apiKey} = crmConfig;
+
+/// --> ApolloClient
+const gqlClient = new ApolloClient({
+	link: new HttpLink({
+		uri: midpoint,
+		headers: {'x-api-key':apiKey},
+		fetch
+		
+	}),		
+	cache: new InMemoryCache(),
+	
+})
 
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
 
@@ -64,27 +93,23 @@ export default class Layout extends React.Component{
 	componentDidMount(){
 		this.setState({location:window.location},()=>this.drillDown(this.state.location));
 		
-		//if(this.props.location.search){			
-		//}
 		
 	}
 	drillDown = (location)=>{
 		if(!location.search)return false;
 		const targetProgram = JSON.parse('{"' + location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}')||'';
-			//console.log(this.props.programs,targetProgram.targetprogram)
-			//find program code
-			if(targetProgram.targetprogram){
-				const tArr = targetProgram.targetprogram.split('__');
-				const pageSlug = (tArr[1])?tArr[1]:tArr[0];
-				const pCode = Object.keys(this.props.programs.edges).reduce((result, item)=>{
-					if(this.props.programs.edges[item].node.pageSlug===pageSlug)result.push(this.props.programs.edges[item].node.programCode);
-					return result;		
-					},[])
-				this.handleStateChange('',targetProgram.targetprogram, '',pCode);
-			}
+		//find program code
+		if(targetProgram.targetprogram){
+			const tArr = targetProgram.targetprogram.split('__');
+			const pageSlug = (tArr[1])?tArr[1]:tArr[0];
+			const pCode = Object.keys(this.props.programs.edges).reduce((result, item)=>{
+				if(this.props.programs.edges[item].node.pageSlug===pageSlug)result.push(this.props.programs.edges[item].node.programCode);
+				return result;		
+				},[])
+			this.handleStateChange('',targetProgram.targetprogram, '',pCode);
+		}
 	}
 	handleStateChange=(e,tabState,subTabState,formSelect)=>{
-		//console.log(tabState,'tabState',subTabState,formSelect, 'on state,change')
 		const thisTabState = (tabState===null)?
 				tabState=this.state.activeTab:
 				tabState;
@@ -97,7 +122,6 @@ export default class Layout extends React.Component{
 		var subTabPanel = '';
 		
 		if(tabArray.length < 2){
-			//console.log(thisTabState,' single tab')
 			subTab = '';
 			tab = thisTabState;
 			tabPanel = tab+'_panel';
@@ -127,7 +151,6 @@ export default class Layout extends React.Component{
 	
 	
 	handleParentState=(e,tab,subtab,props)=>{
-		//console.log(props,' on parent change')
 		const updatedState = update(
 		   this.state,{
 			   'formSelect':{$set:props}
@@ -141,56 +164,57 @@ export default class Layout extends React.Component{
 	render(){
 
 	  return (
-		<ThemeProvider theme={theme}>
-			<Icons/>
-			<Header {...this.props.tabbedContent} location={this.state.location} onStateChange={this.handleStateChange} state={this.state}/>
-		    <Page className="pageContainer">   
-			    
-				<Main className="mainContainer">
-
-					<ContentArea className="contentArea">
-						<Hero {...this.props.heroArea}
-						location={this.state.location} />
-						{(this.props.callout && this.props.callout.content.display)?(
-							<Callout
-								{...this.props.callout.content}
-								/>
-							)
-							:null
-						}
-						
-						<MainArea {...this.props.mainContentSection} />
-						<TabbedArea 
-							location={this.state.location} 
-							{...this.props.tabbedContent} 
-							onParentStateChange={this.handleParentState} 
-							onStateChange={this.handleStateChange} 
-							state={this.state}/>
-						<Accolades {...this.props.accolades}/>
-						<Testimonial {...this.props.testimonial}/>
-						<Awards {...this.props.awards}/>
-						<Bottom {...this.props.bottomContentSection}/>						
-					</ContentArea>
-
-					<FormPanel 
-						{...this.props.formSettings}
-						state={this.state} 
-						programs={this.props.programs} 
-						location={this.state.location}
-						isSingle={false}/>
-					<Footer/>
-				</Main>
-				<MobileBottomBar>
-					<ScrollIntoView selector="#leadform" className="buttonContainer" alignToTop={true}>
-						<button className="button action" type="button">Request Info</button>
-					</ScrollIntoView>
-					<div  className="buttonContainer">
-						<a className="button tertiary" href={"tel:"+this.props.phonenumber}>Call Us</a>
-					</div>
-				</MobileBottomBar>
-		    </Page>
-	    </ThemeProvider>
+		<ApolloProvider client={gqlClient}>
+			<ThemeProvider theme={theme}>
+				<Icons/>
+				<Header {...this.props.tabbedContent} location={this.state.location} onStateChange={this.handleStateChange} state={this.state}/>
+			    <Page className="pageContainer">   
+				    
+					<Main className="mainContainer">
 	
+						<ContentArea className="contentArea">
+							<Hero {...this.props.heroArea}
+							location={this.state.location} />
+							{(this.props.callout && this.props.callout.content.display)?(
+								<Callout
+									{...this.props.callout.content}
+									/>
+								)
+								:null
+							}
+							
+							<MainArea {...this.props.mainContentSection} />
+							<TabbedArea 
+								location={this.state.location} 
+								{...this.props.tabbedContent} 
+								onParentStateChange={this.handleParentState} 
+								onStateChange={this.handleStateChange} 
+								state={this.state}/>
+							<Accolades {...this.props.accolades}/>
+							<Testimonial {...this.props.testimonial}/>
+							<Awards {...this.props.awards}/>
+							<Bottom {...this.props.bottomContentSection}/>						
+						</ContentArea>
+	
+						<FormPanel 
+							{...this.props.formSettings}
+							state={this.state} 
+							programs={this.props.programs} 
+							location={this.state.location}
+							isSingle={false}/>
+						<Footer/>
+					</Main>
+					<MobileBottomBar>
+						<ScrollIntoView selector="#leadform" className="buttonContainer" alignToTop={true}>
+							<button className="button action" type="button">Request Info</button>
+						</ScrollIntoView>
+						<div  className="buttonContainer">
+							<a className="button tertiary" href={"tel:"+this.props.phonenumber}>Call Us</a>
+						</div>
+					</MobileBottomBar>
+			    </Page>
+		    </ThemeProvider>
+		</ApolloProvider>
   )
   }
 }

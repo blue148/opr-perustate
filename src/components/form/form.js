@@ -1,7 +1,9 @@
 import React from "react"
-import ApolloClient from 'apollo-boost';
-import gql from 'graphql-tag'
-import { useMutation, ApolloProvider } from '@apollo/react-hooks'
+//import ApolloClient from 'apollo-boost';
+//import gql from 'graphql-tag'
+//import { useMutation, ApolloProvider } from '@apollo/react-hooks'
+import {customAlphabet} from 'nanoid'
+
 import styled from "styled-components"
 import {
 	InputLabel,
@@ -21,25 +23,29 @@ import MaterialUiPhoneNumber from '../phonenumberformatter'
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
+import { 
+	gql,
+	useMutation,
+} from '@apollo/client';
+
 import './form.scss'
 
-require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`
-})
 
-const crmConfig = {
-	midpoint:process.env.GATSBY_AE_ENDPOINT,
-	endpoint:process.env.GATSBY_CRM_ENDPOINT,
-	apiKey:process.env.GATSBY_AE_KEY
-  
-}
-const { midpoint, endpoint, apiKey} = crmConfig;
+/// --> get list of programs for select menu
+
+const getId = customAlphabet(
+  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+  12
+);
+
+const leadId = getId();
+
+/// --> Apollo/GraphQL set up for Student Hub
+
+
 
 ///GraphQL Query/Mutation
-const gqlClient = new ApolloClient({
-	uri: 'https://ze7bhtmrbrcndh4qr3ylut4kmq.appsync-api.us-east-1.amazonaws.com/graphql',
-	headers: {'x-api-key':apiKey}
-})
+
 
 const leadFormSend = gql`
   mutation leadformsend($leadInput: CreateLeadInput!) {
@@ -116,8 +122,8 @@ const programArray = (props)=>{
 		  return 0;
 		});
 	return Object.keys(sorted).map((item,index)=>(
-			{text:props[index].node.shortName,
-				value:props[index].node.programCode,
+			{   text:props[index].node.shortName,
+				value:'PERU_'+props[index].node.programCode.replace(' - ','_'),
 				key:props[index].node.programCode,
 				reference:props[index].node.pageSlug}		
 		))
@@ -176,7 +182,6 @@ const useStyles = makeStyles(theme => ({
 export default function FormPanel(props){
 	const [createLead, { data }] = useMutation(leadFormSend);
 	
-	
 	const {phone,headline, subheadline, redirect, redirectUrl, successMsg} = props;
 	//const {phone} = (props.formSettings.phone==null)?'(402) 902-3128':props.formSetting.phone;
 	//const headline = props.headline;
@@ -215,11 +220,13 @@ export default function FormPanel(props){
 	
 	/*** from google: {lpurl}?utm_source=sem&utm_medium=google&utm_campaign={_campaignname}&utm_adgroup={_adgroupname}&utm_term={keyword}&matchtype={matchtype}&network={network}&device={device}&devicemodel={devicemodel}&creative={creative}&placement={placement}&target={target}&adposition={adposition}&feeditemid={feeditemid}&adgroup_id={adgroupid}&target_id={targetid}&agencytrackingcode=v1-{campaignid}
 	**** from facebook:?utm_source=paidsocial&utm_medium=facebook&utm_campaign={{campaign.name}}&utm_adgroup={{adset.name}}&network={{site_source_name}}&placement={{placement}}&adgroup_id={{adset.id}}&agencytrackingcode=v1-{{campaign.id}}*/
-	
-	
-
-	
-	
+	const searchVars = {}
+	const searchParams = (props.location)?new URLSearchParams(props.location.search):'';
+	if(searchParams){
+		for(var item of searchParams.entries()){
+			searchVars[item[0]]=decodeURIComponent(item[1]).toUpperCase();
+		}
+	}
 	
 	return(
 			<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
@@ -265,66 +272,36 @@ export default function FormPanel(props){
 						   
 						   //add as variables to teh GraphQL mutation
 							const body = {
-									  captureUrl: 'http://www.Brant.info/',
-									  leadId: 'IzbRqqh9L2DP',
-									  email: 'Aurelio_Daniel@Kertzmann.co.uk',
-									  phoneNumber: '(662) 514-6736',
-									  phoneNumberCountry: 'US',
-									  firstName: 'Test',
-									  lastName: 'Test',
-									  partnerCode: 'PARISIAN_LLC-8EULoqfS1Y4x',
-									  collegeCode: 'AUER_UNIVERSITYSLoegaMRzVVR-F9oBRAaDaHh0',
-									  campusCode: 'DAMEONFURT-k3gyQ8vvHx7G',
-									  sourceCode: 'LINDGREN_BIZ-3kNYv8oYTSIQ',
-									  programCode: 'BOCRZ0OHWMRL-VELIT_CUMQUE_CUPIDITATE_DICTA_ATQUE_TOTAM_QUIBUSDAM_ET_-rHqzniwZXJoh',
-									  formType: 'Website_RFI',
-									  deviceType: 'TABLET',
-									  sourceTracking: {
-									    campaignId: '2871f8c8-60fb-434c-bd7e-f22cb247f842',
-									    campaignName: 'Business-focused mobile capacity',
-									    adGroupId: '3f5d3674-3760-4e16-bcdc-fcfc773b5eb9',
-									    keyword: 'Organic object-oriented capacity',
-									    keywordId: '07621e34-2343-491c-bf3a-bc95213e929a',
-									    matchType: 'EXACT',
-									    network: 'Zulauf LLC',
-									    creativeId: '5bc3a96e-2852-46d7-9cac-e94a60981fbb',
-									    placement: 'TOP',
-									    target: 'admissions',
-									    feedItemId: '352f63d2-689c-4e22-8b32-5d7ae0832b09',
-									    agencyTrackingCode: 'f3e354bd-08db-4193-8ec7-d6fa85c1d56c'
-									  }
-									}
-									/*{
-									"universityId": "102",
-									"programCode": values.programCode,
-									"firstName": values.firstName,
-									"lastName": values.lastName,
-									"secondaryLastName": "",
-									"email": values.email,
-									"phoneNumber": "",
-									"cellNumber": values.phoneNumber,
-									"countryCode": "US",
-									"comments": "",
-									"origin": "Website RFI",
-									"source": searchVars.utm_source,
-									"subSource": searchVars.utm_medium,
-									"campaignName": searchVars.utm_campaign,
-									"adGroupName": searchVars.utm_adgroup,
-									"keyword": searchVars.utm_term,
-									"matchType": searchVars.matchtype,
-									"network": searchVars.network,
-									"device": searchVars.device,
-									"deviceModel": searchVars.devicemodel,
-									"creative": searchVars.creative,
-									"placement": searchVars.placement,
-									"target": searchVars.target,
-									"adPosition": searchVars.adposition,
-									"feedItemId": searchVars.feeditemid,
-									"agencyTrackingCode": searchVars.agencytrackingcode,
-									"webUrl": props.location.origin+props.location.pathname,
-									"ip": ""
-								};*/
-							
+							'captureUrl': props.location.href,
+							'leadId': leadId,
+							'partnerCode':'PERU',
+							'collegeCode': 'PERU',
+							'campusCode': 'PERU_ONLINE',
+							'sourceCode': searchVars.utm_medium||'UNKNOWN',
+							'programCode': values.programCode||'PERU_UNDERGRAD_UNDECIDED',
+							'phoneNumberCountry': 'US',
+							'formType': 'Website_RFI',
+							'email': values.email,
+							'phoneNumber': values.phoneNumber,
+							'firstName': values.firstName,
+							'lastName': values.lastName,
+							'deviceType': searchVars.device||'UNKNOWN',
+							"isTestLead": false,
+							'sourceTracking': {
+								'campaignName': searchVars.utm_campaign||'',
+								'adGroupId': searchVars.utm_adgroup||'',
+								'keyword': searchVars.utm_term||'',
+								'matchType': searchVars.matchtype||'',
+								'network': searchVars.network||'',
+								'creativeId': searchVars.creative||'',
+								'placement': searchVars.placement||'',
+								'target': searchVars.target||'',
+								'feedItemId': searchVars.feeditemid||'',
+								'agencyTrackingCode':  searchVars.agencytrackingcode||''
+							}
+						};
+	                   console.log(body, ' body submitting');
+													
 							
 							///build viewdo redirect 
 							const viewDoData = [
@@ -334,30 +311,20 @@ export default function FormPanel(props){
 								"phone="+encodeURIComponent("+1"+values.phoneNumber.replace(/[^A-Z0-9]+/ig, "")),
 								"segment="+encodeURIComponent(values.programCode)
 							]
-
-							createLead({ variables: {leadInput:body} }).then((response)=>{
-								setSubmitting(false);
-								//put redirect on creatlead:true
-								console.log(response);
-							})
-							 
-							///format View.DO url
-							/**xapi.view.do/v1/experience/link/vb-edu-rfi-peru/org?
-							useExisting=true&utm_source=online.peru.edu&utm_medium=referral&campaignKey=lp&**/
-							
 							const redirectTarget = (redirect && redirectUrl)?redirectUrl+viewDoData.join('&'):null;
 							
-							
-							//Success function
-							/*
-								if(json.Success){
-									(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})								
-								}
-							*/
+							createLead({ variables: {leadInput:body} }).then((response)=>{
+								setSubmitting(false);
+								console.log(response, 'response');
+								//put redirect on creatlead:true
+								if(response.data.createLead===true){
+									(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})
+									}
+							}).catch((e)=>{
+								console.log(e.message, 'Errormessage')
 								
-							
-//-->call the GraphQL mutation key with the const body variables 
-							;
+							})
+							 
 		                }}
 		
 		                validationSchema={Yup.object().shape({

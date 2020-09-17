@@ -1,7 +1,7 @@
 import React from "react"
 import slugify from 'slugify'
 import ProgramInfo from '../programInfo'
-import update from 'immutability-helper'
+//import update from 'immutability-helper'
 import ScrollIntoView from 'react-scroll-into-view'
 import {isMobile} from 'react-device-detect'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -51,7 +51,7 @@ const TabsPanel = (props)=>{
 		if(isNaN(tab))return true;
 		
 		//destructure the good bits
-		const{pageSlug, pageName, programCode}=props[index];
+		const{pageSlug, pageName}=props[index];
 		//if there is no pageSlug, this is a container for other pages. Build a slugified name
 		const parentSlug = (pageSlug)?'':slugify(pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
 		
