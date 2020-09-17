@@ -133,8 +133,17 @@ const selectOptions =(props)=>{
 		
 	return Object.keys(props).map((item,index)=>{
 		if(isNaN(item))return true;
-		return(<MenuItem value={props[index].value} key={index} data-reference={props[index].reference}>{props[index].text}</MenuItem>
-	)})
+		return(
+			<MenuItem 
+				value={props[index].value} 
+				key={index} 
+				data-reference={props[index].reference}
+			>
+					{props[index].text}
+			</MenuItem>
+			)
+		}
+	)
 }
 const useStyles = makeStyles(theme => ({
 	paper: {
