@@ -9,6 +9,9 @@
 	justify-items:center;
 	padding: 1rem 1rem;
 	height:calc(100% + 200px);
+	background-color:$brandmediumblue;
+	color:$primaryblue;
+	order:25;
 	@media (min-width:1024px){
 		@include section-shim;
 		margin-bottom:0;
@@ -20,6 +23,29 @@
 			grid-column:1/2;
 			justify-items:start;
 		
+		}
+	}
+	.logoBox {
+		width:150px;
+	}
+	.linkBox{
+		grid-column:1;
+		grid-row:2/3;
+		
+		@media (min-width:768px){
+			grid-column:2/3;
+			grid-row:1;
+		}
+		p{
+			font-size:.7rem;
+			margin-bottom:.3rem;
+			text-align:center;
+			@media (min-width:768px){
+				text-align:left;
+			}
+			a{
+				color:white;
+			}
 		}
 	}
 

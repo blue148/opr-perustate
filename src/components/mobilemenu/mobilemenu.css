@@ -3,6 +3,23 @@
 /***FONTS***/
 .menu-toggle {
   display: inline-block;
+  padding: 0.75em 15px;
+  line-height: 1em;
+  font-size: 1em;
+  color: #333;
+  width: 25px;
+  height: 25px;
+  grid-column: 2/3;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.menu-toggle:hover, .menu-toggle:focus {
+  color: #c00;
+}
+
+.menu-toggle svg path {
+  fill: white;
 }
 
 @media (min-width: 768px) {
@@ -32,6 +49,29 @@
     top: auto;
     height: auto;
   }
+}
+
+.main-menu .menuContainer {
+  position: relative;
+  overflow: hidden;
+  min-height: 100%;
+}
+
+.main-menu .menuContainer ul {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.main-menu .menuContainer ul ul {
+  left: 100%;
+  transition: .5s;
+}
+
+.main-menu .menuContainer ul ul.shown {
+  left: 0;
 }
 
 .main-menu .button#apply-now {
@@ -182,6 +222,7 @@
   display: block;
   height: 28px;
   font-size: 25px;
+  margin-bottom: .3rem;
 }
 
 .main-menu.opened ul,

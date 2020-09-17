@@ -1,57 +1,11 @@
 import React from "react"
-import styled from "styled-components"
 import slugify from 'slugify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faTimesCircle, faChevronRight, faChevronLeft,  faBars} from '@fortawesome/free-solid-svg-icons'
 import {ApplyNowButton} from '../uiElements'
 import './mobilemenu.scss'
 
-const CloseButton = styled.a`
-margin-bottom:.3rem;
-`
-const Overlay = styled.a`
-
-`
-const MenuContainer = styled.div`
-	position:relative;
-	overflow:hidden;
-	min-height:100%;
-	ul{
-		position:absolute;
-		top:0;
-		bottom:0;
-		left:0;
-		right:0;
-		ul{
-			left:100%;
-			transition:.5s;
-			&.shown{
-				left:0;
-				}			
-		}
-	}
-`
-const Hamburger = styled.a`
-	padding: .75em 15px;
-	line-height: 1em;
-	font-size: 1em;
-	color: #333;
-	&:hover, &:focus{
-		color:#c00;
-	}
-	width:25px;
-	height:25px;
-	grid-column:2/3;
-	grid-row:1;
-	justify-self:end;
-	svg{
-	path{
-		fill{
-			white;
-		}
-	}
-}
-` 
+ 
 const ListItem = (props) =>{
 	const {title, programs} = props;
 	if(!title)return false;
@@ -151,13 +105,13 @@ const MenuList = (props) =>{
 		)
 	})
 	 return (
-		 <MenuContainer>
+		 <div className="menuContainer">
 			<ul>
 				{list}
 				{props.children}
 			</ul>
 			
-		</MenuContainer>
+		</div>
 	 )
  }
  
@@ -183,7 +137,7 @@ export default class MobileMenu extends React.Component{
 		
 		return(		
 			<>	
-				<Hamburger 
+				<a
 					href="#" 
 					onClick={(e)=>this.handleMenuToggle(e)}
 					id="main-menu-toggle" 
@@ -194,14 +148,14 @@ export default class MobileMenu extends React.Component{
 						<FontAwesomeIcon icon={faBars} inverse size="3x" transform="shrink-6"/>
 					</span>
 					
-				</Hamburger>
+				</a>
 				<nav
 					id="main-menu"
 					className={this.state.menuOpened?'opened main-menu':'main-menu'}
 					area-label="mainmenu"
 				>
 					
-					<CloseButton
+					<a
 						href="#"
 						id="main-menu-close"
 						className="menu-close"
@@ -209,7 +163,7 @@ export default class MobileMenu extends React.Component{
 						aria-label="Close main menu">
 						<span className="sr-only">Close</span>
 						<FontAwesomeIcon icon={faTimesCircle} inverse/>
-					</CloseButton>
+					</a>
 					
 					
 					<MenuList 
@@ -227,10 +181,10 @@ export default class MobileMenu extends React.Component{
 					
 					
 				</nav>
-				<Overlay
+				<a
 					href="#"
 					className="backdrop"
-					tabindex="-1"
+					tabIndex="-1"
 					aria-hidden="true"
 					hidden
 					onClick={(e)=>this.handleMenuToggle(e)}

@@ -1,6 +1,12 @@
 /***BRAND COLORS AND STYLES***/
 /****COLORS****/
 /***FONTS***/
+.testimonialarea {
+  color: white;
+  background-color: #666;
+  margin: 0 -1rem;
+}
+
 @media (min-width: 768px) {
   .testimonialarea {
     display: grid;
@@ -36,4 +42,51 @@
     align-items: center;
     grid-column-gap: 2rem;
   }
+}
+
+.testimonialarea-content {
+  color: white;
+  font-size: 1.6rem;
+}
+
+.testimonialarea-content blockquote {
+  text-align: center;
+  line-height: 1.3;
+  font-size: 1.5rem;
+  border-bottom: solid 1px #cccccc;
+  padding-bottom: 1.8rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .testimonialarea-content blockquote {
+    padding-bottom: 0;
+    border-bottom: none;
+    margin-bottom: 1rem;
+  }
+}
+
+.testimonialarea-content p {
+  text-align: center;
+  line-height: 1.3;
+  margin-top: 1rem;
+}
+
+.testimonialarea-content p span {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.testimonialarea-image-box {
+  overflow: hidden;
+  width: 275px;
+  height: 275px;
+  margin: 1rem auto;
+  border-radius: 50%;
+}
+
+.testimonialarea-image-box img {
+  width: 100%;
+  height: auto;
 }

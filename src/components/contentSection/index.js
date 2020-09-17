@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {ApplyNowButton} from '../uiElements'
 import Icon from '../../images/icons'
 import Calendar from '../../icons/icon-calendar-bg.svg'
-import './programContent.scss';
+import './content-section.scss';
 
 const MainBox = styled.section`
 	margin-top:0;
@@ -31,7 +31,7 @@ const Dates = (props) =>{
 const Info = (props) =>{
 	const {items} = props.programInfo;
 	const infoItem = Object.keys(items).map((item,index)=>{	
-			if(index>=4)return false;
+			if(index>=3)return false;
 			return (
 				<ItemStack key={index} className="iconStack">
 					<div className="iconBox">
@@ -81,43 +81,8 @@ const CareerPanel = (props)=>{
 	)
 	}
 
-////STRUCTURE AND CONTENT FOR TAB PANEL
-const PanelContent = (props)=>{
-	const{programs} = props;
-	//get the data from the Program Info source	
-	const targetProgram = Object.keys(programs.edges).reduce((obj, index) => {
-	    if(programs.edges[index].node.contentful_id===props.contentful_id){
-		    obj=programs.edges[index].node;
-		   }
-		   return obj
-	  },{})
-	  const applyDate = (targetProgram.applyBy)?targetProgram.applyBy:(props.dates)?props.dates.apply:null;
-	  const startDate = (targetProgram.startClasses)?targetProgram.startClasses:(props.dates)?props.dates.start:null;
-	  //console.log(targetProgram)
-	return (
-		<>
-			<section className="program-details-area">
-				<Info {...props} programInfo={props.programInfo}/>
-				<section className="program-info program-dates">
-					{(applyDate)?(
-						<>
-							<Dates title="Apply By" items={applyDate}/>
-							<Dates title="Start Classes" items={startDate}/>
-						</>):null
-					}
-					<ApplyNowButton location={props.location}/>
-					<span className="bg-image" style={{backgroundImage:`url(${Calendar})`}}/>
-				</section>
-			</section>
-			{(props.careerOpportunities)?
-				<CareerPanel panelKey={props.id+'-'+props.itemKey} content={props.careerOpportunities.content} headline={props.careerOpportunities.headline}/>
-				:null}
-			
-		</>
-	)
-}
 
-export default class ProgramContent extends React.Component{
+export default class GeneralContent extends React.Component{
 
 	handleClose = (e,target,formSelect) =>{
 		//console.log(formSelect,' onClose')
@@ -141,16 +106,16 @@ export default class ProgramContent extends React.Component{
 
 	render(){
 		//add nbsp in the last space for text wrapping.
-		const cleanHeadline = this.props.programDetails.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;");
+		const cleanHeadline = this.props.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;");
 
 		return(		
-			<MainBox className="mainArea singleProgram">
+			<MainBox className="content-wrapper">
 				<div className="desktop-shim">
-					<section className="program-intro">
+					<section className={this.props.className}>
 						<h3 dangerouslySetInnerHTML={{__html:cleanHeadline}}/>
-						<div className="program-info-details" dangerouslySetInnerHTML={{__html:this.props.programDetails.content}}/>	
+						<div className="general-content" dangerouslySetInnerHTML={{__html:this.props.content}}/>	
 					</section>
-					<PanelContent {...this.props}/>
+					{this.props.children}
 				</div>
 			</MainBox>
 		)

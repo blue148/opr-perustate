@@ -1,6 +1,10 @@
 /***BRAND COLORS AND STYLES***/
 /****COLORS****/
 /***FONTS***/
+.mainArea {
+  margin-top: 0;
+}
+
 @media (min-width: 1024px) {
   .mainArea {
     display: grid;
@@ -17,5 +21,17 @@
 @media (min-width: 1024px) and (min-width: 1401px) {
   .mainArea {
     grid-template-columns: minmax(0, 800px) calc(340px + 5%);
+  }
+}
+
+.mainArea_content {
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .mainArea_content {
+    width: 95%;
+    max-width: 850px;
   }
 }

@@ -1,7 +1,4 @@
 import React from "react"
-//import ApolloClient from 'apollo-boost';
-//import gql from 'graphql-tag'
-//import { useMutation, ApolloProvider } from '@apollo/react-hooks'
 import {customAlphabet} from 'nanoid'
 
 import styled from "styled-components"
@@ -42,8 +39,6 @@ const leadId = getId();
 
 /// --> Apollo/GraphQL set up for Student Hub
 
-
-
 ///GraphQL Query/Mutation
 
 
@@ -59,57 +54,21 @@ const leadFormSend = gql`
 const StyledContainer = styled(Container)`	
 `
 const FormBox = styled.div`
-	padding: 0;
-
-	@media (min-width: 768px) {
-		width:355px;
-		height: 100%;
-		overflow-y: auto;
-		}
+	
 `
 
 const FormHeadline = styled.h2`
-	text-align:center;
-	margin:1rem auto 2rem;
-	line-height:1.4;
-	font-size:1.7rem;
 `
 const FormSubHeadline=styled.h3`
 
 `
 const CTPAText = styled.div`
-	margin-top:1rem;
-		p{
-			font-size:.6rem;
-			line-height:1rem;
-		}
-`
+	`
 const CTASection = styled.p`
-	text-align:center;
-	a{
-		font-size:1.6rem;
-		font-weight:600;
-		text-decoration:none;
-		color:${props=>props.theme.brandblue};
-	}
-	span{
-		font-size:1.3rem;
-		font-weight:600;
-		text-decoration:none;
-		color:${props=>props.theme.brandblue};
-	}
+	
 `
 const Spacer = styled.span`
- 	display: block; 
-	  content: " "; 
-	  margin-top: 0px; 
-	  height: 0px; 
-	  visibility: hidden; 
-	  pointer-events: none;
-	  @media (min-width:768px){
-		  height:85px;
-		  margin-top:-85px;
-	  }
+ 	
 `
 
 ///Set up options 

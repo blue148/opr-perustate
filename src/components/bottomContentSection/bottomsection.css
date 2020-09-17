@@ -1,6 +1,18 @@
 /***BRAND COLORS AND STYLES***/
 /****COLORS****/
 /***FONTS***/
+.bottomsection {
+  background-color: #cccccc;
+  margin: 0 -1rem -1rem;
+  padding-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+  .bottomsection {
+    background-color: #efefef;
+  }
+}
+
 @media (min-width: 1024px) {
   .bottomsection {
     display: grid;
@@ -17,5 +29,17 @@
 @media (min-width: 1024px) and (min-width: 1401px) {
   .bottomsection {
     grid-template-columns: minmax(0, 800px) calc(340px + 5%);
+  }
+}
+
+.bottomsection_content {
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .bottomsection_content {
+    width: 95%;
+    max-width: 850px;
+    text-align: center;
   }
 }

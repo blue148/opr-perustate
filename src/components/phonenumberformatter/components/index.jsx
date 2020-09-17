@@ -518,7 +518,7 @@ class MaterialUiPhoneNumber extends React.Component {
 
   handleKeydown = (e) => {
     const {
-      anchorEl, highlightCountryIndex,/*preferredCountries,*/ onlyCountries,
+      anchorEl, highlightCountryIndex, preferredCountries, onlyCountries,
       queryString, debouncedQueryStingSearcher,
     } = this.state;
     const { keys, disabled } = this.props;
