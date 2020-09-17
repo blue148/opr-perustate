@@ -17,6 +17,8 @@ import "./tabbedlayout.scss"
 import Icons from "../images/symbol-defs.svg"
 import ScrollIntoView from 'react-scroll-into-view'
 
+
+
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
 
 const Page = styled.div`
@@ -116,7 +118,7 @@ export default class Layout extends React.Component{
 	render(){
 
 	  return (
-		<ThemeProvider theme={theme}>
+			<ThemeProvider theme={theme}>
 			<Icons/>
 			<Header {...this.props.tabbedContent} location={this.state.location} onStateChange={this.handleStateChange} state={this.state}/>
 		    <Page className="pageContainer tabbedLayout">   
