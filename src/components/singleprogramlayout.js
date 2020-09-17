@@ -157,14 +157,14 @@ export default class Layout extends React.Component{
 								isSingle={true}/>
 							<Footer/>
 						</Main>
-						<MobileBottomBar>
+						<nav className="mobileBottomBar">
 							<ScrollIntoView selector="#leadform" className="buttonContainer" alignToTop={true}>
 								<button className="button action" type="button">Request Info</button>
 							</ScrollIntoView>
 							<div  className="buttonContainer">
 								<a className="button tertiary" href={"tel:"+this.props.formSettings.phonenumber}>Call Us</a>
 							</div>
-						</MobileBottomBar>
+						</nav>
 				    </Page>
 			    </ThemeProvider>
 			</ApolloProvider>
