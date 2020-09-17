@@ -158,6 +158,13 @@ export default class Layout extends React.Component{
 								)
 								:null
 							}
+							<FormPanel 
+								{...this.props.formSettings}
+								state={this.state} 
+								programs={this.props.programs} 
+								location={this.state.location}
+								isSingle={false}/>
+							
 							
 							<MainArea {...this.props.mainContentSection} />
 							<TabbedArea 
@@ -171,14 +178,8 @@ export default class Layout extends React.Component{
 							<Awards {...this.props.awards}/>
 							<Bottom {...this.props.bottomContentSection}/>						
 						</ContentArea>
-	
-						<FormPanel 
-							{...this.props.formSettings}
-							state={this.state} 
-							programs={this.props.programs} 
-							location={this.state.location}
-							isSingle={false}/>
 						<Footer/>
+						
 					</Main>
 					<nav className="mobileBottomBar">
 						<ScrollIntoView selector="#leadform" className="buttonContainer" alignToTop={true}>

@@ -142,6 +142,13 @@ export default class Layout extends React.Component{
 									)
 									:null
 								}
+								<FormPanel 
+									{...this.props.formSettings}
+									state={this.state} 
+									programs={this.props.programs} 
+									location={this.state.location}
+									isSingle={true}/>
+
 								<ProgramContent {...this.props.programContent} programs={this.props.programs} location={this.state.location}/>
 								<Accolades {...this.props.accolades} />
 								<Testimonial {...this.props.testimonial}/>
@@ -149,13 +156,7 @@ export default class Layout extends React.Component{
 								<Bottom {...this.props.bottomContentSection}/>						
 							</ContentArea>
 		
-							<FormPanel 
-								{...this.props.formSettings}
-								state={this.state} 
-								programs={this.props.programs} 
-								location={this.state.location}
-								isSingle={true}/>
-							<Footer/>
+														<Footer/>
 						</Main>
 						<nav className="mobileBottomBar">
 							<ScrollIntoView selector="#leadform" className="buttonContainer" alignToTop={true}>

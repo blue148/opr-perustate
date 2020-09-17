@@ -433,11 +433,11 @@ export default function FormPanel(props){
 											>
 												Send Request
 											</Button>
-											<CTASection >
+											<CTASection className="ctaSection">
 												or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>
 												<span className="desktop-only">{phone}</span>
 											</CTASection>
-											<CTPAText>
+											<CTPAText className="ctpaText">
 												<p>By submitting this form, I am providing my digital signature agreeing that Peru State College may email me or contact me regarding educational services by telephone and/or text message utilizing automated technology at the telephone number(s) provided above. I understand this consent is not a condition to attend Peru State College or to purchase any other goods or services.</p>
 											</CTPAText>
 										</Grid>
