@@ -235,35 +235,35 @@ export default function FormPanel(props){
 	                   if(values.request!==true)window.dataLayer.push({event:'Request Info Button Click'});
 	                  //add as variables to teh GraphQL mutation
 							const body = {
-							'captureUrl': props.location.href,
-							'leadId': leadId,
-							'partnerCode':'PERU',
-							'collegeCode': 'PERU',
-							'campusCode': 'PERU_ONLINE',
-							'sourceCode': searchVars.utm_medium||'UNKNOWN',
-							'programCode': values.programCode||'PERU_UNDERGRAD_UNDECIDED',
-							'phoneNumberCountry': 'US',
-							'formType': 'Website_RFI',
-							'email': values.email,
-							'phoneNumber': values.phoneNumber,
-							'firstName': values.firstName,
-							'lastName': values.lastName,
-							'deviceType': searchVars.device||'UNKNOWN',
-							"isTestLead": false,
-							'sourceTracking': {
-								'campaignName': searchVars.utm_campaign||'',
-								'adGroupId': searchVars.utm_adgroup||'',
-								'keyword': searchVars.utm_term||'',
-								'matchType': searchVars.matchtype||'',
-								'network': searchVars.network||'',
-								'creativeId': searchVars.creative||'',
-								'placement': searchVars.placement||'',
-								'target': searchVars.target||'',
-								'feedItemId': searchVars.feeditemid||'',
-								'agencyTrackingCode':  searchVars.agencytrackingcode||''
-							}
-						};
-	                   console.log(body, ' body submitting');
+								'captureUrl': props.location.href,
+								'leadId': leadId,
+								'partnerCode':'PERU',
+								'collegeCode': 'PERU',
+								'campusCode': 'PERU_ONLINE',
+								'sourceCode': searchVars.utm_medium||'UNKNOWN',
+								'programCode': values.programCode||'PERU_UNDERGRAD_UNDECIDED',
+								'phoneNumberCountry': 'US',
+								'formType': 'Website_RFI',
+								'email': values.email,
+								'phoneNumber': values.phoneNumber,
+								'firstName': values.firstName,
+								'lastName': values.lastName,
+								'deviceType': searchVars.device||'UNKNOWN',
+								"isTestLead": false,
+								'sourceTracking': {
+									'campaignName': searchVars.utm_campaign||'',
+									'adGroupId': searchVars.utm_adgroup||'',
+									'keyword': searchVars.utm_term||'',
+									'matchType': searchVars.matchtype||'',
+									'network': searchVars.network||'',
+									'creativeId': searchVars.creative||'',
+									'placement': searchVars.placement||'',
+									'target': searchVars.target||'',
+									'feedItemId': searchVars.feeditemid||'',
+									'agencyTrackingCode':  searchVars.agencytrackingcode||'',
+									//'content': searchVars.utm_content||''
+								}
+							};
 													
 							
 							///build viewdo redirect 
