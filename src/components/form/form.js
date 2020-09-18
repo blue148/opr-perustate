@@ -193,9 +193,11 @@ export default function FormPanel(props){
 	//(props.location.search)?JSON.parse('{"' + props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) }):''
 	if(searchParams){
 		for(var item of searchParams.entries()){
-			searchVars[item[0]]=decodeURIComponent(item[1])
+			searchVars[item[0]]=decodeURIComponent(item[1]).toUpperCase()
 		}
 	}
+	const deviceTypes = ['MOBILE', 'DESKTOP', 'TABLET'];
+	searchVars['device']=(searchVars['device'] && !deviceTypes.includes(searchVars['device']))?'UNKNOWN':searchVars['device']
 	return(
 		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
@@ -238,7 +240,7 @@ export default function FormPanel(props){
 							'partnerCode':'PERU',
 							'collegeCode': 'PERU',
 							'campusCode': 'PERU_ONLINE',
-							'sourceCode': searchVars.utm_medium.toUpperCase()||'UNKNOWN',
+							'sourceCode': searchVars.utm_medium||'UNKNOWN',
 							'programCode': values.programCode||'PERU_UNDERGRAD_UNDECIDED',
 							'phoneNumberCountry': 'US',
 							'formType': 'Website_RFI',
@@ -246,19 +248,19 @@ export default function FormPanel(props){
 							'phoneNumber': values.phoneNumber,
 							'firstName': values.firstName,
 							'lastName': values.lastName,
-							'deviceType': searchVars.device.toUpperCase()||'UNKNOWN',
+							'deviceType': searchVars.device||'UNKNOWN',
 							"isTestLead": false,
 							'sourceTracking': {
-								'campaignName': searchVars.utm_campaign.toUpperCase()||'',
-								'adGroupId': searchVars.utm_adgroup.toUpperCase()||'',
-								'keyword': searchVars.utm_term.toUpperCase()||'',
-								'matchType': searchVars.matchtype.toUpperCase()||'',
-								'network': searchVars.network.toUpperCase()||'',
-								'creativeId': searchVars.creative.toUpperCase()||'',
-								'placement': searchVars.placement.toUpperCase()||'',
-								'target': searchVars.target.toUpperCase()||'',
-								'feedItemId': searchVars.feeditemid.toUpperCase()||'',
-								'agencyTrackingCode':  searchVars.agencytrackingcode.toUpperCase()||''
+								'campaignName': searchVars.utm_campaign||'',
+								'adGroupId': searchVars.utm_adgroup||'',
+								'keyword': searchVars.utm_term||'',
+								'matchType': searchVars.matchtype||'',
+								'network': searchVars.network||'',
+								'creativeId': searchVars.creative||'',
+								'placement': searchVars.placement||'',
+								'target': searchVars.target||'',
+								'feedItemId': searchVars.feeditemid||'',
+								'agencyTrackingCode':  searchVars.agencytrackingcode||''
 							}
 						};
 	                   console.log(body, ' body submitting');
