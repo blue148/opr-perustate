@@ -278,9 +278,9 @@ export default function FormPanel(props){
 								setSubmitting(false);
 								console.log(response, 'response');
 								//put redirect on creatlead:true
-								/*if(response.data.createLead===true){
+								if(response.data.createLead===true){
 									(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})
-									}*/
+									}
 							}).catch((e)=>{
 								console.log(e, '  Errormessage')
 								
