@@ -20,6 +20,13 @@ import * as Yup from 'yup';
 
 import './form.scss'
 
+
+import {customAlphabet} from 'nanoid'
+import { 
+	useMutation,
+} from '@apollo/client';
+import gql from 'graphql-tag';
+
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`
 })
@@ -30,7 +37,27 @@ const crmConfig = {
   
 }
 const { midpoint, endpoint } = crmConfig;
-console.log(endpoint, midpoint);
+
+/// --> get list of programs for select menu
+
+const getId = customAlphabet(
+  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+  12
+);
+
+const leadId = getId();
+
+/// --> Apollo/GraphQL set up for Student Hub
+
+///GraphQL Query/Mutation
+
+
+const leadFormSend = gql`
+  mutation leadformsend($leadInput: CreateLeadInput!) {
+	  createLead(lead: $leadInput)
+	}
+`
+
 ////Nove this to scss due to FOUC
 const StyledContainer = styled(Container)`
 	
@@ -64,7 +91,7 @@ const programArray = (props)=>{
 		});
 	return Object.keys(sorted).map((item,index)=>(
 			{text:props[index].node.shortName,
-				value:props[index].node.programCode,
+				value:'PERU_'+props[index].node.programCode.replace(' - ','_'),
 				key:props[index].node.programCode,
 				reference:props[index].node.pageSlug}		
 		))
@@ -120,6 +147,7 @@ const useStyles = makeStyles(theme => ({
 	
 	
 export default function FormPanel(props){
+	const [createLead, { data }] = useMutation(leadFormSend);
 	
 	const {phone,headline, subheadline, redirect, redirectUrl, successMsg} = props;
 	//const {phone} = (props.formSettings.phone==null)?'(402) 902-3128':props.formSetting.phone;
@@ -165,9 +193,11 @@ export default function FormPanel(props){
 	//(props.location.search)?JSON.parse('{"' + props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) }):''
 	if(searchParams){
 		for(var item of searchParams.entries()){
-			searchVars[item[0]]=decodeURIComponent(item[1])
+			searchVars[item[0]]=decodeURIComponent(item[1]).toUpperCase()
 		}
 	}
+	const deviceTypes = ['MOBILE', 'DESKTOP', 'TABLET'];
+	searchVars['device']=(searchVars['device'] && !deviceTypes.includes(searchVars['device']))?'UNKNOWN':searchVars['device']
 	return(
 		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
@@ -203,72 +233,61 @@ export default function FormPanel(props){
 	                   //on response, if success, redirect to viewdo, else show thankyou message
 	                   setState({request:true})
 	                   if(values.request!==true)window.dataLayer.push({event:'Request Info Button Click'});
-	                   const headers = new Headers();
-					   headers.append('Content-Type', 'application/json');
-						const body = {
-						 "universityId": "102",
-						  "programCode": values.programCode,
-						  "firstName": values.firstName,
-						  "lastName": values.lastName,
-						  "secondaryLastName": "",
-						  "email": values.email,
-						  "phoneNumber": "",
-						  "cellNumber": values.phoneNumber,
-						  "countryCode": "US",
-						  "comments": "",
-						  "origin": "Website RFI",
-						  "source": searchVars.utm_source,
-						  "subSource": searchVars.utm_medium,
-						  "campaignName": searchVars.utm_campaign,
-						  "adGroupName": searchVars.utm_adgroup,
-						  "keyword": searchVars.utm_term,
-						  "matchType": searchVars.matchtype,
-						  "network": searchVars.network,
-						  "device": searchVars.device,
-						  "deviceModel": searchVars.devicemodel,
-						  "creative": searchVars.creative,
-						  "placement": searchVars.placement,
-						  "target": searchVars.target,
-						  "adPosition": searchVars.adposition,
-						  "feedItemId": searchVars.feeditemid,
-						  "agencyTrackingCode": searchVars.agencytrackingcode,
-						  "webUrl": props.location.origin+props.location.pathname,
-						  "ip": ""
-						};
-						
-						const viewDoData = [
-							"firstname="+encodeURIComponent(values.firstName),
-							"lastname="+encodeURIComponent(values.lastName),
-							"email="+encodeURIComponent(values.email),
-							"phone="+encodeURIComponent("+1"+values.phoneNumber.replace(/[^A-Z0-9]+/ig, "")),
-							"segment="+encodeURIComponent(values.programCode)
-						]
-						const init = {
-						  method: 'POST',
-						  headers,
-						  body:JSON.stringify(body)		  
-						};
-
-
-						const redirectTarget = (redirect && redirectUrl)?redirectUrl+viewDoData.join('&'):null;
-						const url = midpoint+'?url='+encodeURIComponent(endpoint);
-						fetch(url, init)
-						.then((response) => {	
-							setSubmitting(false)
-							console.log(response.status, 'response');
-							return response
-							})
-						.then((response) => {
-							if(response.status===200){
-								
-								(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})								
-							}
+	                  //add as variables to teh GraphQL mutation
+							const body = {
+								'captureUrl': props.location.href,
+								'leadId': leadId,
+								'partnerCode':'PERU',
+								'collegeCode': 'PERU',
+								'campusCode': 'PERU_ONLINE',
+								'sourceCode': searchVars.utm_medium||'UNKNOWN',
+								'programCode': values.programCode||'PERU_UNDERGRAD_UNDECIDED',
+								'phoneNumberCountry': 'US',
+								'formType': 'Website_RFI',
+								'email': values.email,
+								'phoneNumber': values.phoneNumber,
+								'firstName': values.firstName,
+								'lastName': values.lastName,
+								'deviceType': searchVars.device||'UNKNOWN',
+								"isTestLead": false,
+								'sourceTracking': {
+									'campaignName': searchVars.utm_campaign||'',
+									'adGroupId': searchVars.utm_adgroup||'',
+									'keyword': searchVars.utm_term||'',
+									'matchType': searchVars.matchtype||'',
+									'network': searchVars.network||'',
+									'creativeId': searchVars.creative||'',
+									'placement': searchVars.placement||'',
+									'target': searchVars.target||'',
+									'feedItemId': searchVars.feeditemid||'',
+									'agencyTrackingCode':  searchVars.agencytrackingcode||'',
+									//'content': searchVars.utm_content||''
+								}
+							};
+													
 							
-						})
-						.catch((e) => {
-						  console.log(e.message)
-						});
-	                }}
+							///build viewdo redirect 
+							const viewDoData = [
+								"firstname="+encodeURIComponent(values.firstName),
+								"lastname="+encodeURIComponent(values.lastName),
+								"email="+encodeURIComponent(values.email),
+								"phone="+encodeURIComponent("+1"+values.phoneNumber.replace(/[^A-Z0-9]+/ig, "")),
+								"segment="+encodeURIComponent(values.programCode)
+							]
+							const redirectTarget = (redirect && redirectUrl)?redirectUrl+viewDoData.join('&'):null;
+							
+							createLead({ variables: {leadInput:body} }).then((response)=>{
+								setSubmitting(false);
+								console.log(response, 'response');
+								//put redirect on creatlead:true
+								if(response.data.createLead===true){
+									(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})
+									}
+							}).catch((e)=>{
+								console.log(e, '  Errormessage')
+								
+							})
+		                }}
 	
 	                validationSchema={Yup.object().shape({
 	                  email: Yup.string()
