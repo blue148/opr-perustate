@@ -238,7 +238,7 @@ export default function FormPanel(props){
 							'partnerCode':'PERU',
 							'collegeCode': 'PERU',
 							'campusCode': 'PERU_ONLINE',
-							'sourceCode': searchVars.utm_medium||'UNKNOWN',
+							'sourceCode': searchVars.utm_medium.toUpperCase()||'UNKNOWN',
 							'programCode': values.programCode||'PERU_UNDERGRAD_UNDECIDED',
 							'phoneNumberCountry': 'US',
 							'formType': 'Website_RFI',
@@ -246,19 +246,19 @@ export default function FormPanel(props){
 							'phoneNumber': values.phoneNumber,
 							'firstName': values.firstName,
 							'lastName': values.lastName,
-							'deviceType': searchVars.device||'UNKNOWN',
+							'deviceType': searchVars.device.toUpperCase()||'UNKNOWN',
 							"isTestLead": false,
 							'sourceTracking': {
-								'campaignName': searchVars.utm_campaign||'',
-								'adGroupId': searchVars.utm_adgroup||'',
-								'keyword': searchVars.utm_term||'',
-								'matchType': searchVars.matchtype||'',
-								'network': searchVars.network||'',
-								'creativeId': searchVars.creative||'',
-								'placement': searchVars.placement||'',
-								'target': searchVars.target||'',
-								'feedItemId': searchVars.feeditemid||'',
-								'agencyTrackingCode':  searchVars.agencytrackingcode||''
+								'campaignName': searchVars.utm_campaign.toUpperCase()||'',
+								'adGroupId': searchVars.utm_adgroup.toUpperCase()||'',
+								'keyword': searchVars.utm_term.toUpperCase()||'',
+								'matchType': searchVars.matchtype.toUpperCase()||'',
+								'network': searchVars.network.toUpperCase()||'',
+								'creativeId': searchVars.creative.toUpperCase()||'',
+								'placement': searchVars.placement.toUpperCase()||'',
+								'target': searchVars.target.toUpperCase()||'',
+								'feedItemId': searchVars.feeditemid.toUpperCase()||'',
+								'agencyTrackingCode':  searchVars.agencytrackingcode.toUpperCase()||''
 							}
 						};
 	                   console.log(body, ' body submitting');
