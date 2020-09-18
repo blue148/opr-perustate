@@ -36,7 +36,7 @@ export default class Layout extends React.Component{
 		super(props)
 		console.log(this.props.programContent.programCode);
 		const targetProgram =this.props.programContent.programCode;
-		const formSelectValue = (targetProgram && !targetProgram.startsWith('PERU_'))?'PERU_'+targetProgram.replace(' - ','_'):targetProgram;
+		const formSelectValue = targetProgram;//(targetProgram && !targetProgram.startsWith('PERU_'))?'PERU_'+targetProgram.replace(' - ','_'):targetProgram;
 		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:'',formSelect:formSelectValue}
 		//console.log(props, 'master')
 	}

@@ -255,12 +255,13 @@ export default function FormPanel(props){
 						fetch(url, init)
 						.then((response) => {	
 							setSubmitting(false)
-							console.log(response.status, 'response');
-							return response
+							
+							return response.text()
 							})
-						.then((response) => {
-							if(response.status===200){
-								
+						.then((text) => {
+							//console.log(text);
+							if(text.includes('LeadID')){	
+								//console.log('success')	
 								(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})								
 							}
 							
