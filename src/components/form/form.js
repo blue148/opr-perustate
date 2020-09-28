@@ -30,8 +30,6 @@ const crmConfig = {
   
 }
 const { midpoint, endpoint } = crmConfig;
-console.log(endpoint, midpoint);
-////Nove this to scss due to FOUC
 const StyledContainer = styled(Container)`
 	
 `
@@ -122,17 +120,15 @@ const useStyles = makeStyles(theme => ({
 export default function FormPanel(props){
 	
 	const {phone,headline, subheadline, redirect, redirectUrl, successMsg} = props;
-	//const {phone} = (props.formSettings.phone==null)?'(402) 902-3128':props.formSetting.phone;
-	//const headline = props.headline;
 	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
 	const cleanSubHeadline = (subheadline)?subheadline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
-	//clear if subheadline is only a br
 	
 	const submitSuccess = (successMsg)?successMsg:
 					(<>
 						<h3>Thank you for your request.</h3>
 						<h4>We have received your request and will contact you shortly</h4>
 					</>)
+					
 	const classes = useStyles();
 	const [state, setState] = React.useReducer(
 	    (state, newState) => ({...state, ...newState}),
@@ -163,11 +159,13 @@ export default function FormPanel(props){
 	const searchParams = (props.location)?new URLSearchParams(props.location.search):'';
 	const searchVars = {}
 	//(props.location.search)?JSON.parse('{"' + props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) }):''
+
 	if(searchParams){
 		for(var item of searchParams.entries()){
 			searchVars[item[0]]=decodeURIComponent(item[1])
 		}
 	}
+	
 	return(
 		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
@@ -204,10 +202,18 @@ export default function FormPanel(props){
 	                   setState({request:true})
 	                   if(values.request!==true)window.dataLayer.push({event:'Request Info Button Click'});
 	                   const headers = new Headers();
+	                   	let universityId = "102";
+					   	let programCode = values.programCode;
+
+	                   if(searchVars.testLead){
+							universityId = "101";
+							programCode='archer - '+programCode;
+						}
+						
 					   headers.append('Content-Type', 'application/json');
 						const body = {
-						 "universityId": "102",
-						  "programCode": values.programCode,
+						 "universityId": universityId,
+						  "programCode": programCode,
 						  "firstName": values.firstName,
 						  "lastName": values.lastName,
 						  "secondaryLastName": "",
@@ -216,7 +222,7 @@ export default function FormPanel(props){
 						  "cellNumber": values.phoneNumber,
 						  "countryCode": "US",
 						  "comments": "",
-						  "origin": "Website RFI",
+						  "origin": props.origin || "Website RFI",
 						  "source": searchVars.utm_source,
 						  "subSource": searchVars.utm_medium,
 						  "campaignName": searchVars.utm_campaign,
@@ -235,7 +241,8 @@ export default function FormPanel(props){
 						  "webUrl": props.location.origin+props.location.pathname,
 						  "ip": ""
 						};
-						
+						console.log('Body', body)
+
 						const viewDoData = [
 							"firstname="+encodeURIComponent(values.firstName),
 							"lastname="+encodeURIComponent(values.lastName),
@@ -248,18 +255,16 @@ export default function FormPanel(props){
 						  headers,
 						  body:JSON.stringify(body)		  
 						};
-
-
+						console.log(init)
 						const redirectTarget = (redirect && redirectUrl)?redirectUrl+viewDoData.join('&'):null;
 						const url = midpoint+'?url='+encodeURIComponent(endpoint);
 						fetch(url, init)
 						.then((response) => {	
 							setSubmitting(false)
-							
 							return response.text()
 							})
 						.then((text) => {
-							//console.log(text);
+							console.log(text);
 							if(text.includes('LeadID')){	
 								//console.log('success')	
 								(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})								
@@ -267,7 +272,7 @@ export default function FormPanel(props){
 							
 						})
 						.catch((e) => {
-						  console.log(e.message)
+						  console.log(e.message,' errors')
 						});
 	                }}
 	

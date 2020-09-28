@@ -9,6 +9,7 @@ import Awards from "./awards"
 import Bottom from "./bottomContentSection"
 import Footer from "./footer"
 import FormPanel from "./form/form"
+import FormPanelGQL from "./form/formgql"
 import Callout from "./callout/callout"
 import update from 'immutability-helper'
 import styled, {ThemeProvider} from "styled-components"
@@ -36,9 +37,10 @@ export default class Layout extends React.Component{
 		super(props)
 		console.log(this.props.programContent.programCode);
 		const targetProgram =this.props.programContent.programCode;
+		
+		//if env var USE_API === StudentHub, else "Pass-Thru"
 		const formSelectValue = targetProgram;//(targetProgram && !targetProgram.startsWith('PERU_'))?'PERU_'+targetProgram.replace(' - ','_'):targetProgram;
 		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:'',formSelect:formSelectValue}
-		//console.log(props, 'master')
 	}
 	
 	componentDidMount(){
@@ -46,7 +48,6 @@ export default class Layout extends React.Component{
 	}
 	
 	handleStateChange=(e,tabState,subTabState,formSelect)=>{
-		//console.log(tabState, subTabState, 'state change')
 		if(tabState===null)tabState=this.state.activeTab;
 		
 		const tabArray = tabState.split('__');
@@ -116,8 +117,6 @@ export default class Layout extends React.Component{
 						}
 						<FormPanel 
 							{...this.props.formSettings}
-							//phone={this.props.phonenumber} 
-							//headline={this.props.formheadline} 
 							state={this.state} 
 							programs={this.props.programs} 
 							location={this.state.location}

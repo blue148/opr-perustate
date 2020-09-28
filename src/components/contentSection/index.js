@@ -112,7 +112,7 @@ export default class GeneralContent extends React.Component{
 			<MainBox className="content-wrapper">
 				<div className="desktop-shim">
 					<section className={this.props.className}>
-						<h3 dangerouslySetInnerHTML={{__html:cleanHeadline}}/>
+						<h2 dangerouslySetInnerHTML={{__html:cleanHeadline}}/>
 						<div className="general-content" dangerouslySetInnerHTML={{__html:this.props.content}}/>	
 					</section>
 					{this.props.children}

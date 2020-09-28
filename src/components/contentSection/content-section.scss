@@ -20,7 +20,8 @@
 	display:grid;
 	@media (min-width:1024px){
 		padding: 1rem;
-		grid-template-columns: minmax(0,725px) calc(340px + 5%);
+		grid-template-columns: minmax(0,800px) calc(340px + 5%);
+		justify-content: center;
 	}
 	.desktop-shim > section{
 		padding:0;
@@ -53,7 +54,10 @@
 		&-2{
 			&>div{
 				display:grid;
-				grid-template-columns:1fr/ 50% 50%;
+				grid-template: auto/1fr;
+				@media(min-width:1024px){
+					grid-template:1fr/ 50% 50%;
+				}
 				&>section{
 					grid-column: auto;
 					padding: 1rem 1.5rem;

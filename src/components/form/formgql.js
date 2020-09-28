@@ -146,7 +146,7 @@ const useStyles = makeStyles(theme => ({
 	}));
 	
 	
-export default function FormPanel(props){
+export default function FormPanelGQL(props){
 	const [createLead, { data }] = useMutation(leadFormSend);
 	
 	const {phone,headline, subheadline, redirect, redirectUrl, successMsg} = props;

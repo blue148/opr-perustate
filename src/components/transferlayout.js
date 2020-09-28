@@ -34,7 +34,6 @@ const ContentArea = styled.section`
 export default class Layout extends React.Component{
 	constructor(props){
 		super(props)
-		
 		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:'',formSelect:'',location:''}
 	}
 	
@@ -42,14 +41,10 @@ export default class Layout extends React.Component{
 	componentDidMount(){
 		this.setState({location:window.location},()=>this.drillDown(this.state.location));
 		
-		//if(this.props.location.search){			
-		//}
-		
 	}
 	drillDown = (location)=>{
 		if(!location.search)return false;
 		const targetProgram = JSON.parse('{"' + location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}')||'';
-			//console.log(this.props.programs,targetProgram.targetprogram)
 			//find program code
 			if(targetProgram.targetprogram){
 				const tArr = targetProgram.targetprogram.split('__');
@@ -62,7 +57,6 @@ export default class Layout extends React.Component{
 			}
 	}
 	handleStateChange=(e,tabState,subTabState,formSelect)=>{
-		//console.log(tabState,'tabState',subTabState,formSelect, 'on state,change')
 		const thisTabState = (tabState===null)?
 				tabState=this.state.activeTab:
 				tabState;
@@ -75,7 +69,6 @@ export default class Layout extends React.Component{
 		var subTabPanel = '';
 		
 		if(tabArray.length < 2){
-			//console.log(thisTabState,' single tab')
 			subTab = '';
 			tab = thisTabState;
 			tabPanel = tab+'_panel';
@@ -105,7 +98,6 @@ export default class Layout extends React.Component{
 	
 	
 	handleParentState=(e,tab,subtab,props)=>{
-		//console.log(props,' on parent change')
 		const updatedState = update(
 		   this.state,{
 			   'formSelect':{$set:props}
@@ -122,7 +114,7 @@ export default class Layout extends React.Component{
 		<ThemeProvider theme={theme}>
 			<Icons/>
 			<Header {...this.props.tabbedContent} location={this.state.location} onStateChange={this.handleStateChange} state={this.state}/>
-		    <Page className="pageContainer tabbedLayout">   
+		    <Page className="pageContainer tabbedLayout transferLayout">   
 			    
 				<Main className="mainContainer">
 
@@ -142,9 +134,10 @@ export default class Layout extends React.Component{
 							state={this.state} 
 							programs={this.props.programs} 
 							location={this.state.location}
-							isSingle={false}/>
+							isSingle={false}
+							origin='TRANSFER_WEBSITE_RFI'/>
 						
-						<GeneralContent
+						<MainArea
 							className="introduction-section"
 							{...this.props.introduction}
 							/>

@@ -1,11 +1,16 @@
 @import "./_variables";
-.transferlayout__Page-kzwKko{
-	.tabbedArea{
+.transferLayout{
+	.content-wrapper > div > .tabbedArea{
 		grid-template-columns:1fr;
 	}
-	.mainArea.singleProgram{
-		grid-template-columns:minmax(0, 725px) calc(340px + 5%);
-		justify-content: start;
+	.mainArea{
+		&.singleProgram{
+			grid-template-columns:minmax(0, 800px) calc(340px + 5%);
+			justify-content: center;
+		}
+		&.introduction-section {
+			padding-bottom: 0px;
+		}
 
 	}
 	.testimonialarea{

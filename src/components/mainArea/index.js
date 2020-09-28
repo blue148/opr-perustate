@@ -9,7 +9,7 @@ export default class MainArea extends React.Component{
 		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;"):'';
 
 		return(
-			<section className="mainArea">
+			<section className={["mainArea", this.props.className].join(' ')}>
 				<div className="desktop-shim">
 	                <h2 dangerouslySetInnerHTML={{__html:cleanHeadline}}/>
 	                <div className="mainArea_content" dangerouslySetInnerHTML={{__html:content}}/>
