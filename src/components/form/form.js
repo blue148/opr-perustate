@@ -141,7 +141,8 @@ export default function FormPanel(props){
 			location:props.location,
 			},
 		submitted:false,
-		request:false
+		request:false,
+		error:false
 		}
 	  )
 
@@ -151,14 +152,12 @@ export default function FormPanel(props){
 	);
 	
 	const inputLabel = React.useRef(null);
-	///parse location string for ad vars
 	
 	/*** from google: {lpurl}?utm_source=sem&utm_medium=google&utm_campaign={_campaignname}&utm_adgroup={_adgroupname}&utm_term={keyword}&matchtype={matchtype}&network={network}&device={device}&devicemodel={devicemodel}&creative={creative}&placement={placement}&target={target}&adposition={adposition}&feeditemid={feeditemid}&adgroup_id={adgroupid}&target_id={targetid}&agencytrackingcode=v1-{campaignid}
 	**** from facebook:?utm_source=paidsocial&utm_medium=facebook&utm_campaign={{campaign.name}}&utm_adgroup={{adset.name}}&network={{site_source_name}}&placement={{placement}}&adgroup_id={{adset.id}}&agencytrackingcode=v1-{{campaign.id}}*/
 	
 	const searchParams = (props.location)?new URLSearchParams(props.location.search):'';
 	const searchVars = {}
-	//(props.location.search)?JSON.parse('{"' + props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) }):''
 
 	if(searchParams){
 		for(var item of searchParams.entries()){
@@ -182,8 +181,9 @@ export default function FormPanel(props){
 			        )
 			        :null
 			      }
-		        <div className={["successContainer",state.submitted?'':'hide'].join(' ')}
-		        	dangerouslySetInnerHTML={{__html:submitSuccess}}/> 
+		        <div className={["successContainer",state.submitted?'':'hide'].join(' ')}>
+		        	{submitSuccess}
+		        </div> 
 				 <Formik
 			 		enableReinitialize={true}
 			 		initialValues={{ 
@@ -197,7 +197,7 @@ export default function FormPanel(props){
 				 		isSingle:props.isSingle||false
 				 		}}
 	                onSubmit={(values, { setSubmitting}) => {
-	                   //while sumbmitting and waiting for a repsonse, show spinner
+	                   //while sumbmitting and waiting for a response, show spinner
 	                   //on response, if success, redirect to viewdo, else show thankyou message
 	                   setState({request:true})
 	                   if(values.request!==true)window.dataLayer.push({event:'Request Info Button Click'});
@@ -255,24 +255,24 @@ export default function FormPanel(props){
 						  headers,
 						  body:JSON.stringify(body)		  
 						};
-						console.log(init)
 						const redirectTarget = (redirect && redirectUrl)?redirectUrl+viewDoData.join('&'):null;
 						const url = midpoint+'?url='+encodeURIComponent(endpoint);
 						fetch(url, init)
 						.then((response) => {	
-							setSubmitting(false)
 							return response.text()
 							})
 						.then((text) => {
-							console.log(text);
 							if(text.includes('LeadID')){	
-								//console.log('success')	
+								setSubmitting(false);	
 								(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})								
 							}
 							
 						})
 						.catch((e) => {
-						  console.log(e.message,' errors')
+							setSubmitting(false);
+							setState({'error':true});
+							console.log(state,' state')
+							console.log(e.message,' errors')
 						});
 	                }}
 	
@@ -308,7 +308,12 @@ export default function FormPanel(props){
 							</div>
 							
 		                    <form onSubmit={handleSubmit} className={[classes.form, state.submitted?'hide':''].join(' ')}>
-		                    
+		                    	<p className={["Mui-error", state.error?'':'hide'].join(' ')}>
+		                    		<strong> We are very sorry about this...</strong><br/>
+		                    		Our network is having some trouble submitting your information.<br/>
+		                    		You can wait a little bit, then resend. <br/>
+		                    		Or you can <a href={"tel:+1"+phone.replace(/\D/g,'')}>give us a call</a>.
+		                    	</p>
 		                    	<Grid container spacing={0}>
 									<Grid item xs={12}> 
 							            <FormControl fullWidth className={[classes.selectControl,' selectControl', values.isSingle?"single-program":""].join(' ')}>
