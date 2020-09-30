@@ -147,7 +147,11 @@ export default class Layout extends React.Component{
 							location={this.state.location}
 							dates={globalDates}
 							/>
-						
+						<GeneralContent
+							className="learning-section"
+							{...this.props.learningSection}
+						/>
+
 						 
 						<section className="content-wrapper section-columns section-columns-2">
 							<div className="desktop-shim">
