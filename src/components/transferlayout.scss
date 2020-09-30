@@ -13,6 +13,30 @@
 		}
 
 	}
+	.HeroBox{
+		.desktop-shim{
+			h1 {
+				@media (min-width: 1024px){
+					font-size: 3rem;
+				    line-height: 1.2;
+				    margin: 0 auto 0;
+				    width: 100%;
+				    align-self: end;
+				}
+			}
+			h2.HeroSubHeadline {
+				@media (min-width: 1024px){
+				    grid-column: 2;
+				    grid-row: 2;
+				    font-size: 3rem;
+				    line-height: 1.2;
+				    margin: 0 auto 1.5rem;
+				    width: 100%;
+				    font-weight: 700;
+				}
+			}
+		}	    
+	}
 	.testimonialarea{
 		grid-template-rows:1fr;
 		padding:1rem;
