@@ -7,7 +7,7 @@ export default class MainArea extends React.Component{
 	render(){
 		const { headline, content}= this.props
 		//remove and p and f tags to clean up the code then add nbsp in the last space for text wrapping.
-		const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;"):'';
+		const cleanHeadline = (headline)?headline.replace(/(<\/?span[^>]*>|<\/?p[^>]*>|<\/?f[^>]*>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;"):'';
 
 
 		return(

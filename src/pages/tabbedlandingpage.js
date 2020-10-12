@@ -9,6 +9,10 @@ import Layout from "../components/tabbedlayout"
 export default ({data, location}) => {
 //parse pararmeters for cofingruation. console.log(queryString.parse(location.search),' master')
 //add META field to CMS: Title,
+
+/// --> clean passed headline
+data.contentfulNestedTabbedLandingPage.heroArea.headline = data.contentfulNestedTabbedLandingPage.heroArea.headline.replace(/(<\/?span[^>]*>|<\/?p[^>]*>|<\/?f[^>]*>)/ig,"").replace(/ (?=[^ ]*$)/i, " ");
+data.contentfulNestedTabbedLandingPage.mainContentSection.headline = data.contentfulNestedTabbedLandingPage.mainContentSection.headline.replace(/(<\/?span[^>]*>|<\/?p[^>]*>|<\/?f[^>]*>)/ig,"").replace(/ (?=[^ ]*$)/i, " ");
 	return (
 		<>
 			<Helmet>
@@ -17,7 +21,7 @@ export default ({data, location}) => {
 				</script>
 	
 				  <meta charSet="utf-8" />
-				  <title>{data.contentfulNestedTabbedLandingPage.heroArea.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, " ")}</title>
+				  <title>{data.contentfulNestedTabbedLandingPage.heroArea.headline}</title>
 				  <meta name="robots" content="noindex, nofollow"/>
 				</Helmet>
 	
