@@ -34,7 +34,7 @@ const programMapping =
 
 ////TABS PANEL -> Make external functional component
 const TabsPanel = (props)=>{
-
+	if(props.singleTabPanel && props.singleTabPanel===true)return null;
 	//destructure the three items needed from props
 	const {direction,parent,title} = props||'';
 	//use the passed click prop
@@ -44,7 +44,6 @@ const TabsPanel = (props)=>{
 	}
 	//inactive list header
 	const titleLead = (title)?<li className="leader">{title}</li>:'';
-
 	//build the list items for the tabs
 	const tabItems = Object.keys(props).map((tab, index)=>{
 		//if the key is not numeric, skip it
@@ -110,6 +109,7 @@ const TabsPanel = (props)=>{
 const ContentPanel = (props) =>{
 	/**  TODO::: pull in programCode from content and replace programMapping.  **/
 	const {pageSlug, id} = props;
+	console.log(props, 'Content Panel Single')
 	const ref = React.createRef();	
 	const handleClick = (e,slug) =>{
 		window.scrollTo(0, (ref.current.offsetTop - (90 + ref.current.parentNode.offsetHeight)))
@@ -126,6 +126,8 @@ const ContentPanel = (props) =>{
 	const slug = (pageSlug)?pageSlug:slugify(id,{remove: /[*+~.()'"!:@]/g,lower:true});
 	const activeClass = (slug === props.active)?'selected':'';
 //const slugPanel = props.pageSlug+'_panel'//slug+'_panel' 
+
+
 	
 	return(
 		<div 
@@ -159,6 +161,7 @@ const ContentPanel = (props) =>{
 
 ////CONTAINER TO HOLD ALL THE CONTENT PANELS
 const ContentPanelContainer = (props) =>{
+
 	const panels = Object.keys(props).map((child, index)=>{
 		if(isNaN(child))return true;
 		///if programs exist, this is a nested tab panel
@@ -173,6 +176,7 @@ const ContentPanelContainer = (props) =>{
 				itemKey={index} 
 				onStateChange={props.onStateChange}
 				onParentStateChange={props.onParentStateChange}
+				singleTabPanel={props.singleTabPanel}
 				/>
 		):(
 			<ContentPanel 
@@ -184,7 +188,8 @@ const ContentPanelContainer = (props) =>{
 				itemKey={index}
 				location={props.location}
 				onStateChange={props.onStateChange}
-				onParentStateChange={props.onStateChange}/>
+				onParentStateChange={props.onStateChange}
+				singleTabPanel={props.singleTabPanel}/>
 		)
 		return programPanel
 	});
@@ -218,7 +223,8 @@ export class NestedPanel extends React.Component{
 					key={index}
 					itemKey={index}
 					onStateChange={this.props.onStateChange}
-					onParentStateChange={this.props.onParentStateChange}/>
+					onParentStateChange={this.props.onParentStateChange}
+					singleTabPanel={this.props.singleTabPanel}/>
 				
 			)})
 			
@@ -236,13 +242,14 @@ export class NestedPanel extends React.Component{
 				
 			}
 		}
+		const accordionTrigger = (this.props.singleTabPanel===true)?'single-tab expanded':'accordion-trigger';
 		///make the item call ContentPanel. 
 		return(
 				<div 
 					className={"contentPanel nested "+activeParent}
 					id={this.slug}
 				>
-					<ScrollIntoView selector={"#"+this.slug} className="accordion-trigger mobile-only" alignToTop={true} onClick={(e)=>handleClick(e,this.slug,ref)}>
+					<ScrollIntoView selector={"#"+this.slug} className={[accordionTrigger,  'mobile-only'].join(' ')} alignToTop={true} onClick={(e)=>handleClick(e,this.slug,ref)}>
 						<h4 className='tab mobile-only' ref={ref} data-target={slugPanel} >
 							{this.props.pageName}
 							
@@ -284,11 +291,12 @@ export default class TabbedArea extends React.Component{
 		}	else{
 			this.props.onStateChange('','','','')
 		}
+		
 	}
-	  
+	 
    
 	render(){
-
+		const singleTabPanel=(this.props[1])?false:true; 
 		return(
 			<section id="tabbedArea" className="tabbedArea">
 				<div className="desktop-shim">
@@ -298,11 +306,13 @@ export default class TabbedArea extends React.Component{
 						onTabClick={this.props.onParentStateChange}
 						id="tabPanelTop"
 						viewport="desktop-only"
+						singleTabPanel={singleTabPanel}
 					/>
 					
 					<ContentPanelContainer 
 						active={this.props.state}
 						onStateChange = {this.props.onStateChange}
+						singleTabPanel={singleTabPanel}
 						{...this.props}/>
 				</div>
 			</section>				
