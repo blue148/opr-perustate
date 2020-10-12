@@ -243,10 +243,14 @@
 			}
 			& ~ .nestedContentPanel{
 				display:block;
+				.tabPanel{
+					display:none;
+				}
 				.selected .contentTarget{
 					top:60px;
 				}
 			}
+			
 		}
 		&>.accordion-trigger{
 			border-bottom: solid 2px $lightgray;
