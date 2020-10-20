@@ -109,7 +109,6 @@ const TabsPanel = (props)=>{
 const ContentPanel = (props) =>{
 	/**  TODO::: pull in programCode from content and replace programMapping.  **/
 	const {pageSlug, id} = props;
-	console.log(props, 'Content Panel Single')
 	const ref = React.createRef();	
 	const handleClick = (e,slug) =>{
 		window.scrollTo(0, (ref.current.offsetTop - (90 + ref.current.parentNode.offsetHeight)))
