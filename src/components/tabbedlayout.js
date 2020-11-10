@@ -17,6 +17,9 @@ import "./tabbedlayout.scss"
 import Icons from "../images/symbol-defs.svg"
 import ScrollIntoView from 'react-scroll-into-view'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faPhone} from '@fortawesome/free-solid-svg-icons'
+
 
 
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
@@ -159,11 +162,11 @@ export default class Layout extends React.Component{
 					<Footer/>
 				</Main>
 				<nav className="mobileBottomBar">
-					<ScrollIntoView selector="#leadform" className="buttonContainer" alignToTop={true}>
-						<button className="button action" type="button">Request Info</button>
+					<ScrollIntoView selector="#leadform" className="buttonContainer learn-more-button" alignToTop={true}>
+						<button className="button secondary" type="button">Learn More</button>
 					</ScrollIntoView>
-					<div  className="buttonContainer">
-						<a className="button tertiary" href={"tel:+1"+this.props.formSettings.phone.replace(/\D/g,'')}>Call Us</a>
+					<div  className="buttonContainer call-us-button">
+						<a className="button tertiary call-us" href={"tel:+1"+this.props.formSettings.phone.replace(/\D/g,'')}><FontAwesomeIcon icon={faPhone} /></a>
 					</div>
 				</nav>
 		    </Page>

@@ -86,12 +86,14 @@
 			color:white;
 			z-index:2;
 			text-shadow:rgba(0,0,0,.5) -3px 3px 10px;
+			margin-bottom: 0;
+			align-self: center;
 			@media (min-width:1024px){
 				font-size:3rem;
 				line-height: 1.2;
 				margin: 0 auto 1.5rem;
 				width: 100%;
-				}
+			}
 		}
 		h2{
 			color:white;

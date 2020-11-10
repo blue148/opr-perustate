@@ -63,7 +63,7 @@ header{
 				&#apply-now{
 					display:none;
 					@media (min-width:1024px){
-						display:block;
+						display:flex;
 						box-shadow:1px 3px 6px rgba(0,0,0,.5);
 						padding:.3rem;
 					}

@@ -136,12 +136,6 @@ header.singleProgramPage{
 		}
 	}
 	
-	.formPanel{
-		.button{
-			margin:1.5rem 0 1rem;
-			padding:0;
-		}
-	}
 	.contentArea{
 			margin:0;
 			padding: 0 1rem;	
@@ -212,16 +206,7 @@ section{
 		margin: 0 auto;
 	}
 }
-.formPanel{
-	font-size:3rem;
-	margin-left: -1rem;
-    width: 110%;
-	@media (max-width:1290px){
-		left:850px;
-		margin-left:0;
-		width: 100%;
-	}
-}
+
 .singleprogramlayout__Page-emqmqj .accolades{
 	display:none;
 	@media (min-width:1024px){
