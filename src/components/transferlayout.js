@@ -20,6 +20,10 @@ import "./transferlayout.scss"
 import Icons from "../images/symbol-defs.svg"
 import ScrollIntoView from 'react-scroll-into-view'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faPhone} from '@fortawesome/free-solid-svg-icons'
+
+
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
 
 const Page = styled.div`
