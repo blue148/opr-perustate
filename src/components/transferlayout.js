@@ -10,6 +10,7 @@ import Testimonial from "./testimonial"
 import ProgramContent from './programContent'
 import Awards from "./awards"
 import Bottom from "./bottomContentSection"
+import BottomBar from "./bottomBarMenu/bottomBarMenu"
 import Footer from "./footer"
 import FormPanel from "./form/form"
 import Callout from "./callout/callout"
@@ -190,15 +191,8 @@ export default class Layout extends React.Component{
 					
 					<Footer/>
 				</Main>
-				<nav className="mobileBottomBar">
-					<ScrollIntoView selector="#leadform" className="buttonContainer learn-more-button" alignToTop={true}>
-						<button className="button secondary" type="button">Learn More</button>
-					</ScrollIntoView>
-					<div  className="buttonContainer call-us-button">
-						<a className="button tertiary call-us" href={"tel:+1"+this.props.formSettings.phone.replace(/\D/g,'')}><FontAwesomeIcon icon={faPhone} /></a>
-					</div>
-				</nav>
-		    </Page>
+				<BottomBar phone={this.props.formSettings.phone}/>
+			</Page>
 	    </ThemeProvider>
 	
   )

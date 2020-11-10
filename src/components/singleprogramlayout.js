@@ -7,6 +7,7 @@ import Accolades from "./accolades"
 import Testimonial from "./testimonial"
 import Awards from "./awards"
 import Bottom from "./bottomContentSection"
+import BottomBar from "./bottomBarMenu/bottomBarMenu"
 import Footer from "./footer"
 import FormPanel from "./form/form"
 import FormPanelGQL from "./form/formgql"
@@ -16,9 +17,6 @@ import styled, {ThemeProvider} from "styled-components"
 import "./singleprogramlayout.scss"
 import Icons from "../images/symbol-defs.svg"
 import ScrollIntoView from 'react-scroll-into-view'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faPhone} from '@fortawesome/free-solid-svg-icons'
 
 
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
@@ -34,8 +32,7 @@ const Main = styled.main`
 const ContentArea = styled.section`
 	
 `
-const MobileBottomBar = styled.div`
-	`
+
 export default class Layout extends React.Component{
 	constructor(props){
 		super(props)
@@ -135,14 +132,7 @@ export default class Layout extends React.Component{
 					
 					<Footer/>
 				</main>
-				<nav className="mobileBottomBar">
-					<ScrollIntoView selector="#leadform" className="buttonContainer learn-more-button" alignToTop={true}>
-						<button className="button secondary" type="button">Learn More</button>
-					</ScrollIntoView>
-					<div  className="buttonContainer call-us-button">
-						<a className="button tertiary call-us" href={"tel:+1"+this.props.formSettings.phone.replace(/\D/g,'')}><FontAwesomeIcon icon={faPhone} /></a>
-					</div>
-				</nav>
+				<BottomBar phone={this.props.formSettings.phone}/>
 			</Page>
 	    </ThemeProvider>
 	
