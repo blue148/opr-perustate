@@ -68,6 +68,9 @@
 		&:before{
 			content:none;
 		}
+		@media(min-width:1024px){
+			height:100vh;
+		}
 	}
 }
 .form-cta-group{
