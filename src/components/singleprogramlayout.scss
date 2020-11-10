@@ -153,37 +153,7 @@ header.singleProgramPage{
 			}
 		}
 	nav{
-		&.mobileBottomBar{
-			width:100%;
-			background:black;
-			position:fixed;
-			bottom:0px;
-			height:65px;
-			display:grid;
-			grid-template-columns: 1fr 1fr;
-			align-items:center;
-			justify-items:center;
-			z-index:30000;
-		    padding-left: 10px;
-			padding-right: 10px;
-
-			&>div{
-			    width: 100%;
-			    text-align: center;
-			    padding: 0 5px;
-				.button{
-					font-size:1rem;
-					height:42px;
-					width:100%;
-				    padding: .6rem;
-					}
-				}
-			@media(min-width:768px){
-				display:none;
-				}
-
 		}
-	}
 }
 section{
 	margin:0;
