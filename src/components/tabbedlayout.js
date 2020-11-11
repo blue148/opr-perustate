@@ -65,21 +65,22 @@ export default class Layout extends React.Component{
 		const thisTabState = (tabState===null)?
 				tabState=this.state.activeTab:
 				tabState;
-		
+		//console.log(thisTabState, tabState)
 		const tabArray = thisTabState.split('__');
 		
 		var subTab = '';
 		var tab = '';
 		var tabPanel = '';
 		var subTabPanel = '';
-		
+/// --> Check if thisTabState is a compound name, meaning that it is a child (parentName__child-name)		
 		if(tabArray.length < 2){
-			//console.log(thisTabState,' single tab')
+/// --> this is a parent tab
 			subTab = '';
 			tab = thisTabState;
 			tabPanel = tab+'_panel';
 			subTabPanel = tab+'_panel';
 		}else{
+/// --> this is a child tab
 			subTab = thisTabState;
 			tab = tabArray[0];
 			tabPanel = tab+'_panel';

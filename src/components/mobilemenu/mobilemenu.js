@@ -2,24 +2,31 @@ import React from "react"
 import slugify from 'slugify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faTimesCircle, faChevronRight, faChevronLeft,  faBars} from '@fortawesome/free-solid-svg-icons'
+import ScrollIntoView from 'react-scroll-into-view'
 import {ApplyNowButton} from '../uiElements'
 import './mobilemenu.scss'
 
  
 const ListItem = (props) =>{
-	const {title, programs} = props;
-	if(!title)return false;
+	const {title, programs,pageSlug} = props;
 	
-	//BUILD CHILD LIST IF PROGRAMS ARE PRESENT
+/// --> no title prop? bail on this method
+	if(!title)return false;
+
+/// --> Non-nested items have pageSlug prop, Parents to nested items do not, so create one from their title	
+	const slug = pageSlug || slugify(title,{remove: /[*+~.()'"!:@]/g, lower:true});
+		
+/// --> BUILD CHILD LIST IF PROGRAMS ARE PRESENT
 	const childList =  (programs)?
 			
 			Object.keys(programs).map((item,index)=>{
 				const subtitle = programs[item].tabname||programs[item].pageName;///Check for deprecated tabName
 				const parent = slugify(title,{remove: /[*+~.()'"!:@]/g,lower:true});///slugify the parent pageName
-				const chainId=slugify([title,subtitle].join('__'),{remove: /[*+~.()'"!:@]/g,lower:true});///create the nested ID. Format is [parent]__[pagename]
-				
+				const chainId=slugify([title,programs[item].pageSlug].join('__'),{remove: /[*+~.()'"!:@]/g,lower:true});///create the nested ID. Format is [parent]__[pagename]
+				//console.log('child item',parent, chainId)
 				return(
-					<li key={index} className={chainId}>		
+					<li key={index} className={chainId}>
+						<ScrollIntoView selector={"#"+parent} alignToTop={true} >		
 						 	<button
 						 		onClick={(e)=>{
 							 		e.preventDefault();
@@ -29,20 +36,29 @@ const ListItem = (props) =>{
 						 		>
 						 		{subtitle}
 						 	</button>
+						</ScrollIntoView>
 						 	
 					
 						</li>)		
 			}):null;
-	//RETURN FULL LIST WITH NESTED CHILDREN IF BUILT
-	const slug = slugify(title,{remove: /[*+~.()'"!:@]/g, lower:true});
+			
+			
+			
+/// --> RETURN FULL LIST WITH NESTED CHILDREN IF BUILT
+	
 	if(programs){
 		/*nested level tabs. They have children*/
 		const showToggle = (props.state.menuTarget === slug+'__menu')?'shown':'';
 		return(
 			<li className="top-level">
 				<div
-				 	role="tab" 
+				 	role="tab"
+				 	tabIndex="-1" 
 				 	onClick={(e)=>{
+					 	e.preventDefault()
+					 	props.handleSlide(e,slug,'')
+				 	}}
+				 	onKeyDown={(e)=>{
 					 	e.preventDefault()
 					 	props.handleSlide(e,slug,'')
 				 	}}
@@ -54,9 +70,14 @@ const ListItem = (props) =>{
 				 
 					{childList ?
 						<ul id={slug+'__menu'} className={showToggle}>
-							<li className="menu-back" onClick={(e)=>props.handleSlide(e,'','')}>
-								<span><FontAwesomeIcon icon={faChevronLeft}/></span>
-								<a href="#" onClick={(e)=>e.preventDefault()}>Back</a>		
+							<li className="menu-back">
+								<button
+									onClick={(e)=>props.handleSlide(e,'','')}
+									onKeyDown={(e)=>props.handleSlide(e,'','')}
+							 	>
+							 		<FontAwesomeIcon icon={faChevronLeft}/> Back
+							 		
+							 	</button>		
 							</li>
 							{childList}
 						</ul>
@@ -65,13 +86,15 @@ const ListItem = (props) =>{
 			</li> 
 		)
 	}
-			
+	//console.log('parent',slug);		
 			/*single level tabs, no children*/	
 		return(
 
-			<li role="tab">
-				 	<a 
-				 		href='#'
+			<li
+				>
+				<ScrollIntoView selector={"#"+slug} alignToTop={true} >	
+				 	<button 
+				 		href={slug}
 				 		onClick={(e)=>{
 					 		e.preventDefault();
 					 		props.handleSlide(e,slug,'')
@@ -79,7 +102,8 @@ const ListItem = (props) =>{
 						}}				
 					>
 						{title}
-					</a>
+					</button>
+				</ScrollIntoView>
 				 	
 			</li>
 		
@@ -88,10 +112,9 @@ const ListItem = (props) =>{
 }
 const MenuList = (props) =>{
 	////CREATE TOP LEVEL LIST OF PROGRAMS
-	//console.log(props, ' MenuList')
 	const {items} = props;
 	const list = Object.keys(items).map((item, index)=>{
-		const {programs, tabName, pageName} = items[item]||'';		 
+		const {programs, tabName, pageName,pageSlug} = items[item]||'';		 
 		return(			 
 			<ListItem
 				title={tabName||pageName}
@@ -101,6 +124,7 @@ const MenuList = (props) =>{
 				programs={programs||''}
 				onStateChange={props.onStateChange}
 				state={props.state}
+				pageSlug={pageSlug}
 			/>
 		)
 	})
@@ -134,10 +158,9 @@ export default class MobileMenu extends React.Component{
 	}
 	
 	render(){
-		
 		return(		
 			<>	
-				<a
+				<button
 					href="#" 
 					onClick={(e)=>this.handleMenuToggle(e)}
 					id="main-menu-toggle" 
@@ -148,14 +171,14 @@ export default class MobileMenu extends React.Component{
 						<FontAwesomeIcon icon={faBars} inverse size="3x" transform="shrink-6"/>
 					</span>
 					
-				</a>
+				</button>
 				<nav
 					id="main-menu"
 					className={this.state.menuOpened?'opened main-menu':'main-menu'}
 					area-label="mainmenu"
 				>
 					
-					<a
+					<button
 						href="#"
 						id="main-menu-close"
 						className="menu-close"
@@ -163,7 +186,7 @@ export default class MobileMenu extends React.Component{
 						aria-label="Close main menu">
 						<span className="sr-only">Close</span>
 						<FontAwesomeIcon icon={faTimesCircle} inverse/>
-					</a>
+					</button>
 					
 					
 					<MenuList 
@@ -181,11 +204,11 @@ export default class MobileMenu extends React.Component{
 					
 					
 				</nav>
-				<a
-					href="#"
+				<button
 					className="backdrop"
 					tabIndex="-1"
 					aria-hidden="true"
+					aria-label="Close Navigation"
 					hidden
 					onClick={(e)=>this.handleMenuToggle(e)}
 				/>

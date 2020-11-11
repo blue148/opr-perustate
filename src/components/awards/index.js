@@ -1,18 +1,10 @@
 import React from "react"
-import styled from "styled-components"
+//import styled from "styled-components"
 import './awards.scss';
 
 
-const ContentBox = styled.section`
-	
-`
-const Headline = styled.h3`
-	
-`
-const ItemsBox = styled.section`
-	
-`
-const ItemStack = styled.div`
+
+/*const ItemStack = styled.div`
 	display:grid;
 	grid-column-gap:1rem;
 	align-items:center;
@@ -58,7 +50,7 @@ const ItemStack = styled.div`
 		margin: 1rem auto;
 		max-width:none;
 		}
-`
+`*/
 //need to pull the icon by name
 const Items = (props) =>(
 	<section className="iconGrid">

@@ -10,7 +10,7 @@ import Bottom from "./bottomContentSection"
 import BottomBar from "./bottomBarMenu/bottomBarMenu"
 import Footer from "./footer"
 import FormPanel from "./form/form"
-import FormPanelGQL from "./form/formgql"
+//import FormPanelGQL from "./form/formgql"
 import Callout from "./callout/callout"
 import update from 'immutability-helper'
 import styled, {ThemeProvider} from "styled-components"
@@ -24,15 +24,9 @@ const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_v
 const Page = styled.div`
 	
 `
-const Main = styled.main`
-	
-
-`
-
 const ContentArea = styled.section`
 	
 `
-
 export default class Layout extends React.Component{
 	constructor(props){
 		super(props)
