@@ -1,19 +1,19 @@
 import React from "react"
 import styled from 'styled-components'
-import {ApplyNowButton} from '../uiElements'
-import Icon from '../../images/icons'
-import Calendar from '../../icons/icon-calendar-bg.svg'
+//import {ApplyNowButton} from '../uiElements'
+//import Icon from '../../images/icons'
+//import Calendar from '../../icons/icon-calendar-bg.svg'
 import './content-section.scss';
 
 const MainBox = styled.section`
 	margin-top:0;
 `
 
-const ItemStack = styled.div``
+
 
 
 ////STRUCTURE FOR THE APPPLY AND START DATE LISTS
-const Dates = (props) =>{
+/*const Dates = (props) =>{
 	const {items, title} = props;
 	//CREATE LIST OF DATES FROM PROVIDED CSV STRING
 	const list = (items)?items.split(',').map((item,index)=>(<li key={index}>{item}</li>)):'';
@@ -25,10 +25,10 @@ const Dates = (props) =>{
 			<ul>{list}</ul>
 		</div>
 	)
-}
+}*/
 
 ////STRUCTURE AND CONTENT FOR INFO AREA OF EACH PROGRAM PANEL
-const Info = (props) =>{
+/*const Info = (props) =>{
 	const {items} = props.programInfo;
 	const infoItem = Object.keys(items).map((item,index)=>{	
 			if(index>=3)return false;
@@ -79,8 +79,8 @@ const CareerPanel = (props)=>{
 			<div className="program-info-career" dangerouslySetInnerHTML={{__html:props.content}}/>
 		</section>
 	)
-	}
-
+}
+*/
 
 export default class GeneralContent extends React.Component{
 

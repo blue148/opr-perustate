@@ -13,7 +13,7 @@ import Bottom from "./bottomContentSection"
 import Footer from "./footer"
 import FormPanel from "./form/form"
 import Callout from "./callout/callout"
-import {ApplyNowButton} from './uiElements'
+//import {ApplyNowButton} from './uiElements'
 import update from 'immutability-helper'
 import styled, {ThemeProvider} from "styled-components"
 import "./transferlayout.scss"

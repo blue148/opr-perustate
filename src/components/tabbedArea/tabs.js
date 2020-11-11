@@ -1,7 +1,7 @@
 import React from "react"
 import slugify from 'slugify'
 import ProgramInfo from '../programInfo'
-import update from 'immutability-helper'
+//import update from 'immutability-helper'
 import ScrollIntoView from 'react-scroll-into-view'
 import {isMobile} from 'react-device-detect'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -37,29 +37,37 @@ const TabsPanel = (props)=>{
 	if(props.singleTabPanel && props.singleTabPanel===true)return null;
 	//destructure the three items needed from props
 	const {direction,parent,title} = props||'';
+	
+	
 	//use the passed click prop
 	const handleClick = (e,props)=>{
 		e.preventDefault();
 		props.onStateChange(e, props.tabState, props.subTabState, props.formSelect)
 	}
+	
 	//inactive list header
 	const titleLead = (title)?<li className="leader">{title}</li>:'';
-	//build the list items for the tabs
+	
+///// -->build the list items for the tabs
 	const tabItems = Object.keys(props).map((tab, index)=>{
-		//if the key is not numeric, skip it
+		
+/// -->if the key is not numeric, skip it
 		if(isNaN(tab))return true;
 		
-		//destructure the good bits
-		const{pageSlug, pageName, programCode}=props[index];
-		//if there is no pageSlug, this is a container for other pages. Build a slugified name
+/// --> destructure the good bits
+		const{pageSlug, pageName}=props[index];
+		
+/// --> if there is no pageSlug, this is a container for other pages. Build a slugified name
 		const parentSlug = (pageSlug)?'':slugify(pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
 		
 		
-		//build state values based on passed props, which are pageSLugs
+/// --> build state values based on passed props, which are pageSLugs
 		const tabState = (parent)?[ parent, pageSlug ].join('__'): (pageSlug)?pageSlug:parentSlug;
-		
+
+/// --> pass subTab id to state		
 		const subTabState=(props[tab].programs)?tabState+'__'+props[tab].programs[0].pageSlug:'';
-		
+
+/// --> Pass program code to the form drop down select via state		
 		const formSelect =  (subTabState)?props[tab].programs[0].programCode:props[tab].programCode;
 		
 		const activeClass = (tabState===props.active)?'selected':'';
@@ -199,7 +207,7 @@ const ContentPanelContainer = (props) =>{
 export class NestedPanel extends React.Component{
 	constructor(props){
 		super(props)
-		this.slug = slugify(this.props.pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
+		this.slug = this.props.pageSlug ||slugify(this.props.pageName,{remove: /[*+~.()'"!:@]/g,lower:true});
 		
 	}
 	
