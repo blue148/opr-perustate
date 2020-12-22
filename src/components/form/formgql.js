@@ -173,8 +173,8 @@ export default function FormPanel(props){
 				 		firstName: '',
 				 		lastName:'', 
 				 		phoneNumber: '', 
-				 		programCode:'' ,
-				 		programs:'',
+				 		programCode:props.state.formSelect,
+				 		programs:props.programs.nodes,
 				 		request:false,
 				 		isSingle:props.isSingle||false
 				 	}}
@@ -185,7 +185,7 @@ export default function FormPanel(props){
 						//on response, if success, redirect to viewdo, else show thankyou message*/
 						setState({request:true})
 						
-						if(values.request!==true && typeof window != 'undefined')window.dataLayer.push({event:'Request Info Button Click'});
+						//if(values.request!==true && typeof window != 'undefined')window.dataLayer.push({event:'Request Info Button Click'});
 						
 						const testLead=(searchVars.testform)?true:false;
 						
@@ -299,7 +299,7 @@ export default function FormPanel(props){
 									          error={errors.programCode && touched.programCode && <FormHelperText>'Please choose a program of interest'</FormHelperText>}
 									        >
 										        <MenuItem value=''>Please Select a Program</MenuItem>
-												{ProgramsSelectList}										        
+										        {selectOptions(programArray(values.programs))}										        
 									        </Select>
 									    </FormControl>
 						            </Grid>

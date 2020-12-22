@@ -20,7 +20,36 @@ import * as Yup from 'yup';
 
 import './form.scss'
 
-require('dotenv').config({
+import {  
+	gql,
+	useMutation
+} from '@apollo/client';
+import {customAlphabet} from 'nanoid'
+
+
+/// --> get list of programs for select menu
+
+const getId = customAlphabet(
+  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+  12
+);
+
+const leadId = getId();
+
+/// --> Apollo/GraphQL set up for Student Hub
+
+///GraphQL Query/Mutation
+
+
+const leadFormSend = gql`
+  mutation leadformsend($leadInput: CreateLeadInput!) {
+	  createLead(lead: $leadInput)
+	}
+`
+
+
+
+/*require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`
 })
 
@@ -29,7 +58,8 @@ const crmConfig = {
 	endpoint:process.env.GATSBY_CRM_ENDPOINT
   
 }
-const { midpoint, endpoint } = crmConfig;
+const { midpoint, endpoint } = crmConfig;*/
+
 const StyledContainer = styled(Container)`
 	
 `
@@ -53,23 +83,23 @@ const Spacer = styled.span`
 //pull these from GQL
 
 const handleFormExpand =()=>{
-	console.log('opened', window.getComputedStyle(document.querySelector('.formPanel'), ':before').getPropertyValue('background'));
+	//console.log('opened', window.getComputedStyle(document.querySelector('.formPanel'), ':before').getPropertyValue('background'));
 	document.querySelector('.formPanel').classList.add('opened');
 }
 //need to add key and sort
 const programArray = (props)=>{
 	const sorted = props.sort(function(a, b){
-		  var x = a.node.pageSlug;
-		  var y = b.node.pageSlug;
+		  var x = a.pageSlug;
+		  var y = b.pageSlug;
 		  if (x < y) {return -1;}
 		  if (x > y) {return 1;}
 		  return 0;
 		});
 	return Object.keys(sorted).map((item,index)=>(
-			{text:props[index].node.shortName,
-				value:props[index].node.programCode,
-				key:props[index].node.programCode,
-				reference:props[index].node.pageSlug}		
+			{text:props[index].shortName,
+				value:props[index].programCode,
+				key:props[index].programCode,
+				reference:props[index].pageSlug}		
 		))
 }
 const selectOptions =(props)=>{
@@ -124,7 +154,19 @@ const useStyles = makeStyles(theme => ({
 	
 export default function FormPanel(props){
 	
-	const {phone,headline, subheadline, redirect, redirectUrl, successMsg} = props;
+	const {
+			phone,
+			headline, 
+			subheadline, 
+			redirect, 
+			redirectUrl, 
+			successMsg,
+			endpoint,
+			midpoint,
+			origin, 
+			formtype,
+			programs
+		} = props;
 	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
 	const cleanSubHeadline = (subheadline)?subheadline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
 	
@@ -197,7 +239,7 @@ export default function FormPanel(props){
 				 		lastName:'', 
 				 		phoneNumber: '', 
 				 		programCode:props.state.formSelect ,
-				 		programs:props.programs.edges,
+				 		programs:props.programs.nodes,
 				 		request:false,
 				 		isSingle:props.isSingle||false
 				 		}}

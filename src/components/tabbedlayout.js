@@ -53,8 +53,8 @@ export default class Layout extends React.Component{
 			if(targetProgram.targetprogram){
 				const tArr = targetProgram.targetprogram.split('__');
 				const pageSlug = (tArr[1])?tArr[1]:tArr[0];
-				const pCode = Object.keys(this.props.programs.edges).reduce((result, item)=>{
-					if(this.props.programs.edges[item].node.pageSlug===pageSlug)result.push(this.props.programs.edges[item].node.programCode);
+				const pCode = Object.keys(this.props.programs.nodes).reduce((result, item)=>{
+					if(this.props.programs.nodes[item].pageSlug===pageSlug)result.push(this.props.programs.nodes[item].programCode);
 					return result;		
 					},[])
 				this.handleStateChange('',targetProgram.targetprogram, '',pCode);

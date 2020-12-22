@@ -6,7 +6,7 @@ import {
 	InMemoryCache 
 } from '@apollo/client';
 
-import FormPanel from './formgql'
+import FormPanel from './form'
 
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`
@@ -26,7 +26,7 @@ const {
 	redirect
 	} = crmConfig;
 
-//console.log(endpoint,'endpoint')
+console.log(midpoint,'endpoint')
 const gqlClient = new ApolloClient({
 	uri: midpoint,
 	headers: {'x-api-key':apiKey},
