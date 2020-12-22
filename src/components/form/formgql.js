@@ -12,12 +12,10 @@ import {
 	CssBaseline,
 	CircularProgress	
 } from '@material-ui/core';
-import MuiPhoneNumber from 'material-ui-phone-number';
+//import MuiPhoneNumber from 'material-ui-phone-number';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {customAlphabet} from 'nanoid'
-
-
 
 import './form.scss'
 
@@ -103,10 +101,7 @@ export default function FormPanel(props){
 		programs
 	} = props;
 	
-	console.log('props',props)
-	
 	const searchVars = {}
-	//const location = window.location;
 	const searchParams = (props.location)?new URLSearchParams(props.location.search):'';
 	if(searchParams){
 		//console.log(searchParams);
@@ -149,7 +144,9 @@ export default function FormPanel(props){
 								>
 									{shortName}
 							</MenuItem>
-							))	
+							))
+	
+	
 
 							
 	return(
@@ -235,7 +232,7 @@ export default function FormPanel(props){
 								//put redirect on creatlead:true
 								//console.log(response);
 								if(response.data.createLead===true){
-									(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})
+									(redirectTarget && typeof window !== 'undefined' )?window.location.href = redirectTarget:setState({'submitted':true})
 									}
 							}).catch((e)=>{
 								console.log(e.message, 'message')
@@ -299,7 +296,7 @@ export default function FormPanel(props){
 									          error={errors.programCode && touched.programCode && <FormHelperText>'Please choose a program of interest'</FormHelperText>}
 									        >
 										        <MenuItem value=''>Please Select a Program</MenuItem>
-										        {selectOptions(programArray(values.programs))}										        
+										        {ProgramsSelectList}										        
 									        </Select>
 									    </FormControl>
 						            </Grid>
@@ -352,26 +349,7 @@ export default function FormPanel(props){
 										/>
 									</Grid>
 									<Grid item xs={12}>
-										<MuiPhoneNumber
-											//autoFormat={false}
-											defaultCountry={'us'}
-											disableDropdown={true}
-											disableCountryCode={true}
-											onlyCountries={['us']}
-											variant="outlined"
-											error={errors.phoneNumber && touched.phoneNumber}
-											helperText={(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber && 'Please provide a valid phone number'}
-											fullWidth
-											id="phoneNumber"
-											label="Phone"
-											name="phoneNumber"
-											//autoComplete="phoneNumber"
-											margin='dense'
-											className={classes.textfield}
-											onChange={handleChange ('phoneNumber')}
-											onBlur={handleBlur}
-											value={values.phoneNumber}
-										/>
+										
 									</Grid>
 									
 								</Grid>

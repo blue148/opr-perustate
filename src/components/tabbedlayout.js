@@ -10,7 +10,7 @@ import Awards from "./awards"
 import Bottom from "./bottomContentSection"
 import BottomBar from "./bottomBarMenu/bottomBarMenu"
 import Footer from "./footer"
-import FormPanel from "./form"
+import LeadFormApp from "./form"
 import Callout from "./callout/callout"
 import update from 'immutability-helper'
 import styled, {ThemeProvider} from "styled-components"
@@ -136,12 +136,13 @@ export default class Layout extends React.Component{
 							)
 							:null
 						}
-						<FormPanel 
+						<LeadFormApp 
 							{...this.props.formSettings}
 							state={this.state} 
 							programs={this.props.programs} 
 							location={this.state.location}
-							isSingle={false}/>
+							isSingle={false}
+						/>
 						
 						<MainArea {...this.props.mainContentSection} />
 						<TabbedArea 
