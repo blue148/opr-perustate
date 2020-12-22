@@ -1,12 +1,10 @@
-import React from "react"
-import styled from "styled-components"
+import React, {useState} from "react"
 import {
 	InputLabel,
 	MenuItem,
 	FormControl,
 	FormHelperText,
 	Select,
-	Button,
 	Container,
 	makeStyles,
 	Grid,
@@ -14,29 +12,22 @@ import {
 	CssBaseline,
 	CircularProgress	
 } from '@material-ui/core';
-import MaterialUiPhoneNumber from '../phonenumberformatter'
+import MuiPhoneNumber from 'material-ui-phone-number';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {customAlphabet} from 'nanoid'
+
+
 
 import './form.scss'
 
 
-import {customAlphabet} from 'nanoid'
-import { 
-	useMutation,
+import {  
+	gql,
+	useMutation
 } from '@apollo/client';
-import gql from 'graphql-tag';
 
-require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`
-})
 
-const crmConfig = {
-	midpoint:process.env.GATSBY_AE_ENDPOINT,
-	endpoint:process.env.GATSBY_CRM_ENDPOINT
-  
-}
-const { midpoint, endpoint } = crmConfig;
 
 /// --> get list of programs for select menu
 
@@ -58,51 +49,9 @@ const leadFormSend = gql`
 	}
 `
 
-////Nove this to scss due to FOUC
-const StyledContainer = styled(Container)`
-	
-`
-const FormBox = styled.div`
-	
-`
-
-const FormHeadline = styled.h2`
-`
-const FormSubHeadline=styled.h3`
-
-`
-const CTPAText = styled.div`
-`
-const CTASection = styled.p`
-	
-`
-const Spacer = styled.span`
- 	
-`
-//pull these from GQL
-//need to add key and sort
-const programArray = (props)=>{
-	const sorted = props.sort(function(a, b){
-		  var x = a.node.pageSlug;
-		  var y = b.node.pageSlug;
-		  if (x < y) {return -1;}
-		  if (x > y) {return 1;}
-		  return 0;
-		});
-	return Object.keys(sorted).map((item,index)=>(
-			{text:props[index].node.shortName,
-				value:'PERU_'+props[index].node.programCode.replace(' - ','_'),
-				key:props[index].node.programCode,
-				reference:props[index].node.pageSlug}		
-		))
-}
-const selectOptions =(props)=>{
-		
-	return Object.keys(props).map((item,index)=>{
-		if(isNaN(item))return true;
-		return(<MenuItem value={props[index].value} key={index} data-reference={props[index].reference}>{props[index].text}</MenuItem>
-	)})
-}
+/***
+ * Material UI style cusomtizations
+ ***/
 const useStyles = makeStyles(theme => ({
 	paper: {
 		display: 'flex',
@@ -115,6 +64,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	selectControl:{
 		background:'white',
+		
 
 		
 	},
@@ -145,22 +95,28 @@ const useStyles = makeStyles(theme => ({
 	}
 	}));
 	
+export default function FormPanel(props){
+	const { 
+		origin, 
+		redirect,
+		formtype,
+		programs
+	} = props;
 	
-export default function FormPanelGQL(props){
+	console.log('props',props)
+	
+	const searchVars = {}
+	//const location = window.location;
+	const searchParams = (props.location)?new URLSearchParams(props.location.search):'';
+	if(searchParams){
+		//console.log(searchParams);
+		for(var item of searchParams.entries()){
+			searchVars[item[0]]=decodeURIComponent(item[1]).toUpperCase();
+		}
+	}
+	//console.log(searchVars);
 	const [createLead, { data }] = useMutation(leadFormSend);
 	
-	const {phone,headline, subheadline, redirect, redirectUrl, successMsg} = props;
-	//const {phone} = (props.formSettings.phone==null)?'(402) 902-3128':props.formSetting.phone;
-	//const headline = props.headline;
-	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
-	const cleanSubHeadline = (subheadline)?subheadline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
-	//clear if subheadline is only a br
-	
-	const submitSuccess = (successMsg)?successMsg:
-					(<>
-						<h3>Thank you for your request.</h3>
-						<h4>We have received your request and will contact you shortly</h4>
-					</>)
 	const classes = useStyles();
 	const [state, setState] = React.useReducer(
 	    (state, newState) => ({...state, ...newState}),
@@ -176,46 +132,40 @@ export default function FormPanelGQL(props){
 		request:false
 		}
 	  )
-
+	
 	React.useEffect(()=>{
 		if(props.state.formSelect!=='')setState({'formData':{'programCode':props.state.formSelect}})
 			},[props.state.formSelect]
 	);
 	
 	const inputLabel = React.useRef(null);
-	///parse location string for ad vars
 	
-	/*** from google: {lpurl}?utm_source=sem&utm_medium=google&utm_campaign={_campaignname}&utm_adgroup={_adgroupname}&utm_term={keyword}&matchtype={matchtype}&network={network}&device={device}&devicemodel={devicemodel}&creative={creative}&placement={placement}&target={target}&adposition={adposition}&feeditemid={feeditemid}&adgroup_id={adgroupid}&target_id={targetid}&agencytrackingcode=v1-{campaignid}
-	**** from facebook:?utm_source=paidsocial&utm_medium=facebook&utm_campaign={{campaign.name}}&utm_adgroup={{adset.name}}&network={{site_source_name}}&placement={{placement}}&adgroup_id={{adset.id}}&agencytrackingcode=v1-{{campaign.id}}*/
-	
-	const searchParams = (props.location)?new URLSearchParams(props.location.search):'';
-	const searchVars = {}
-	//(props.location.search)?JSON.parse('{"' + props.location.search.substring(1).replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) }):''
-	if(searchParams){
-		for(var item of searchParams.entries()){
-			searchVars[item[0]]=decodeURIComponent(item[1]).toUpperCase()
-		}
-	}
-	const deviceTypes = ['MOBILE', 'DESKTOP', 'TABLET'];
-	searchVars['device']=(searchVars['device'] && !deviceTypes.includes(searchVars['device']))?'UNKNOWN':searchVars['device']
+	const [programCode, setProgramCode] = useState(); 
+
+	const ProgramsSelectList = programs.nodes.map(({shortName, programCode},index) => (
+							<MenuItem 
+								value={'PERU_'+programCode.replace(/\s/g,'').replace('-','_')}
+								key={index} 
+								>
+									{shortName}
+							</MenuItem>
+							))	
+
+							
 	return(
-		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
+
+		<Container component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
 		      <CssBaseline />
-		      <Spacer className="spacer" id="leadform"/>
-		      <FormBox className={[classes.paper, 'formBox'].join(' ')}>
-		        <FormHeadline className={state.submitted?'hide':''}>
-		          {cleanHeadline||'Need More Information?'}
-		        </FormHeadline>
+		      <span className="spacer" id="leadform"/>
+		      <div className={[classes.paper, 'formBox'].join(' ')}>
+		        <h2 className={[state.submitted?'hide':'','form-title'].join(' ')}>
+		          Need More Information? {(searchVars.testform)?'TEST LEAD':null}
+		        </h2>
 		        
-		        {(cleanSubHeadline.replace(/(<([/br]+)>)/ig,""))?(
-			        <FormSubHeadline className={state.submitted?'hide':''}>
-			          {cleanSubHeadline}
-			        </FormSubHeadline>
-			        )
-			        :null
-			      }
-		        <div className={["successContainer",state.submitted?'':'hide'].join(' ')}
-		        	dangerouslySetInnerHTML={{__html:submitSuccess}}/> 
+		        <div className={["successContainer",state.submitted?'':'hide'].join(' ')}>
+					<h3>Thank you for your request.</h3>
+					<h4>We have received your request and will contact you shortly</h4>
+				</div>
 				 <Formik
 			 		enableReinitialize={true}
 			 		initialValues={{ 
@@ -223,72 +173,77 @@ export default function FormPanelGQL(props){
 				 		firstName: '',
 				 		lastName:'', 
 				 		phoneNumber: '', 
-				 		programCode:props.state.formSelect ,
-				 		programs:props.programs.edges,
+				 		programCode:'' ,
+				 		programs:'',
 				 		request:false,
 				 		isSingle:props.isSingle||false
-				 		}}
+				 	}}
+				 		
 	                onSubmit={(values, { setSubmitting}) => {
-	                   //while sumbmitting and waiting for a repsonse, show spinner
-	                   //on response, if success, redirect to viewdo, else show thankyou message
-	                   setState({request:true})
-	                   if(values.request!==true)window.dataLayer.push({event:'Request Info Button Click'});
-	                  //add as variables to teh GraphQL mutation
-							const body = {
-								'captureUrl': props.location.href,
-								'leadId': leadId,
-								'partnerCode':'PERU',
-								'collegeCode': 'PERU',
-								'campusCode': 'PERU_ONLINE',
-								'sourceCode': searchVars.utm_medium||'UNKNOWN',
-								'programCode': values.programCode||'PERU_UNDERGRAD_UNDECIDED',
-								'phoneNumberCountry': 'US',
-								'formType': 'Website_RFI',
-								'email': values.email,
-								'phoneNumber': values.phoneNumber,
-								'firstName': values.firstName,
-								'lastName': values.lastName,
-								'deviceType': searchVars.device||'UNKNOWN',
-								"isTestLead": false,
-								'sourceTracking': {
-									'campaignName': searchVars.utm_campaign||'',
-									'adGroupId': searchVars.utm_adgroup||'',
-									'keyword': searchVars.utm_term||'',
-									'matchType': searchVars.matchtype||'',
-									'network': searchVars.network||'',
-									'creativeId': searchVars.creative||'',
-									'placement': searchVars.placement||'',
-									'target': searchVars.target||'',
-									'feedItemId': searchVars.feeditemid||'',
-									'agencyTrackingCode':  searchVars.agencytrackingcode||'',
-									//'content': searchVars.utm_content||''
-								}
-							};
-													
-							
-							///build viewdo redirect 
-							const viewDoData = [
+						//console.log(values, 'submitting');
+						/*****while sumbmitting and waiting for a repsonse, show spinner
+						//on response, if success, redirect to viewdo, else show thankyou message*/
+						setState({request:true})
+						
+						if(values.request!==true && typeof window != 'undefined')window.dataLayer.push({event:'Request Info Button Click'});
+						
+						const testLead=(searchVars.testform)?true:false;
+						
+						const body = {
+							'captureUrl': location.href,
+							'leadId': leadId,
+							'partnerCode':'PERU',
+							'collegeCode': 'PERU',
+							'campusCode': 'PERU_ONLINE',
+							'sourceCode': searchVars.utm_medium||'UNKNOWN',
+							'programCode': values.programCode||'PERU_UNDERGRAD_UNDECIDED',
+							'phoneNumberCountry': 'US',
+							'formType': origin,
+							'email': values.email,
+							'phoneNumber': values.phoneNumber,
+							'firstName': values.firstName,
+							'lastName': values.lastName,
+							'deviceType': searchVars.utm_device||'UNKNOWN',
+							"isTestLead": testLead,
+							'sourceTracking': {
+								'campaignName': searchVars.utm_campaign||'',
+								'adGroupId': searchVars.utm_adgroup||'',
+								'keyword': searchVars.utm_term||'',
+								'matchType': searchVars.utm_matchtype||'',
+								'network': searchVars.utm_network||'',
+								'creativeId': searchVars.utm_content||'',
+								'placement': searchVars.utm_placement||'',
+								'target': searchVars.urm_target||'',
+								'feedItemId': searchVars.utm_feeditemid||'',
+								'agencyTrackingCode':  searchVars.utm_agencytrackingcode||''
+							}
+						};
+						//console.log(body, ' body submitting');
+	                   
+						const crmData = (formtype=="crm")?[
 								"firstname="+encodeURIComponent(values.firstName),
 								"lastname="+encodeURIComponent(values.lastName),
 								"email="+encodeURIComponent(values.email),
 								"phone="+encodeURIComponent("+1"+values.phoneNumber.replace(/[^A-Z0-9]+/ig, "")),
 								"segment="+encodeURIComponent(values.programCode)
-							]
-							const redirectTarget = (redirect && redirectUrl)?redirectUrl+viewDoData.join('&'):null;
+							]:'';
 							
-							createLead({ variables: {leadInput:body} }).then((response)=>{
+						const redirectTarget = (redirect && !searchVars.testform)?redirect+crmData.join('&'):null;
+						//const redirectTarget = redirect||null;
+						createLead({ variables: {leadInput:body} }).then((response)=>{
 								setSubmitting(false);
-								console.log(response, 'response');
 								//put redirect on creatlead:true
+								//console.log(response);
 								if(response.data.createLead===true){
 									(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})
 									}
 							}).catch((e)=>{
-								console.log(e, '  Errormessage')
+								console.log(e.message, 'message')
 								
 							})
-		                }}
-	
+
+	                }}
+
 	                validationSchema={Yup.object().shape({
 	                  email: Yup.string()
 	                    .email()
@@ -298,7 +253,7 @@ export default function FormPanelGQL(props){
 	                  lastName: Yup.string()
 	                    .required('Required'),
 	                  phoneNumber: Yup.string()
-	                    .required('Required'),
+						.required("Must enter a phone number"),
 	                  programCode: Yup.string()
 	                    .required('Required')
 	                })}
@@ -312,6 +267,7 @@ export default function FormPanelGQL(props){
 	                    handleChange,
 	                    handleBlur,
 	                    handleSubmit,
+	                    programs
 	                  } = props;
 	                 return(
 						<>
@@ -321,11 +277,10 @@ export default function FormPanelGQL(props){
 							</div>
 							
 		                    <form onSubmit={handleSubmit} className={[classes.form, state.submitted?'hide':''].join(' ')}>
-		                    
 		                    	<Grid container spacing={0}>
 									<Grid item xs={12}> 
 							            <FormControl fullWidth className={[classes.selectControl,' selectControl', values.isSingle?"single-program":""].join(' ')}>
-							            	<InputLabel ref={inputLabel} id="programs-label" variant="outlined">
+							            	<InputLabel ref={inputLabel} id="programs-label" variant="outlined" style={{marginTop:'-7px'}}>
 									         Select a Program
 									        </InputLabel>
 									        <Select
@@ -335,105 +290,110 @@ export default function FormPanelGQL(props){
 									          variant='outlined' 
 									          margin='dense'
 									          value={values.programCode}
-									          onChange={handleChange}
+									          onChange={(e) => {
+											      //setProgramCode(e.target.value);
+											      handleChange(e);
+										    }}
 									          className={classes.select}
 									          style={{whiteSpace: 'normal'}}
 									          error={errors.programCode && touched.programCode && <FormHelperText>'Please choose a program of interest'</FormHelperText>}
 									        >
 										        <MenuItem value=''>Please Select a Program</MenuItem>
-										        {selectOptions(programArray(values.programs))}
+												{ProgramsSelectList}										        
 									        </Select>
 									    </FormControl>
 						            </Grid>
 						            <Grid item xs={12} >
 										<TextField
-										label="First Name"
-										name="firstName"
-										id="firstName"
-										className={[classes.textfield,'textfield'].join(' ')}
-										value={values.firstName}
-										onChange={handleChange}
-										onBlur={handleBlur}
-										error={errors.firstName && touched.firstName}
-										helperText={(errors.firstName && touched.firstName) && errors.firstName  && 'Your first name is required'}
-										variant="outlined"
-										fullWidth
-										margin='dense'
+											label="First Name"
+											name="firstName"
+											id="firstName"
+											className={[classes.textfield,'textfield'].join(' ')}
+											value={values.firstName}
+											onChange={handleChange}
+											onBlur={handleBlur}
+											error={errors.firstName && touched.firstName}
+											helperText={(errors.firstName && touched.firstName) && errors.firstName  && 'Your first name is required'}
+											variant="outlined"
+											fullWidth
+											margin='dense'
 										/>
 									</Grid>
 									 <Grid item xs={12} >
 										<TextField
-										label="Last Name"
-										name="lastName"
-										id="lastName"
-										className={[classes.textfield, 'textfield'].join(' ')}
-										value={values.lastName}
-										onChange={handleChange}
-										onBlur={handleBlur}
-										error={errors.lastName && touched.lastName}
-										helperText={(errors.lastName && touched.lastName) && errors.lastName && 'Your last name is required'}
-										variant="outlined"
-										fullWidth
-										margin='dense'
+											label="Last Name"
+											name="lastName"
+											id="lastName"
+											className={[classes.textfield, 'textfield'].join(' ')}
+											value={values.lastName}
+											onChange={handleChange}
+											onBlur={handleBlur}
+											error={errors.lastName && touched.lastName}
+											helperText={(errors.lastName && touched.lastName) && errors.lastName && 'Your last name is required'}
+											variant="outlined"
+											fullWidth
+											margin='dense'
 										/>
 									</Grid>	
 									<Grid item xs={12}>
 										<TextField
-										variant="outlined"
-										error={errors.email && touched.email}
-										helperText={(errors.email && touched.email) && errors.email && 'Please provide a valid email address'}
-										fullWidth
-										id="email"
-										label="Email Address"
-										name="email"
-										autoComplete="email"
-										margin='dense'
-										className={classes.textfield}
-										onChange={handleChange}
-										onBlur={handleBlur}
+											variant="outlined"
+											error={errors.email && touched.email}
+											helperText={(errors.email && touched.email) && errors.email && 'Please provide a valid email address'}
+											fullWidth
+											id="email"
+											label="Email Address"
+											name="email"
+											autoComplete="email"
+											margin='dense'
+											className={classes.textfield}
+											onChange={handleChange}
+											onBlur={handleBlur}
 										/>
 									</Grid>
 									<Grid item xs={12}>
-	
-										<MaterialUiPhoneNumber
-											disableCountryCode
-											disableDropdown
-											defaultCountry="us"
-											regions={"america"}
+										<MuiPhoneNumber
+											//autoFormat={false}
+											defaultCountry={'us'}
+											disableDropdown={true}
+											disableCountryCode={true}
+											onlyCountries={['us']}
 											variant="outlined"
+											error={errors.phoneNumber && touched.phoneNumber}
+											helperText={(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber && 'Please provide a valid phone number'}
 											fullWidth
 											id="phoneNumber"
 											label="Phone"
 											name="phoneNumber"
+											//autoComplete="phoneNumber"
 											margin='dense'
 											className={classes.textfield}
-											onChange={handleChange('phoneNumber')}
+											onChange={handleChange ('phoneNumber')}
 											onBlur={handleBlur}
-											error={errors.phoneNumber && touched.phoneNumber}
-											helperText={(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber && 'Your phone number is required'}
+											value={values.phoneNumber}
 										/>
-	
 									</Grid>
+									
 								</Grid>
-								<Grid container justify="flex-end">
+								
+								<Grid container justify="flex-end" className="leadform-actions">
 									<Grid item xs={12}>
-										<Button
+										<button
 											type="submit"
-											fullWidth
 											variant="contained"
 											color="primary"
-											className={classes.submit+' button primary'}
+											className={['aeopr-button','aeopr-primary-button','aeopr-send-button'].join(' ')}
 										
 										>
-											Send Request
-										</Button>
-										<CTASection className="ctaSection">
-											or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>
-											<span className="desktop-only">{phone}</span>
-										</CTASection>
-										<CTPAText className="ctpaText">
+											Request Info
+										</button>
+										<p className="ctaSection">
+											or call <a className="mobile-only phone-link" href={"tel:+1 (402) 902-3005"}>(402) 902-3005</a>
+											<span className="desktop-only">(402) 902-3005</span>
+										</p>
+										<div className="legal-text ctpaText">
 											<p>By submitting this form, I am providing my digital signature agreeing that Peru State College may email me or contact me regarding educational services by telephone and/or text message utilizing automated technology at the telephone number(s) provided above. I understand this consent is not a condition to attend Peru State College or to purchase any other goods or services.</p>
-										</CTPAText>
+										</div>
 									</Grid>
 								</Grid>
 		                    </form>
@@ -441,7 +401,7 @@ export default function FormPanelGQL(props){
 	                  );
 	                }}
 		        </Formik>
-		      </FormBox>
-		    </StyledContainer>
+		      </div>
+		    </Container>
 		)
 	}

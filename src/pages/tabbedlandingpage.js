@@ -188,14 +188,14 @@ export const query = graphql`
 	         
 		}
 		allContentfulProgramInfo {
-			edges{
-				node{
-					id
-			        shortName
-			        programCode
-			        pageSlug
-			    }
-		     }
+
+			nodes{
+				id
+		        shortName
+		        programCode
+		        pageSlug
+		    }
+
 		  }
 	}  
 `

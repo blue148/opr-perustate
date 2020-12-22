@@ -10,7 +10,7 @@ import Awards from "./awards"
 import Bottom from "./bottomContentSection"
 import BottomBar from "./bottomBarMenu/bottomBarMenu"
 import Footer from "./footer"
-import FormPanel from "./form/form"
+import FormPanel from "./form"
 import Callout from "./callout/callout"
 import update from 'immutability-helper'
 import styled, {ThemeProvider} from "styled-components"
