@@ -67,6 +67,10 @@ export const query = graphql`
 				headline
 				content
 			}
+			introductionList {
+				headline
+				content
+			}
 			applySection {
 				headline
 				content

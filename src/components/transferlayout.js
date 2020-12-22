@@ -145,6 +145,7 @@ export default class Layout extends React.Component{
 						<MainArea
 							className="introduction-section"
 							{...this.props.introduction}
+							introductionList={this.props.introductionList}
 							/>
 						<ProgramContent 
 							{...this.props.programContent} 
