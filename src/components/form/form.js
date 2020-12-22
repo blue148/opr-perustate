@@ -51,6 +51,11 @@ const Spacer = styled.span`
  	
 `
 //pull these from GQL
+
+const handleFormExpand =()=>{
+	console.log('opened', window.getComputedStyle(document.querySelector('.formPanel'), ':before').getPropertyValue('background'));
+	document.querySelector('.formPanel').classList.add('opened');
+}
 //need to add key and sort
 const programArray = (props)=>{
 	const sorted = props.sort(function(a, b){
@@ -166,10 +171,10 @@ export default function FormPanel(props){
 	}
 	
 	return(
-		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
+		<StyledContainer component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'} onClick={handleFormExpand}>
 		      <CssBaseline />
 		      <Spacer className="spacer" id="leadform"/>
-		      <FormBox className={[classes.paper, 'formBox'].join(' ')}>
+		      <FormBox className={[classes.paper, 'formBox'].join(' ')} >
 		        <FormHeadline className={state.submitted?'hide':''}>
 		          {cleanHeadline||'Need More Information?'}
 		        </FormHeadline>
@@ -299,6 +304,7 @@ export default function FormPanel(props){
 	                    handleChange,
 	                    handleBlur,
 	                    handleSubmit,
+	                    handleOpen
 	                  } = props;
 	                 return(
 						<>
@@ -417,7 +423,7 @@ export default function FormPanel(props){
 											className={classes.submit+' button primary'}
 										
 										>
-											Send Request
+											Request Info
 										</Button>
 										<CTASection className="ctaSection">
 											or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>
@@ -433,7 +439,9 @@ export default function FormPanel(props){
 	                  );
 	                }}
 		        </Formik>
+		        
 		      </FormBox>
+
 		    </StyledContainer>
 		)
 	}

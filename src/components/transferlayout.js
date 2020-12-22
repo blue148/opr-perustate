@@ -10,6 +10,7 @@ import Testimonial from "./testimonial"
 import ProgramContent from './programContent'
 import Awards from "./awards"
 import Bottom from "./bottomContentSection"
+import BottomBar from "./bottomBarMenu/bottomBarMenu"
 import Footer from "./footer"
 import FormPanel from "./form/form"
 import Callout from "./callout/callout"
@@ -19,6 +20,10 @@ import styled, {ThemeProvider} from "styled-components"
 import "./transferlayout.scss"
 import Icons from "../images/symbol-defs.svg"
 import ScrollIntoView from 'react-scroll-into-view'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faPhone} from '@fortawesome/free-solid-svg-icons'
+
 
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
 
@@ -140,6 +145,7 @@ export default class Layout extends React.Component{
 						<MainArea
 							className="introduction-section"
 							{...this.props.introduction}
+							introductionList={this.props.introductionList}
 							/>
 						<ProgramContent 
 							{...this.props.programContent} 
@@ -186,15 +192,8 @@ export default class Layout extends React.Component{
 					
 					<Footer/>
 				</Main>
-				<nav className="mobileBottomBar">
-					<ScrollIntoView selector="#leadform" className="buttonContainer" alignToTop={true}>
-						<button className="button action" type="button">Request Info</button>
-					</ScrollIntoView>
-					<div  className="buttonContainer">
-						<a className="button tertiary" href={"tel:+1"+this.props.formSettings.phone.replace(/\D/g,'')}>Call Us</a>
-					</div>
-				</nav>
-		    </Page>
+				<BottomBar phone={this.props.formSettings.phone}/>
+			</Page>
 	    </ThemeProvider>
 	
   )

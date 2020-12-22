@@ -16,30 +16,61 @@
 .formPanel{
 	background-color:$shade;
 	bottom:0;
+	font-size:3rem;
+	height: 200px;
 	grid-column:1;
+	left: 0;
+	margin: 0 -1rem;
 	order:20;
-	margin-top:0;
-	padding:0;
-	width:100%;
+	overflow: hidden;
+	padding: 1rem;
+	position: relative;
+	right: 0;
+	top: 0;
+	width: auto;
+	transition:height .5s ease-out;  
 	@media (min-width: 1024px) {
+		bottom:0;
 		grid-column:2/3;
 		grid-row:1;
-		z-index:99;
+		height: 100vh;
+		left:750px;
+		left:auto;
+		position: fixed;
 		right: 9%;
 		top: 60px;
-		position: fixed;
 		width:357px!important;
+		z-index:99;
 	}
 	@media (max-width:1290px){
 		left:auto;
-		right:1rem;
 	}
-	@media (max-width:1024px){
-		left:750px;
-		}
 	.button{
-		margin:1.5rem auto 1rem;
+		margin:1.5rem auto;
 		padding:0;
+		.MuiButton-label{
+			width:auto;
+		}
+	}
+	&:before {
+		content: '';
+		width: 100%;
+		height: 49%;
+		bottom: 0;
+		position: absolute;
+		z-index: 2;
+		left: 0;
+		right: 0;
+		background: linear-gradient(to bottom, rgba(239,239,239,0) 0%, rgb(239, 239, 239) 100%);
+	}
+	&.opened{
+		height:520px;
+		&:before{
+			content:none;
+		}
+		@media(min-width:1024px){
+			height:100vh;
+		}
 	}
 }
 .form-cta-group{
@@ -140,7 +171,7 @@
 }
 .MuiGrid-item{
 	padding:0;
-	line-height:1;
+	line-height:43px;
 }
 .MuiInputLabel-outlined.MuiInputLabel-shrink{
 	transform: translate(14px, -14px) scale(0.75)!important;
@@ -153,18 +184,21 @@
 	width:100%;
 	padding: 6vh 1rem;
 }
+#programs-label.MuiInputLabel-shrink{
+	display:none;
+}
 .formBox{
 	position:relative;
 	padding: 0;
 
 	@media (min-width: 768px) {
-		width:355px;
+		//width:355px;
 		height: 100%;
 		overflow-y: auto;
 	}
 	h2{
 		text-align:center;
-		margin:1rem auto 2rem;
+		margin:0 auto .5rem;
 		line-height:1.4;
 		font-size:1.7rem;
 	}
@@ -177,6 +211,10 @@
 	}
 	.ctaSection{
 		text-align:center;
+		display:none;
+		@media (min-width:1024px){
+			display:block;
+		}
 		a{
 			font-size:1.6rem;
 			font-weight:600;
