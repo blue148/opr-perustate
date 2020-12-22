@@ -13,7 +13,7 @@ require('dotenv').config({
 })
 
 const crmConfig = {
-	midpoint:process.env.GATSBY_AE_ENDPOINT,
+	midpoint:process.env.GATSBY_ASH_ENDPOINT,
 	endpoint:process.env.GATSBY_CRM_ENDPOINT,
 	apiKey:process.env.GATSBNY_ENV_APIKEY,
 	redirect:process.env.GATSBY_REDIRECT
