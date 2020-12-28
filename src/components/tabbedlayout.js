@@ -10,7 +10,7 @@ import Awards from "./awards"
 import Bottom from "./bottomContentSection"
 import BottomBar from "./bottomBarMenu/bottomBarMenu"
 import Footer from "./footer"
-import FormPanel from "./form/form"
+import LeadFormApp from "./form"
 import Callout from "./callout/callout"
 import update from 'immutability-helper'
 import styled, {ThemeProvider} from "styled-components"
@@ -53,8 +53,8 @@ export default class Layout extends React.Component{
 			if(targetProgram.targetprogram){
 				const tArr = targetProgram.targetprogram.split('__');
 				const pageSlug = (tArr[1])?tArr[1]:tArr[0];
-				const pCode = Object.keys(this.props.programs.edges).reduce((result, item)=>{
-					if(this.props.programs.edges[item].node.pageSlug===pageSlug)result.push(this.props.programs.edges[item].node.programCode);
+				const pCode = Object.keys(this.props.programs.nodes).reduce((result, item)=>{
+					if(this.props.programs.nodes[item].pageSlug===pageSlug)result.push(this.props.programs.nodes[item].programCode);
 					return result;		
 					},[])
 				this.handleStateChange('',targetProgram.targetprogram, '',pCode);
@@ -136,12 +136,13 @@ export default class Layout extends React.Component{
 							)
 							:null
 						}
-						<FormPanel 
+						<LeadFormApp 
 							{...this.props.formSettings}
 							state={this.state} 
 							programs={this.props.programs} 
 							location={this.state.location}
-							isSingle={false}/>
+							isSingle={false}
+						/>
 						
 						<MainArea {...this.props.mainContentSection} />
 						<TabbedArea 

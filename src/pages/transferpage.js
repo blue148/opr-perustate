@@ -179,8 +179,7 @@ export const query = graphql`
 			
 		}
 		allContentfulProgramInfo {
-			edges{
-				node{
+			nodes{
 					id
 					contentful_id
 			        shortName
@@ -191,6 +190,5 @@ export const query = graphql`
 		            startClasses
 			    }
 		     }
-		  }
 	}  
 `

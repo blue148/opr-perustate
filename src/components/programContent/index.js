@@ -85,9 +85,9 @@ const CareerPanel = (props)=>{
 const PanelContent = (props)=>{
 	const{programs} = props;
 	//get the data from the Program Info source	
-	const targetProgram = Object.keys(programs.edges).reduce((obj, index) => {
-	    if(programs.edges[index].node.contentful_id===props.contentful_id){
-		    obj=programs.edges[index].node;
+	const targetProgram = Object.keys(programs.nodes).reduce((obj, index) => {
+	    if(programs.nodes[index].contentful_id===props.contentful_id){
+		    obj=programs.nodes[index];
 		   }
 		   return obj
 	  },{})
