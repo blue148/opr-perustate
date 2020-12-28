@@ -1,5 +1,8 @@
 import React, {useState} from "react"
+import PropTypes from 'prop-types'
+import ScrollIntoView from 'react-scroll-into-view'
 import {
+	Button,
 	InputLabel,
 	MenuItem,
 	FormControl,
@@ -13,6 +16,7 @@ import {
 	CircularProgress	
 } from '@material-ui/core';
 //import MuiPhoneNumber from 'material-ui-phone-number';
+import NumberFormat from 'react-number-format'
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {customAlphabet} from 'nanoid'
@@ -46,6 +50,12 @@ const leadFormSend = gql`
 	  createLead(lead: $leadInput)
 	}
 `
+
+
+const handleFormExpand =()=>{
+//	console.log('opened', window.getComputedStyle(document.querySelector('.formPanel'), ':before').getPropertyValue('background'));
+	document.querySelector('.formPanel').classList.add('opened');
+}
 
 /***
  * Material UI style cusomtizations
@@ -92,24 +102,60 @@ const useStyles = makeStyles(theme => ({
 		top:'90px',
 	}
 	}));
+
+function NumberFormatCustom(props) {
+  const { inputRef, onChange, ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={inputRef}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+      format="(###) ###-####" mask="_"
+    />
+  );
+}
+
+NumberFormatCustom.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
 	
 export default function FormPanel(props){
 	const { 
 		origin, 
 		redirect,
 		formtype,
-		programs
+		programs,
+		location,
+		phone,
+		headline, 
+		subheadline, 
+		redirectURL,
+		successMsg
 	} = props;
-	
+
 	const searchVars = {}
-	const searchParams = (props.location)?new URLSearchParams(props.location.search):'';
+	const searchParams = (location)?new URLSearchParams(location.search):'';
 	if(searchParams){
 		//console.log(searchParams);
 		for(var item of searchParams.entries()){
 			searchVars[item[0]]=decodeURIComponent(item[1]).toUpperCase();
 		}
 	}
-	//console.log(searchVars);
+	console.log(searchVars)
+	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
+	const cleanSubHeadline = (subheadline)?subheadline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
+	
 	const [createLead, { data }] = useMutation(leadFormSend);
 	
 	const classes = useStyles();
@@ -150,19 +196,31 @@ export default function FormPanel(props){
 
 							
 	return(
-
-		<Container component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'}>
+	<ScrollIntoView 
+		selector={'.'+classes.container+'.formPanel'} 
+		alignToTop={true} 
+		onClick={handleFormExpand}
+	>
+		<Container component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'} onClick={handleFormExpand}>
 		      <CssBaseline />
 		      <span className="spacer" id="leadform"/>
-		      <div className={[classes.paper, 'formBox'].join(' ')}>
-		        <h2 className={[state.submitted?'hide':'','form-title'].join(' ')}>
-		          Need More Information? {(searchVars.testform)?'TEST LEAD':null}
+		      <div className={[classes.paper, 'formBox'].join(' ')}>		        
+		       <h2 className={[state.submitted?'hide':'','form-title'].join(' ')}>
+		          {cleanHeadline||'Need More Information?'} 
+		          {(searchVars.testform)?'TEST LEAD':null}
 		        </h2>
 		        
+		        {(cleanSubHeadline.replace(/(<([/br]+)>)/ig,""))?(
+			        <h3 className={state.submitted?'hide':''}>
+			          {cleanSubHeadline}
+			        </h3>
+			        )
+			        :null
+			      }
 		        <div className={["successContainer",state.submitted?'':'hide'].join(' ')}>
-					<h3>Thank you for your request.</h3>
+		        	<h3>Thank you for your request.</h3>
 					<h4>We have received your request and will contact you shortly</h4>
-				</div>
+		        </div>
 				 <Formik
 			 		enableReinitialize={true}
 			 		initialValues={{ 
@@ -182,7 +240,7 @@ export default function FormPanel(props){
 						//on response, if success, redirect to viewdo, else show thankyou message*/
 						setState({request:true})
 						
-						//if(values.request!==true && typeof window != 'undefined')window.dataLayer.push({event:'Request Info Button Click'});
+						if(values.request!==true && typeof window != 'undefined' && props.env!=='development')window.dataLayer.push({event:'Request Info Button Click'});
 						
 						const testLead=(searchVars.testform)?true:false;
 						
@@ -197,7 +255,7 @@ export default function FormPanel(props){
 							'phoneNumberCountry': 'US',
 							'formType': origin,
 							'email': values.email,
-							'phoneNumber': values.phoneNumber,
+							'phoneNumber': '1'+values.phoneNumber,
 							'firstName': values.firstName,
 							'lastName': values.lastName,
 							'deviceType': searchVars.utm_device||'UNKNOWN',
@@ -215,7 +273,7 @@ export default function FormPanel(props){
 								'agencyTrackingCode':  searchVars.utm_agencytrackingcode||''
 							}
 						};
-						//console.log(body, ' body submitting');
+						console.log(body, ' body submitting');
 	                   
 						const crmData = (formtype=="crm")?[
 								"firstname="+encodeURIComponent(values.firstName),
@@ -225,14 +283,14 @@ export default function FormPanel(props){
 								"segment="+encodeURIComponent(values.programCode)
 							]:'';
 							
-						const redirectTarget = (redirect && !searchVars.testform)?redirect+crmData.join('&'):null;
-						//const redirectTarget = redirect||null;
+						const redirectTarget = (!searchVars.testform)?redirectURL+crmData.join('&'):null;
+
 						createLead({ variables: {leadInput:body} }).then((response)=>{
 								setSubmitting(false);
 								//put redirect on creatlead:true
 								//console.log(response);
 								if(response.data.createLead===true){
-									(redirectTarget && typeof window !== 'undefined' )?window.location.href = redirectTarget:setState({'submitted':true})
+									(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})
 									}
 							}).catch((e)=>{
 								console.log(e.message, 'message')
@@ -264,7 +322,7 @@ export default function FormPanel(props){
 	                    handleChange,
 	                    handleBlur,
 	                    handleSubmit,
-	                    programs
+                        handleOpen
 	                  } = props;
 	                 return(
 						<>
@@ -349,25 +407,45 @@ export default function FormPanel(props){
 										/>
 									</Grid>
 									<Grid item xs={12}>
-										
+										 <TextField
+									       	id="phoneNumber"
+											label="Phone"
+											name="phoneNumber"
+									        value={values.phoneNumber}
+									        variant="outlined"
+											fullWidth
+									        margin='dense'
+											className={classes.textfield}
+											onChange={handleChange('phoneNumber')}
+											onBlur={handleBlur}
+											error={errors.phoneNumber && touched.phoneNumber}
+											helperText={(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber && 'Your phone number is required'}
+									        InputProps={{
+									          inputComponent: NumberFormatCustom,
+									        }}
+									      />
+											
 									</Grid>
 									
 								</Grid>
 								
 								<Grid container justify="flex-end" className="leadform-actions">
 									<Grid item xs={12}>
-										<button
+									<Button
 											type="submit"
+											fullWidth
 											variant="contained"
 											color="primary"
-											className={['aeopr-button','aeopr-primary-button','aeopr-send-button'].join(' ')}
+											className={classes.submit+' button primary'}
 										
 										>
 											Request Info
-										</button>
+										</Button>
+										
+
 										<p className="ctaSection">
-											or call <a className="mobile-only phone-link" href={"tel:+1 (402) 902-3005"}>(402) 902-3005</a>
-											<span className="desktop-only">(402) 902-3005</span>
+											or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>
+											<span className="desktop-only">{phone}</span>
 										</p>
 										<div className="legal-text ctpaText">
 											<p>By submitting this form, I am providing my digital signature agreeing that Peru State College may email me or contact me regarding educational services by telephone and/or text message utilizing automated technology at the telephone number(s) provided above. I understand this consent is not a condition to attend Peru State College or to purchase any other goods or services.</p>
@@ -381,5 +459,6 @@ export default function FormPanel(props){
 		        </Formik>
 		      </div>
 		    </Container>
+		 </ScrollIntoView>
 		)
 	}

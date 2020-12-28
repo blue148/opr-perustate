@@ -1,5 +1,4 @@
 import React from "react"
-import styled from "styled-components"
 
 import fetch from 'cross-fetch'
 import { 
@@ -43,14 +42,16 @@ const gqlClient = new ApolloClient({
 
  
 export default function LeadFormApp(props){
+	const redirectURL = (props.redirectUrl==='')?redirect:props.redirectUrl;
 	return(
 		<ApolloProvider client={gqlClient}>
 			<FormPanel 
 				endpoint={endpoint}
 				midpoint={midpoint}
 				origin={"Website_RFI"}
-				redirect={redirect}
+				redirectURL={redirectURL}
 				formtype={"crm"}
+				env={process.env.NODE_ENV}
 				{...props}
 			/>
 		</ApolloProvider>
