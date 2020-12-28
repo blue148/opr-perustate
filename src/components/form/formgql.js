@@ -335,7 +335,7 @@ export default function FormPanel(props){
 		                    	<Grid container spacing={0}>
 									<Grid item xs={12}> 
 							            <FormControl fullWidth className={[classes.selectControl,' selectControl', values.isSingle?"single-program":""].join(' ')}>
-							            	<InputLabel ref={inputLabel} id="programs-label" variant="outlined" style={{marginTop:'-7px'}}>
+							            	<InputLabel ref={inputLabel} id="programs-label" variant="outlined">
 									         Select a Program
 									        </InputLabel>
 									        <Select
@@ -408,9 +408,11 @@ export default function FormPanel(props){
 									</Grid>
 									<Grid item xs={12}>
 										 <TextField
+										 	autoComplete="tel-national"
 									       	id="phoneNumber"
 											label="Phone"
 											name="phoneNumber"
+											type="tel"
 									        value={values.phoneNumber}
 									        variant="outlined"
 											fullWidth
