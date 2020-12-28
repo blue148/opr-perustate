@@ -152,7 +152,7 @@ export default function FormPanel(props){
 			searchVars[item[0]]=decodeURIComponent(item[1]).toUpperCase();
 		}
 	}
-	console.log(searchVars)
+	//console.log(searchVars)
 	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
 	const cleanSubHeadline = (subheadline)?subheadline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
 	
@@ -266,14 +266,14 @@ export default function FormPanel(props){
 								'keyword': searchVars.utm_term||'',
 								'matchType': searchVars.utm_matchtype||'',
 								'network': searchVars.utm_network||'',
-								'creativeId': searchVars.utm_content||'',
+								'creativeId': searchVars.utm_content||searchVars.creative||'',
 								'placement': searchVars.utm_placement||'',
 								'target': searchVars.urm_target||'',
 								'feedItemId': searchVars.utm_feeditemid||'',
 								'agencyTrackingCode':  searchVars.utm_agencytrackingcode||''
 							}
 						};
-						console.log(body, ' body submitting');
+						//console.log(body, ' body submitting');
 	                   
 						const crmData = (formtype=="crm")?[
 								"firstname="+encodeURIComponent(values.firstName),
