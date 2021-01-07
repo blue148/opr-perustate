@@ -152,7 +152,6 @@ export default function FormPanel(props){
 			searchVars[item[0]]=decodeURIComponent(item[1]).toUpperCase();
 		}
 	}
-	//console.log(searchVars)
 	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
 	const cleanSubHeadline = (subheadline)?subheadline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
 	
