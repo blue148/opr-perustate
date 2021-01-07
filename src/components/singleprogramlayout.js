@@ -31,7 +31,7 @@ export default class Layout extends React.Component{
 	constructor(props){
 		super(props)
 		//console.log(this.props.programContent.programCode,'programCode');
-		const targetProgram ='PERU_'+this.props.programContent.programCode.replace(/\s/g,'').replace('-','_');
+		const targetProgram =this.props.programContent.programCode;
 		
 		//if env var USE_API === StudentHub, else "Pass-Thru"
 		const formSelectValue = (targetProgram && !targetProgram.startsWith('PERU_'))?'PERU_'+targetProgram.replace(' - ','_'):targetProgram;
