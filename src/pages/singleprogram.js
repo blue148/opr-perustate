@@ -19,6 +19,7 @@ export default ({data, location}) => {
 				  	}
 				</title>
 			  <meta name="robots" content="noindex, nofollow"/>
+			  <meta name="facebook-domain-verification" content="09l1oqph57rjeekolpkqriye9km9na"/>
 			</Helmet>
 			<Layout
 			{...data.contentfulSingleProgramLandingPage}
