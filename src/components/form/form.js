@@ -151,6 +151,15 @@ const useStyles = makeStyles(theme => ({
 	}
 	}));
 	
+
+/// --> Code formatting for ViewDo. This may be irrelevant if ViewDo can change their API 
+
+function ViewDoFormat(value){
+	const codeArray = value.split('_');
+	codeArray.shift();
+	return(codeArray.join(' - '));
+}
+
 	
 export default function FormPanel(props){
 	
@@ -167,6 +176,10 @@ export default function FormPanel(props){
 			formtype,
 			programs
 		} = props;
+		
+		
+console.log(programs,'programs');
+
 	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
 	const cleanSubHeadline = (subheadline)?subheadline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
 	

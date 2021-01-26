@@ -129,6 +129,16 @@ NumberFormatCustom.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
+
+
+function ViewDoFormat(value){
+	const codeArray = value.split('_');
+	codeArray.shift();
+	return(codeArray.join(' - '));
+}
+
+
+
 	
 export default function FormPanel(props){
 	const { 
@@ -143,6 +153,7 @@ export default function FormPanel(props){
 		redirectURL,
 		successMsg
 	} = props;
+
 
 	const searchVars = {}
 	const searchParams = (location)?new URLSearchParams(location.search):'';
@@ -190,7 +201,9 @@ export default function FormPanel(props){
 									{shortName}
 							</MenuItem>
 							))
-	
+/// --> detect testing flags in url. and set test values as needed 
+	const testLead=(searchVars.testform)?true:false;
+	const testDirect = (testLead && searchVars.redirect)?true:false;  //only set to true if testform flag is present	
 	
 
 							
@@ -241,7 +254,6 @@ export default function FormPanel(props){
 						
 						if(values.request!==true && typeof window != 'undefined' && props.env!=='development')window.dataLayer.push({event:'Request Info Button Click'});
 						
-						const testLead=(searchVars.testform)?true:false;
 						
 						const body = {
 							'captureUrl': location.href,
@@ -279,10 +291,15 @@ export default function FormPanel(props){
 								"lastname="+encodeURIComponent(values.lastName),
 								"email="+encodeURIComponent(values.email),
 								"phone="+encodeURIComponent("+1"+values.phoneNumber.replace(/[^A-Z0-9]+/ig, "")),
-								"segment="+encodeURIComponent(values.programCode)
+								"segment="+encodeURIComponent(ViewDoFormat(values.programCode))
 							]:'';
 							
-						const redirectTarget = (!searchVars.testform)?redirectURL+crmData.join('&'):null;
+						let redirectTarget = (redirectURL)?redirectURL+crmData.join('&'):null;
+						
+						//if you want to test with no redirect...
+						if(!testDirect && testLead){
+							redirectTarget=null;
+						}
 
 						createLead({ variables: {leadInput:body} }).then((response)=>{
 								setSubmitting(false);
