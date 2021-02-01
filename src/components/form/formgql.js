@@ -192,15 +192,20 @@ export default function FormPanel(props){
 	const inputLabel = React.useRef(null);
 	
 	const [programCode, setProgramCode] = useState(); 
-
-	const ProgramsSelectList = programs.nodes.map(({shortName, programCode},index) => (
-							<MenuItem 
-								value={'PERU_'+programCode.replace(/\s/g,'').replace('-','_')}
-								key={index} 
-								>
-									{shortName}
-							</MenuItem>
-							))
+	const programArray = Object.entries(programs.nodes);
+	
+	
+	const ProgramsSelectList = programs.nodes
+								.sort((a,b)=>(a.shortName.localeCompare(b.shortName)))
+								.map(({shortName, programCode},index) => (
+									<MenuItem 
+										value={'PERU_'+programCode.replace(/\s/g,'').replace('-','_')}
+										key={index} 
+										>
+											{shortName}
+									</MenuItem>
+									))
+									
 /// --> detect testing flags in url. and set test values as needed 
 	const testLead=(searchVars.testform)?true:false;
 	const testDirect = (testLead && searchVars.redirect)?true:false;  //only set to true if testform flag is present	
