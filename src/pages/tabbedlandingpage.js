@@ -25,6 +25,7 @@ data.contentfulNestedTabbedLandingPage.mainContentSection.headline = data.conten
 				  <title>{data.contentfulNestedTabbedLandingPage.heroArea.headline}</title>
 				  <meta name="robots" content="noindex, nofollow"/>
 				  <meta name="facebook-domain-verification" content="09l1oqph57rjeekolpkqriye9km9na"/>
+				  <link rel="shortcut icon" href="https://www.peru.edu/favicon.ico"/> 
 				</Helmet>
 	
 	
