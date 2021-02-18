@@ -7,9 +7,11 @@ import './video-section.scss';
 export default function VideoSection(props){
 	const [toggler, setToggler] = useState(false);
 	const {video_id} = props;
+	if(!video_id)return null;
 	return(
 	<section className="videoSection fullwidth">
 		<div className="desktop-shim">
+		<h2>What Our Students Have To Say</h2>
 			<img onClick={() => setToggler(!toggler)}
 				src={"https://img.youtube.com/vi/"+video_id+"/0.jpg"}	
 			/>
