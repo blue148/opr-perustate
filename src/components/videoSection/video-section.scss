@@ -1,0 +1,15 @@
+.videoSection{
+	&.fullwidth {
+		background: #efefef;
+		margin: 1rem 0 -1.2rem;
+		img {
+			width: 100%;
+			height: auto;
+			margin: 0 auto;
+		}
+
+	}
+}
+header.video-overlay {
+	z-index: 0;
+}

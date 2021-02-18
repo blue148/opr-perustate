@@ -14,6 +14,7 @@ import BottomBar from "./bottomBarMenu/bottomBarMenu"
 import Footer from "./footer"
 import LeadFormApp from "./form"
 import Callout from "./callout/callout"
+import VideoSection from "./videoSection"
 //import {ApplyNowButton} from './uiElements'
 import update from 'immutability-helper'
 import styled, {ThemeProvider} from "styled-components"
@@ -23,6 +24,7 @@ import ScrollIntoView from 'react-scroll-into-view'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faPhone} from '@fortawesome/free-solid-svg-icons'
+
 
 
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
@@ -39,7 +41,15 @@ const ContentArea = styled.section`
 export default class Layout extends React.Component{
 	constructor(props){
 		super(props)
-		this.state = {activeTab:'', activePanel:'',activeSubTab:'', activeSubPanel:'',formSelect:'',location:''}
+		this.state = {
+			activeTab:'', 
+			activePanel:'',
+			activeSubTab:'', 
+			activeSubPanel:'',
+			formSelect:'',
+			location:'',
+			toggler:false
+			}
 	}
 	
 	
@@ -114,12 +124,13 @@ export default class Layout extends React.Component{
 	
 	
 	render(){
-	const globalDates = {apply:this.props.programs.nodes[0].applyBy, start:this.props.programs.nodes[0].startClasses}
-	  return (
+		
+		const globalDates = {apply:this.props.programs.nodes[0].applyBy, start:this.props.programs.nodes[0].startClasses}
+		return (
 		<ThemeProvider theme={theme}>
 			<Icons/>
 			<Header {...this.props.tabbedContent} location={this.state.location} onStateChange={this.handleStateChange} state={this.state}/>
-		    <Page className="pageContainer tabbedLayout transferLayout">   
+		    <Page className={"pageContainer tabbedLayout transferLayout "+this.props.slug}>   
 			    
 				<Main className="mainContainer">
 
@@ -147,6 +158,9 @@ export default class Layout extends React.Component{
 							{...this.props.introduction}
 							introductionList={this.props.introductionList}
 							/>
+						<VideoSection
+							{...this.props}
+						/>
 						<ProgramContent 
 							{...this.props.programContent} 
 							programs={this.props.programs} 
@@ -157,20 +171,19 @@ export default class Layout extends React.Component{
 							className="learning-section"
 							{...this.props.learningSection}
 						/>
-
+						<GeneralContent
+							className="tuition-section"
+							includeEl={<img src="https://online.peru.edu/wp-content/uploads/2020/08/Peru-state-partner-site-image.png"/>}
+							{...this.props.tuitionSection}
+						>
+						</GeneralContent>
+						<GeneralContent
+							className="apply-section has-background-perushade"
+							{...this.props.applySection}
+							includeApply={true}
+						>	
+						</GeneralContent>	 
 						 
-						<section className="content-wrapper section-columns section-columns-2">
-							<div className="desktop-shim">
-								<section className="tuition-section has-background-perushade">
-									<h3 dangerouslySetInnerHTML={{__html:this.props.tuitionSection.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;")}}/>
-									<div className="general-content" dangerouslySetInnerHTML={{__html:this.props.tuitionSection.content}}/>	
-								</section>
-								<section className="apply-section has-background-perumediumblue has-text-color-white">
-									<h3 dangerouslySetInnerHTML={{__html:this.props.applySection.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;")}}/>
-									<div className="general-content" dangerouslySetInnerHTML={{__html:this.props.applySection.content}}/>	
-								</section>
-							</div>
-						</section>
 						
 						<GeneralContent
 							className="education-section"

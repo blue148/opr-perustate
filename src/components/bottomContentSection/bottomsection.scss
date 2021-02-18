@@ -2,7 +2,7 @@
 
 .bottomsection{
 	background-color:$lightgray;
-	margin:0 -1rem -1rem;
+	margin:0 0 -1rem;
 	padding-bottom:3rem;
 	@media (min-width:768px){
 		background-color:$shade;
@@ -22,4 +22,9 @@
 			text-align:center;
 		}
 	}
+}
+p.legaltext {
+    font-size: .7rem;
+    margin: 1rem 0;
+    line-height: 1.8;
 }

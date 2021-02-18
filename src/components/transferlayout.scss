@@ -5,13 +5,13 @@
 	}
 	.mainArea{
 		&.singleProgram{
-			grid-template-columns:minmax(0, 800px) calc(340px + 5%);
+			grid-template-columns:minmax(0, 700px) calc(360px + 5%);
 			justify-content: center;
 		}
 		&.introduction-section {
 			padding-bottom: 0px;
 		}
-
+		
 	}
 	.HeroBox{
 		.desktop-shim{
@@ -68,6 +68,43 @@
 	
 				}
 			}		
+		}
+	}
+	.container__tuition-section{
+		
+		.desktop-shim{
+			display: flex;
+			flex-direction: column;
+			.general-content{
+			    padding:.5rem 1rem;
+		    }
+		    @media(min-width:768px){
+			    .general-content{
+				    width:45%;
+				    padding:.5rem 1rem;
+			    }
+				img {
+				    width: 50%;
+				    height: auto;
+				}	
+			}
+		}
+	}
+	
+	.container__apply-section{
+		text-align: center;
+		ul {
+		    list-style: none;
+		    margin-bottom: 2rem;
+		    li{
+			    margin-bottom:.8rem;
+		    }
+		}
+	}
+	@media (min-width: 1024px) and (max-width: 1400px){
+		.content-wrapper {
+			padding-right:3rem;
+		    grid-template-columns: minmax(0, 700px) calc(360px + 5%);
 		}
 	}
 }

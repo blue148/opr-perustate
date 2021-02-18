@@ -1,0 +1,10 @@
+{
+	"version": 3,
+	"file": "video-section.css",
+	"sources": [
+		"video-section.scss"
+	],
+	"sourcesContent": [],
+	"mappings": "AACE,aAAa,AAAA,UAAU,AAAZ,CACX,UAAU,CAAE,OAAQ,CACpB,MAAM,CAAE,IAAI,CAAC,CAAC,CAAE,OAAM,CAFV,AAGZ,aAAa,AAAA,UAAU,CAAC,GAAG,AAAvB,CACH,KAAK,CAAE,IAAK,CACZ,MAAM,CAAE,IAAK,CACb,MAAM,CAAE,MAAO,CAHX,AAQD,MAAM,AAAA,cAAc,AAAL,CACpB,OAAO,CAAE,CAAE,CADU",
+	"names": []
+}
