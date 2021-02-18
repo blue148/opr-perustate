@@ -1,6 +1,8 @@
 /// Video Component
 import React, { useState } from "react"
 import FsLightbox from 'fslightbox-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faPlayCircle} from '@fortawesome/free-solid-svg-icons'
 
 import './video-section.scss';
 
@@ -11,10 +13,13 @@ export default function VideoSection(props){
 	return(
 	<section className="videoSection fullwidth">
 		<div className="desktop-shim">
-		<h2>What Our Students Have To Say</h2>
-			<img onClick={() => setToggler(!toggler)}
-				src={"https://img.youtube.com/vi/"+video_id+"/0.jpg"}	
-			/>
+			<h2>What Our Students Have To Say</h2>
+			<div className="video-thumb" onClick={() => setToggler(!toggler)}>
+				<FontAwesomeIcon icon={faPlayCircle} inverse size="3x" transform="shrink-6"/>
+				<img 
+					src={"https://img.youtube.com/vi/"+video_id+"/0.jpg"}	
+				/>
+	        </div>			
 			<FsLightbox
 				toggler={toggler}
 	            sources={ [
@@ -27,8 +32,8 @@ export default function VideoSection(props){
 	                document.querySelector('#gatsby-focus-wrapper > header').classList.toggle('video-overlay')
 	            }}
 	        />
-	        </div>
-	   </section>
+        </div>
+   </section>
 	)
 	
 }

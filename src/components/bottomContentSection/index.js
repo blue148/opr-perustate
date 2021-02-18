@@ -10,8 +10,6 @@ export default class MainArea extends React.Component{
 		const cleanHeadline = (headline)?headline.replace(/(<\/?span[^>]*>|<\/?p[^>]*>|<\/?f[^>]*>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;"):'';
 		const image = '<img src="https://online.peru.edu/wp-content/uploads/2020/08/peru_cat_statue_border.png"/>'
 		const fullContent = (props,items) =>{
-			console.log(props, 'props')
-			console.log(items, 'items')
 			return (props+items)
 			
 		}
