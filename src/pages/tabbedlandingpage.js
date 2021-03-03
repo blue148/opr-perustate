@@ -187,6 +187,7 @@ export const query = graphql`
 	            redirectUrl
 	            phone
 	          }
+	  		video_id
 	         
 		}
 		allContentfulProgramInfo {

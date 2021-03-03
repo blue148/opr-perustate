@@ -12,6 +12,7 @@ import Footer from "./footer"
 import LeadFormApp from "./form"
 //import FormPanelGQL from "./form/formgql"
 import Callout from "./callout/callout"
+
 import update from 'immutability-helper'
 import styled, {ThemeProvider} from "styled-components"
 import "./singleprogramlayout.scss"
@@ -118,7 +119,12 @@ export default class Layout extends React.Component{
 							isSingle={true}
 
 						/>
-						<ProgramContent {...this.props.programContent} programs={this.props.programs} location={this.state.location}/>
+						
+						<ProgramContent 
+							{...this.props.programContent} 
+							programs={this.props.programs} 
+							location={this.state.location}
+							video_id={this.props.video_id}/>
 						<Accolades {...this.props.accolades} />
 						<Testimonial {...this.props.testimonial}/>
 						<Awards {...this.props.awards}/>

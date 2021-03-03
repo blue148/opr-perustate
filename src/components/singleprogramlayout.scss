@@ -176,12 +176,21 @@ section{
 	}
 }
 
-.singleprogramlayout__Page-emqmqj .accolades{
-	display:none;
-	@media (min-width:1024px){
-		display:grid;
+.singleProgram{
+	.accolades{
+		display:none;
+		@media (min-width:1024px){
+			display:grid;
+		}
+	}
+	.videoSection{
+		@media (min-width:1024px){
+			grid-template-columns: 1fr;
+		}
+		margin-bottom:-1.2rem;
 	}
 }
+
 /***SCREEN READER ONLY***/
 .sr-only {
   position: absolute;

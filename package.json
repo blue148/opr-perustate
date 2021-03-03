@@ -32,6 +32,7 @@
     "gatsby-plugin-styled-components": "^3.1.21",
     "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-source-contentful": "^2.1.73",
+    "gatsby-contentful-optional-fields":"^2.2.0",
     "gatsby-source-filesystem": "^2.1.40",
     "gatsby-transformer-remark": "^2.6.48",
     "gatsby-transformer-sharp": "^2.3.7",
