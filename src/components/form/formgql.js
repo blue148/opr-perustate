@@ -196,15 +196,18 @@ export default function FormPanel(props){
 	
 	
 	const ProgramsSelectList = programs.nodes
-								.sort((a,b)=>(a.shortName.localeCompare(b.shortName)))
-								.map(({shortName, programCode},index) => (
+								.sort((a,b)=>(a.shortName && a.shortName.localeCompare(b.shortName)))
+								.map(({shortName, programCode},index) => {
+									const item = shortName && (
 									<MenuItem 
-										value={'PERU_'+programCode.replace(/\s/g,'').replace('-','_')}
+										value={programCode && 'PERU_'+programCode.replace(/\s/g,'').replace('-','_')}
 										key={index} 
 										>
 											{shortName}
 									</MenuItem>
-									))
+									)
+									return item;
+									})
 									
 /// --> detect testing flags in url. and set test values as needed 
 	const testLead=(searchVars.testform)?true:false;
@@ -277,16 +280,16 @@ export default function FormPanel(props){
 							'deviceType': searchVars.utm_device||'UNKNOWN',
 							"isTestLead": testLead,
 							'sourceTracking': {
-								'campaignName': searchVars.utm_campaign||'',
-								'adGroupId': searchVars.utm_adgroup||'',
-								'keyword': searchVars.utm_term||'',
-								'matchType': searchVars.utm_matchtype||'',
-								'network': searchVars.utm_network||'',
-								'creativeId': searchVars.utm_content||searchVars.creative||'',
-								'placement': searchVars.utm_placement||'',
-								'target': searchVars.urm_target||'',
-								'feedItemId': searchVars.utm_feeditemid||'',
-								'agencyTrackingCode':  searchVars.utm_agencytrackingcode||''
+								'campaignName': searchVars.utm_campaign||undefined,
+								'adGroupId': searchVars.utm_adgroup||undefined,
+								'keyword': searchVars.utm_term||undefined,
+								'matchType': searchVars.utm_matchtype||undefined,
+								'network': searchVars.utm_network||undefined,
+								'creativeId': searchVars.utm_content||searchVars.creative||undefined,
+								'placement': searchVars.utm_placement||undefined,
+								'target': searchVars.urm_target||undefined,
+								'feedItemId': searchVars.utm_feeditemid||undefined,
+								'agencyTrackingCode':  searchVars.utm_agencytrackingcode||undefined
 							}
 						};
 						//console.log(body, ' body submitting');
