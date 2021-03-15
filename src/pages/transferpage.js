@@ -178,6 +178,8 @@ export const query = graphql`
 				redirectUrl
 				phone
 			}
+		   applyBy
+           startClasses
 			
 		}
 		allContentfulProgramInfo {
