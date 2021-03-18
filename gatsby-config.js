@@ -102,7 +102,7 @@ module.exports = {
 	    options: {
 	      dataLayer: {
 	        experimentId: process.env.GATSBY_EXPID||null,
-	        variationId: 1
+	        variationId: 0
 	      },
 	      tagmanager: {
 	        id: 'GTM-WVQZZ82'

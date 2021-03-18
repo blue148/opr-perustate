@@ -124,9 +124,14 @@ export default class Layout extends React.Component{
 	
 	
 	render(){
-		
-		const globalDates = {apply:this.props.programs.nodes[0].applyBy, start:this.props.programs.nodes[0].startClasses}
-		return (
+	const {programs, startClasses, applyBy} = this.props;
+	///get the apply Date from the current page, if blank, get it from the first programInfo 
+	console.log(this.props);
+	console.log(applyBy);
+	const applyDate = applyBy || programs.nodes[0].applyBy;
+	const startDate = startClasses || programs.nodes[0].startClasses;
+	//const globalDates = {apply:programs.nodes[0].applyBy, start:programs.nodes[0].startClasses}
+	  return (
 		<ThemeProvider theme={theme}>
 			<Icons/>
 			<Header {...this.props.tabbedContent} location={this.state.location} onStateChange={this.handleStateChange} state={this.state}/>
@@ -165,7 +170,7 @@ export default class Layout extends React.Component{
 							{...this.props.programContent} 
 							programs={this.props.programs} 
 							location={this.state.location}
-							dates={globalDates}
+							dates={{apply: applyDate, start:startDate}}
 							/>
 						<GeneralContent
 							className="learning-section"
