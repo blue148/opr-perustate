@@ -12,6 +12,7 @@ import BottomBar from "./bottomBarMenu/bottomBarMenu"
 import Footer from "./footer"
 import LeadFormApp from "./form"
 import Callout from "./callout/callout"
+import VideoSection from "./videoSection"
 import update from 'immutability-helper'
 import styled, {ThemeProvider} from "styled-components"
 import "./tabbedlayout.scss"
@@ -145,6 +146,9 @@ export default class Layout extends React.Component{
 						/>
 						
 						<MainArea {...this.props.mainContentSection} />
+						<VideoSection
+							{...this.props}
+						/>
 						<TabbedArea 
 							location={this.state.location} 
 							{...this.props.tabbedContent} 

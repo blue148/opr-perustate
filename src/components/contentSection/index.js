@@ -1,6 +1,6 @@
 import React from "react"
 import styled from 'styled-components'
-//import {ApplyNowButton} from '../uiElements'
+import {ApplyNowButton} from '../uiElements'
 //import Icon from '../../images/icons'
 //import Calendar from '../../icons/icon-calendar-bg.svg'
 import './content-section.scss';
@@ -103,18 +103,20 @@ export default class GeneralContent extends React.Component{
 		e.preventDefault();
 		this.props.onStateChange(e,null,'','');
 	}
-
+	cleanProps = (content) =>{
+		if(!content)return;
+		const cleanContent = content.replace(/(<([/fpbr]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;");
+		if(cleanContent!==''){return cleanContent}else{return}	
+	}
 	render(){
 		//add nbsp in the last space for text wrapping.
-		const cleanHeadline = this.props.headline.replace(/(<([/fp]+)>)/ig,"").replace(/ (?=[^ ]*$)/i, "&nbsp;");
-
 		return(		
-			<MainBox className="content-wrapper">
+			<MainBox className={"container__"+this.props.className+" content-wrapper"}>
 				<div className="desktop-shim">
-					<section className={this.props.className}>
-						<h2 dangerouslySetInnerHTML={{__html:cleanHeadline}}/>
-						<div className="general-content" dangerouslySetInnerHTML={{__html:this.props.content}}/>	
-					</section>
+						{this.cleanProps(this.props.headline)&&<h2 dangerouslySetInnerHTML={{__html:this.cleanProps(this.props.headline)}}/>}
+						{this.cleanProps(this.props.content)&&(<div className="general-content" dangerouslySetInnerHTML={{__html:this.cleanProps(this.props.content)}}/>)}
+						{this.props.includeEl}
+						{this.props.includeApply?<ApplyNowButton location={this.props.location}/>:null}	
 					{this.props.children}
 				</div>
 			</MainBox>

@@ -14,7 +14,7 @@
 		}
 	}
 	.program-content-area {
-	    max-height: calc(100% - 170px);
+	    max-height: 100%;//calc(100% - 170px);
 	    overflow-y: scroll;
 	    padding:0 0 1.3rem;
 	    @media (min-width:1024px){
@@ -27,7 +27,10 @@
 	    }
 	}
 	.careerSection{
-		 padding:1rem;
+		 padding:1rem 1rem 200px;
+		 @media(min-width:768px){
+			 padding: 1rem;
+		 }
 	 }
 	.program-details-area{
 		padding:1rem;
@@ -288,11 +291,13 @@
 		grid-auto-columns:1fr;
 		grid-column-gap:.5rem;
 		justify-content:center;
-		background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 38%, rgba(255,255,255,1) 100%);
+		/*background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 38%, rgba(255,255,255,1) 100%);
 		background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 38%,rgba(255,255,255,1) 100%);
 		background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 38%,rgba(255,255,255,1) 100%);
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
-		padding-top:2rem;
+		padding-top:2rem;*/
+		background: rgba(255,255,255,.4);
+		backdrop-filter: blur(3px);
 		@media (min-width:768px){
 			grid-template-columns:max-content;
 			grid-auto-columns:max-content;
@@ -305,6 +310,9 @@
 	  }
 	  .apply-now.button{
 		  width:100%;
+	  }
+	  .button{
+		  box-shadow: 0 3px 8px rgba(0,0,0, .7);
 	  }
 	}
 	

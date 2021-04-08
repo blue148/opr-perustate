@@ -1,0 +1,3 @@
+@media (min-width: 768px){.videoSection{display:grid;grid-template-columns:minmax(0, 725px) calc(340px + 5%);justify-content:center}}.videoSection.fullwidth{background:#efefef;margin:1rem 0;text-align:center}.videoSection.fullwidth .video-thumb{position:relative;cursor:pointer;margin:0 auto;max-width:450px}.videoSection.fullwidth .video-thumb svg{position:absolute;top:calc(50% - 25vw);left:calc(50% - 25vw);font-size:50vw;z-index:1000;opacity:.5}@media (min-width: 768px){.videoSection.fullwidth .video-thumb svg{top:calc(50% - 8vw);left:calc(50% - 8vw);font-size:17vw}}.videoSection.fullwidth .video-thumb img{width:100%;height:auto}header.video-overlay{z-index:0}
+
+/*# sourceMappingURL=video-section.map */

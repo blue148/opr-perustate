@@ -1,4 +1,5 @@
 import React from "react"
+import VideoSection from "../videoSection"
 import styled from 'styled-components'
 import {ApplyNowButton} from '../uiElements'
 import Icon from '../../images/icons'
@@ -150,6 +151,9 @@ export default class ProgramContent extends React.Component{
 						<h3 dangerouslySetInnerHTML={{__html:cleanHeadline}}/>
 						<div className="program-info-details" dangerouslySetInnerHTML={{__html:this.props.programDetails.content}}/>	
 					</section>
+					<VideoSection
+							{...this.props}
+						/>
 					<PanelContent {...this.props}/>
 				</div>
 			</MainBox>
