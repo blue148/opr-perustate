@@ -312,7 +312,7 @@ export default function FormPanel(props){
 						createLead({ variables: {leadInput:body} }).then((response)=>{
 								setSubmitting(false);
 								//put redirect on creatlead:true
-								//console.log(response);
+								console.log(response);
 								if(response.data.createLead===true){
 									(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})
 									}
