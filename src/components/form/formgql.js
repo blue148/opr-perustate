@@ -269,7 +269,7 @@ export default function FormPanel(props){
 							'partnerCode':'PERU',
 							'collegeCode': 'PERU',
 							'campusCode': 'PERU_ONLINE',
-							'sourceCode': searchVars.utm_medium||'UNKNOWN',
+							'sourceCode': searchVars.utm_source||'UNKNOWN',
 							'programCode': values.programCode||'PERU_UNDERGRAD_UNDECIDED',
 							'phoneNumberCountry': 'US',
 							'formType': origin,
@@ -283,13 +283,14 @@ export default function FormPanel(props){
 								'campaignName': searchVars.utm_campaign||undefined,
 								'adGroupId': searchVars.utm_adgroup||undefined,
 								'keyword': searchVars.utm_term||undefined,
-								'matchType': searchVars.utm_matchtype||undefined,
-								'network': searchVars.utm_network||undefined,
-								'creativeId': searchVars.utm_content||searchVars.creative||undefined,
-								'placement': searchVars.utm_placement||undefined,
-								'target': searchVars.urm_target||undefined,
-								'feedItemId': searchVars.utm_feeditemid||undefined,
-								'agencyTrackingCode':  searchVars.utm_agencytrackingcode||undefined
+								'matchType': searchVars.matchtype||undefined,
+								'network': searchVars.network||undefined,
+								'creativeId': searchVars.content||searchVars.creative||undefined,
+								'placement': searchVars.placement||undefined,
+								'target': searchVars.target||undefined,
+								'feedItemId': searchVars.feeditemid||undefined,
+								'agencyTrackingCode':  searchVars.agencytrackingcode||undefined,
+								'adGroupId': searchVars.adgroup_id||undefined
 							}
 						};
 						//console.log(body, ' body submitting');
@@ -312,7 +313,7 @@ export default function FormPanel(props){
 						createLead({ variables: {leadInput:body} }).then((response)=>{
 								setSubmitting(false);
 								//put redirect on creatlead:true
-								console.log(response);
+								//console.log(response);
 								if(response.data.createLead===true){
 									(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})
 									}
