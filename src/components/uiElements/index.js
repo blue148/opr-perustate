@@ -10,6 +10,7 @@ export class Button extends React.Component{
 	
 	render(){
 		const buttonId = this.props.label.split(' ').join('-').toLowerCase();
+		const btnTarget = this.props.target||"_self";
 		const button = (this.props.jumplink)?
 			<ScrollIntoView selector={'#'+this.props.jumplink} className={this.props.className} onClick={this.props.onClick}>
 				<ButtonLink id={buttonId} aria-label={this.props.label} className={"button "+[this.props.theme,this.props.className].join(' ')}>
@@ -17,7 +18,12 @@ export class Button extends React.Component{
 				</ButtonLink>
 			</ScrollIntoView>
 		:
-				<ButtonLink id={buttonId} aria-label={this.props.label} className={"button "+[this.props.theme,this.props.className].join(' ')} href={this.props.outlink||"#"} target="_blank">
+				<ButtonLink 
+					id={buttonId} 
+					aria-label={this.props.label} 
+					className={"button "+[this.props.theme,this.props.className].join(' ')} 
+					href={this.props.outlink||"#"} 
+					target={btnTarget}>
 					{this.props.label}
 				</ButtonLink>
 
