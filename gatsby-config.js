@@ -105,7 +105,7 @@ module.exports = {
 	        variationId: 0
 	      },
 	      tagmanager: {
-	        id: 'GTM-WVQZZ82'
+	        id: 'GTM-55ZDD29'
 	    },
 	    optimize: {
 	        id: process.env.GATSBY_EXPID,
