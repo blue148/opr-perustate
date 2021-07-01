@@ -289,7 +289,7 @@ export default function FormPanel(props){
 								'placement': searchVars.utm_placement||undefined,
 								'target': searchVars.urm_target||undefined,
 								'feedItemId': searchVars.utm_feeditemid||undefined,
-								'agencyTrackingCode':  searchVars.utm_agencytrackingcode||undefined
+								'agencyTrackingCode':  searchVars.agencytrackingcode||undefined
 							}
 						};
 						//console.log(body, ' body submitting');
