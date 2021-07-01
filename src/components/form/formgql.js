@@ -269,7 +269,7 @@ export default function FormPanel(props){
 							'partnerCode':'PERU',
 							'collegeCode': 'PERU',
 							'campusCode': 'PERU_ONLINE',
-							'sourceCode': searchVars.utm_medium||'UNKNOWN',
+							'sourceCode': searchVars.utm_source||'UNKNOWN',
 							'programCode': values.programCode||'PERU_UNDERGRAD_UNDECIDED',
 							'phoneNumberCountry': 'US',
 							'formType': origin,
