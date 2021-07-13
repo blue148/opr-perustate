@@ -21,8 +21,9 @@
 
 a.button {
   display: block;
+	font-weight: 700;
+	font-size: 12px;
 }
-
 @media (min-width: 768px) {
   a.button {
     min-width: 250px;

@@ -143,6 +143,7 @@ export default class Layout extends React.Component{
 							programs={this.props.programs} 
 							location={this.state.location}
 							isSingle={false}
+							{...this.props.programContent}
 						/>
 						
 						<MainArea {...this.props.mainContentSection} />

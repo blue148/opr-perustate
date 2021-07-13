@@ -5,10 +5,11 @@
 	justify-items: center;
 	justify-content: center;
 	display:grid;
-	padding:3rem 0;
+	padding:3rem 1rem;
 	margin:0 0 0 -.5rem;
 	background-color:white;
 	@media (min-width:1024px){
+		padding:3rem 0;
 		@include section-shim;
 	}
 	h3{
