@@ -4,7 +4,8 @@ import NumberFormat from 'react-number-format'
 import {Formik, Field} from 'formik';
 import * as Yup from 'yup';
 import Select from 'react-select' //maybe use instead
-
+/// --> for Gatsby builds only due to SSR builds
+import Cookies from 'js-cookie'
 /// --> these modules are fgor interacting with Student Hub's GraphQL
 import {customAlphabet} from 'nanoid'
 import {  
@@ -104,7 +105,7 @@ function offsetScroll(el, offset=0) {
 /// -->> Persistent Param Cookie Reader
 function getPersistCookie(cname) {
   var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
+  var decodedCookie = decodeURIComponent(Cookies.get());
   var ca = decodedCookie.split(';');
   for(var i = 0; i <ca.length; i++) {
     var c = ca[i];
@@ -140,27 +141,27 @@ export default function FormPanel(props){
 		clientCTPA,
 		defaultPhone,
 		cid,
-		dataType
+		dataType,
+		location
 		} = props;
 
 
 	const searchVars = {};
-	const location = window.location;
-	
+	//const location = window.location;
+	const locationSearch = (location && location.search)?location.search:null;
 /// --> detect testing flags in url. and set test values as needed 
-	const testLead=(location.search.search('testform')>=0)?true:false;
-	const testRedirect = (location.search.search('redirect')>=0)?true:false;
-	
-	//(searchVars.testform)?true:false;
+	const testLead=(locationSearch?.search('testform')>=0)?true:false;
+	const testRedirect = (locationSearch?.search('redirect')>=0)?true:false
 
 	const testDirect = (testLead && testRedirect)?true:false;  //only set to true if testform flag is present
 	
 /// -->> check for utm_source in query. if not there, set to null	
-	const urlParams = (location.search.search('utm_source')>=0)?location.search:null;
+	const urlParams = (locationSearch?.search('utm_source')>=0)?locationSearch:null;
 
 /// -->>check for cookie if no valid location query
-	const persistParams = (urlParams!==null)?urlParams:getPersistCookie('__gtm_campaign_url');
 
+	const persistParams = (typeof window!=='undefined' && urlParams!==null)?urlParams:getPersistCookie('__gtm_campaign_url');
+	console.log(persistParams,'parms')
 	const searchParams = (persistParams)?new URLSearchParams(persistParams):'';
 	if(searchParams){
 		for(var item of searchParams.entries()){

@@ -68,7 +68,6 @@ export default function LeadFormApp(props){
 	const cleanHeadline = props.headline?.replace(/(<([/fp]+)>)/ig,"");//remove and p and f tags to clean up the code.
 	const cleanSubHeadline = props.subheadline?.replace(/(<([/fp]+)>)/ig,"");//remove and p and f tags to clean up the code.
 	const programCodeTarget = (props.programCode)?'PERU_'+props.programCode.replace(/\s/g,'').replace('-','_'):'';
-	console.log(programCodeTarget)
 	return(
 		<ApolloProvider client={gqlClient}>
 			<aside id="leadform-area">
