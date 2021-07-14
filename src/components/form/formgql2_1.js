@@ -348,7 +348,7 @@ const validateSchema = Yup.object().shape({
 						
 /// -->> Create Lead via apollo UseMutuation hook
 
-						/*createLead({ variables: {leadInput:body} }).then((response)=>{
+						createLead({ variables: {leadInput:body} }).then((response)=>{
 								setSubmitting(false);
 								//put redirect on creatlead:true
 								if(response.data.createLead===true){
@@ -357,7 +357,7 @@ const validateSchema = Yup.object().shape({
 							}).catch((e)=>{
 								console.log(e.message, 'message')
 								
-							})*/
+							})
 
 	                }}
 	                
