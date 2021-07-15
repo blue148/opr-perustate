@@ -161,7 +161,7 @@ export default function FormPanel(props){
 /// -->>check for cookie if no valid location query
 
 	const persistParams = (typeof window!=='undefined' && urlParams!==null)?urlParams:getPersistCookie('__gtm_campaign_url');
-	console.log(persistParams,'parms')
+	//console.log(persistParams,'parms')
 	const searchParams = (persistParams)?new URLSearchParams(persistParams):'';
 	if(searchParams){
 		for(var item of searchParams.entries()){
