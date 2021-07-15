@@ -91,8 +91,9 @@ export default class Layout extends React.Component{
 	}
 	
 	
-	
+
 	render(){
+			//console.log('layout',this.props)
 	  return (
 		<ThemeProvider theme={theme}>
 			<Icons/>
@@ -117,6 +118,7 @@ export default class Layout extends React.Component{
 							programs={this.props.programs} 
 							location={this.state.location}
 							isSingle={true}
+							{...this.props.programContent}
 
 						/>
 						
