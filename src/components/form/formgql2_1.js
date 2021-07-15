@@ -145,7 +145,7 @@ export default function FormPanel(props){
 		location
 		} = props;
 
-
+		console.log('props',redirect)
 	const searchVars = {};
 	//const location = window.location;
 	const locationSearch = (location && location.search)?location.search:null;
