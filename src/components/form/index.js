@@ -84,7 +84,7 @@ export default function LeadFormApp(props){
 					//endpoint={endpoint}
 					midpoint={midpoint}
 					origin={"Website_RFI"}
-					redirect={redirectURL}
+					redirectURL={redirectURL}
 					formtype={"crm"}
 					env={process.env.NODE_ENV}
 					formFocus={'rfiForm'}
