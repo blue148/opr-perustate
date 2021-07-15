@@ -145,7 +145,6 @@ export default function FormPanel(props){
 		location
 		} = props;
 
-		console.log('props',redirectURL)
 	const searchVars = {};
 	//const location = window.location;
 	const locationSearch = (location && location.search)?location.search:null;
@@ -340,7 +339,6 @@ const validateSchema = Yup.object().shape({
 /// -->> Set Redirect url if redirect prop is true
 						let redirectTarget = (redirectURL)?decorateUrl(redirectURL+crmData.join('&')+crossDomainTrackingParams):null;
 						
-						console.log('target',redirectTarget)
 /// -->> if you want to test with no redirect...
 						if(!testDirect && testLead){
 							redirectTarget=null;

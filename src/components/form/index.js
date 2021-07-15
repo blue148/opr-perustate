@@ -50,7 +50,7 @@ const handleFormExpand =()=>{
  
 export default function LeadFormApp(props){
 	const redirectURL = (props.redirectUrl==='')?redirect:props.redirectUrl;
-	console.log('redirect',redirectURL)
+	//console.log('redirect',redirectURL)
 
 	let programList = props.programs.nodes
 		.sort((a,b)=>(a.shortName && a.shortName.localeCompare(b.shortName)))

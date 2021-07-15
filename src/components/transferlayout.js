@@ -152,6 +152,7 @@ export default class Layout extends React.Component{
 						}
 						<LeadFormApp 
 							{...this.props.formSettings}
+							{...this.props.programContent}
 							state={this.state} 
 							programs={this.props.programs} 
 							location={this.state.location}
