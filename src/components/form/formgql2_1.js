@@ -263,7 +263,7 @@ const validateSchema = Yup.object().shape({
 				 		isSingle:props.isSingle||false
 				 		}}
 	                onSubmit={(values, { setSubmitting}) => {
-						console.log('values',values);
+						//console.log('values',values);
 
 ////// ---- BEING SUBMISSION FUNCTION ---- //////	
 /// *** Move to external function ***///					
@@ -278,7 +278,7 @@ const validateSchema = Yup.object().shape({
 
 /// -->> Set the dataLayer for the button click event						
 						if(values.request!==true && typeof window != 'undefined'){
-							window.dataLayer.push({event:dataLayerType})
+							//window.dataLayer.push({event:dataLayerType})
 						}
 						const sourceCode = searchVars.utm_source||'UNKNOWN';
 						//cleanse phone number of non-numeric characters .replace(/\D/g,'')
@@ -312,7 +312,7 @@ const validateSchema = Yup.object().shape({
 							'adGroupId': searchVars.adgroup_id||undefined
 						}
 						};
-						console.log('form',body)
+						//console.log('form',body)
 						let crmData = (formtype=="crm")?[
 								"firstname="+encodeURIComponent(values.firstName),
 								"lastname="+encodeURIComponent(values.lastName),
@@ -348,7 +348,7 @@ const validateSchema = Yup.object().shape({
 						
 /// -->> Create Lead via apollo UseMutuation hook
 
-						/*createLead({ variables: {leadInput:body} }).then((response)=>{
+						createLead({ variables: {leadInput:body} }).then((response)=>{
 								setSubmitting(false);
 								//put redirect on creatlead:true
 								if(response.data.createLead===true){
@@ -357,7 +357,7 @@ const validateSchema = Yup.object().shape({
 							}).catch((e)=>{
 								console.log(e.message, 'message')
 								
-							})*/
+							})
 
 	                }}
 	                
