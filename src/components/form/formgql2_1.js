@@ -340,7 +340,7 @@ const validateSchema = Yup.object().shape({
 /// -->> Set Redirect url if redirect prop is true
 						let redirectTarget = (redirect)?decorateUrl(redirect+crmData.join('&')+crossDomainTrackingParams):null;
 						
-						
+						console.log('target',redirectTarget)
 /// -->> if you want to test with no redirect...
 						if(!testDirect && testLead){
 							redirectTarget=null;
@@ -348,7 +348,7 @@ const validateSchema = Yup.object().shape({
 						
 /// -->> Create Lead via apollo UseMutuation hook
 
-						createLead({ variables: {leadInput:body} }).then((response)=>{
+						/*createLead({ variables: {leadInput:body} }).then((response)=>{
 								setSubmitting(false);
 								//put redirect on creatlead:true
 								if(response.data.createLead===true){
@@ -357,7 +357,7 @@ const validateSchema = Yup.object().shape({
 							}).catch((e)=>{
 								console.log(e.message, 'message')
 								
-							})
+							})*/
 
 	                }}
 	                
