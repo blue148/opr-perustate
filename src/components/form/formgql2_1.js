@@ -277,7 +277,7 @@ const validateSchema = Yup.object().shape({
 
 /// -->> Set the dataLayer for the button click event						
 						if(values.request!==true && typeof window != 'undefined'){
-							//window.dataLayer.push({event:dataLayerType})
+							window.dataLayer.push({event:dataLayerType})
 						}
 						const sourceCode = searchVars.utm_source||'UNKNOWN';
 						//cleanse phone number of non-numeric characters .replace(/\D/g,'')
