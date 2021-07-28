@@ -1,49 +1,42 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import PropTypes from 'prop-types'
-import ScrollIntoView from 'react-scroll-into-view'
-import {
-	Button,
-	InputLabel,
-	MenuItem,
-	FormControl,
-	FormHelperText,
-	Select,
-	Container,
-	makeStyles,
-	Grid,
-	TextField,
-	CssBaseline,
-	CircularProgress	
-} from '@material-ui/core';
-//import MuiPhoneNumber from 'material-ui-phone-number';
 import NumberFormat from 'react-number-format'
-import {Formik} from 'formik';
+import {Formik, Field} from 'formik';
 import * as Yup from 'yup';
+import Select from 'react-select' //maybe use instead
+/// --> for Gatsby builds only due to SSR builds
+import Cookies from 'js-cookie'
+/// --> these modules are fgor interacting with Student Hub's GraphQL
 import {customAlphabet} from 'nanoid'
-
-import './form.scss'
-
-
 import {  
 	gql,
 	useMutation
 } from '@apollo/client';
 
 
+import './form.scss'
 
-/// --> get list of programs for select menu
+
+const customStyles = {
+   placeholder: (provided, state) => {
+    const color = '#666';
+    return { ...provided, color };
+  }
+ }
+
+/// --> Student Hub needs a unique request ID. We use the customAlphabet function from nanoid to generate this
 
 const getId = customAlphabet(
   "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
   12
 );
 
+/// --> this will be the request's id for Student Hub
 const leadId = getId();
 
 /// --> Apollo/GraphQL set up for Student Hub
 
-///GraphQL Query/Mutation
-
+/// --> Student Hub GraphQL needs a Mutation sent as the query in order to add a lead
 
 const leadFormSend = gql`
   mutation leadformsend($leadInput: CreateLeadInput!) {
@@ -51,57 +44,7 @@ const leadFormSend = gql`
 	}
 `
 
-
-const handleFormExpand =()=>{
-//	console.log('opened', window.getComputedStyle(document.querySelector('.formPanel'), ':before').getPropertyValue('background'));
-	document.querySelector('.formPanel').classList.add('opened');
-}
-
-/***
- * Material UI style cusomtizations
- ***/
-const useStyles = makeStyles(theme => ({
-	paper: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-	},
-	form: {
-		width: '90%', // Fix IE 11 issue.
-		margin:0,
-	},
-	selectControl:{
-		background:'white',
-		
-
-		
-	},
-	select: {
-		minWidth: 120,
-		margin:0,
-		width:'100%',
-		'&$focused': {
-		      background: 'white',
-	    }
-	},
-	selectEmpty: {
-		marginTop: theme.spacing(2),
-	},
-	submit: {
-		marginTop: theme.spacing(5),
-		height:'3rem',
-		fontSize:'1.4rem',
-	},
-	headline:{
-		marginBottom: theme.spacing(4)
-	},
-	textfield:{
-		background:'white'
-	},
-	container:{
-		top:'90px',
-	}
-	}));
+/// --> Phone Number Field Formatter
 
 function NumberFormatCustom(props) {
   const { inputRef, onChange, ...other } = props;
@@ -128,47 +71,112 @@ NumberFormatCustom.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
+	
+const renameKeys = (oldProp,newProp,{ [oldProp]: old, ...others }) => ({
+    [newProp]: old,
+    ...others
+})	
+	
+function decorateUrl(urlString) {
+  var ga = window[window['GoogleAnalyticsObject']];
+  var tracker;
+  if (ga && typeof ga.getAll === 'function') {
+    tracker = ga.getAll()[0]; // Uses the first tracker created on the page
+    urlString = (new window.gaplugins.Linker(tracker)).decorate(urlString);
+  }
+  return urlString;
+}
 
-
-
-function ViewDoFormat(value){
-	const codeArray = value.split('_');
-	codeArray.shift();
-	return(codeArray.join(' - '));
+/// -->> Helper function to get element position in the document
+function offsetScroll(el, offset=0) {
+    var rect = el.getBoundingClientRect(),
+    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const elTop = rect.top + scrollTop;
+    window.scrollTo({
+		top: (elTop - offset),
+		left: 0,
+		behavior: 'smooth'
+	})
 }
 
 
 
+/// -->> Persistent Param Cookie Reader
+function getPersistCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(Cookies.get());
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+	  let cSub = c.substring(name.length, c.length);
+	  
+      return cSub.substring(cSub.indexOf('?'));
+    }
+  }
+  return "";
+}
+//// Landing Page form refresh not using current state in React Select and Formik
+/// Does Formik Initial values need to refresh, or is it React Select that is not rehydrating after render
+
+/// --> Begin the function to build the form
 	
 export default function FormPanel(props){
 	const { 
+		midpoint, 
 		origin, 
-		redirect,
-		formtype,
-		programs,
-		location,
-		phone,
-		headline, 
-		subheadline, 
 		redirectURL,
-		successMsg
-	} = props;
+		programFocus,
+		formtype,
+		formFocus,
+		ctaText,
+		programSelect,
+		programList,
+		clientPrefix,
+		campusCode,
+		partnerCode,
+		clientCTPA,
+		defaultPhone,
+		cid,
+		dataType,
+		location
+		} = props;
 
+	const searchVars = {};
+	//const location = window.location;
+	const locationSearch = (location && location.search)?location.search:null;
+/// --> detect testing flags in url. and set test values as needed 
+	const testLead=(locationSearch?.search('testform')>=0)?true:false;
+	const testRedirect = (locationSearch?.search('redirect')>=0)?true:false
 
-	const searchVars = {}
-	const searchParams = (location)?new URLSearchParams(location.search):'';
+	const testDirect = (testLead && testRedirect)?true:false;  //only set to true if testform flag is present
+	
+/// -->> check for utm_source in query. if not there, set to null	
+	const urlParams = (locationSearch?.search('utm_source')>=0)?locationSearch:null;
+
+/// -->>check for cookie if no valid location query
+
+	const persistParams = (typeof window!=='undefined' && urlParams!==null)?urlParams:getPersistCookie('__gtm_campaign_url');
+	//console.log(persistParams,'parms')
+	const searchParams = (persistParams)?new URLSearchParams(persistParams):'';
 	if(searchParams){
-		//console.log(searchParams);
 		for(var item of searchParams.entries()){
 			searchVars[item[0]]=decodeURIComponent(item[1]).toUpperCase();
 		}
 	}
-	const cleanHeadline = (headline)?headline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
-	const cleanSubHeadline = (subheadline)?subheadline.replace(/(<([/fp]+)>)/ig,""):'';//remove and p and f tags to clean up the code.
+///serialize search vars string for use in urls	
+	let searchString = Object.entries(searchVars).map(([key, val]) => `${key}=${encodeURIComponent(val)}`).join('&');
 	
+
+
+
 	const [createLead, { data }] = useMutation(leadFormSend);
+
 	
-	const classes = useStyles();
 	const [state, setState] = React.useReducer(
 	    (state, newState) => ({...state, ...newState}),
 	    {formData:{
@@ -176,71 +184,72 @@ export default function FormPanel(props){
 			lastName:'',
 			email:'',
 			phoneNumber:'',
-			programCode:props.state.formSelect,
+			//programCode:'',
 			location:props.location,
 			},
 		submitted:false,
 		request:false
 		}
 	  )
-	
-	React.useEffect(()=>{
-		if(props.state.formSelect!=='')setState({'formData':{'programCode':props.state.formSelect}})
-			},[props.state.formSelect]
-	);
-	
 	const inputLabel = React.useRef(null);
 	
-	const [programCode, setProgramCode] = useState(); 
-	const programArray = Object.entries(programs.nodes);
-	
-	
-	const ProgramsSelectList = programs.nodes
-								.sort((a,b)=>(a.shortName && a.shortName.localeCompare(b.shortName)))
-								.map(({shortName, programCode},index) => {
-									const item = shortName && (
-									<MenuItem 
-										value={programCode && 'PERU_'+programCode.replace(/\s/g,'').replace('-','_')}
-										key={index} 
-										>
-											{shortName}
-									</MenuItem>
-									)
-									return item;
-									})
-									
-/// --> detect testing flags in url. and set test values as needed 
-	const testLead=(searchVars.testform)?true:false;
-	const testDirect = (testLead && searchVars.redirect)?true:false;  //only set to true if testform flag is present	
-	
+	const [programCode, setProgramCode] = useState(programFocus); 
 
-							
+/// -->> this refreshes the state when the programSelect prop changes. 
+	useEffect(() => {
+	      setProgramCode(programSelect);
+	  }, [programSelect])
+	  	 
+
+/// --> build program list for the select form element. this has to be an array of objects
+let initialProgram = {value:'',label:'Select...'};	
+let ProgramsSelectList= [];
+for(const program in programList){
+	let programObj = programList[program];
+	if(programObj.value===programFocus){
+		initialProgram = programObj;
+	}
+	
+	ProgramsSelectList.push(programList[program])
+}
+/// -->> Define validation schema
+
+//// -->> Need validation of react-select 
+
+const phoneFormat = /^\(?([2-9][0-9]{2})\)?[-. ]?([1-9][0-9]{2})[-. ]?([0-9]{4})$/;
+const phoneCodes = /^\((201|202|203|205|206|207|208|209|210|212|213|214|215|216|217|218|219|220|223|224|225|228|229|231|234|239|240|248|251|252|253|254|256|260|262|267|269|270|272|276|279|281|301|302|303|304|305|307|308|309|310|312|313|314|315|316|317|318|319|320|321|323|325|326|330|331|332|334|336|337|339|341|346|347|351|352|360|361|364|380|385|386|401|402|404|405|406|407|408|409|410|412|413|414|415|417|419|423|424|425|430|432|434|435|440|442|443|445|447|448|458|463|469|470|475|478|479|480|484|500|501|502|503|504|505|507|508|509|510|512|513|515|516|517|518|520|530|531|534|539|540|541|551|559|561|562|563|564|567|570|571|572|573|574|575|580|582|585|586|601|602|603|605|606|607|608|609|610|612|614|615|616|617|618|619|620|623|626|628|629|630|631|636|640|641|646|650|651|657|659|660|661|662|667|669|678|680|681|682|689|701|702|703|704|706|707|708|710|712|713|714|715|716|717|718|719|720|724|725|726|727|731|732|734|737|740|743|747|754|757|760|762|763|765|769|770|772|773|774|775|779|781|785|786|801|802|803|804|805|806|808|810|812|813|814|815|816|817|818|820|828|830|831|832|838|839|840|843|845|847|848|850|854|856|857|858|859|860|862|863|864|865|870|872|878|901|903|904|906|907|908|909|910|912|913|914|915|916|917|918|919|920|925|928|929|930|931|934|936|937|938|940|941|945|947|949|951|952|954|956|959|970|971|972|973|978|979|980|984|985|986|989)\)(.*)/;
+
+
+
+const validateSchema = Yup.object().shape({
+	                  email: Yup.string()
+	                    .email()
+	                    .required('We will need a valid email address'),
+	                  firstName: Yup.string()
+	                    .required("We'll need your first name"),
+	                  lastName: Yup.string()
+	                    .required("We'll need your last name"),	                
+	                  phoneNumber: Yup.mixed()
+	                  	.required("We'll need your phone number")
+	                  	//.oneOf(phoneCodes,"A valid area code is needed")
+	                  	//.test('is_areacode',"A valid phone number is needed", value=>phoneCodes.test(value))
+	                  	//.test('is_centralcode',"A valid phone number is needed", value=>phoneCodes.test(value))
+						.test('is_format',"A valid phone number is needed",value=>phoneFormat.test(value))
+						//format is (876) 543-1090
+						//central office code cannot start with 0 or 1, and cannot have 11 as the second 2 digits, and can't match 988
+	                  
+	                })		
 	return(
-	<ScrollIntoView 
-		selector={'.'+classes.container+'.formPanel'} 
-		alignToTop={true} 
-		onClick={handleFormExpand}
-	>
-		<Container component="section" maxWidth={false} disableGutters={true} className={classes.container+' formPanel'} onClick={handleFormExpand}>
-		      <CssBaseline />
+
+		<section className="formPanel" data-version={props.formversion}>
 		      <span className="spacer" id="leadform"/>
-		      <div className={[classes.paper, 'formBox'].join(' ')}>		        
-		       <h2 className={[state.submitted?'hide':'','form-title'].join(' ')}>
-		          {cleanHeadline||'Need More Information?'} 
-		          {(searchVars.testform)?'TEST LEAD':null}
-		        </h2>
-		        
-		        {(cleanSubHeadline.replace(/(<([/br]+)>)/ig,""))?(
-			        <h3 className={state.submitted?'hide':''}>
-			          {cleanSubHeadline}
-			        </h3>
-			        )
-			        :null
-			      }
+		      <div className={['formBox'].join(' ')}>
+		        {testLead && (<span>TEST LEAD</span>)}
+
 		        <div className={["successContainer",state.submitted?'':'hide'].join(' ')}>
-		        	<h3>Thank you for your request.</h3>
+					<h3>Thank you for your request.</h3>
 					<h4>We have received your request and will contact you shortly</h4>
-		        </div>
+				</div>
 				 <Formik
 			 		enableReinitialize={true}
 			 		initialValues={{ 
@@ -248,95 +257,118 @@ export default function FormPanel(props){
 				 		firstName: '',
 				 		lastName:'', 
 				 		phoneNumber: '', 
-				 		programCode:props.state.formSelect,
-				 		programs:props.programs.nodes,
+				 		programCode:'PERU_BSBA_CMIS',//{programCode},
+				 		programs:'',
 				 		request:false,
 				 		isSingle:props.isSingle||false
-				 	}}
-				 		
+				 		}}
 	                onSubmit={(values, { setSubmitting}) => {
-						//console.log(values, 'submitting');
-						/*****while sumbmitting and waiting for a repsonse, show spinner
-						//on response, if success, redirect to viewdo, else show thankyou message*/
+						//console.log('values',values);
+
+////// ---- BEING SUBMISSION FUNCTION ---- //////	
+/// *** Move to external function ***///					
+						/** while sumbmitting and waiting for a repsonse, show spinner
+						on response, if success, redirect to viewdo, else show thankyou message */
+												
 						setState({request:true})
 						
-						if(values.request!==true && typeof window != 'undefined' && props.env!=='development')window.dataLayer.push({event:'Request Info Button Click'});
 						
-						
+/// --> Set dataLayer value based on form
+						const dataLayerType = (formFocus==='applyForm')?'Start Application Button Click':'Request Info Button Click';
+
+/// -->> Set the dataLayer for the button click event						
+						if(values.request!==true && typeof window != 'undefined'){
+							window.dataLayer.push({event:dataLayerType})
+						}
+						const sourceCode = searchVars.utm_source||'UNKNOWN';
+						//cleanse phone number of non-numeric characters .replace(/\D/g,'')
 						const body = {
-							'captureUrl': location.href,
-							'leadId': leadId,
-							'partnerCode':'PERU',
-							'collegeCode': 'PERU',
-							'campusCode': 'PERU_ONLINE',
-							'sourceCode': searchVars.utm_medium||'UNKNOWN',
-							'programCode': values.programCode||'PERU_UNDERGRAD_UNDECIDED',
-							'phoneNumberCountry': 'US',
-							'formType': origin,
-							'email': values.email,
-							'phoneNumber': '1'+values.phoneNumber,
-							'firstName': values.firstName,
-							'lastName': values.lastName,
-							'deviceType': searchVars.utm_device||'UNKNOWN',
-							"isTestLead": testLead,
-							'sourceTracking': {
-								'campaignName': searchVars.utm_campaign||undefined,
-								'adGroupId': searchVars.utm_adgroup||undefined,
-								'keyword': searchVars.utm_term||undefined,
-								'matchType': searchVars.utm_matchtype||undefined,
-								'network': searchVars.utm_network||undefined,
-								'creativeId': searchVars.utm_content||searchVars.creative||undefined,
-								'placement': searchVars.utm_placement||undefined,
-								'target': searchVars.urm_target||undefined,
-								'feedItemId': searchVars.utm_feeditemid||undefined,
-								'agencyTrackingCode':  searchVars.agencytrackingcode||undefined
-							}
+						'captureUrl': location.href,
+						'leadId': leadId,
+						'partnerCode':partnerCode, /// Need to be variable
+						'collegeCode': clientPrefix, /// Need to be variable
+						'campusCode': campusCode, /// Need to be variable
+						'sourceCode': sourceCode,
+						'programCode': programCode||clientPrefix+'_UNDERGRAD_UNDECIDED', /// Need to be variable
+						'phoneNumberCountry': 'US',
+						'formType': origin,
+						'email': values.email,
+						'phoneNumber': values.phoneNumber,
+						'firstName': values.firstName,
+						'lastName': values.lastName,
+						'deviceType': searchVars.utm_device||'UNKNOWN',
+						"isTestLead": testLead,
+						'sourceTracking': {
+							'campaignName': searchVars.utm_campaign||undefined,
+							'adGroupId': searchVars.utm_adgroup||undefined,
+							'keyword': searchVars.utm_term||undefined,
+							'matchType': searchVars.matchtype||undefined,
+							'network': searchVars.network||undefined,
+							'creativeId': searchVars.creative||undefined,
+							'placement': searchVars.placement||undefined,
+							'target': searchVars.target||undefined,
+							'feedItemId': searchVars.feeditemid||undefined,
+							'agencyTrackingCode':  searchVars.agencytrackingcode||undefined,
+							'adGroupId': searchVars.adgroup_id||undefined
+						}
 						};
-						//console.log(body, ' body submitting');
-	                   
-						const crmData = (formtype=="crm")?[
+						//console.log('form',body)
+						let crmData = (formtype=="crm")?[
 								"firstname="+encodeURIComponent(values.firstName),
 								"lastname="+encodeURIComponent(values.lastName),
 								"email="+encodeURIComponent(values.email),
-								"phone="+encodeURIComponent("+1"+values.phoneNumber.replace(/[^A-Z0-9]+/ig, "")),
-								"segment="+encodeURIComponent(ViewDoFormat(values.programCode))
+								"phone="+encodeURIComponent(values.phoneNumber),
+								"ocid="+encodeURIComponent(programCode),
+								"leadsource="+encodeURIComponent(sourceCode),
+								"captureurl="+encodeURIComponent(location.href),
+								"tcpaconsent="+true,
+								"segment="+encodeURIComponent(programCode),///Legacy parameter
+								searchString		
+								
 							]:'';
 							
-						let redirectTarget = (redirectURL)?redirectURL+crmData.join('&'):null;
+ /// -->> Google CrossDomain Tracking for handoff to redirect
+ /// -->> Add these query parameters to any links that point to a separate tracked domain
+						let crossDomainTrackingParams='';
+						var _hsq = window._hsq = window._hsq || [];
+						_hsq.push(['addIdentityListener', function(hstc, hssc, hsfp) {
+							
+
+						    crossDomainTrackingParams = '&__hstc=' + hstc + '&__hssc=' + hssc + '&__hsfp=' + hsfp;
+						}]);	
 						
-						//if you want to test with no redirect...
+/// -->> Set Redirect url if redirect prop is true
+						let redirectTarget = (redirectURL)?decorateUrl(redirectURL+crmData.join('&')+crossDomainTrackingParams):null;
+						
+/// -->> if you want to test with no redirect...
 						if(!testDirect && testLead){
 							redirectTarget=null;
 						}
+						
+/// -->> Create Lead via apollo UseMutuation hook
 
 						createLead({ variables: {leadInput:body} }).then((response)=>{
 								setSubmitting(false);
 								//put redirect on creatlead:true
-								console.log(response);
 								if(response.data.createLead===true){
 									(redirectTarget)?window.location.href = redirectTarget:setState({'submitted':true})
 									}
 							}).catch((e)=>{
 								console.log(e.message, 'message')
+								console.error(e.message, 'message')
 								
 							})
 
 	                }}
+	                
+////// ---- END SUBMISSION FUNCTION ---- //////
+	                
+/// -->> Formik Validation Schema
 
-	                validationSchema={Yup.object().shape({
-	                  email: Yup.string()
-	                    .email()
-	                    .required('Required'),
-	                  firstName: Yup.string()
-	                    .required('Required'),
-	                  lastName: Yup.string()
-	                    .required('Required'),
-	                  phoneNumber: Yup.string()
-						.required("Must enter a phone number"),
-	                  programCode: Yup.string()
-	                    .required('Required')
-	                })}
+	                validationSchema={validateSchema}
 	              >
+	              
+	              
 	                {(props) => {
 	                  const {
 	                    values,
@@ -346,145 +378,175 @@ export default function FormPanel(props){
 	                    handleChange,
 	                    handleBlur,
 	                    handleSubmit,
-                        handleOpen
+	                    setFieldValue,
+	                    programs,
+	                    programCode
 	                  } = props;
+	                  	                  
 	                 return(
 						<>
 							<div className={["form_overlay",isSubmitting===true?'':'hide'].join(' ')}>
-				                <CircularProgress variant='indeterminate' thickness={5}/>
-				                <h4>Sending Request</h4>
-							</div>
+					        	<div className="loader">
+				                	<h4>Sending Request</h4>
+			                	</div>
+				            </div>
 							
-		                    <form onSubmit={handleSubmit} className={[classes.form, state.submitted?'hide':''].join(' ')}>
-		                    	<Grid container spacing={0}>
-									<Grid item xs={12}> 
-							            <FormControl fullWidth className={[classes.selectControl,' selectControl', values.isSingle?"single-program":""].join(' ')}>
-							            	<InputLabel ref={inputLabel} id="programs-label" variant="outlined">
-									         Select a Program
-									        </InputLabel>
+		                    <form 
+		                    	onSubmit={handleSubmit} 
+		                    	className={[state.submitted?'hide':'', isSubmitting===true?'submitting':''].join(' ')}
+		                    	id={formFocus}>
+		                    	<div className="form-body">
+									<div className="form-group"> 
+							            <div 
+							           
+						            		className={[
+							            		' selectControl', 
+							            		values.isSingle?"single-program":""]
+							            		.join(' ')
+							            		}>
+								            		
+						            		<label
+						            			htmlFor="programCode" 
+						            			id={`programs-label-${cid}`}>
+												
+												Select a Program
+												
+									        </label>
 									        <Select
-									          labelId="programs-label"
-									          id="programs"
-									          name="programCode"
-									          variant='outlined' 
-									          margin='dense'
-									          value={values.programCode}
-									          onChange={(e) => {
-											      //setProgramCode(e.target.value);
-											      handleChange(e);
-										    }}
-									          className={classes.select}
-									          style={{whiteSpace: 'normal'}}
-									          error={errors.programCode && touched.programCode && <FormHelperText>'Please choose a program of interest'</FormHelperText>}
-									        >
-										        <MenuItem value=''>Please Select a Program</MenuItem>
-										        {ProgramsSelectList}										        
+												id={`programCode-${cid}`}
+												className="program-select"
+												name="programCode"
+												aria-labelledby={`programs-label-${cid}`}
+												value={programCode}
+												defaultValue={initialProgram}
+												options={ProgramsSelectList}
+												//menuPlacement="auto"
+												menuShouldScrollIntoView={true}
+												onFocus={()=>{
+													//(window.innerWidth< 1024)&&
+													(cid!=='modal-form')&&
+													offsetScroll(document.querySelector(`#${formFocus}`),60);
+													
+												}}
+												onChange={selectedOption=>{
+													let event = { target : { name:'programCode',value: selectedOption.value}}
+													setProgramCode(selectedOption.value);
+													//console.log(event)
+													//handleChange(selectedOption);     
+												}}
+												styles={customStyles}
+												>									        
 									        </Select>
-									    </FormControl>
-						            </Grid>
-						            <Grid item xs={12} >
-										<TextField
-											label="First Name"
+									        {
+										        (errors.programCode && touched.programCode) && 
+										        (<div className="errortext">{errors.programCode}</div>)
+										     }
+
+							            	
+									       									       
+									    </div>
+						            </div>
+						            <div className="form-group">
+						            	<label id={`firstName-${cid}`}>First Name</label>
+										<Field								
 											name="firstName"
 											id="firstName"
-											className={[classes.textfield,'textfield'].join(' ')}
+											aria-labelledby={`firstName-${cid}`}
+											className={['textfield'].join(' ')}
 											value={values.firstName}
 											onChange={handleChange}
 											onBlur={handleBlur}
-											error={errors.firstName && touched.firstName}
-											helperText={(errors.firstName && touched.firstName) && errors.firstName  && 'Your first name is required'}
-											variant="outlined"
-											fullWidth
-											margin='dense'
+											
 										/>
-									</Grid>
-									 <Grid item xs={12} >
-										<TextField
-											label="Last Name"
+										{
+											(errors.firstName && touched.firstName) && 
+											(<div className="errortext">{errors.firstName}</div>)
+										}
+									</div>
+									<div className="form-group">
+										<label id={`lastName-${cid}`}>Last Name</label>
+										<Field
 											name="lastName"
 											id="lastName"
-											className={[classes.textfield, 'textfield'].join(' ')}
+											aria-labelledby={`lastName-${cid}`}
+											className={['textfield'].join(' ')}
 											value={values.lastName}
 											onChange={handleChange}
 											onBlur={handleBlur}
-											error={errors.lastName && touched.lastName}
-											helperText={(errors.lastName && touched.lastName) && errors.lastName && 'Your last name is required'}
-											variant="outlined"
-											fullWidth
-											margin='dense'
 										/>
-									</Grid>	
-									<Grid item xs={12}>
-										<TextField
-											variant="outlined"
-											error={errors.email && touched.email}
-											helperText={(errors.email && touched.email) && errors.email && 'Please provide a valid email address'}
-											fullWidth
+										{
+											(errors.lastName && touched.lastName) && 
+											(<div className="errortext">{errors.lastName}</div>)
+										}
+									</div>	
+									<div className="form-group">
+									<label id={`email-${cid}`}>Email Address</label>
+										<Field
+											type="email"
 											id="email"
-											label="Email Address"
 											name="email"
-											autoComplete="email"
-											margin='dense'
-											className={classes.textfield}
+											aria-labelledby={`email-${cid}`}											
 											onChange={handleChange}
 											onBlur={handleBlur}
 										/>
-									</Grid>
-									<Grid item xs={12}>
-										 <TextField
-										 	autoComplete="tel-national"
-									       	id="phoneNumber"
-											label="Phone"
+										{
+											(errors.email && touched.email) && 
+											(<div className="errortext">{errors.email}</div>)
+										}
+									</div>
+									<div className="form-group">
+										<label id={`phoneNumber-${cid}`}>Phone</label>
+										 <NumberFormat										 	
+											autoComplete="tel-national"
+											id="phoneNumber"
 											name="phoneNumber"
+											aria-labelledby={`phoneNumber-${cid}`}
 											type="tel"
-									        value={values.phoneNumber}
-									        variant="outlined"
-											fullWidth
-									        margin='dense'
-											className={classes.textfield}
-											onChange={handleChange('phoneNumber')}
-											onBlur={handleBlur}
-											error={errors.phoneNumber && touched.phoneNumber}
-											helperText={(errors.phoneNumber && touched.phoneNumber) && errors.phoneNumber && 'Your phone number is required'}
-									        InputProps={{
-									          inputComponent: NumberFormatCustom,
-									        }}
+											value={values.phoneNumber} 
+											onChange={																
+												handleChange('phoneNumber')
+												
+											}
+											onBlur={handleBlur}											
+											format="(###) ###-####" mask="_"
 									      />
+									      {
+											(errors.phoneNumber && touched.phoneNumber) && 
+											(<div className="errortext">{errors.phoneNumber}</div>)
+											}
 											
-									</Grid>
+									</div>
 									
-								</Grid>
+								</div>
 								
-								<Grid container justify="flex-end" className="leadform-actions">
-									<Grid item xs={12}>
-									<Button
+								<div className="leadform-actions">
+									<div className="form-group">
+										<button
 											type="submit"
-											fullWidth
+											
 											variant="contained"
 											color="primary"
-											className={classes.submit+' button primary'}
+											className={['aeopr-button','aeopr-primary-button','aeopr-send-button', props.buttonClass].join(' ')}
 										
 										>
-											Request Info
-										</Button>
-										
-
+											{ctaText}
+										</button>
 										<p className="ctaSection">
-											or call <a className="mobile-only phone-link" href={"tel:+1"+phone.replace(/\D/g,'')}>{phone}</a>
-											<span className="desktop-only">{phone}</span>
+											or call <a className="mobile-only phone-link" href={`tel:+1 ${defaultPhone}`}>
+											{defaultPhone}</a>
+											<span className="desktop-only">{defaultPhone}</span>
 										</p>
-										<div className="legal-text ctpaText">
-											<p>By submitting this form, I am providing my digital signature agreeing that Peru State College may email me or contact me regarding educational services by telephone and/or text message utilizing automated technology at the telephone number(s) provided above. I understand this consent is not a condition to attend Peru State College or to purchase any other goods or services.</p>
+										<div className=" legal-text ctpaText">
+											<p >{clientCTPA}</p>
 										</div>
-									</Grid>
-								</Grid>
+									</div>
+								</div>
 		                    </form>
 	                    </>
 	                  );
 	                }}
 		        </Formik>
 		      </div>
-		    </Container>
-		 </ScrollIntoView>
+		    </section>
 		)
 	}

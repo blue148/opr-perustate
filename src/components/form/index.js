@@ -8,12 +8,21 @@ import {
 	HttpLink 
 } from '@apollo/client';
 import ScrollIntoView from 'react-scroll-into-view'
-import FormPanel from './formgql2_1'
+import FormPanel from './formgql'
 import './peruform.scss'
 
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`
 })
+
+
+import {version } from "../../../package.json"
+
+
+if(typeof window != 'undefined'){
+	window.dataLayer.push({formversion:version})
+}
+
 
 const crmConfig = {
 	midpoint:process.env.GATSBY_ASH_ENDPOINT,
@@ -88,7 +97,7 @@ export default function LeadFormApp(props){
 					formtype={"crm"}
 					env={process.env.NODE_ENV}
 					formFocus={'rfiForm'}
-					formversion={version}
+					ctaText={'Request Info'}
 					programList = {programList}			
 					programFocus = {programCodeTarget}///single program setting				
 	

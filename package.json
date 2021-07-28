@@ -2,7 +2,7 @@
   "name": "opr-psc-site",
   "private": false,
   "description": "OPR Peru State College website",
-  "version": "0.1.0",
+  "version": "2.2.1",
   "author": "Jason Sonderman <jsonderman@archeredu.com>",
   "dependencies": {
     "@apollo/client": "^3.2.0",
