@@ -241,7 +241,7 @@ const validateSchema = Yup.object().shape({
 	                })		
 	return(
 
-		<section className="formPanel" data-version={props.formversion}>
+		<section className="formPanel" >
 		      <span className="spacer" id="leadform"/>
 		      <div className={['formBox'].join(' ')}>
 		        {testLead && (<span>TEST LEAD</span>)}

@@ -10,13 +10,14 @@ import {
 import ScrollIntoView from 'react-scroll-into-view'
 import FormPanel from './formgql'
 import './peruform.scss'
+import {version } from "../../../package.json"
 
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`
 })
 
 
-import {version } from "../../../package.json"
+
 
 
 if(typeof window != 'undefined'){
@@ -28,7 +29,6 @@ const crmConfig = {
 	midpoint:process.env.GATSBY_ASH_ENDPOINT,
 	apiKey:process.env.GATSBY_APIKEY,
 	redirect:process.env.GATSBY_REDIRECT,
-	version:'2_1',
 	clientCTPA:'By submitting this form, I am providing my digital signature agreeing that Peru State College may email me or contact me regarding educational services by telephone and/or text message utilizing automated technology at the telephone number(s) provided above. I understand this consent is not a condition to attend Peru State College or to purchase any other goods or services.',
 	defaultPhone: '(402) 902-3005'
   
@@ -37,7 +37,6 @@ const {
 	midpoint, 
 	apiKey,
 	redirect,
-	version,
 	clientCTPA,
 	defaultPhone
 	} = crmConfig;
