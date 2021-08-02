@@ -1,0 +1,21 @@
+@import "./_variables";
+
+.sc-404__Page-acrnpb-0{
+	width:100vw;
+	.HeroBox{
+		grid-template-columns: 1fr;
+		background: #003478;
+	    &::before{
+		    content:none;
+	    }
+		h1{
+			color:white;
+		}
+	}
+	.mainArea{
+		grid-template-columns: 1fr;
+		min-height: 40vh;
+	}
+}
+
+
