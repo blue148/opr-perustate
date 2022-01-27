@@ -183,6 +183,37 @@ section{
 				grid-template:1fr/auto;
 				padding-bottom:70px;
 			}
+			#leadform-area,
+			#applyform-area{
+				padding: 1rem;
+				background-color:$shade;
+				@include for-desktop-up{
+					position: fixed;
+					top: 50px;
+					right: 5%;
+					width: 316px;
+		
+					padding: 1rem;
+					height: 100vh;
+					z-index:1001;
+				}
+				@include for-xxlarge{
+					right: 10%
+				}
+				h2{
+					text-align: center;
+					margin: 0 auto .5rem;
+					line-height: 1.4;
+					font-size: 1.7rem;
+				}
+				h3{
+					text-align:center;
+					margin:1rem auto;
+					line-height:1.4;
+					font-size:1.7rem;
+				}
+			}
+
 			.contentArea{
 				margin:0;
 				padding: 0;	

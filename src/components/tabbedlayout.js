@@ -10,7 +10,7 @@ import Awards from "./awards"
 import Bottom from "./bottomContentSection"
 import BottomBar from "./bottomBarMenu/bottomBarMenu"
 import Footer from "./footer"
-import LeadFormApp from "./form"
+import LeadFormApp from "./form/formgql"
 import Callout from "./callout/callout"
 import VideoSection from "./videoSection"
 import update from 'immutability-helper'
@@ -18,7 +18,72 @@ import styled, {ThemeProvider} from "styled-components"
 import "./tabbedlayout.scss"
 import Icons from "../images/symbol-defs.svg"
 import ScrollIntoView from 'react-scroll-into-view'
+import {version } from "../../package.json"
 
+import {  
+	ApolloProvider,
+	ApolloClient, 
+	InMemoryCache 
+} from '@apollo/client';
+/*import Cookies from 'universal-cookie';
+const cookies = new Cookies();*/
+
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`
+})
+
+const crmConfig = {
+	midpoint:process.env.GATSBY_ASH_ENDPOINT,
+	apiKey: process.env.GATSBY_APIKEY,
+	campusCode: process.env.GATSBY_CAMPUSCODE,
+	clientPrefix: process.env.GATSBY_CLIENTPREFIX,
+	collegeCode: process.env.GATSBY_COLLEGECODE,
+	partnerCode: process.env.GATSBY_PARTNERCODE
+	 
+}
+const { 
+	apiKey,
+	campusCode,
+	clientPrefix,
+	collegeCode,
+	midpoint,
+	partnerCode } = crmConfig;
+
+
+
+const gqlClient = new ApolloClient({
+	uri: midpoint,
+	headers: {'x-api-key':apiKey},
+	cache: new InMemoryCache()
+})
+
+const clientCTPA = "By submitting this form, I am providing my digital signature agreeing that Peru State College may email me or contact me regarding educational services by telephone and/or text message utilizing automated technology at the telephone number(s) provided above. I understand this consent is not a condition to attend Peru State College or to purchase any other goods or services."
+
+const FormHeadline = styled.h2`
+`
+const FormSubHeadline=styled.h3`
+
+`
+
+
+/*** passed in
+	campusCode = {campusCode}
+	campusToggle = {null}
+	cid={props.cid}
+	clientCTPA = {clientCTPA}
+	clientPrefix = {clientPrefix}
+	collegeCode={collegeCode}
+	defaultPhone = {this.props.formSettings.phone}
+	formFocus={'rfiForm'}
+	formtype={"crm"}
+	formversion={version}
+	midpoint={midpoint}
+	origin={"Website_RFI"}
+	partnerCode={partnerCode}
+	programFocus = {null}
+	programList={this.props.programs}
+	programSelect = {null}
+*/
 
 const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_variables.scss');
 
@@ -116,9 +181,9 @@ export default class Layout extends React.Component{
 	}
 	
 	
+
 	
 	render(){
-
 	  return (
 			<ThemeProvider theme={theme}>
 			<Icons/>
@@ -137,14 +202,48 @@ export default class Layout extends React.Component{
 							)
 							:null
 						}
-						<LeadFormApp 
-							{...this.props.formSettings}
-							state={this.state} 
-							programs={this.props.programs} 
-							location={this.state.location}
-							isSingle={false}
-							{...this.props.programContent}
-						/>
+						<aside id="leadform-area">
+							<div>
+								<FormHeadline className={this.state.submitted?'hide':''}>
+						          {this.props.formSettings.headline||'Need More Information?'}
+						        </FormHeadline>
+						        
+						        {(this.props.formSettings.subheadline)?(
+							        <FormSubHeadline className={this.state.submitted?'hide':''}>
+							          {this.props.formSettings.subheadline}
+							        </FormSubHeadline>
+							        )
+							        :null
+							      }
+	
+								<ApolloProvider client={gqlClient} >
+									<LeadFormApp 
+										{...this.props.formSettings}
+										state={this.state} 
+										location={this.state.location}
+										isSingle={false}
+										{...this.props.programContent}
+										
+										campusCode = {campusCode}
+										campusToggle = {null}
+										cid={'sidebar'}
+										clientCTPA = {clientCTPA}
+										clientPrefix = {clientPrefix}
+										collegeCode={collegeCode}
+										defaultPhone = {this.props.formSettings.phone}
+										formFocus={'rfiForm'}
+										formtype={"crm"}
+										formversion={version}
+										midpoint={midpoint}
+										origin={"Website_RFI"}
+										partnerCode={partnerCode}
+										programFocus = {null}
+										programList={this.props.programs}
+										programSelect = {null}
+									/>
+								</ApolloProvider>
+							</div>
+						</aside>
 						
 						<MainArea {...this.props.mainContentSection} />
 						<VideoSection

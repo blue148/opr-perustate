@@ -13,6 +13,8 @@ export default ({data, location}) => {
 /// --> clean passed headline
 data.contentfulNestedTabbedLandingPage.heroArea.headline = data.contentfulNestedTabbedLandingPage.heroArea.headline.replace(/(<\/?span[^>]*>|<\/?p[^>]*>|<\/?f[^>]*>)/ig,"").replace(/ (?=[^ ]*$)/i, " ");
 data.contentfulNestedTabbedLandingPage.mainContentSection.headline = data.contentfulNestedTabbedLandingPage.mainContentSection.headline.replace(/(<\/?span[^>]*>|<\/?p[^>]*>|<\/?f[^>]*>)/ig,"").replace(/ (?=[^ ]*$)/i, " ");
+data.contentfulNestedTabbedLandingPage.formSettings.headline = data.contentfulNestedTabbedLandingPage.formSettings.headline.replace(/(<\/?span[^>]*>|<\/?p[^>]*>|<\/?f[^>]*>)/ig,"").replace(/ (?=[^ ]*$)/i, " ");
+data.contentfulNestedTabbedLandingPage.formSettings.subheadline = data.contentfulNestedTabbedLandingPage.formSettings.subeadline?.replace(/(<\/?span[^>]*>|<\/?p[^>]*>|<\/?f[^>]*>)/ig,"").replace(/ (?=[^ ]*$)/i, " ");
 //data.contentfulNestedTabbedLandingPage.formSettings.redirectUrl = (data.contentfulNestedTabbedLandingPage.formSettings.redirectUrl=='' && 'https://xapi.view.do/v1/experience/link/vb-edu-rfi-peru/org?useExisting=true&utm_source=online.peru.edu&utm_medium=referral&campaignKey=lp&');
 	return (
 		<>
