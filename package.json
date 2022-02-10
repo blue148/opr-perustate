@@ -44,7 +44,7 @@
     "material-ui-phone-number": "^2.2.6",
     "nanoid": "^3.1.12",
     "netlify-plugin-gatsby-cache": "^0.2.2",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.11.1",
     "react": "^16.12.0",
